@@ -1,0 +1,45 @@
+<?php
+
+namespace App\DTOs\Espacio;
+
+use App\Http\Requests\Espacio\CreateAmbienteRequest;
+
+readonly class CreateAmbienteDTO
+{
+    public function __construct(
+        public string $nombre,
+        public ?string $descripcion = null,
+        public bool $estado = true,
+    ) {}
+
+    public static function fromRequest(CreateAmbienteRequest $request): self
+    {
+        $rawEstado = $request->validated('estado');
+        $estadoBool = true;
+
+        if ($rawEstado !== null) {
+            if (is_bool($rawEstado)) {
+                $estadoBool = $rawEstado;
+            } elseif (is_numeric($rawEstado)) {
+                $estadoBool = (bool) $rawEstado;
+            } elseif (is_string($rawEstado)) {
+                $estadoBool = in_array(strtolower($rawEstado), ['disponible', 'activo', 'true', '1']);
+            }
+        }
+
+        return new self(
+            nombre: $request->validated('nombre'),
+            descripcion: $request->validated('descripcion'),
+            estado: $estadoBool,
+        );
+    }
+
+    public function toArray(): array
+    {
+        return array_filter([
+            'nombre' => $this->nombre,
+            'descripcion' => $this->descripcion,
+            'estado' => $this->estado,
+        ], fn ($val) => $val !== null);
+    }
+}

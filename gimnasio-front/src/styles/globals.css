@@ -1,0 +1,216 @@
+/* ==========================================
+   FitGo UAGRM - Gimnasio Universitario D.U.B.S.
+   Dirección Universitaria de Bienestar Social (UAGRM)
+   Full Width 100% Layout & Official Brand Palette
+   ========================================== */
+
+:root {
+    /* UAGRM DUBS Brand Colors (Red #990000 & Navy Blue #003B70) */
+    --color-primary: #990000;             /* Rojo Carmesí Institucional UAGRM */
+    --color-primary-hover: #7A0000;
+    --color-primary-dark: #570000;
+
+    --color-secondary: #003B70;           /* Azul Marino Profundo DUBS */
+    --color-secondary-hover: #002A52;
+    --color-secondary-dark: #001C38;
+
+    /* UAGRM Accent Gold */
+    --color-accent: #E6A100;
+    --color-accent-hover: #C98D00;
+
+    /* Base Layout Neutrals */
+    --color-background: #F4F6FC;
+    --color-surface: #FFFFFF;
+    --color-surface-hover: #E9EEF7;
+    --color-border: #D2DCEE;
+
+    --color-text-primary: #0B1727;
+    --color-text-secondary: #334155;
+    --color-text-muted: #64748B;
+
+    /* Component Tokens */
+    --color-topbar-bg: #FFFFFF;
+    --color-topbar-border: #D2DCEE;
+
+    /* Status Colors */
+    --color-success: #16A34A;
+    --color-success-bg: #DCFCE7;
+    --color-success-text: #15803D;
+
+    --color-danger: #DC2626;
+    --color-danger-bg: #FEE2E2;
+    --color-danger-text: #B91C1C;
+
+    --color-warning: #D97706;
+    --color-warning-bg: #FEF3C7;
+    --color-warning-text: #B45309;
+
+    --color-reserved: #0284C7;
+    --color-reserved-bg: #E0F2FE;
+
+    /* Croquis Tokens */
+    --croquis-bg: #EEF2F9;
+    --croquis-grid: #CBD5E1;
+    --croquis-available: #16A34A;
+    --croquis-occupied: #DC2626;
+    --croquis-reserved: #0284C7;
+    --croquis-out-of-service: #64748B;
+    --croquis-selected: #0891B2;
+    --croquis-disabled: #4F46E5;
+
+    /* Typography */
+    --font-heading: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+
+    /* Radius Scale */
+    --radius-xs: 4px;
+    --radius-sm: 8px;
+    --radius-md: 16px;
+    --radius-lg: 24px;
+    --radius-max: 99px;
+
+    /* Transitions */
+    --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-slow: 600ms cubic-bezier(0.16, 1, 0.3, 1);
+    --transition: background-color var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast), box-shadow var(--transition-fast), transform var(--transition-fast);
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+    width: 100%;
+}
+
+body {
+    background-color: var(--color-background);
+    color: var(--color-text-primary);
+    font-family: var(--font-body);
+    line-height: 1.6;
+    overflow-x: hidden;
+    width: 100%;
+    -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    color: var(--color-text-primary);
+    line-height: 1.25;
+}
+
+a {
+    color: var(--color-primary);
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+a:hover {
+    color: var(--color-primary-hover);
+}
+
+.text-center {
+    text-align: center;
+}
+
+/* 100% FULL WIDTH FLUID CONTAINER */
+.container {
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 0 4rem;
+}
+
+.section {
+    width: 100%;
+    padding: 6rem 0;
+    position: relative;
+}
+
+.section-header {
+    margin-bottom: 3rem;
+    width: 100%;
+    max-width: 1100px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.section-subtitle {
+    display: block;
+    color: var(--color-primary);
+    font-size: 0.8rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    margin-bottom: 0.8rem;
+}
+
+.section-title {
+    font-size: clamp(2.2rem, 4.5vw, 3.2rem);
+    margin-bottom: 1rem;
+    letter-spacing: -0.03em;
+    color: var(--color-text-primary);
+    font-weight: 800;
+    line-height: 1.15;
+}
+
+.section-description {
+    color: var(--color-text-secondary);
+    font-size: 1.15rem;
+    line-height: 1.65;
+    max-width: 850px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.grid {
+    display: grid;
+    gap: 2.5rem;
+    width: 100%;
+}
+
+.grid-2 {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 3.5rem;
+}
+
+.grid-3 {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2.5rem;
+}
+
+.grid-4 {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+}
+
+.align-center {
+    align-items: center;
+}
+
+.surface-card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    width: 100%;
+}
+
+@media (max-width: 1200px) {
+    .container { padding: 0 2.5rem; }
+}
+
+@media (max-width: 768px) {
+    .container { padding: 0 1.25rem; }
+    .grid-2, .grid-3, .grid-4 {
+        grid-template-columns: 1fr;
+        gap: 1.75rem;
+    }
+    .section-title { font-size: 2rem; }
+    .section { padding: 3.5rem 0; }
+}
