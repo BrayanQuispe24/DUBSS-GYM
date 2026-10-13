@@ -14,8 +14,10 @@ class CreateDocumentoAction
         $path = $dto->archivo->store('documentos', 'public');
         $url = Storage::url($path);
 
+        $targetUserId = $dto->id_usuario ?? $usuario->id;
+
         $doc = Documento::create([
-            'id_usuario' => $usuario->id,
+            'id_usuario' => $targetUserId,
             'id_tipo_documento' => $dto->id_tipo_documento,
             'archivo_url' => $url,
         ]);

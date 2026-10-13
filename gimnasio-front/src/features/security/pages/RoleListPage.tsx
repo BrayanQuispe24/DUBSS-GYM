@@ -126,21 +126,23 @@ const RoleListPage: React.FC = () => {
             Definición de perfiles de acceso y facultades de seguridad en la plataforma UAGRM.
           </p>
         </div>
-        <div style={{ display: 'flex', gap: '0.75rem' }}>
+        <div style={{ display: 'flex', gap: '0.5rem' }}>
           <button
             onClick={handleOpenCreatePermiso}
             style={{
-              padding: '0.65rem 1.1rem',
-              borderRadius: '8px',
+              padding: '0.55rem 1rem',
+              borderRadius: '4px',
               backgroundColor: '#FEF3C7',
               color: '#B45309',
               border: '1px solid #FCD34D',
               fontWeight: 700,
-              fontSize: '0.85rem',
+              fontSize: '0.80rem',
               cursor: 'pointer',
               display: 'flex',
               alignItems: 'center',
               gap: '0.4rem',
+              textTransform: 'uppercase',
+              letterSpacing: '0.03em'
             }}
           >
             <FaPlus /> Registrar Permiso
@@ -148,18 +150,19 @@ const RoleListPage: React.FC = () => {
           <button
             onClick={handleOpenCreateRol}
             style={{
-              padding: '0.65rem 1.25rem',
-              borderRadius: '8px',
-              background: 'linear-gradient(135deg, #003B70 0%, #002A52 100%)',
+              padding: '0.55rem 1rem',
+              borderRadius: '4px',
+              background: '#0077D4',
               color: '#FFFFFF',
-              border: 'none',
+              border: '1px solid #005FA8',
               fontWeight: 700,
-              fontSize: '0.88rem',
+              fontSize: '0.80rem',
               cursor: 'pointer',
-              boxShadow: '0 4px 12px rgba(0, 59, 112, 0.25)',
               display: 'flex',
               alignItems: 'center',
-              gap: '0.5rem',
+              gap: '0.4rem',
+              textTransform: 'uppercase',
+              letterSpacing: '0.03em'
             }}
           >
             <FaPlus /> Crear Nuevo Rol
@@ -167,22 +170,24 @@ const RoleListPage: React.FC = () => {
         </div>
       </div>
 
-      {/* TAB SELECTOR */}
-      <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1.25rem', borderBottom: '2px solid #E2E8F0', paddingBottom: '0.25rem' }}>
+      {/* TAB SELECTOR ENTERPRISE */}
+      <div style={{ display: 'flex', gap: '1.5rem', marginBottom: '1.25rem', borderBottom: '1px solid #CBD5E1' }}>
         <button
           onClick={() => setActiveTab('roles')}
           style={{
-            padding: '0.5rem 1.25rem',
-            borderRadius: '6px 6px 0 0',
+            padding: '0.65rem 0.25rem',
+            background: 'none',
             border: 'none',
-            backgroundColor: activeTab === 'roles' ? '#003B70' : 'transparent',
-            color: activeTab === 'roles' ? '#FFF' : '#64748B',
-            fontWeight: 700,
-            fontSize: '0.88rem',
+            borderBottom: activeTab === 'roles' ? '2px solid #0077D4' : '2px solid transparent',
+            color: activeTab === 'roles' ? '#0077D4' : '#64748B',
+            fontWeight: activeTab === 'roles' ? 700 : 600,
+            fontSize: '0.82rem',
+            textTransform: 'uppercase',
+            letterSpacing: '0.03em',
             cursor: 'pointer',
             display: 'flex',
             alignItems: 'center',
-            gap: '0.5rem',
+            gap: '0.4rem',
           }}
         >
           <FaUserGear /> Roles de Usuario ({roles.length})
@@ -190,17 +195,19 @@ const RoleListPage: React.FC = () => {
         <button
           onClick={() => setActiveTab('permisos')}
           style={{
-            padding: '0.5rem 1.25rem',
-            borderRadius: '6px 6px 0 0',
+            padding: '0.65rem 0.25rem',
+            background: 'none',
             border: 'none',
-            backgroundColor: activeTab === 'permisos' ? '#003B70' : 'transparent',
-            color: activeTab === 'permisos' ? '#FFF' : '#64748B',
-            fontWeight: 700,
-            fontSize: '0.88rem',
+            borderBottom: activeTab === 'permisos' ? '2px solid #0077D4' : '2px solid transparent',
+            color: activeTab === 'permisos' ? '#0077D4' : '#64748B',
+            fontWeight: activeTab === 'permisos' ? 700 : 600,
+            fontSize: '0.82rem',
+            textTransform: 'uppercase',
+            letterSpacing: '0.03em',
             cursor: 'pointer',
             display: 'flex',
             alignItems: 'center',
-            gap: '0.5rem',
+            gap: '0.4rem',
           }}
         >
           <FaKey /> Catálogo de Permisos ({permisos.length})

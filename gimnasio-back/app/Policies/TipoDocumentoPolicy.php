@@ -8,17 +8,17 @@ class TipoDocumentoPolicy
 {
     private function isAdmin(Usuario $user): bool
     {
-        return mb_strtolower($user->rol->nombre ?? '') === 'administrador';
+        return $user->esAdmin();
     }
 
     public function viewAny(Usuario $user): bool
     {
-        return $this->isAdmin($user);
+        return true;
     }
 
     public function view(Usuario $user): bool
     {
-        return $this->isAdmin($user);
+        return true;
     }
 
     public function create(Usuario $user): bool

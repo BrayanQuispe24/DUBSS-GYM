@@ -3,6 +3,7 @@
 namespace App\DTOs\Inventario;
 
 use App\Http\Requests\Inventario\CreateEquipoRequest;
+use Illuminate\Support\Facades\Storage;
 
 readonly class CreateEquipoDTO
 {
@@ -17,6 +18,7 @@ readonly class CreateEquipoDTO
         public ?int $idAmbiente = null,
         public ?int $idMarca = null,
         public ?int $idTipoEquipo = null,
+        public ?string $imagenUrl = null,
     ) {}
 
     public static function fromRequest(CreateEquipoRequest $request): self
@@ -30,8 +32,14 @@ readonly class CreateEquipoDTO
             } elseif (is_numeric($rawEstado)) {
                 $estadoBool = (bool) $rawEstado;
             } elseif (is_string($rawEstado)) {
-                $estadoBool = !in_array(strtolower($rawEstado), ['baja', 'dado de baja', 'mantenimiento', 'inactivo', 'false', '0']);
+                $estadoBool = ! in_array(strtolower($rawEstado), ['baja', 'dado de baja', 'mantenimiento', 'inactivo', 'false', '0']);
             }
+        }
+
+        $imagenUrl = $request->validated('imagen_url');
+        if ($request->hasFile('imagen')) {
+            $path = $request->file('imagen')->store('equipos', 'public');
+            $imagenUrl = url(Storage::url($path));
         }
 
         return new self(
@@ -45,6 +53,7 @@ readonly class CreateEquipoDTO
             idAmbiente: $request->validated('id_ambiente') !== null ? (int) $request->validated('id_ambiente') : null,
             idMarca: $request->validated('id_marca') !== null ? (int) $request->validated('id_marca') : null,
             idTipoEquipo: $request->validated('id_tipo_equipo') !== null ? (int) $request->validated('id_tipo_equipo') : null,
+            imagenUrl: $imagenUrl,
         );
     }
 
@@ -61,6 +70,7 @@ readonly class CreateEquipoDTO
             'id_ambiente' => $this->idAmbiente,
             'id_marca' => $this->idMarca,
             'id_tipo_equipo' => $this->idTipoEquipo,
+            'imagen_url' => $this->imagenUrl,
         ], fn ($val) => $val !== null);
     }
 }

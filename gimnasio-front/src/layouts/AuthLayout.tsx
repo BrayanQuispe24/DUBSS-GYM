@@ -142,7 +142,7 @@ const AuthLayout: React.FC<AuthLayoutProps> = ({
                 marginBottom: '1rem',
                 border: '1px solid rgba(255, 215, 0, 0.3)',
               }}>
-                ⚡ Gimnasio Universitario UAGRM
+                Gimnasio Universitario UAGRM
               </div>
 
               <h2 style={{

@@ -24,6 +24,7 @@ class Equipo extends Model
         'id_ambiente',
         'id_marca',
         'id_tipo_equipo',
+        'imagen_url',
     ];
 
     protected $casts = [

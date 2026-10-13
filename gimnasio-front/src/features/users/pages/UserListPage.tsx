@@ -1,17 +1,20 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FaUserPlus } from 'react-icons/fa6';
+import { FaUserPlus, FaUsers, FaUserGear } from 'react-icons/fa6';
 import { useUsers, useCreateUser, useUpdateUser, useDeleteUser, useToggleUserStatus } from '../hooks/useUsers';
 import type { UserFilterParams, UserFormData } from '../types/user.types';
 import UserFilters from '../components/UserFilters';
 import UserTable from '../components/UserTable';
-import UserFormModal from '../components/UserFormModal';
-import type { AuthUser } from '@/store/authStore';
+import UserFormPanel from '../components/UserFormPanel';
+import { useAuthStore, type AuthUser } from '@/store/authStore';
 
 const UserListPage: React.FC = () => {
   const navigate = useNavigate();
+  const { user: currentUser } = useAuthStore();
+  const canManage = currentUser?.rol !== 'instructor';
+
+  const [activeTab, setActiveTab] = useState<'list' | 'form'>('list');
   const [filters, setFilters] = useState<UserFilterParams>({ search: '', rol: 'todos', estado: 'todos' });
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [userToEdit, setUserToEdit] = useState<AuthUser | null>(null);
 
   const { data: apiUsers, isLoading } = useUsers(filters);
@@ -45,14 +48,16 @@ const UserListPage: React.FC = () => {
     setFilters((prev) => ({ ...prev, ...newFilters }));
   };
 
-  const handleOpenCreateModal = () => {
+  const handleOpenCreate = () => {
+    if (!canManage) return;
     setUserToEdit(null);
-    setIsModalOpen(true);
+    setActiveTab('form');
   };
 
-  const handleOpenEditModal = (user: AuthUser) => {
+  const handleOpenEdit = (user: AuthUser) => {
+    if (!canManage) return;
     setUserToEdit(user);
-    setIsModalOpen(true);
+    setActiveTab('form');
   };
 
   const handleViewUser = (user: AuthUser) => {
@@ -60,78 +65,143 @@ const UserListPage: React.FC = () => {
   };
 
   const handleFormSubmit = (data: UserFormData) => {
+    if (!canManage) return;
     if (userToEdit) {
       updateUser(
         { id: userToEdit.id, data },
         {
-          onSuccess: () => setIsModalOpen(false),
+          onSuccess: () => {
+            setActiveTab('list');
+            setUserToEdit(null);
+          },
         }
       );
     } else {
       createUser(data, {
-        onSuccess: () => setIsModalOpen(false),
+        onSuccess: () => {
+          setActiveTab('list');
+          setUserToEdit(null);
+        },
       });
     }
   };
 
   const handleDelete = (id: number) => {
+    if (!canManage) return;
     if (window.confirm('¿Está seguro de eliminar este usuario del sistema UAGRM?')) {
       deleteUser(id);
     }
   };
 
   const handleToggleStatus = (user: AuthUser) => {
+    if (!canManage) return;
     toggleStatus({ id: user.id, currentStatus: user.estado });
   };
 
   return (
     <section>
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.25rem' }}>
-        <div>
-          <h2 style={{ fontSize: '1.4rem', fontWeight: 800, color: '#0B1727' }}>Gestión de Usuarios del Sistema</h2>
-          <p style={{ fontSize: '0.85rem', color: '#64748B' }}>
-            Administración centralizada de Administradores, Recepcionistas, Instructores y Clientes UAGRM.
-          </p>
-        </div>
+      {/* ENTERPRISE TAB NAVIGATION BAR */}
+      <div style={{
+        display: 'flex',
+        alignItems: 'center',
+        borderBottom: '1px solid #E2E8F0',
+        marginBottom: '1.25rem',
+        gap: '0.25rem',
+      }}>
         <button
-          onClick={handleOpenCreateModal}
+          onClick={() => { setActiveTab('list'); setUserToEdit(null); }}
           style={{
             padding: '0.65rem 1.25rem',
-            borderRadius: '8px',
-            background: 'linear-gradient(135deg, #003B70 0%, #002A52 100%)',
-            color: '#FFFFFF',
-            border: 'none',
+            fontSize: '0.82rem',
             fontWeight: 700,
-            fontSize: '0.88rem',
             cursor: 'pointer',
-            boxShadow: '0 4px 12px rgba(0, 59, 112, 0.25)',
-            display: 'flex',
+            border: 'none',
+            background: 'none',
+            borderBottom: activeTab === 'list' ? '2px solid #0077D4' : '2px solid transparent',
+            color: activeTab === 'list' ? '#0077D4' : '#64748B',
+            marginBottom: '-1px',
+            display: 'inline-flex',
             alignItems: 'center',
             gap: '0.5rem',
+            transition: 'all 0.15s ease',
           }}
         >
-          <FaUserPlus /> Registrar Usuario
+          <FaUsers size={14} /> Directorio de Usuarios ({baseUsers.length})
         </button>
+
+        {canManage && (
+          <button
+            onClick={handleOpenCreate}
+            style={{
+              padding: '0.65rem 1.25rem',
+              fontSize: '0.82rem',
+              fontWeight: 700,
+              cursor: 'pointer',
+              border: 'none',
+              background: 'none',
+              borderBottom: activeTab === 'form' && !userToEdit ? '2px solid #0077D4' : '2px solid transparent',
+              color: activeTab === 'form' && !userToEdit ? '#0077D4' : '#64748B',
+              marginBottom: '-1px',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '0.5rem',
+              transition: 'all 0.15s ease',
+            }}
+          >
+            <FaUserPlus size={14} /> Registrar Nuevo Usuario
+          </button>
+        )}
+
+        {activeTab === 'form' && userToEdit && (
+          <button
+            style={{
+              padding: '0.65rem 1.25rem',
+              fontSize: '0.82rem',
+              fontWeight: 700,
+              cursor: 'pointer',
+              border: 'none',
+              background: 'none',
+              borderBottom: '2px solid #0077D4',
+              color: '#0077D4',
+              marginBottom: '-1px',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '0.5rem',
+            }}
+          >
+            <FaUserGear size={14} /> Editando: {userToEdit.name}
+          </button>
+        )}
       </div>
 
-      <UserFilters filters={filters} onChange={handleFilterChange} />
+      {/* TAB CONTENT: LIST */}
+      {activeTab === 'list' && (
+        <>
+          <UserFilters filters={filters} onChange={handleFilterChange} />
+          <UserTable
+            users={filteredUsers}
+            isLoading={isLoading}
+            canManage={canManage}
+            onEdit={handleOpenEdit}
+            onDelete={handleDelete}
+            onToggleStatus={handleToggleStatus}
+            onView={handleViewUser}
+          />
+        </>
+      )}
 
-      <UserTable
-        users={filteredUsers}
-        isLoading={isLoading}
-        onEdit={handleOpenEditModal}
-        onDelete={handleDelete}
-        onToggleStatus={handleToggleStatus}
-        onView={handleViewUser}
-      />
-
-      <UserFormModal
-        isOpen={isModalOpen}
-        userToEdit={userToEdit}
-        onClose={() => setIsModalOpen(false)}
-        onSubmit={handleFormSubmit}
-        isPending={isCreating || isUpdating}
-      />
+      {/* TAB CONTENT: FORM */}
+      {activeTab === 'form' && (
+        <UserFormPanel
+          userToEdit={userToEdit}
+          onCancel={() => {
+            setActiveTab('list');
+            setUserToEdit(null);
+          }}
+          onSubmit={handleFormSubmit}
+          isPending={isCreating || isUpdating}
+        />
+      )}
     </section>
   );
 };

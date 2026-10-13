@@ -1,7 +1,8 @@
 // src/features/historial/components/HistorialPhysicalViewModal.tsx
-import React from 'react';
-import { FaPrint, FaDumbbell, FaXmark, FaFileMedical, FaHeartPulse, FaWeightScale } from 'react-icons/fa6';
+import React, { useState } from 'react';
+import { FaPrint, FaDumbbell, FaXmark, FaFileMedical, FaHeartPulse, FaWeightScale, FaFilePdf } from 'react-icons/fa6';
 import type { Historial } from '../services/historialService';
+import FormularioDUBSSModal from './FormularioDUBSSModal';
 
 interface HistorialPhysicalViewModalProps {
   isOpen: boolean;
@@ -14,6 +15,8 @@ const HistorialPhysicalViewModal: React.FC<HistorialPhysicalViewModalProps> = ({
   historial,
   onClose,
 }) => {
+  const [showDubssModal, setShowDubssModal] = useState(false);
+
   if (!isOpen || !historial) return null;
 
   const handlePrint = () => {
@@ -26,6 +29,12 @@ const HistorialPhysicalViewModal: React.FC<HistorialPhysicalViewModalProps> = ({
     if (imc < 25) return { text: 'Peso Normal', color: '#15803D', bg: '#DCFCE7' };
     if (imc < 30) return { text: 'Sobrepeso', color: '#D97706', bg: '#FEF3C7' };
     return { text: 'Obesidad', color: '#DC2626', bg: '#FEE2E2' };
+  };
+
+  const formatDateOnly = (val?: any): string => {
+    if (!val) return 'N/A';
+    const str = String(val);
+    return str.split(' ')[0].split('T')[0];
   };
 
   const antecedentesList = (historial as any).antecedentes || historial.antecedentes_medicos || [];
@@ -45,6 +54,15 @@ const HistorialPhysicalViewModal: React.FC<HistorialPhysicalViewModalProps> = ({
             Vista Previa de Ficha Clínica Física — UAGRM
           </span>
           <div style={{ display: 'flex', gap: '0.5rem' }}>
+            <button
+              onClick={() => setShowDubssModal(true)}
+              style={{
+                padding: '0.5rem 1.1rem', borderRadius: '6px', backgroundColor: '#D97706', color: '#FFF',
+                border: 'none', fontWeight: 700, fontSize: '0.85rem', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.5rem'
+              }}
+            >
+              <FaFilePdf /> Formulario DUBSS-FR-03
+            </button>
             <button
               onClick={handlePrint}
               style={{
@@ -110,12 +128,34 @@ const HistorialPhysicalViewModal: React.FC<HistorialPhysicalViewModalProps> = ({
                 <strong>{historial.usuario?.registro_universitario || historial.usuario?.codigo || 'N/A'}</strong>
               </div>
               <div>
+                <span style={{ color: '#64748B', fontSize: '0.75rem', display: 'block' }}>Facultad / Carrera:</span>
+                <strong style={{ color: '#003B70' }}>{historial.facultad_carrera || 'No registrada'}</strong>
+              </div>
+              <div>
+                <span style={{ color: '#64748B', fontSize: '0.75rem', display: 'block' }}>Fecha de Nacimiento:</span>
+                <strong style={{ color: '#D97706' }}>
+                  {historial.fecha_nacimiento ? formatDateOnly(historial.fecha_nacimiento) : 'No registrada'}
+                </strong>
+              </div>
+              <div>
+                <span style={{ color: '#64748B', fontSize: '0.75rem', display: 'block' }}>Sexo & Grupo Sanguíneo:</span>
+                <strong>{historial.sexo || 'N/A'} | {historial.grupo_sanguineo || 'N/A'}</strong>
+              </div>
+              <div>
+                <span style={{ color: '#64748B', fontSize: '0.75rem', display: 'block' }}>Celular / Emergencia:</span>
+                <strong>{historial.usuario?.celular || historial.celular_emergencia || 'N/A'}</strong>
+              </div>
+              <div>
+                <span style={{ color: '#64748B', fontSize: '0.75rem', display: 'block' }}>Domicilio:</span>
+                <strong>{historial.domicilio || 'No registrado'}</strong>
+              </div>
+              <div>
                 <span style={{ color: '#64748B', fontSize: '0.75rem', display: 'block' }}>Correo Electrónico:</span>
                 <strong>{historial.usuario?.email || 'N/A'}</strong>
               </div>
               <div>
                 <span style={{ color: '#64748B', fontSize: '0.75rem', display: 'block' }}>Fecha Apertura Expediente:</span>
-                <strong>{historial.created_at ? new Date(historial.created_at).toLocaleDateString() : 'Aperturado'}</strong>
+                <strong>{formatDateOnly(historial.fecha_apertura || historial.created_at)}</strong>
               </div>
             </div>
           </div>
@@ -185,7 +225,7 @@ const HistorialPhysicalViewModal: React.FC<HistorialPhysicalViewModalProps> = ({
                     const imcClass = getIMCClass(det.imc);
                     return (
                       <tr key={det.id || idx} style={{ borderBottom: '1px solid #E2E8F0' }}>
-                        <td style={{ padding: '0.6rem 0.8rem', fontWeight: 700 }}>{det.fecha_registro || det.fecha || 'N/A'}</td>
+                        <td style={{ padding: '0.6rem 0.8rem', fontWeight: 700 }}>{formatDateOnly(det.fecha_registro || det.fecha)}</td>
                         <td style={{ padding: '0.6rem 0.8rem' }}>{det.peso ? `${det.peso} kg` : '-'}</td>
                         <td style={{ padding: '0.6rem 0.8rem' }}>{det.altura ? `${det.altura} cm` : '-'}</td>
                         <td style={{ padding: '0.6rem 0.8rem', fontWeight: 800 }}>{det.imc || '-'}</td>
@@ -217,6 +257,13 @@ const HistorialPhysicalViewModal: React.FC<HistorialPhysicalViewModalProps> = ({
           </div>
         </div>
       </div>
+
+      {/* FORMULARIO DUBSS-FR-03 MODAL */}
+      <FormularioDUBSSModal
+        isOpen={showDubssModal}
+        historial={historial}
+        onClose={() => setShowDubssModal(false)}
+      />
     </div>
   );
 };

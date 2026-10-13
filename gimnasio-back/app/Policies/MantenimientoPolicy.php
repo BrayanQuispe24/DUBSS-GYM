@@ -8,17 +8,18 @@ class MantenimientoPolicy
 {
     private function isAdmin(Usuario $user): bool
     {
+        $user->loadMissing('rol');
         return mb_strtolower($user->rol->nombre ?? '') === 'administrador';
     }
 
     public function viewAny(Usuario $user): bool
     {
-        return true;
+        return $this->isAdmin($user);
     }
 
     public function view(Usuario $user): bool
     {
-        return true;
+        return $this->isAdmin($user);
     }
 
     public function create(Usuario $user): bool

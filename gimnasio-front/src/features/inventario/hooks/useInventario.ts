@@ -171,6 +171,7 @@ export const useDeleteAmbiente = () => {
       showToast.success('Ambiente eliminado exitosamente.', 'Ambientes & Espacios');
     },
     onError: (err: any) => {
+      queryClient.invalidateQueries({ queryKey: ['ambientes'] });
       showToast.error(err.response?.data?.message || 'Error al eliminar el ambiente.', 'Error');
     },
   });
@@ -206,7 +207,12 @@ export const useUpdateEquipo = () => {
       showToast.success('Equipo actualizado exitosamente.', 'Inventario');
     },
     onError: (err: any) => {
-      showToast.error(err.response?.data?.message || 'Error al actualizar equipo.', 'Error');
+      queryClient.invalidateQueries({ queryKey: ['equipos'] });
+      if (err.response?.status === 404) {
+        showToast.error('El equipo seleccionado ya no existe en la base de datos o fue eliminado.', 'Equipo No Encontrado');
+      } else {
+        showToast.error(err.response?.data?.message || 'Error al actualizar equipo.', 'Error');
+      }
     },
   });
 };

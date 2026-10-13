@@ -49,7 +49,7 @@ const MobileShowcase: React.FC = () => {
           {/* iPhone Custom Frame matching user image */}
           <div className="iphone-custom-frame-wrapper">
             <div className="iphone-custom-mockup">
-              
+
               {/* iPhone Top Notch */}
               <div className="iphone-notch-bar">
                 <div className="iphone-notch-dot"></div>
@@ -59,7 +59,7 @@ const MobileShowcase: React.FC = () => {
 
               {/* Phone Screen Content */}
               <div className="phone-screen-content" style={{ paddingTop: '2.2rem', paddingLeft: '1rem', paddingRight: '1rem', paddingBottom: '1rem', background: '#002347', fontSize: '0.8rem', height: '100%', display: 'flex', flexDirection: 'column' }}>
-                
+
                 {/* Header */}
                 <div className="phone-app-header" style={{ marginBottom: '0.7rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                   <div style={{ fontSize: '0.82rem', fontWeight: 800 }}>Gimnasio<span style={{ color: 'var(--color-accent)' }}> UAGRM</span></div>
@@ -74,7 +74,7 @@ const MobileShowcase: React.FC = () => {
                   <div style={{ fontSize: '0.72rem', color: 'var(--color-accent)', fontWeight: 800, textTransform: 'uppercase', marginBottom: '0.4rem' }}>
                     Formulario de Solicitud & Registro
                   </div>
-                  
+
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '0.45rem' }}>
                     <div>
                       <label style={{ fontSize: '0.64rem', color: '#CBD5E1', display: 'block', marginBottom: '0.12rem' }}>Registro Universitario (R.U.)</label>

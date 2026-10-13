@@ -31,8 +31,12 @@ import TipoEquipoFormModal from '../components/TipoEquipoFormModal';
 import TipoEquipoTable from '../components/TipoEquipoTable';
 import MarcaFormModal from '../components/MarcaFormModal';
 import MarcaTable from '../components/MarcaTable';
+import { useAuthStore } from '@/store/authStore';
 
 const EquipoListPage: React.FC = () => {
+  const { user } = useAuthStore();
+  const isAdmin = user?.rol === 'administrador';
+
   const [activeTab, setActiveTab] = useState<'equipos' | 'tipos' | 'marcas'>('equipos');
 
   // Modals state
@@ -73,11 +77,13 @@ const EquipoListPage: React.FC = () => {
 
   // Handlers - Equipos
   const handleOpenCreateEquipo = () => {
+    if (!isAdmin) return;
     setSelectedEquipo(null);
     setIsEquipoFormOpen(true);
   };
 
   const handleOpenEditEquipo = (eq: Equipo) => {
+    if (!isAdmin) return;
     setSelectedEquipo(eq);
     setIsEquipoFormOpen(true);
   };
@@ -88,42 +94,60 @@ const EquipoListPage: React.FC = () => {
   };
 
   const handleDeleteEquipo = (id: number) => {
+    if (!isAdmin) return;
     if (window.confirm('¿Está seguro de eliminar este equipo del inventario?')) {
       deleteEquipoMutation.mutate(id);
     }
   };
 
   const handleEquipoSubmit = (formData: any) => {
+    if (!isAdmin) return;
     if (selectedEquipo) {
       updateEquipoMutation.mutate(
         { id: selectedEquipo.id, data: formData },
-        { onSuccess: () => setIsEquipoFormOpen(false) }
+        {
+          onSuccess: () => {
+            setIsEquipoFormOpen(false);
+            setSelectedEquipo(null);
+          },
+          onError: () => {
+            setIsEquipoFormOpen(false);
+            setSelectedEquipo(null);
+          },
+        }
       );
     } else {
       createEquipoMutation.mutate(formData, {
-        onSuccess: () => setIsEquipoFormOpen(false),
+        onSuccess: () => {
+          setIsEquipoFormOpen(false);
+          setSelectedEquipo(null);
+        },
       });
     }
   };
 
   // Handlers - Tipos
   const handleOpenCreateTipo = () => {
+    if (!isAdmin) return;
     setSelectedTipo(null);
     setIsTipoFormOpen(true);
   };
 
   const handleOpenEditTipo = (tipo: TipoEquipo) => {
+    if (!isAdmin) return;
     setSelectedTipo(tipo);
     setIsTipoFormOpen(true);
   };
 
   const handleDeleteTipo = (id: number) => {
+    if (!isAdmin) return;
     if (window.confirm('¿Está seguro de eliminar esta categoría / tipo de equipo?')) {
       deleteTipoMutation.mutate(id);
     }
   };
 
   const handleTipoSubmit = (formData: any) => {
+    if (!isAdmin) return;
     if (selectedTipo) {
       updateTipoMutation.mutate(
         { id: selectedTipo.id, data: formData },
@@ -138,22 +162,26 @@ const EquipoListPage: React.FC = () => {
 
   // Handlers - Marcas
   const handleOpenCreateMarca = () => {
+    if (!isAdmin) return;
     setSelectedMarca(null);
     setIsMarcaFormOpen(true);
   };
 
   const handleOpenEditMarca = (marca: Marca) => {
+    if (!isAdmin) return;
     setSelectedMarca(marca);
     setIsMarcaFormOpen(true);
   };
 
   const handleDeleteMarca = (id: number) => {
+    if (!isAdmin) return;
     if (window.confirm('¿Está seguro de eliminar esta marca del sistema?')) {
       deleteMarcaMutation.mutate(id);
     }
   };
 
   const handleMarcaSubmit = (formData: any) => {
+    if (!isAdmin) return;
     if (selectedMarca) {
       updateMarcaMutation.mutate(
         { id: selectedMarca.id, data: formData },
@@ -176,18 +204,16 @@ const EquipoListPage: React.FC = () => {
       (eq.ambiente?.nombre && eq.ambiente.nombre.toLowerCase().includes(q)) ||
       (eq.marca?.nombre && eq.marca.nombre.toLowerCase().includes(q));
 
-    const eqEstadoStr = String(eq.estado ?? 'bueno').toLowerCase();
-    const matchesEstado =
-      filterEstado === 'todos' ||
-      (filterEstado === 'bueno' && ['bueno', 'excelente', 'operativo'].includes(eqEstadoStr)) ||
-      (filterEstado === 'regular' && ['regular', 'revisión'].includes(eqEstadoStr)) ||
-      (filterEstado === 'mantenimiento' && ['mantenimiento', 'en mantenimiento'].includes(eqEstadoStr)) ||
-      (filterEstado === 'baja' && ['baja', 'dado de baja'].includes(eqEstadoStr));
+    const isVigente =
+      eq.estado === true ||
+      ['1', 'true', 'bueno', 'operativo', 'vigente'].includes(
+        String(eq.estado ?? '').toLowerCase()
+      );
 
     const matchesAmbiente =
       filterAmbiente === 'todos' || String(eq.id_ambiente) === String(filterAmbiente);
 
-    return matchesSearch && matchesEstado && matchesAmbiente;
+    return matchesSearch && isVigente && matchesAmbiente;
   });
 
   return (
@@ -202,67 +228,67 @@ const EquipoListPage: React.FC = () => {
             Control de activos fijos, categorización por tipo, fabricantes y disponibilidad en salas.
           </p>
         </div>
-        <div style={{ display: 'flex', gap: '0.75rem' }}>
-          {activeTab === 'equipos' && (
+        <div style={{ display: 'flex', gap: '0.5rem' }}>
+          {isAdmin && activeTab === 'equipos' && (
             <button
               onClick={handleOpenCreateEquipo}
               style={{
-                padding: '0.65rem 1.25rem',
-                borderRadius: '8px',
-                background: 'linear-gradient(135deg, #003B70 0%, #002A52 100%)',
+                padding: '0.55rem 1.15rem',
+                borderRadius: '4px',
+                backgroundColor: '#0077D4',
                 color: '#FFFFFF',
                 border: 'none',
                 fontWeight: 700,
-                fontSize: '0.88rem',
+                fontSize: '0.82rem',
                 cursor: 'pointer',
-                boxShadow: '0 4px 12px rgba(0, 59, 112, 0.25)',
                 display: 'flex',
                 alignItems: 'center',
-                gap: '0.5rem',
+                gap: '0.45rem',
+                boxShadow: '0 1px 2px rgba(0,0,0,0.05)',
               }}
             >
               <FaPlus /> Registrar Equipo
             </button>
           )}
 
-          {activeTab === 'tipos' && (
+          {isAdmin && activeTab === 'tipos' && (
             <button
               onClick={handleOpenCreateTipo}
               style={{
-                padding: '0.65rem 1.25rem',
-                borderRadius: '8px',
-                background: 'linear-gradient(135deg, #003B70 0%, #002A52 100%)',
+                padding: '0.55rem 1.15rem',
+                borderRadius: '4px',
+                backgroundColor: '#0077D4',
                 color: '#FFFFFF',
                 border: 'none',
                 fontWeight: 700,
-                fontSize: '0.88rem',
+                fontSize: '0.82rem',
                 cursor: 'pointer',
-                boxShadow: '0 4px 12px rgba(0, 59, 112, 0.25)',
                 display: 'flex',
                 alignItems: 'center',
-                gap: '0.5rem',
+                gap: '0.45rem',
+                boxShadow: '0 1px 2px rgba(0,0,0,0.05)',
               }}
             >
               <FaPlus /> Registrar Categoría / Tipo
             </button>
           )}
 
-          {activeTab === 'marcas' && (
+          {isAdmin && activeTab === 'marcas' && (
             <button
               onClick={handleOpenCreateMarca}
               style={{
-                padding: '0.65rem 1.25rem',
-                borderRadius: '8px',
-                background: 'linear-gradient(135deg, #003B70 0%, #002A52 100%)',
+                padding: '0.55rem 1.15rem',
+                borderRadius: '4px',
+                backgroundColor: '#0077D4',
                 color: '#FFFFFF',
                 border: 'none',
                 fontWeight: 700,
-                fontSize: '0.88rem',
+                fontSize: '0.82rem',
                 cursor: 'pointer',
-                boxShadow: '0 4px 12px rgba(0, 59, 112, 0.25)',
                 display: 'flex',
                 alignItems: 'center',
-                gap: '0.5rem',
+                gap: '0.45rem',
+                boxShadow: '0 1px 2px rgba(0,0,0,0.05)',
               }}
             >
               <FaPlus /> Registrar Marca
@@ -271,61 +297,67 @@ const EquipoListPage: React.FC = () => {
         </div>
       </div>
 
-      {/* TABS SELECTOR */}
-      <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1.25rem', borderBottom: '2px solid #E2E8F0', paddingBottom: '0.25rem' }}>
+      {/* ENTERPRISE TABS SELECTOR */}
+      <div style={{ display: 'flex', gap: '0.25rem', marginBottom: '1.25rem', borderBottom: '1px solid #E2E8F0' }}>
         <button
           onClick={() => setActiveTab('equipos')}
           style={{
-            padding: '0.5rem 1.25rem',
-            borderRadius: '6px 6px 0 0',
+            padding: '0.65rem 1.25rem',
             border: 'none',
-            backgroundColor: activeTab === 'equipos' ? '#003B70' : 'transparent',
-            color: activeTab === 'equipos' ? '#FFF' : '#64748B',
+            background: 'none',
+            borderBottom: activeTab === 'equipos' ? '2px solid #0077D4' : '2px solid transparent',
+            color: activeTab === 'equipos' ? '#0077D4' : '#64748B',
             fontWeight: 700,
-            fontSize: '0.88rem',
+            fontSize: '0.82rem',
             cursor: 'pointer',
             display: 'flex',
             alignItems: 'center',
             gap: '0.5rem',
+            marginBottom: '-1px',
+            transition: 'all 0.15s ease',
           }}
         >
-          <FaBoxesPacking /> Equipos y Máquinas ({equipos.length})
+          <FaBoxesPacking size={14} /> Equipos y Máquinas ({equipos.length})
         </button>
         <button
           onClick={() => setActiveTab('tipos')}
           style={{
-            padding: '0.5rem 1.25rem',
-            borderRadius: '6px 6px 0 0',
+            padding: '0.65rem 1.25rem',
             border: 'none',
-            backgroundColor: activeTab === 'tipos' ? '#003B70' : 'transparent',
-            color: activeTab === 'tipos' ? '#FFF' : '#64748B',
+            background: 'none',
+            borderBottom: activeTab === 'tipos' ? '2px solid #0077D4' : '2px solid transparent',
+            color: activeTab === 'tipos' ? '#0077D4' : '#64748B',
             fontWeight: 700,
-            fontSize: '0.88rem',
+            fontSize: '0.82rem',
             cursor: 'pointer',
             display: 'flex',
             alignItems: 'center',
             gap: '0.5rem',
+            marginBottom: '-1px',
+            transition: 'all 0.15s ease',
           }}
         >
-          <FaLayerGroup /> Tipos de Equipo ({tipoEquipos.length})
+          <FaLayerGroup size={14} /> Tipos de Equipo ({tipoEquipos.length})
         </button>
         <button
           onClick={() => setActiveTab('marcas')}
           style={{
-            padding: '0.5rem 1.25rem',
-            borderRadius: '6px 6px 0 0',
+            padding: '0.65rem 1.25rem',
             border: 'none',
-            backgroundColor: activeTab === 'marcas' ? '#003B70' : 'transparent',
-            color: activeTab === 'marcas' ? '#FFF' : '#64748B',
+            background: 'none',
+            borderBottom: activeTab === 'marcas' ? '2px solid #0077D4' : '2px solid transparent',
+            color: activeTab === 'marcas' ? '#0077D4' : '#64748B',
             fontWeight: 700,
-            fontSize: '0.88rem',
+            fontSize: '0.82rem',
             cursor: 'pointer',
             display: 'flex',
             alignItems: 'center',
             gap: '0.5rem',
+            marginBottom: '-1px',
+            transition: 'all 0.15s ease',
           }}
         >
-          <FaTag /> Marcas ({marcas.length})
+          <FaTag size={14} /> Marcas ({marcas.length})
         </button>
       </div>
 
@@ -338,10 +370,10 @@ const EquipoListPage: React.FC = () => {
               alignItems: 'center',
               justifyContent: 'space-between',
               gap: '1rem',
-              marginBottom: '1.5rem',
+              marginBottom: '1.25rem',
               backgroundColor: '#FFFFFF',
-              padding: '0.85rem 1.25rem',
-              borderRadius: '12px',
+              padding: '0.75rem 1rem',
+              borderRadius: '4px',
               border: '1px solid #E2E8F0',
               flexWrap: 'wrap',
             }}
@@ -354,12 +386,12 @@ const EquipoListPage: React.FC = () => {
                   gap: '0.5rem',
                   backgroundColor: '#F8FAFC',
                   border: '1px solid #CBD5E1',
-                  borderRadius: '8px',
-                  padding: '0.5rem 0.85rem',
+                  borderRadius: '4px',
+                  padding: '0.45rem 0.75rem',
                   flex: 1,
                 }}
               >
-                <FaMagnifyingGlass style={{ color: '#94A3B8', fontSize: '0.85rem' }} />
+                <FaMagnifyingGlass style={{ color: '#94A3B8', fontSize: '0.8rem' }} />
                 <input
                   type="text"
                   placeholder="Buscar por código, nombre, modelo o marca..."
@@ -368,7 +400,7 @@ const EquipoListPage: React.FC = () => {
                   style={{
                     border: 'none',
                     outline: 'none',
-                    fontSize: '0.85rem',
+                    fontSize: '0.82rem',
                     width: '100%',
                     backgroundColor: 'transparent',
                     color: '#0B1727',
@@ -379,14 +411,14 @@ const EquipoListPage: React.FC = () => {
 
             <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', flexWrap: 'wrap' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-                <FaBuildingFlag style={{ color: '#64748B', fontSize: '0.85rem' }} />
-                <span style={{ fontSize: '0.82rem', fontWeight: 600, color: '#475569' }}>Ambiente:</span>
+                <FaBuildingFlag style={{ color: '#64748B', fontSize: '0.82rem' }} />
+                <span style={{ fontSize: '0.8rem', fontWeight: 600, color: '#475569' }}>Ambiente:</span>
                 <select
                   value={filterAmbiente}
                   onChange={(e) => setFilterAmbiente(e.target.value)}
                   style={{
                     padding: '0.45rem 0.75rem',
-                    borderRadius: '8px',
+                    borderRadius: '4px',
                     border: '1px solid #CBD5E1',
                     fontSize: '0.82rem',
                     fontWeight: 600,
@@ -405,37 +437,14 @@ const EquipoListPage: React.FC = () => {
                 </select>
               </div>
 
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-                <FaLayerGroup style={{ color: '#64748B', fontSize: '0.85rem' }} />
-                <span style={{ fontSize: '0.82rem', fontWeight: 600, color: '#475569' }}>Estado:</span>
-                <select
-                  value={filterEstado}
-                  onChange={(e) => setFilterEstado(e.target.value)}
-                  style={{
-                    padding: '0.45rem 0.75rem',
-                    borderRadius: '8px',
-                    border: '1px solid #CBD5E1',
-                    fontSize: '0.82rem',
-                    fontWeight: 600,
-                    backgroundColor: '#FFFFFF',
-                    color: '#0B1727',
-                    outline: 'none',
-                    cursor: 'pointer',
-                  }}
-                >
-                  <option value="todos">Todos los Estados</option>
-                  <option value="bueno">Bueno</option>
-                  <option value="regular">Regular</option>
-                  <option value="mantenimiento">En Mantenimiento</option>
-                  <option value="baja">Dado de Baja</option>
-                </select>
-              </div>
+
             </div>
           </div>
 
           <EquipoTable
             equipos={filteredEquipos}
             isLoading={isLoadingEquipos}
+            isAdmin={isAdmin}
             onView={handleOpenViewEquipo}
             onEdit={handleOpenEditEquipo}
             onDelete={handleDeleteEquipo}
@@ -448,6 +457,7 @@ const EquipoListPage: React.FC = () => {
         <TipoEquipoTable
           tipos={tipoEquipos}
           isLoading={isLoadingTipos}
+          isAdmin={isAdmin}
           onEdit={handleOpenEditTipo}
           onDelete={handleDeleteTipo}
         />
@@ -458,6 +468,7 @@ const EquipoListPage: React.FC = () => {
         <MarcaTable
           marcas={marcas}
           isLoading={isLoadingMarcas}
+          isAdmin={isAdmin}
           onEdit={handleOpenEditMarca}
           onDelete={handleDeleteMarca}
         />
@@ -470,7 +481,10 @@ const EquipoListPage: React.FC = () => {
         ambientes={ambientes}
         marcas={marcas}
         tipoEquipos={tipoEquipos}
-        onClose={() => setIsEquipoFormOpen(false)}
+        onClose={() => {
+          setIsEquipoFormOpen(false);
+          setSelectedEquipo(null);
+        }}
         onSubmit={handleEquipoSubmit}
         isPending={createEquipoMutation.isPending || updateEquipoMutation.isPending}
       />

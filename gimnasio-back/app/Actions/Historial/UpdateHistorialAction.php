@@ -17,6 +17,7 @@ class UpdateHistorialAction
             'sexo' => $dto->sexo,
             'fecha_nacimiento' => $dto->fecha_nacimiento,
             'domicilio' => $dto->domicilio,
+            'facultad_carrera' => $dto->facultad_carrera,
             'celular_emergencia' => $dto->celular_emergencia,
         ], fn ($val) => $val !== null));
 

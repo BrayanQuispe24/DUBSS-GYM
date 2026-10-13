@@ -15,6 +15,8 @@ export interface AuthUser {
   telefono?: string;
   tipo_usuario?: 'estudiante' | 'docente' | 'administrativo' | 'particular';
   estado?: 'activo' | 'suspendido';
+  id_disciplina?: number;
+  disciplina?: { id: number; nombre: string };
 }
 
 export const normalizeUser = (rawUser: unknown): AuthUser | null => {
@@ -58,6 +60,26 @@ export const normalizeUser = (rawUser: unknown): AuthUser | null => {
   else if (roleName.includes('recep')) normalizedRole = 'recepcionista';
   else if (roleName.includes('instruct')) normalizedRole = 'instructor';
 
+  let userEstado: 'activo' | 'suspendido' = 'activo';
+  if (typeof raw.estado === 'boolean') {
+    userEstado = raw.estado ? 'activo' : 'suspendido';
+  } else if (typeof raw.estado === 'number') {
+    userEstado = raw.estado === 1 ? 'activo' : 'suspendido';
+  } else if (typeof raw.estado === 'string') {
+    const estStr = raw.estado.toLowerCase();
+    if (['suspendido', 'inactivo', 'false', '0'].includes(estStr)) {
+      userEstado = 'suspendido';
+    } else {
+      userEstado = 'activo';
+    }
+  }
+
+  const idDisciplina = raw.id_disciplina ? Number(raw.id_disciplina) : undefined;
+  const disciplinaObj = raw.disciplina && typeof raw.disciplina === 'object' ? {
+    id: Number((raw.disciplina as any).id),
+    nombre: String((raw.disciplina as any).nombre || ''),
+  } : undefined;
+
   return {
     id: typeof raw.id === 'number' ? raw.id : Number(raw.id || 0),
     name: fullName,
@@ -69,7 +91,9 @@ export const normalizeUser = (rawUser: unknown): AuthUser | null => {
     ci: String(raw.ci || ''),
     telefono: String(raw.telefono || raw.celular || ''),
     tipo_usuario: (raw.tipo_usuario as AuthUser['tipo_usuario']) || 'estudiante',
-    estado: (raw.estado as AuthUser['estado']) || 'activo',
+    estado: userEstado,
+    id_disciplina: idDisciplina,
+    disciplina: disciplinaObj,
   };
 };
 

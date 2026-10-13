@@ -16,22 +16,22 @@ const DocumentoTable: React.FC<DocumentoTableProps> = ({ documentos, isLoading, 
 
   if (documentos.length === 0) {
     return (
-      <div style={{ textAlign: 'center', padding: '3rem', color: '#64748B', backgroundColor: '#FFF', borderRadius: '12px', border: '1px solid #E2E8F0' }}>
+      <div style={{ textAlign: 'center', padding: '3rem', color: '#64748B', backgroundColor: '#FFF', borderRadius: '4px', border: '1px solid #CBD5E1', fontSize: '0.85rem' }}>
         No hay documentos subidos en el sistema.
       </div>
     );
   }
 
   return (
-    <div style={{ backgroundColor: '#FFFFFF', borderRadius: '12px', border: '1px solid #E2E8F0', overflow: 'hidden' }}>
-      <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.88rem' }}>
+    <div style={{ backgroundColor: '#FFFFFF', borderRadius: '4px', border: '1px solid #CBD5E1', overflow: 'hidden' }}>
+      <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.82rem' }}>
         <thead>
-          <tr style={{ backgroundColor: '#F8FAFC', borderBottom: '1px solid #E2E8F0', color: '#475569', fontWeight: 700 }}>
-            <th style={{ padding: '0.85rem 1.25rem' }}>Documento</th>
-            <th style={{ padding: '0.85rem 1.25rem' }}>Tipo</th>
-            <th style={{ padding: '0.85rem 1.25rem' }}>Usuario / Socio</th>
-            <th style={{ padding: '0.85rem 1.25rem' }}>Fecha Subida</th>
-            <th style={{ padding: '0.85rem 1.25rem', textAlign: 'right' }}>Acciones</th>
+          <tr style={{ backgroundColor: '#F8FAFC', borderBottom: '1px solid #CBD5E1', color: '#475569', fontWeight: 700, fontSize: '0.72rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+            <th style={{ padding: '0.65rem 0.85rem' }}>Documento</th>
+            <th style={{ padding: '0.65rem 0.85rem' }}>Tipo</th>
+            <th style={{ padding: '0.65rem 0.85rem' }}>Usuario / Socio</th>
+            <th style={{ padding: '0.65rem 0.85rem' }}>Fecha Subida</th>
+            <th style={{ padding: '0.65rem 0.85rem', textAlign: 'right' }}>Acciones</th>
           </tr>
         </thead>
         <tbody>
@@ -43,34 +43,34 @@ const DocumentoTable: React.FC<DocumentoTableProps> = ({ documentos, isLoading, 
             const tipoNombre = doc.tipoDocumento?.nombre || doc.tipo_documento?.nombre || `Tipo ID: ${doc.id_tipo_documento}`;
 
             return (
-              <tr key={doc.id} style={{ borderBottom: '1px solid #F1F5F9' }}>
-                <td style={{ padding: '0.85rem 1.25rem', fontWeight: 700, color: '#0B1727' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
+              <tr key={doc.id} style={{ borderBottom: '1px solid #E2E8F0' }}>
+                <td style={{ padding: '0.65rem 0.85rem', fontWeight: 700, color: '#0B1727' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                     {isImage ? (
-                      <FaFileImage style={{ color: '#0284C7', fontSize: '1.2rem' }} />
+                      <FaFileImage style={{ color: '#0077D4', fontSize: '1rem' }} />
                     ) : (
-                      <FaFilePdf style={{ color: '#EF4444', fontSize: '1.2rem' }} />
+                      <FaFilePdf style={{ color: '#DC2626', fontSize: '1rem' }} />
                     )}
                     <span>{docTitle}</span>
                   </div>
                 </td>
-                <td style={{ padding: '0.85rem 1.25rem' }}>
-                  <span style={{ padding: '0.2rem 0.6rem', borderRadius: '6px', fontSize: '0.75rem', fontWeight: 700, backgroundColor: '#F1F5F9', color: '#334155' }}>
+                <td style={{ padding: '0.65rem 0.85rem' }}>
+                  <span style={{ padding: '0.15rem 0.5rem', borderRadius: '2px', fontSize: '0.70rem', fontWeight: 700, backgroundColor: '#F1F5F9', color: '#334155', textTransform: 'uppercase', letterSpacing: '0.03em' }}>
                     {tipoNombre}
                   </span>
                 </td>
-                <td style={{ padding: '0.85rem 1.25rem', color: '#475569' }}>
+                <td style={{ padding: '0.65rem 0.85rem', color: '#475569' }}>
                   {userName}
                 </td>
-                <td style={{ padding: '0.85rem 1.25rem', color: '#64748B', fontSize: '0.8rem' }}>
+                <td style={{ padding: '0.65rem 0.85rem', color: '#64748B', fontSize: '0.75rem' }}>
                   {doc.created_at ? new Date(doc.created_at).toLocaleDateString() : 'Reciente'}
                 </td>
-                <td style={{ padding: '0.85rem 1.25rem', textAlign: 'right' }}>
-                  <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '0.4rem' }}>
+                <td style={{ padding: '0.65rem 0.85rem', textAlign: 'right' }}>
+                  <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '0.35rem' }}>
                     <button
                       onClick={() => onPreview(doc)}
                       title="Vista Previa del Documento / Imagen"
-                      style={{ padding: '0.4rem 0.6rem', borderRadius: '6px', backgroundColor: '#F8FAFC', color: '#003B70', border: '1px solid #CBD5E1', cursor: 'pointer' }}
+                      style={{ padding: '0.3rem 0.55rem', borderRadius: '4px', backgroundColor: '#F8FAFC', color: '#0077D4', border: '1px solid #CBD5E1', cursor: 'pointer', fontSize: '0.75rem' }}
                     >
                       <FaEye />
                     </button>
@@ -78,7 +78,7 @@ const DocumentoTable: React.FC<DocumentoTableProps> = ({ documentos, isLoading, 
                       href={fileUrl}
                       target="_blank"
                       rel="noreferrer"
-                      style={{ padding: '0.4rem 0.6rem', borderRadius: '6px', backgroundColor: '#E0F2FE', color: '#0284C7', display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}
+                      style={{ padding: '0.3rem 0.55rem', borderRadius: '4px', backgroundColor: '#E0F2FE', color: '#0077D4', border: '1px solid #BAE6FD', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.75rem' }}
                       title="Descargar Archivo"
                     >
                       <FaDownload />
@@ -86,7 +86,7 @@ const DocumentoTable: React.FC<DocumentoTableProps> = ({ documentos, isLoading, 
                     <button
                       onClick={() => onDelete(doc.id)}
                       title="Eliminar Documento"
-                      style={{ padding: '0.4rem 0.6rem', borderRadius: '6px', backgroundColor: '#FEE2E2', color: '#DC2626', border: 'none', cursor: 'pointer' }}
+                      style={{ padding: '0.3rem 0.55rem', borderRadius: '4px', backgroundColor: '#FEE2E2', color: '#DC2626', border: '1px solid #FCA5A5', cursor: 'pointer', fontSize: '0.75rem' }}
                     >
                       <FaTrashCan />
                     </button>

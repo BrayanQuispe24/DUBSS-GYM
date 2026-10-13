@@ -6,11 +6,13 @@
 
 :root {
     /* UAGRM DUBS Brand Colors (Red #990000 & Navy Blue #003B70) */
-    --color-primary: #990000;             /* Rojo Carmesí Institucional UAGRM */
+    --color-primary: #990000;
+    /* Rojo Carmesí Institucional UAGRM */
     --color-primary-hover: #7A0000;
     --color-primary-dark: #570000;
 
-    --color-secondary: #003B70;           /* Azul Marino Profundo DUBS */
+    --color-secondary: #003B70;
+    /* Azul Marino Profundo DUBS */
     --color-secondary-hover: #002A52;
     --color-secondary-dark: #001C38;
 
@@ -76,7 +78,9 @@
     --transition: background-color var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast), box-shadow var(--transition-fast), transform var(--transition-fast);
 }
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
@@ -98,7 +102,12 @@ body {
     -webkit-font-smoothing: antialiased;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     font-family: var(--font-heading);
     font-weight: 700;
     color: var(--color-text-primary);
@@ -202,15 +211,28 @@ a:hover {
 }
 
 @media (max-width: 1200px) {
-    .container { padding: 0 2.5rem; }
+    .container {
+        padding: 0 2.5rem;
+    }
 }
 
 @media (max-width: 768px) {
-    .container { padding: 0 1.25rem; }
-    .grid-2, .grid-3, .grid-4 {
+    .container {
+        padding: 0 1.25rem;
+    }
+
+    .grid-2,
+    .grid-3,
+    .grid-4 {
         grid-template-columns: 1fr;
         gap: 1.75rem;
     }
-    .section-title { font-size: 2rem; }
-    .section { padding: 3.5rem 0; }
+
+    .section-title {
+        font-size: 2rem;
+    }
+
+    .section {
+        padding: 3.5rem 0;
+    }
 }

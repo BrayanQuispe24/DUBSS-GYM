@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useGymServices } from '../hooks/useGyms';
 import { useGymFilterStore } from '../store/gymFilterStore';
 import GymSidePanel from './GymSidePanel';
-import { Layers, Dumbbell, Shield } from 'lucide-react';
+import { Layers, Dumbbell, Shield, MapPin, Clock } from 'lucide-react';
 import type { GymServiceItem } from '@/types';
 
 const InteractiveMap: React.FC = () => {
@@ -46,16 +46,16 @@ const InteractiveMap: React.FC = () => {
             </div>
 
             <div className="map-search-inline">
-              <span style={{ fontSize: '0.88rem', fontWeight: 800, color: 'var(--color-primary)' }}>
-                📍 Sede Central D.U.B.S. • Ciudad Universitaria UAGRM
+              <span style={{ fontSize: '0.88rem', fontWeight: 800, color: 'var(--color-primary)', display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+                <MapPin size={16} /> Sede Central D.U.B.S. • Ciudad Universitaria UAGRM
               </span>
             </div>
           </div>
 
           <div className="map-container-layout">
             <div className="map-canvas" style={{ background: '#EEF2F9', padding: '1.5rem', position: 'relative', overflowY: 'auto' }}>
-              <div style={{ fontSize: '0.88rem', color: 'var(--color-primary)', fontWeight: 800, marginBottom: '1rem' }}>
-                📍 Disciplinas registradas en la Sede ({services ? services.length : 0} áreas de entrenamiento):
+              <div style={{ fontSize: '0.88rem', color: 'var(--color-primary)', fontWeight: 800, marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                <MapPin size={16} /> Disciplinas registradas en la Sede ({services ? services.length : 0} áreas de entrenamiento):
               </div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
                 {services && services.map((service: GymServiceItem) => {
@@ -80,7 +80,9 @@ const InteractiveMap: React.FC = () => {
                     >
                       <div>
                         <h4 style={{ fontSize: '1rem', fontWeight: 800, color: 'var(--color-text-primary)' }}>{service.title}</h4>
-                        <p style={{ fontSize: '0.82rem', color: 'var(--color-text-secondary)' }}>⏰ {service.schedule}</p>
+                        <p style={{ fontSize: '0.82rem', color: 'var(--color-text-secondary)', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                          <Clock size={13} /> {service.schedule}
+                        </p>
                       </div>
                       <div style={{ textAlign: 'right' }}>
                         <span style={{ fontSize: '0.95rem', fontWeight: 800, color: 'var(--color-primary)' }}>{service.studentPrice}</span>

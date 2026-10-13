@@ -1,15 +1,6 @@
 // src/features/deporte/services/deporteService.ts
 import api from '@/services/api';
 
-export interface Disciplina {
-  id: number;
-  nombre: string;
-  cantidad_cupos?: number;
-  descripcion?: string;
-  estado: string;
-  horarios?: Horario[];
-}
-
 export interface Horario {
   id: number;
   dia_semana?: string;
@@ -22,6 +13,8 @@ export interface DisciplinaHorarioItem {
   id_disciplina: number;
   id_horario: number;
   cupo_maximo?: number;
+  cupos_ocupados?: number;
+  cupos_disponibles?: number;
   estado?: boolean;
   horario?: Horario;
 }
@@ -30,6 +23,8 @@ export interface Disciplina {
   id: number;
   nombre: string;
   cantidad_cupos?: number;
+  total_cupos_ocupados?: number;
+  total_cupos_disponibles?: number;
   descripcion?: string;
   estado: string;
   disciplina_horarios?: DisciplinaHorarioItem[];

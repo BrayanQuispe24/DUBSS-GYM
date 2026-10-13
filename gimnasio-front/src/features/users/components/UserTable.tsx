@@ -18,6 +18,7 @@ import type { AuthUser } from '@/store/authStore';
 interface UserTableProps {
   users: AuthUser[];
   isLoading: boolean;
+  canManage?: boolean;
   onEdit: (user: AuthUser) => void;
   onDelete: (id: number) => void;
   onToggleStatus: (user: AuthUser) => void;
@@ -27,6 +28,7 @@ interface UserTableProps {
 const UserTable: React.FC<UserTableProps> = ({
   users,
   isLoading,
+  canManage = true,
   onEdit,
   onDelete,
   onToggleStatus,
@@ -99,7 +101,13 @@ const UserTable: React.FC<UserTableProps> = ({
         </thead>
         <tbody>
           {users.map((u) => {
-            const isSuspended = u.estado === 'suspendido';
+            const isSuspended =
+              u.estado === 'suspendido' ||
+              (u.estado as any) === 'inactivo' ||
+              (u.estado as any) === false ||
+              (u.estado as any) === 'false' ||
+              (u.estado as any) === 0 ||
+              (u.estado as any) === '0';
             return (
               <tr key={u.id}>
                 <td><input type="checkbox" /></td>
@@ -130,6 +138,11 @@ const UserTable: React.FC<UserTableProps> = ({
                   <span className={getRoleBadgeClass(u.rol)}>
                     <FaUserShield /> {getRoleLabel(u.rol)}
                   </span>
+                  {u.rol === 'instructor' && u.disciplina?.nombre && (
+                    <div style={{ fontSize: '0.72rem', color: '#0284C7', fontWeight: 700, marginTop: '0.2rem' }}>
+                      {u.disciplina.nombre}
+                    </div>
+                  )}
                 </td>
                 <td>
                   <div style={{ fontWeight: 600, fontSize: '0.82rem' }}>
@@ -163,27 +176,31 @@ const UserTable: React.FC<UserTableProps> = ({
                     >
                       <FaEye />
                     </button>
-                    <button
-                      className="action-btn"
-                      onClick={() => onEdit(u)}
-                      title="Editar usuario"
-                    >
-                      <FaPenToSquare />
-                    </button>
-                    <button
-                      className="action-btn"
-                      onClick={() => onToggleStatus(u)}
-                      title={isSuspended ? 'Reactivar usuario' : 'Suspender usuario'}
-                    >
-                      {isSuspended ? <FaUserCheck /> : <FaUserLock />}
-                    </button>
-                    <button
-                      className="action-btn btn-danger"
-                      onClick={() => onDelete(u.id)}
-                      title="Eliminar usuario"
-                    >
-                      <FaTrashCan />
-                    </button>
+                    {canManage && (
+                      <>
+                        <button
+                          className="action-btn"
+                          onClick={() => onEdit(u)}
+                          title="Editar usuario"
+                        >
+                          <FaPenToSquare />
+                        </button>
+                        <button
+                          className="action-btn"
+                          onClick={() => onToggleStatus(u)}
+                          title={isSuspended ? 'Reactivar usuario' : 'Suspender usuario'}
+                        >
+                          {isSuspended ? <FaUserCheck /> : <FaUserLock />}
+                        </button>
+                        <button
+                          className="action-btn btn-danger"
+                          onClick={() => onDelete(u.id)}
+                          title="Eliminar usuario"
+                        >
+                          <FaTrashCan />
+                        </button>
+                      </>
+                    )}
                   </div>
                 </td>
               </tr>

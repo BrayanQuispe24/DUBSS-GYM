@@ -16,7 +16,7 @@ class UpdateEquipoRequest extends FormRequest
         $equipoId = $this->route('equipo')?->id ?? $this->route('equipo');
 
         return [
-            'codigo' => ['sometimes', 'required', 'string', 'max:100', 'unique:equipos,codigo,' . $equipoId],
+            'codigo' => ['sometimes', 'required', 'string', 'max:100', 'unique:equipos,codigo,'.$equipoId],
             'nombre' => ['sometimes', 'required', 'string', 'max:255'],
             'modelo' => ['nullable', 'string', 'max:255'],
             'fecha_adquisicion' => ['nullable', 'date'],
@@ -26,6 +26,8 @@ class UpdateEquipoRequest extends FormRequest
             'id_ambiente' => ['nullable', 'exists:ambientes,id'],
             'id_marca' => ['nullable', 'exists:marcas,id'],
             'id_tipo_equipo' => ['nullable', 'exists:tipo_equipo,id'],
+            'imagen' => ['nullable'],
+            'imagen_url' => ['nullable', 'string'],
         ];
     }
 }

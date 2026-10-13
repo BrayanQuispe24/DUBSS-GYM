@@ -1,7 +1,7 @@
 // src/features/landing/components/PricingPlans.tsx
 import React from 'react';
 import { useBookingStore } from '@/features/booking/store/bookingStore';
-import { GraduationCap, Briefcase, Check, Zap } from 'lucide-react';
+import { GraduationCap, Briefcase, Check, Zap, Star, Building } from 'lucide-react';
 
 const PricingPlans: React.FC = () => {
   const { openModal } = useBookingStore();
@@ -20,7 +20,9 @@ const PricingPlans: React.FC = () => {
         <div className="grid grid-3 pricing-grid" id="pricing-grid">
           {/* Membresia Estudiantes */}
           <div className="pricing-card popular-card reveal-up delay-1">
-            <div className="popular-badge">⭐ MÁS SOLICITADA</div>
+            <div className="popular-badge" style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+              <Star size={14} /> MÁS SOLICITADA
+            </div>
             <div className="plan-tag" style={{ fontSize: '0.78rem', fontWeight: 800, color: 'var(--color-primary)', textTransform: 'uppercase', marginBottom: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
               <GraduationCap size={16} /> ALUMNOS REGULARES UAGRM
             </div>
@@ -31,8 +33,8 @@ const PricingPlans: React.FC = () => {
             </div>
             <p className="plan-desc">Tarifa especial universitaria para estudiantes inscritos en cualquier carrera o facultad de la UAGRM.</p>
 
-            <div className="plan-fee-highlight" style={{ background: 'var(--color-success-bg)', padding: '0.8rem', borderRadius: '8px', fontSize: '0.85rem', marginBottom: '1.4rem', color: 'var(--color-success-text)', fontWeight: 700 }}>
-              🎓 100% Subvencionada por Bienestar Social
+            <div className="plan-fee-highlight" style={{ background: 'var(--color-success-bg)', padding: '0.8rem', borderRadius: '8px', fontSize: '0.85rem', marginBottom: '1.4rem', color: 'var(--color-success-text)', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '6px' }}>
+              <GraduationCap size={16} /> 100% Subvencionada por Bienestar Social
             </div>
 
             <ul className="plan-features">
@@ -63,8 +65,8 @@ const PricingPlans: React.FC = () => {
             </div>
             <p className="plan-desc">Dirigida al cuerpo docente y al personal administrativo que presta servicios en la UAGRM.</p>
 
-            <div className="plan-fee-highlight" style={{ background: 'var(--color-background)', padding: '0.8rem', borderRadius: '8px', fontSize: '0.85rem', marginBottom: '1.4rem', fontWeight: 700, color: 'var(--color-secondary)' }}>
-              🏛️ Descuento por Boleta de Pago Institucional
+            <div className="plan-fee-highlight" style={{ background: 'var(--color-background)', padding: '0.8rem', borderRadius: '8px', fontSize: '0.85rem', marginBottom: '1.4rem', fontWeight: 700, color: 'var(--color-secondary)', display: 'flex', alignItems: 'center', gap: '6px' }}>
+              <Building size={16} /> Descuento por Boleta de Pago Institucional
             </div>
 
             <ul className="plan-features">
@@ -95,8 +97,8 @@ const PricingPlans: React.FC = () => {
             </div>
             <p className="plan-desc">Acceso por una jornada para estudiantes o personal universitario sin membresía mensual activa.</p>
 
-            <div className="plan-fee-highlight" style={{ background: 'var(--color-background)', padding: '0.8rem', borderRadius: '8px', fontSize: '0.85rem', marginBottom: '1.4rem', fontWeight: 700 }}>
-              ⚡ Ideal para entrenamientos ocasionales
+            <div className="plan-fee-highlight" style={{ background: 'var(--color-background)', padding: '0.8rem', borderRadius: '8px', fontSize: '0.85rem', marginBottom: '1.4rem', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '6px' }}>
+              <Zap size={16} /> Ideal para entrenamientos ocasionales
             </div>
 
             <ul className="plan-features">

@@ -1,5 +1,20 @@
 @import "tailwindcss";
 
+@theme {
+  --color-primary: #0077D4;         /* Corporate Action Blue */
+  --color-primary-dark: #0840A8;    /* Deep Royal Blue / Hover state */
+  --color-secondary: #00C2E0;       /* Cyan accent for highlights */
+  --color-dark-surface: #002D5E;    /* Dark mode cards & panels */
+  --color-dark-bg: #001C3D;         /* Dark mode page background & table headers */
+  --color-light-surface: #FFFFFF;   /* Light mode card surface */
+  --color-light-bg: #F4F9FF;        /* Light mode page background */
+
+  /* Micro Typography Tokens */
+  --text-micro: 0.5625rem;          /* ~9px  */
+  --text-tiny: 0.625rem;            /* ~10px */
+  --text-small: 0.6875rem;          /* ~11px */
+}
+
 /* Clean Reset for #root to span 100% full width edge-to-edge */
 html, body, #root {
   width: 100%;
@@ -15,3 +30,70 @@ html, body, #root {
   flex-direction: column;
   min-height: 100vh;
 }
+
+/* Enterprise Design System Utilities */
+.rounded-enterprise {
+  border-radius: 4px !important;
+}
+
+.card-enterprise {
+  background-color: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 4px !important;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.table-enterprise th {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #475569;
+  background-color: #F8FAFC;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #E2E8F0;
+}
+
+.table-enterprise td {
+  padding: 0.75rem 1rem;
+  font-size: 0.82rem;
+  border-bottom: 1px solid #F1F5F9;
+}
+
+.btn-enterprise-primary {
+  padding: 0.5rem 1rem;
+  border-radius: 4px !important;
+  background-color: #0077D4;
+  color: #FFFFFF;
+  font-weight: 600;
+  font-size: 0.82rem;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: background-color 0.15s ease-in-out;
+}
+.btn-enterprise-primary:hover {
+  background-color: #0840A8;
+}
+
+.btn-enterprise-secondary {
+  padding: 0.5rem 1rem;
+  border-radius: 4px !important;
+  background-color: #FFFFFF;
+  color: #334155;
+  font-weight: 600;
+  font-size: 0.82rem;
+  border: 1px solid #CBD5E1;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: all 0.15s ease-in-out;
+}
+.btn-enterprise-secondary:hover {
+  background-color: #F8FAFC;
+  border-color: #94A3B8;
+}
+

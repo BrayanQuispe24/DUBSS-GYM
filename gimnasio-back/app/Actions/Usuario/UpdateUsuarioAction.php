@@ -27,6 +27,7 @@ class UpdateUsuarioAction
             'celular' => $dto->celular,
             'ci' => $dto->ci,
             'tipo_usuario' => $dto->tipo_usuario ?? $usuario->tipo_usuario,
+            'id_disciplina' => $dto->id_disciplina,
         ];
 
         if (!empty($dto->password)) {
@@ -38,7 +39,7 @@ class UpdateUsuarioAction
         }
 
         $usuario->update($dataToUpdate);
-        $usuario->load('rol');
+        $usuario->load(['rol', 'disciplina']);
 
         return $usuario;
     }

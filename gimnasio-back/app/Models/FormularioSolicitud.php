@@ -18,12 +18,24 @@ class FormularioSolicitud extends Model
         'estado',
         'fecha_registro',
         'id_disciplina',
+        'id_disciplina_horario',
+        'id_plan',
         'id_usuario',
     ];
 
     public function disciplina(): BelongsTo
     {
         return $this->belongsTo(Disciplina::class, 'id_disciplina');
+    }
+
+    public function disciplinaHorario(): BelongsTo
+    {
+        return $this->belongsTo(DisciplinaHorario::class, 'id_disciplina_horario');
+    }
+
+    public function plan(): BelongsTo
+    {
+        return $this->belongsTo(Plan::class, 'id_plan');
     }
 
     public function usuario(): BelongsTo

@@ -15,8 +15,11 @@ readonly class UpdateDisciplinaDTO
 
     public static function fromRequest(UpdateDisciplinaRequest $request): self
     {
+        $disciplinaParam = $request->route('disciplina') ?? $request->route('id') ?? $request->validated('id') ?? $request->input('id');
+        $id = is_object($disciplinaParam) ? $disciplinaParam->id : (int) $disciplinaParam;
+
         return new self(
-            id: (int) ($request->route('id') ?? $request->validated('id')),
+            id: (int) $id,
             nombre: $request->validated('nombre'),
             cantidad_cupos: (int) $request->validated('cantidad_cupos'),
             estado: $request->validated('estado') ?? 'activo'

@@ -29,6 +29,7 @@ class Usuario extends Authenticatable
         'fecha_registro',
         'password',
         'id_rol',
+        'id_disciplina',
     ];
 
     protected $hidden = [
@@ -48,6 +49,32 @@ class Usuario extends Authenticatable
         return $this->codigo;
     }
 
+    public function getRolNombre(): string
+    {
+        $this->loadMissing('rol');
+        return mb_strtolower($this->rol ? $this->rol->nombre : ($this->tipo_usuario ?? 'cliente'));
+    }
+
+    public function esAdmin(): bool
+    {
+        return $this->getRolNombre() === 'administrador';
+    }
+
+    public function esInstructor(): bool
+    {
+        return $this->getRolNombre() === 'instructor';
+    }
+
+    public function esCliente(): bool
+    {
+        return $this->getRolNombre() === 'cliente';
+    }
+
+    public function puedeGestionarEntrenamiento(): bool
+    {
+        return in_array($this->getRolNombre(), ['administrador', 'instructor'], true);
+    }
+
     protected function casts(): array
     {
         return [
@@ -59,6 +86,11 @@ class Usuario extends Authenticatable
     public function rol(): BelongsTo
     {
         return $this->belongsTo(Rol::class, 'id_rol');
+    }
+
+    public function disciplina(): BelongsTo
+    {
+        return $this->belongsTo(Disciplina::class, 'id_disciplina');
     }
 
     public function historiales(): HasMany

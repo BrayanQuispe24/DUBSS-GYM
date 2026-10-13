@@ -82,7 +82,7 @@ const GymEquipmentCroquis: React.FC = () => {
             ))}
 
             <div className="croquis-street-lane">
-              VÍA PRINCIPAL DE CIRCULACIÓN DE SOCIOS & CORREDOR DE FUNCIONAL ➔
+              VÍA PRINCIPAL DE CIRCULACIÓN DE SOCIOS & CORREDOR DE FUNCIONAL &rarr;
             </div>
           </div>
         </div>

@@ -24,6 +24,7 @@ export interface UserFormData {
   tipo_usuario?: 'estudiante' | 'docente' | 'administrativo' | 'particular';
   estado?: 'activo' | 'suspendido';
   password?: string;
+  id_disciplina?: number;
 }
 
 export interface UserListResponse {

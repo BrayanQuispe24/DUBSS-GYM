@@ -12,12 +12,16 @@ import {
   useUpdateAmbiente,
   useDeleteAmbiente,
 } from '../hooks/useInventario';
+import { useAuthStore } from '@/store/authStore';
 import type { Ambiente } from '../services/inventarioService';
 import AmbienteFormModal from '../components/AmbienteFormModal';
 import AmbienteDetailModal from '../components/AmbienteDetailModal';
 import AmbienteTable from '../components/AmbienteTable';
 
 const AmbienteListPage: React.FC = () => {
+  const { user } = useAuthStore();
+  const isAdmin = user?.rol === 'administrador';
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
   const [selectedAmbiente, setSelectedAmbiente] = useState<Ambiente | null>(null);
@@ -32,11 +36,13 @@ const AmbienteListPage: React.FC = () => {
   const deleteMutation = useDeleteAmbiente();
 
   const handleOpenCreate = () => {
+    if (!isAdmin) return;
     setSelectedAmbiente(null);
     setIsModalOpen(true);
   };
 
   const handleOpenEdit = (amb: Ambiente) => {
+    if (!isAdmin) return;
     setSelectedAmbiente(amb);
     setIsModalOpen(true);
   };
@@ -47,12 +53,14 @@ const AmbienteListPage: React.FC = () => {
   };
 
   const handleDelete = (id: number) => {
+    if (!isAdmin) return;
     if (window.confirm('¿Está seguro de eliminar este ambiente del sistema?')) {
       deleteMutation.mutate(id);
     }
   };
 
   const handleFormSubmit = (formData: any) => {
+    if (!isAdmin) return;
     if (selectedAmbiente) {
       updateMutation.mutate(
         { id: selectedAmbiente.id, data: formData },
@@ -92,25 +100,27 @@ const AmbienteListPage: React.FC = () => {
             Salas de musculación, áreas de cardio, áreas funcionales y espacios acondicionados.
           </p>
         </div>
-        <button
-          onClick={handleOpenCreate}
-          style={{
-            padding: '0.65rem 1.25rem',
-            borderRadius: '8px',
-            background: 'linear-gradient(135deg, #003B70 0%, #002A52 100%)',
-            color: '#FFFFFF',
-            border: 'none',
-            fontWeight: 700,
-            fontSize: '0.88rem',
-            cursor: 'pointer',
-            boxShadow: '0 4px 12px rgba(0, 59, 112, 0.25)',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '0.5rem',
-          }}
-        >
-          <FaPlus /> Registrar Ambiente
-        </button>
+        {isAdmin && (
+          <button
+            onClick={handleOpenCreate}
+            style={{
+              padding: '0.55rem 1.15rem',
+              borderRadius: '4px',
+              backgroundColor: '#0077D4',
+              color: '#FFFFFF',
+              border: 'none',
+              fontWeight: 700,
+              fontSize: '0.82rem',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.45rem',
+              boxShadow: '0 1px 2px rgba(0,0,0,0.05)',
+            }}
+          >
+            <FaPlus /> Registrar Ambiente
+          </button>
+        )}
       </div>
 
       {/* FILTER & SEARCH BAR */}
@@ -120,10 +130,10 @@ const AmbienteListPage: React.FC = () => {
           alignItems: 'center',
           justifyContent: 'space-between',
           gap: '1rem',
-          marginBottom: '1.5rem',
+          marginBottom: '1.25rem',
           backgroundColor: '#FFFFFF',
-          padding: '0.85rem 1.25rem',
-          borderRadius: '12px',
+          padding: '0.75rem 1rem',
+          borderRadius: '4px',
           border: '1px solid #E2E8F0',
           flexWrap: 'wrap',
         }}
@@ -136,8 +146,8 @@ const AmbienteListPage: React.FC = () => {
               gap: '0.5rem',
               backgroundColor: '#F8FAFC',
               border: '1px solid #CBD5E1',
-              borderRadius: '8px',
-              padding: '0.5rem 0.85rem',
+              borderRadius: '4px',
+              padding: '0.45rem 0.75rem',
               flex: 1,
             }}
           >
@@ -167,7 +177,7 @@ const AmbienteListPage: React.FC = () => {
             onChange={(e) => setFilterEstado(e.target.value)}
             style={{
               padding: '0.45rem 0.75rem',
-              borderRadius: '8px',
+              borderRadius: '4px',
               border: '1px solid #CBD5E1',
               fontSize: '0.82rem',
               fontWeight: 600,
@@ -189,6 +199,7 @@ const AmbienteListPage: React.FC = () => {
       <AmbienteTable
         ambientes={filteredAmbientes}
         isLoading={isLoading}
+        isAdmin={isAdmin}
         onView={handleOpenDetail}
         onEdit={handleOpenEdit}
         onDelete={handleDelete}

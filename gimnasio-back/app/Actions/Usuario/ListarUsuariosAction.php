@@ -7,9 +7,28 @@ use Illuminate\Database\Eloquent\Collection;
 
 class ListarUsuariosAction
 {
-    public function execute(array $filters = []): Collection
+    public function execute(array $filters = [], ?Usuario $currentUser = null): Collection
     {
-        $query = Usuario::with('rol');
+        $query = Usuario::with(['rol', 'disciplina']);
+
+        if ($currentUser) {
+            $currentUser->loadMissing(['rol', 'disciplina']);
+            if ($currentUser->esInstructor()) {
+                $discNombre = $currentUser->disciplina->nombre ?? null;
+                if ($discNombre) {
+                    $query->where(function ($q) use ($currentUser, $discNombre) {
+                        $q->where('id', $currentUser->id)
+                            ->orWhereHas('boletasInscripcion', function ($bq) use ($discNombre) {
+                                $bq->where('estado', 'activo')
+                                    ->whereRaw('LOWER(disciplina) = ?', [strtolower($discNombre)]);
+                            });
+                    });
+                } else {
+                    $query->where('id', $currentUser->id);
+                }
+            }
+        }
+
         if (!empty($filters['search'])) {
             $term = strtolower($filters['search']);
             $query->where(function ($q) use ($term) {
@@ -29,6 +48,7 @@ class ListarUsuariosAction
             $estadoBool = in_array($filters['estado'], ['activo', '1', 1, true], true);
             $query->where('estado', $estadoBool);
         }
+
         return $query->orderBy('id', 'desc')->get();
     }
 }

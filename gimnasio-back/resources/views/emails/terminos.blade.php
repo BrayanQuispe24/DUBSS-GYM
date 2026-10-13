@@ -20,8 +20,8 @@
                             <table border="0" cellpadding="0" cellspacing="0">
                                 <tr>
                                     <td align="center" style="padding-bottom: 12px;">
-                                        <div style="width: 52px; height: 52px; background: #990000; border-radius: 12px; display: inline-block; line-height: 52px; text-align: center; color: #FFFFFF; font-size: 24px; font-weight: bold; border: 1px solid rgba(255, 255, 255, 0.2); box-shadow: 0 4px 15px rgba(153, 0, 0, 0.4);">
-                                            🏋️
+                                        <div style="width: 52px; height: 52px; background: #990000; border-radius: 12px; display: inline-block; line-height: 52px; text-align: center; color: #FFFFFF; font-size: 18px; font-weight: 800; border: 1px solid rgba(255, 255, 255, 0.2); box-shadow: 0 4px 15px rgba(153, 0, 0, 0.4);">
+                                            FIT
                                         </div>
                                     </td>
                                 </tr>
@@ -41,7 +41,7 @@
                             
                             <!-- Greeting -->
                             <h2 style="margin: 0 0 10px 0; color: #0F172A; font-size: 20px; font-weight: 700;">
-                                ¡Bienvenido(a), {{ $nombreCompleto }}! 👋
+                                ¡Bienvenido(a), {{ $nombreCompleto }}!
                             </h2>
                             <p style="margin: 0 0 25px 0; color: #475569; font-size: 15px; line-height: 1.6;">
                                 Tu cuenta cliente en la plataforma oficial del <strong>Gimnasio D.U.B.S. UAGRM</strong> ha sido registrada exitosamente.
@@ -63,7 +63,7 @@
 
                             <!-- Section Title -->
                             <h3 style="margin: 0 0 15px 0; color: #003B70; font-size: 16px; font-weight: 700; border-bottom: 2px solid #E2E8F0; padding-bottom: 8px;">
-                                📜 Términos y Condiciones de Uso Aceptados
+                                Términos y Condiciones de Uso Aceptados
                             </h3>
 
                             <p style="margin: 0 0 15px 0; font-size: 14px; color: #475569; line-height: 1.5;">
@@ -127,7 +127,7 @@
                                 <tr>
                                     <td align="center">
                                         <a href="{{ config('app.url') }}" target="_blank" style="display: inline-block; background: linear-gradient(135deg, #990000 0%, #7A0000 100%); color: #FFFFFF; font-size: 15px; font-weight: 700; text-decoration: none; padding: 14px 32px; border-radius: 8px; box-shadow: 0 4px 15px rgba(153, 0, 0, 0.3);">
-                                            🚀 Ingresar a mi Cuenta
+                                            Ingresar a mi Cuenta
                                         </a>
                                     </td>
                                 </tr>

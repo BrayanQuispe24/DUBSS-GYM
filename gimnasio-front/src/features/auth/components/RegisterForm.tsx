@@ -73,7 +73,7 @@ const RegisterForm: React.FC = () => {
 
   const errorMessage = error
     ? (error as { response?: { data?: { message?: string } } })?.response?.data?.message ||
-      'No se pudo completar el registro. Intente nuevamente.'
+    'No se pudo completar el registro. Intente nuevamente.'
     : null;
 
   return (

@@ -24,6 +24,8 @@ class CreateEquipoRequest extends FormRequest
             'id_ambiente' => ['nullable', 'exists:ambientes,id'],
             'id_marca' => ['nullable', 'exists:marcas,id'],
             'id_tipo_equipo' => ['nullable', 'exists:tipo_equipo,id'],
+            'imagen' => ['nullable', 'file', 'image', 'max:5120'],
+            'imagen_url' => ['nullable', 'string'],
         ];
     }
 }

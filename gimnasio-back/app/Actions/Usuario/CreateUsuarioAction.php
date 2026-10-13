@@ -28,11 +28,12 @@ class CreateUsuarioAction
             'ci' => $dto->ci,
             'tipo_usuario' => $dto->tipo_usuario,
             'estado' => $dto->estado ?? true,
+            'id_disciplina' => $dto->id_disciplina,
             'acepta_terminos' => true,
             'fecha_acepta_terminos' => now(),
         ]);
         
-        $usuario->load('rol');
+        $usuario->load(['rol', 'disciplina']);
 
         // Enviar correo de confirmación de registro y Términos & Condiciones
         $this->mailService->sendTerminosYCondiciones($usuario);

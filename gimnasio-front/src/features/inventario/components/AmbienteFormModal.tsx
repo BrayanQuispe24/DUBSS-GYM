@@ -9,7 +9,7 @@ import type { Ambiente } from '../services/inventarioService';
 const ambienteSchema = z.object({
   nombre: z.string().min(2, 'El nombre debe tener al menos 2 caracteres'),
   descripcion: z.string().optional(),
-  estado: z.string().min(1, 'Seleccione un estado'),
+  estado: z.string().optional().default('disponible'),
 });
 
 type AmbienteFormData = z.infer<typeof ambienteSchema>;
@@ -152,34 +152,7 @@ const AmbienteFormModal: React.FC<AmbienteFormModalProps> = ({
               )}
             </div>
 
-            {/* Estado */}
-            <div>
-              <label style={{ display: 'block', fontWeight: 700, fontSize: '0.85rem', color: '#334155', marginBottom: '0.4rem' }}>
-                Estado Operativo <span style={{ color: '#EF4444' }}>*</span>
-              </label>
-              <select
-                {...register('estado')}
-                style={{
-                  width: '100%',
-                  padding: '0.65rem 0.85rem',
-                  borderRadius: '8px',
-                  border: errors.estado ? '1px solid #EF4444' : '1px solid #CBD5E1',
-                  fontSize: '0.88rem',
-                  backgroundColor: '#FFFFFF',
-                  outline: 'none',
-                  boxSizing: 'border-box',
-                }}
-              >
-                <option value="disponible">Disponible (Operativo)</option>
-                <option value="mantenimiento">En Mantenimiento</option>
-                <option value="inactivo">Inactivo / Clausurado</option>
-              </select>
-              {errors.estado && (
-                <span style={{ fontSize: '0.78rem', color: '#EF4444', marginTop: '0.2rem', display: 'block' }}>
-                  {errors.estado.message}
-                </span>
-              )}
-            </div>
+
 
             {/* Descripción */}
             <div>

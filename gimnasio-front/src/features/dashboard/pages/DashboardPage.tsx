@@ -1,10 +1,40 @@
 // src/features/dashboard/pages/DashboardPage.tsx
-import React from 'react';
+import React, { useState } from 'react';
 import { useAuthStore } from '@/store/authStore';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
+import { useBoletasInscripcion } from '@/features/tramites/hooks/useTramites';
+import CodigoQRInscripcionModal from '@/features/tramites/components/CodigoQRInscripcionModal';
+import EscanerQRModal from '@/features/accesos/components/EscanerQRModal';
+import showToast from '@/utils/toast';
 
 const DashboardPage: React.FC = () => {
   const { user } = useAuthStore();
+
+  if (user?.rol === 'cliente') {
+    return <Navigate to="/dashboard/planes" replace />;
+  }
+
+  if (user?.rol === 'instructor') {
+    return <Navigate to="/dashboard/ejercicios" replace />;
+  }
+  const { data: rawInscData } = useBoletasInscripcion();
+  const [isQRModalOpen, setIsQRModalOpen] = useState(false);
+  const [isScannerModalOpen, setIsScannerModalOpen] = useState(false);
+
+  const isStaff = user?.rol === 'administrador' || user?.rol === 'recepcionista' || user?.rol === 'instructor';
+
+  const inscripciones = Array.isArray(rawInscData) ? rawInscData : Array.isArray((rawInscData as any)?.data) ? (rawInscData as any).data : [];
+  
+  // Find latest active membership boleta for the current user or first available
+  const userBoleta = inscripciones.find((b: any) => String(b.id_usuario) === String(user?.id)) || inscripciones[0] || null;
+
+  const handleOpenQR = () => {
+    if (!userBoleta) {
+      showToast.info('Aún no tienes una Boleta de Inscripción activa generada.');
+      return;
+    }
+    setIsQRModalOpen(true);
+  };
 
   return (
     <section>
@@ -16,24 +46,49 @@ const DashboardPage: React.FC = () => {
           </p>
         </div>
         <div style={{ display: 'flex', gap: '0.75rem' }}>
-          {(user?.rol === 'administrador' || user?.rol === 'recepcionista' || user?.rol === 'instructor') && (
-            <Link
-              to="/dashboard/usuarios"
-              style={{
-                padding: '0.6rem 1rem',
-                borderRadius: '8px',
-                background: '#003B70',
-                color: '#FFFFFF',
-                textDecoration: 'none',
-                fontWeight: 700,
-                fontSize: '0.85rem',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '0.5rem',
-              }}
-            >
-              <i className="fa-solid fa-users-gear"></i> Gestionar Usuarios
-            </Link>
+          {isStaff && (
+            <>
+              <button
+                onClick={() => setIsScannerModalOpen(true)}
+                style={{
+                  padding: '0.55rem 1rem',
+                  borderRadius: '4px',
+                  background: '#0077D4',
+                  color: '#FFFFFF',
+                  border: '1px solid #005FA8',
+                  fontWeight: 700,
+                  fontSize: '0.80rem',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.4rem',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.03em'
+                }}
+              >
+                <i className="fa-solid fa-qrcode"></i> Validar QR de Ingreso
+              </button>
+              <Link
+                to="/dashboard/usuarios"
+                style={{
+                  padding: '0.55rem 1rem',
+                  borderRadius: '4px',
+                  background: '#FFFFFF',
+                  color: '#0077D4',
+                  border: '1px solid #CBD5E1',
+                  textDecoration: 'none',
+                  fontWeight: 700,
+                  fontSize: '0.80rem',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.4rem',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.03em'
+                }}
+              >
+                <i className="fa-solid fa-users-gear"></i> Gestionar Usuarios
+              </Link>
+            </>
           )}
         </div>
       </div>
@@ -96,10 +151,10 @@ const DashboardPage: React.FC = () => {
       {/* Role specific quick panel */}
       <div style={{
         background: '#FFFFFF',
-        border: '1px solid #D2DCEE',
-        borderRadius: '12px',
-        padding: '1.5rem',
-        marginTop: '1.5rem',
+        border: '1px solid #CBD5E1',
+        borderRadius: '4px',
+        padding: '1.25rem',
+        marginTop: '1.25rem',
       }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1rem' }}>
           <div>
@@ -118,72 +173,113 @@ const DashboardPage: React.FC = () => {
         <div style={{
           display: 'grid',
           gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
-          gap: '1rem',
+          gap: '0.85rem',
           marginTop: '1rem',
         }}>
           {(user?.rol === 'administrador' || user?.rol === 'recepcionista' || user?.rol === 'instructor') && (
             <Link
               to="/dashboard/usuarios"
               style={{
-                padding: '1rem',
-                borderRadius: '8px',
+                padding: '0.85rem 1rem',
+                borderRadius: '4px',
                 border: '1px solid #CBD5E1',
                 background: '#F8FAFC',
                 textDecoration: 'none',
                 color: '#0B1727',
                 display: 'flex',
                 alignItems: 'center',
-                gap: '0.85rem',
-                transition: 'all 0.15s ease',
+                gap: '0.75rem',
               }}
             >
-              <div style={{ width: '40px', height: '40px', borderRadius: '8px', background: '#003B70', color: '#FFF', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.1rem' }}>
+              <div style={{ width: '36px', height: '36px', borderRadius: '4px', background: '#0077D4', color: '#FFF', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1rem' }}>
                 <i className="fa-solid fa-users"></i>
               </div>
               <div>
-                <div style={{ fontWeight: 700, fontSize: '0.9rem' }}>Gestionar Usuarios</div>
-                <div style={{ fontSize: '0.75rem', color: '#64748B' }}>Crear, editar o suspender cuentas</div>
+                <div style={{ fontWeight: 700, fontSize: '0.88rem' }}>Gestionar Usuarios</div>
+                <div style={{ fontSize: '0.72rem', color: '#64748B' }}>Crear, editar o suspender cuentas</div>
               </div>
             </Link>
           )}
 
-          <div style={{
-            padding: '1rem',
-            borderRadius: '8px',
-            border: '1px solid #CBD5E1',
-            background: '#F8FAFC',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '0.85rem',
-          }}>
-            <div style={{ width: '40px', height: '40px', borderRadius: '8px', background: '#990000', color: '#FFF', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.1rem' }}>
+          {isStaff && (
+            <div
+              onClick={() => setIsScannerModalOpen(true)}
+              style={{
+                padding: '0.85rem 1rem',
+                borderRadius: '4px',
+                border: '1px solid #059669',
+                background: '#ECFDF5',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.75rem',
+                cursor: 'pointer',
+              }}
+            >
+              <div style={{ width: '36px', height: '36px', borderRadius: '4px', background: '#059669', color: '#FFF', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1rem' }}>
+                <i className="fa-solid fa-expand"></i>
+              </div>
+              <div>
+                <div style={{ fontWeight: 800, fontSize: '0.88rem', color: '#065F46' }}>Escanear & Validar QR</div>
+                <div style={{ fontSize: '0.72rem', color: '#047857', fontWeight: 600 }}>Comprobar pase e ingresar socio</div>
+              </div>
+            </div>
+          )}
+
+          <div
+            onClick={handleOpenQR}
+            style={{
+              padding: '0.85rem 1rem',
+              borderRadius: '4px',
+              border: '1px solid #7C3AED',
+              background: '#F5F3FF',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.75rem',
+              cursor: 'pointer',
+            }}
+          >
+            <div style={{ width: '36px', height: '36px', borderRadius: '4px', background: '#7C3AED', color: '#FFF', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1rem' }}>
               <i className="fa-solid fa-qrcode"></i>
             </div>
             <div>
-              <div style={{ fontWeight: 700, fontSize: '0.9rem' }}>Pase QR de Acceso</div>
-              <div style={{ fontSize: '0.75rem', color: '#64748B' }}>Código activo para torniquete</div>
+              <div style={{ fontWeight: 800, fontSize: '0.88rem', color: '#5B21B6' }}>Pase QR de Acceso Digital</div>
+              <div style={{ fontSize: '0.72rem', color: '#6D28D9', fontWeight: 600 }}>Ver / Imprimir Código QR para torniquete</div>
             </div>
           </div>
 
           <div style={{
-            padding: '1rem',
-            borderRadius: '8px',
+            padding: '0.85rem 1rem',
+            borderRadius: '4px',
             border: '1px solid #CBD5E1',
             background: '#F8FAFC',
             display: 'flex',
             alignItems: 'center',
-            gap: '0.85rem',
+            gap: '0.75rem',
           }}>
-            <div style={{ width: '40px', height: '40px', borderRadius: '8px', background: '#16A34A', color: '#FFF', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.1rem' }}>
+            <div style={{ width: '36px', height: '36px', borderRadius: '4px', background: '#16A34A', color: '#FFF', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1rem' }}>
               <i className="fa-solid fa-calendar-check"></i>
             </div>
             <div>
-              <div style={{ fontWeight: 700, fontSize: '0.9rem' }}>Vigencia Membresía</div>
-              <div style={{ fontSize: '0.75rem', color: '#16A34A', fontWeight: 600 }}>Válido hasta: 30 de Octubre</div>
+              <div style={{ fontWeight: 700, fontSize: '0.88rem' }}>Vigencia Membresía</div>
+              <div style={{ fontSize: '0.72rem', color: '#16A34A', fontWeight: 600 }}>
+                {userBoleta?.fecha_fin ? `Válido hasta: ${userBoleta.fecha_fin}` : 'Válido hasta: 30 días post-pago'}
+              </div>
             </div>
           </div>
         </div>
       </div>
+
+      <CodigoQRInscripcionModal
+        isOpen={isQRModalOpen}
+        inscripcionId={userBoleta?.id || null}
+        inscripcionFallback={userBoleta}
+        onClose={() => setIsQRModalOpen(false)}
+      />
+
+      <EscanerQRModal
+        isOpen={isScannerModalOpen}
+        onClose={() => setIsScannerModalOpen(false)}
+      />
     </section>
   );
 };

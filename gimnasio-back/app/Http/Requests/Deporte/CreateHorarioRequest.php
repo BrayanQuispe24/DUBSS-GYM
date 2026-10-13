@@ -14,7 +14,7 @@ class CreateHorarioRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'dia_semana' => 'nullable|string|max:50',
+            'dia_semana' => 'nullable|string|max:150',
             'hora_inicio' => 'required',
             'hora_fin' => 'required',
         ];

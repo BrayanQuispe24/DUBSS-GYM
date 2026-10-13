@@ -4,6 +4,35 @@ import { FaClock, FaPlus, FaTrashCan, FaXmark, FaSpinner, FaCalendarDays } from 
 import { useHorarios, useCreateHorario, useAssignHorario, useRemoveHorarioDisciplina } from '../hooks/useDeporte';
 import type { Disciplina, DisciplinaHorarioItem } from '../services/deporteService';
 
+const DIAS_SEMANA = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
+
+const PRESETS_DIAS = [
+  { label: 'Lunes a Viernes', days: ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes'] },
+  { label: 'L - M - V', days: ['Lunes', 'Miércoles', 'Viernes'] },
+  { label: 'M - J', days: ['Martes', 'Jueves'] },
+  { label: 'Lunes y Viernes', days: ['Lunes', 'Viernes'] },
+  { label: 'Fines de Semana', days: ['Sábado', 'Domingo'] },
+  { label: 'Todos los días', days: ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'] },
+];
+
+const formatDiasSemana = (dias: string[]): string => {
+  if (dias.length === 0) return '';
+  const sorted = DIAS_SEMANA.filter((d) => dias.includes(d));
+  if (sorted.length === 5 && sorted.every((d, i) => d === ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes'][i])) {
+    return 'Lunes a Viernes';
+  }
+  if (sorted.length === 7) {
+    return 'Lunes a Domingo';
+  }
+  if (sorted.length === 1) {
+    return sorted[0];
+  }
+  if (sorted.length === 2) {
+    return `${sorted[0]} y ${sorted[1]}`;
+  }
+  return `${sorted.slice(0, -1).join(', ')} y ${sorted[sorted.length - 1]}`;
+};
+
 interface HorarioAssignModalProps {
   isOpen: boolean;
   disciplina: Disciplina | null;
@@ -24,8 +53,9 @@ const HorarioAssignModal: React.FC<HorarioAssignModalProps> = ({
   const [assignMode, setAssignMode] = useState<'select' | 'create'>('select');
   const [selectedHorarioId, setSelectedHorarioId] = useState<number | ''>('');
   
-  // New Horario Fields
-  const [newDia, setNewDia] = useState<string>('Lunes');
+  // New Horario Fields (Multi-day)
+  const [selectedDias, setSelectedDias] = useState<string[]>(['Lunes', 'Miércoles', 'Viernes']);
+  const [customDiaString, setCustomDiaString] = useState<string>('Lunes, Miércoles y Viernes');
   const [newHoraInicio, setNewHoraInicio] = useState<string>('08:00');
   const [newHoraFin, setNewHoraFin] = useState<string>('10:00');
   const [cupoMaximo, setCupoMaximo] = useState<number>(30);
@@ -34,6 +64,19 @@ const HorarioAssignModal: React.FC<HorarioAssignModalProps> = ({
 
   const assignedItems: DisciplinaHorarioItem[] =
     disciplina.disciplina_horarios || disciplina.disciplinaHorarios || [];
+
+  const handleToggleDia = (dia: string) => {
+    const updated = selectedDias.includes(dia)
+      ? selectedDias.filter((d) => d !== dia)
+      : [...selectedDias, dia];
+    setSelectedDias(updated);
+    setCustomDiaString(formatDiasSemana(updated));
+  };
+
+  const handleSelectPreset = (days: string[]) => {
+    setSelectedDias(days);
+    setCustomDiaString(formatDiasSemana(days));
+  };
 
   const handleAssignExisting = (e: React.FormEvent) => {
     e.preventDefault();
@@ -58,9 +101,11 @@ const HorarioAssignModal: React.FC<HorarioAssignModalProps> = ({
     e.preventDefault();
     if (!newHoraInicio || !newHoraFin) return;
 
+    const diaFinal = customDiaString.trim() || formatDiasSemana(selectedDias) || 'Programado';
+
     createHorarioMutation.mutate(
       {
-        dia_semana: newDia,
+        dia_semana: diaFinal,
         hora_inicio: newHoraInicio,
         hora_fin: newHoraFin,
       },
@@ -255,27 +300,96 @@ const HorarioAssignModal: React.FC<HorarioAssignModalProps> = ({
               </div>
             </form>
           ) : (
-            <form onSubmit={handleCreateAndAssign} style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '0.75rem' }}>
-                <div>
-                  <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 700, color: '#334155', marginBottom: '0.3rem' }}>
-                    Día de la Semana *
+            <form onSubmit={handleCreateAndAssign} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+              {/* SELECTOR DE DÍAS */}
+              <div>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.35rem' }}>
+                  <label style={{ fontSize: '0.82rem', fontWeight: 700, color: '#334155' }}>
+                    Día(s) de la Semana / Frecuencia *
                   </label>
-                  <select
-                    value={newDia}
-                    onChange={(e) => setNewDia(e.target.value)}
-                    style={{ width: '100%', padding: '0.55rem 0.65rem', borderRadius: '6px', border: '1px solid #CBD5E1', fontSize: '0.85rem' }}
-                  >
-                    <option value="Lunes">Lunes</option>
-                    <option value="Martes">Martes</option>
-                    <option value="Miércoles">Miércoles</option>
-                    <option value="Jueves">Jueves</option>
-                    <option value="Viernes">Viernes</option>
-                    <option value="Sábado">Sábado</option>
-                    <option value="Lunes a Viernes">Lunes a Viernes</option>
-                  </select>
+                  <span style={{ fontSize: '0.72rem', color: '#64748B' }}>
+                    Presets rápidos o combinación libre
+                  </span>
                 </div>
 
+                {/* BOTONES PRESETS */}
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.35rem', marginBottom: '0.55rem' }}>
+                  {PRESETS_DIAS.map((preset) => {
+                    const isSelected = formatDiasSemana(selectedDias) === preset.label ||
+                      (preset.days.length === selectedDias.length && preset.days.every(d => selectedDias.includes(d)));
+                    return (
+                      <button
+                        key={preset.label}
+                        type="button"
+                        onClick={() => handleSelectPreset(preset.days)}
+                        style={{
+                          padding: '0.25rem 0.55rem',
+                          borderRadius: '4px',
+                          border: isSelected ? '1px solid #003B70' : '1px solid #CBD5E1',
+                          backgroundColor: isSelected ? '#E0F2FE' : '#F8FAFC',
+                          color: isSelected ? '#003B70' : '#475569',
+                          fontWeight: 700,
+                          fontSize: '0.72rem',
+                          cursor: 'pointer',
+                        }}
+                      >
+                        {preset.label}
+                      </button>
+                    );
+                  })}
+                </div>
+
+                {/* BOTONES DE DÍAS INDIVIDUALES */}
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)', gap: '0.3rem', marginBottom: '0.5rem' }}>
+                  {DIAS_SEMANA.map((dia) => {
+                    const active = selectedDias.includes(dia);
+                    const shortName = dia.slice(0, 3);
+                    return (
+                      <button
+                        key={dia}
+                        type="button"
+                        onClick={() => handleToggleDia(dia)}
+                        style={{
+                          padding: '0.45rem 0.2rem',
+                          borderRadius: '6px',
+                          border: active ? '1px solid #003B70' : '1px solid #E2E8F0',
+                          backgroundColor: active ? '#003B70' : '#FFFFFF',
+                          color: active ? '#FFFFFF' : '#334155',
+                          fontWeight: 800,
+                          fontSize: '0.75rem',
+                          cursor: 'pointer',
+                          textAlign: 'center',
+                          transition: 'all 0.15s ease'
+                        }}
+                        title={dia}
+                      >
+                        {shortName}
+                      </button>
+                    );
+                  })}
+                </div>
+
+                {/* TEXTO RESULTANTE DE LOS DÍAS */}
+                <div style={{
+                  padding: '0.45rem 0.75rem',
+                  borderRadius: '6px',
+                  backgroundColor: '#F8FAFC',
+                  border: '1px solid #E2E8F0',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.5rem',
+                  fontSize: '0.78rem'
+                }}>
+                  <FaCalendarDays style={{ color: '#003B70' }} />
+                  <span style={{ color: '#64748B' }}>Frecuencia asignada:</span>
+                  <strong style={{ color: '#0B1727' }}>
+                    {customDiaString || 'Ningún día seleccionado'}
+                  </strong>
+                </div>
+              </div>
+
+              {/* HORAS Y CUPO */}
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '0.75rem' }}>
                 <div>
                   <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 700, color: '#334155', marginBottom: '0.3rem' }}>
                     Hora Inicio *
@@ -301,26 +415,48 @@ const HorarioAssignModal: React.FC<HorarioAssignModalProps> = ({
                     style={{ width: '100%', padding: '0.55rem 0.65rem', borderRadius: '6px', border: '1px solid #CBD5E1', fontSize: '0.85rem' }}
                   />
                 </div>
+
+                <div>
+                  <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 700, color: '#334155', marginBottom: '0.3rem' }}>
+                    Cupos Máximos *
+                  </label>
+                  <input
+                    type="number"
+                    min="1"
+                    value={cupoMaximo}
+                    onChange={(e) => setCupoMaximo(Number(e.target.value))}
+                    required
+                    style={{ width: '100%', padding: '0.55rem 0.65rem', borderRadius: '6px', border: '1px solid #CBD5E1', fontSize: '0.85rem' }}
+                  />
+                </div>
               </div>
 
-              <div>
-                <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 700, color: '#334155', marginBottom: '0.3rem' }}>
-                  Cupo Máximo para este Turno *
-                </label>
-                <input
-                  type="number"
-                  min="1"
-                  value={cupoMaximo}
-                  onChange={(e) => setCupoMaximo(Number(e.target.value))}
-                  required
-                  style={{ width: '100%', padding: '0.55rem 0.75rem', borderRadius: '6px', border: '1px solid #CBD5E1', fontSize: '0.85rem' }}
-                />
+              {/* CARD DE VISTA PREVIA DEL TURNO */}
+              <div style={{
+                padding: '0.65rem 0.85rem',
+                borderRadius: '6px',
+                backgroundColor: '#EFF6FF',
+                border: '1px solid #BFDBFE',
+                fontSize: '0.78rem',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between'
+              }}>
+                <div>
+                  <span style={{ color: '#1E40AF', fontWeight: 700 }}>Resumen del nuevo turno: </span>
+                  <strong style={{ color: '#1E3A8A' }}>
+                    {customDiaString || 'Días'}: {newHoraInicio} - {newHoraFin}
+                  </strong>
+                </div>
+                <span style={{ padding: '0.15rem 0.5rem', borderRadius: '4px', backgroundColor: '#DBEAFE', color: '#1E40AF', fontWeight: 700, fontSize: '0.72rem' }}>
+                  {cupoMaximo} cupos
+                </span>
               </div>
 
-              <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '0.5rem' }}>
+              <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '0.25rem' }}>
                 <button
                   type="submit"
-                  disabled={createHorarioMutation.isPending || assignMutation.isPending}
+                  disabled={createHorarioMutation.isPending || assignMutation.isPending || selectedDias.length === 0}
                   style={{
                     padding: '0.55rem 1.25rem', borderRadius: '6px', border: 'none',
                     backgroundColor: '#003B70', color: '#FFF', fontWeight: 700, fontSize: '0.85rem', cursor: 'pointer',

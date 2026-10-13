@@ -1,11 +1,11 @@
-// src/features/users/components/UserFormModal.tsx
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { FaUserGear } from 'react-icons/fa6';
 import type { AuthUser } from '@/store/authStore';
 import type { UserFormData } from '../types/user.types';
+import api from '@/services/api';
 
 const userModalSchema = z.object({
   id: z.number().optional(),
@@ -19,6 +19,7 @@ const userModalSchema = z.object({
   tipo_usuario: z.enum(['estudiante', 'docente', 'administrativo', 'particular']).optional(),
   estado: z.enum(['activo', 'suspendido']).optional(),
   password: z.string().optional(),
+  id_disciplina: z.number().optional().nullable(),
 });
 
 type UserFormModalInputs = z.infer<typeof userModalSchema>;
@@ -38,11 +39,15 @@ const UserFormModal: React.FC<UserFormModalProps> = ({
   onSubmit,
   isPending,
 }) => {
+  const [disciplinas, setDisciplinas] = useState<{ id: number; nombre: string }[]>([]);
+
   const {
     register,
     handleSubmit,
     reset,
     setError,
+    watch,
+    setValue,
     formState: { errors },
   } = useForm<UserFormModalInputs>({
     resolver: zodResolver(userModalSchema),
@@ -57,8 +62,19 @@ const UserFormModal: React.FC<UserFormModalProps> = ({
       tipo_usuario: 'estudiante',
       estado: 'activo',
       password: '',
+      id_disciplina: null,
     },
   });
+
+  const selectedRol = watch('rol');
+
+  useEffect(() => {
+    if (isOpen) {
+      api.get('/disciplinas')
+        .then((res) => setDisciplinas(res.data.data || res.data || []))
+        .catch(() => {});
+    }
+  }, [isOpen]);
 
   useEffect(() => {
     if (userToEdit) {
@@ -74,6 +90,7 @@ const UserFormModal: React.FC<UserFormModalProps> = ({
         tipo_usuario: userToEdit.tipo_usuario || 'estudiante',
         estado: userToEdit.estado || 'activo',
         password: '',
+        id_disciplina: userToEdit.id_disciplina || null,
       });
     } else {
       reset({
@@ -88,6 +105,7 @@ const UserFormModal: React.FC<UserFormModalProps> = ({
         tipo_usuario: 'estudiante',
         estado: 'activo',
         password: '',
+        id_disciplina: null,
       });
     }
   }, [userToEdit, reset, isOpen]);
@@ -191,6 +209,33 @@ const UserFormModal: React.FC<UserFormModalProps> = ({
                 </select>
               </div>
             </div>
+
+            {selectedRol === 'instructor' && (
+              <div style={{ background: '#F0F9FF', border: '1px solid #BAE6FD', padding: '0.75rem', borderRadius: '8px' }}>
+                <label style={{ display: 'block', fontWeight: 700, fontSize: '0.82rem', color: '#0369A1', marginBottom: '0.25rem' }}>
+                  Disciplina Asignada al Instructor
+                </label>
+                <select
+                  {...register('id_disciplina', { setValueAs: (v) => (v ? Number(v) : null) })}
+                  style={{
+                    width: '100%',
+                    padding: '0.55rem',
+                    borderRadius: '6px',
+                    border: '1px solid #0284C7',
+                    fontSize: '0.85rem',
+                    backgroundColor: '#FFFFFF',
+                    fontWeight: 600,
+                  }}
+                >
+                  <option value="">-- Seleccionar Disciplina --</option>
+                  {disciplinas.map((d) => (
+                    <option key={d.id} value={d.id}>
+                      {d.nombre}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            )}
 
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem' }}>
               <div>

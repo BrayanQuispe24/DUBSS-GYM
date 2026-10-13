@@ -14,7 +14,15 @@ readonly class UpdateEstadoUsuarioDTO
     public static function fromRequest(UpdateEstadoUsuarioRequest $request): self
     {
         $estadoInput = $request->validated('estado');
-        $estadoBool = in_array($estadoInput, [true, 1, '1', 'activo'], true);
+
+        if (is_bool($estadoInput)) {
+            $estadoBool = $estadoInput;
+        } elseif (is_numeric($estadoInput)) {
+            $estadoBool = ((int) $estadoInput) === 1;
+        } else {
+            $normalized = strtolower(trim((string) $estadoInput));
+            $estadoBool = in_array($normalized, ['activo', '1', 'true'], true);
+        }
 
         return new self(
             id: (int) $request->validated('id'),

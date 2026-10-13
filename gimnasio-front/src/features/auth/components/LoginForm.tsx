@@ -40,7 +40,7 @@ const LoginForm: React.FC = () => {
 
   const errorMessage = error
     ? (error as { response?: { data?: { message?: string } } })?.response?.data?.message ||
-      'Credenciales incorrectas. Verifique sus datos e intente de nuevo.'
+    'Credenciales incorrectas. Verifique sus datos e intente de nuevo.'
     : null;
 
   return (

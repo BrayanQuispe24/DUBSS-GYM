@@ -13,6 +13,7 @@ readonly class CreateHistorialDTO
         public ?string $sexo = null,
         public ?string $fecha_nacimiento = null,
         public ?string $domicilio = null,
+        public ?string $facultad_carrera = null,
         public ?string $celular_emergencia = null
     ) {}
 
@@ -25,6 +26,7 @@ readonly class CreateHistorialDTO
             sexo: $request->validated('sexo'),
             fecha_nacimiento: $request->validated('fecha_nacimiento'),
             domicilio: $request->validated('domicilio'),
+            facultad_carrera: $request->validated('facultad_carrera'),
             celular_emergencia: $request->validated('celular_emergencia')
         );
     }

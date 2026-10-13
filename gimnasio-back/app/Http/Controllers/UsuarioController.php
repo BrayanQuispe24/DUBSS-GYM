@@ -23,7 +23,7 @@ class UsuarioController extends Controller
     public function index(Request $request, ListarUsuariosAction $action): JsonResponse
     {
         Gate::authorize('list', Usuario::class);
-        $usuarios = $action->execute($request->all());
+        $usuarios = $action->execute($request->all(), $request->user());
         return response()->json([
             'message' => 'Usuarios listados exitosamente',
             'data' => $usuarios,

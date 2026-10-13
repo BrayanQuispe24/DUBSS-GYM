@@ -4,22 +4,32 @@ import api from '@/services/api';
 export interface Historial {
   id: number;
   id_usuario: number;
+  fecha_apertura?: string;
   observaciones_generales?: string;
   observaciones?: string;
-  antecedentes?: Antecedente[] | string;
-  antecedentes_medicos?: Antecedente[];
-  estado: string;
+  grupo_sanguineo?: string;
+  sexo?: string;
+  fecha_nacimiento?: string;
+  domicilio?: string;
+  facultad_carrera?: string;
+  celular_emergencia?: string;
+  estado?: string;
   created_at?: string;
+  updated_at?: string;
   usuario?: {
     id: number;
     name?: string;
     nombre?: string;
     apellido?: string;
     codigo?: string;
+    ci?: string;
+    celular?: string;
     email: string;
     registro_universitario?: string;
   };
   detalles?: DetalleHistorial[];
+  antecedentes?: Antecedente[] | string;
+  antecedentes_medicos?: Antecedente[];
 }
 
 export interface DetalleHistorial {
@@ -35,6 +45,7 @@ export interface DetalleHistorial {
   masa_muscular?: number;
   presion?: string;
   observaciones?: string;
+  created_at?: string;
 }
 
 export interface Antecedente {
@@ -43,20 +54,36 @@ export interface Antecedente {
   observaciones?: string;
   tiene_enfermedades_cardiovasculares?: boolean;
   detalle_enfermedades_cardiovasculares?: string;
+  se_realizo_intervencion_cardiovascular?: boolean;
+  detalle_intervencion_cardiovascular?: string;
   tiene_hipertension_arterial?: boolean;
   detalle_hipertension_arterial?: string;
   tiene_enfermedades_pulmonares?: boolean;
   detalle_enfermedades_pulmonares?: string;
   tiene_diabetes?: boolean;
   detalle_diabetes?: string;
+  tiene_enfermedades_osteoarticulares?: boolean;
+  detalle_enfermedades_osteoarticulares?: string;
+  tiene_enfermedades_neurologicas?: boolean;
+  detalle_enfermedades_neurologicas?: string;
+  tiene_convulsiones?: boolean;
+  detalle_convulsiones?: string;
+  tiene_intervencion_quirurgica?: boolean;
+  detalle_intervencion_quirurgica?: string;
+  sufrio_fracturas_oseas?: boolean;
+  detalle_fracturas_oseas?: string;
+  sufrio_algun_sintoma_durante_deporte?: boolean;
+  detalle_sintomas_durante_deporte?: string;
   tiene_lesiones?: boolean;
   detalle_lesiones?: string;
   tiene_alergias?: boolean;
   detalle_alergias?: string;
+  created_at?: string;
 }
 
 export interface CreateHistorialData {
   id_usuario: number;
+  facultad_carrera?: string;
   observaciones?: string;
   antecedentes?: string;
   estado?: string;

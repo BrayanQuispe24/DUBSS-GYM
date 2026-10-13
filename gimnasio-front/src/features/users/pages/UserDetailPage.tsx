@@ -22,12 +22,16 @@ import {
   FaCircleExclamation,
   FaFilePdf,
   FaImage,
+  FaCloudArrowUp,
 } from 'react-icons/fa6';
 import { useUserDetail } from '../hooks/useUsers';
 import { resolveDocumentFileUrl, type Documento } from '@/features/documentos/services/documentoService';
+import { useTipoDocumentos, useUploadDocumento } from '@/features/documentos/hooks/useDocumentos';
 import type { Historial, DetalleHistorial, Antecedente } from '@/features/historial/services/historialService';
 import HistorialPhysicalViewModal from '@/features/historial/components/HistorialPhysicalViewModal';
+import FormularioDUBSSModal from '@/features/historial/components/FormularioDUBSSModal';
 import DocumentoPreviewModal from '@/features/documentos/components/DocumentoPreviewModal';
+import DocumentoUploadModal from '@/features/documentos/components/DocumentoUploadModal';
 
 type TabType = 'perfil' | 'historial' | 'antecedentes' | 'documentos';
 
@@ -39,10 +43,21 @@ const UserDetailPage: React.FC = () => {
   const [activeTab, setActiveTab] = useState<TabType>('perfil');
   const [selectedHistorial, setSelectedHistorial] = useState<Historial | null>(null);
   const [isPhysicalModalOpen, setIsPhysicalModalOpen] = useState(false);
+  const [isDubssModalOpen, setIsDubssModalOpen] = useState(false);
   const [selectedDoc, setSelectedDoc] = useState<Documento | null>(null);
   const [isPreviewModalOpen, setIsPreviewModalOpen] = useState(false);
+  const [isUploadModalOpen, setIsUploadModalOpen] = useState(false);
 
   const { data: user, isLoading, isError, error } = useUserDetail(userId);
+  const { data: tipos = [] } = useTipoDocumentos();
+  const uploadMutation = useUploadDocumento();
+
+  const handleUploadSubmit = (formData: FormData) => {
+    formData.append('id_usuario', String(userId));
+    uploadMutation.mutate(formData, {
+      onSuccess: () => setIsUploadModalOpen(false),
+    });
+  };
 
   if (isLoading) {
     return (
@@ -120,6 +135,26 @@ const UserDetailPage: React.FC = () => {
     };
     setSelectedHistorial(histConUsuario);
     setIsPhysicalModalOpen(true);
+  };
+
+  const handleOpenDubssForm = (hist?: Historial) => {
+    const targetHist = hist || (historiales.length > 0 ? historiales[0] : null);
+    const histConUsuario = targetHist ? {
+      ...targetHist,
+      usuario: {
+        id: user.id,
+        name: user.name,
+        nombre: user.nombre,
+        apellido: user.apellido,
+        codigo: user.registro_universitario,
+        email: user.email,
+        registro_universitario: user.registro_universitario,
+        ci: user.ci,
+        celular: user.telefono,
+      },
+    } : null;
+    setSelectedHistorial(histConUsuario);
+    setIsDubssModalOpen(true);
   };
 
   const handleOpenDocPreview = (doc: Documento) => {
@@ -250,13 +285,13 @@ const UserDetailPage: React.FC = () => {
           </div>
         </div>
 
-        {historiales.length > 0 && (
+        <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
           <button
-            onClick={() => handleOpenPhysicalView(historiales[0])}
+            onClick={() => handleOpenDubssForm()}
             style={{
               padding: '0.65rem 1.25rem',
               borderRadius: '8px',
-              backgroundColor: '#003B70',
+              backgroundColor: '#D97706',
               color: '#FFF',
               border: 'none',
               fontWeight: 700,
@@ -265,12 +300,33 @@ const UserDetailPage: React.FC = () => {
               display: 'flex',
               alignItems: 'center',
               gap: '0.5rem',
-              boxShadow: '0 4px 10px rgba(0,59,112,0.2)',
+              boxShadow: '0 4px 10px rgba(217,119,6,0.25)',
             }}
           >
-            <FaPrint /> Ver Ficha Física Impresa
+            <FaFilePdf /> Formulario DUBSS-FR-03
           </button>
-        )}
+          {historiales.length > 0 && (
+            <button
+              onClick={() => handleOpenPhysicalView(historiales[0])}
+              style={{
+                padding: '0.65rem 1.25rem',
+                borderRadius: '8px',
+                backgroundColor: '#003B70',
+                color: '#FFF',
+                border: 'none',
+                fontWeight: 700,
+                fontSize: '0.85rem',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.5rem',
+                boxShadow: '0 4px 10px rgba(0,59,112,0.2)',
+              }}
+            >
+              <FaPrint /> Ver Ficha Física Impresa
+            </button>
+          )}
+        </div>
       </div>
 
       {/* NAVIGATION TABS */}
@@ -504,7 +560,9 @@ const UserDetailPage: React.FC = () => {
                         <tbody>
                           {detalles.map((det, idx) => (
                             <tr key={det.id || idx}>
-                              <td style={{ fontWeight: 700 }}>{det.fecha_registro || det.fecha || 'N/A'}</td>
+                              <td style={{ fontWeight: 700 }}>
+                                {det.fecha_registro || det.fecha ? String(det.fecha_registro || det.fecha).split(' ')[0].split('T')[0] : 'N/A'}
+                              </td>
                               <td>{det.peso ? `${det.peso} kg` : '-'}</td>
                               <td>{det.altura ? `${det.altura} cm` : '-'}</td>
                               <td style={{ fontWeight: 800, color: '#003B70' }}>{det.imc || '-'}</td>
@@ -588,19 +646,44 @@ const UserDetailPage: React.FC = () => {
       {/* TAB CONTENT: DOCUMENTOS DIGITALES */}
       {activeTab === 'documentos' && (
         <div style={{ backgroundColor: '#FFFFFF', padding: '1.75rem', borderRadius: '12px', border: '1px solid #E2E8F0', boxShadow: '0 4px 12px rgba(0,0,0,0.03)' }}>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.25rem', borderBottom: '1px solid #E2E8F0', paddingBottom: '0.5rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.25rem', borderBottom: '1px solid #E2E8F0', paddingBottom: '0.5rem', flexWrap: 'wrap', gap: '0.75rem' }}>
             <h3 style={{ fontSize: '1.1rem', fontWeight: 800, color: '#003B70', margin: 0, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
               <FaFolderOpen style={{ color: '#0284C7' }} /> Documentación Digital de Respaldos
             </h3>
-            <span style={{ fontSize: '0.8rem', color: '#64748B', fontWeight: 600 }}>
-              {documentos.length} Documento(s) adjunto(s)
-            </span>
+
+            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+              <span style={{ fontSize: '0.8rem', color: '#64748B', fontWeight: 600 }}>
+                {documentos.length} Documento(s) adjunto(s)
+              </span>
+              <button
+                onClick={() => setIsUploadModalOpen(true)}
+                style={{
+                  padding: '0.45rem 0.9rem', borderRadius: '8px', border: 'none',
+                  background: 'linear-gradient(135deg, #003B70 0%, #002A52 100%)',
+                  color: '#FFFFFF', fontWeight: 700, fontSize: '0.82rem', cursor: 'pointer',
+                  display: 'inline-flex', alignItems: 'center', gap: '0.4rem',
+                  boxShadow: '0 2px 8px rgba(0, 59, 112, 0.2)'
+                }}
+              >
+                <FaCloudArrowUp /> Subir Documento
+              </button>
+            </div>
           </div>
 
           {documentos.length === 0 ? (
             <div style={{ padding: '3rem', textAlign: 'center', color: '#64748B', backgroundColor: '#F8FAFC', borderRadius: '8px', border: '1px dashed #CBD5E1' }}>
               <FaFolderOpen style={{ fontSize: '2.5rem', color: '#94A3B8', marginBottom: '0.75rem' }} />
-              <p style={{ fontWeight: 700, fontSize: '0.95rem', margin: 0 }}>No hay documentos digitales subidos para este socio.</p>
+              <p style={{ fontWeight: 700, fontSize: '0.95rem', marginBottom: '1rem' }}>No hay documentos digitales subidos para este socio.</p>
+              <button
+                onClick={() => setIsUploadModalOpen(true)}
+                style={{
+                  padding: '0.55rem 1.1rem', borderRadius: '8px', border: 'none',
+                  backgroundColor: '#003B70', color: '#FFF', fontWeight: 700, fontSize: '0.85rem', cursor: 'pointer',
+                  display: 'inline-flex', alignItems: 'center', gap: '0.4rem'
+                }}
+              >
+                <FaCloudArrowUp /> Subir Primer Documento
+              </button>
             </div>
           ) : (
             <div className="table-responsive">
@@ -683,10 +766,26 @@ const UserDetailPage: React.FC = () => {
         onClose={() => setIsPhysicalModalOpen(false)}
       />
 
+      <FormularioDUBSSModal
+        isOpen={isDubssModalOpen}
+        historial={selectedHistorial}
+        usuario={user}
+        onClose={() => setIsDubssModalOpen(false)}
+      />
+
       <DocumentoPreviewModal
         isOpen={isPreviewModalOpen}
         documento={selectedDoc}
         onClose={() => setIsPreviewModalOpen(false)}
+      />
+
+      <DocumentoUploadModal
+        isOpen={isUploadModalOpen}
+        tipos={tipos}
+        defaultUserId={userId}
+        onClose={() => setIsUploadModalOpen(false)}
+        onSubmit={handleUploadSubmit}
+        isPending={uploadMutation.isPending}
       />
     </section>
   );

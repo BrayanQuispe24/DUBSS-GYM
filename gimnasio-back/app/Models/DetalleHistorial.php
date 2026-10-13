@@ -23,6 +23,13 @@ class DetalleHistorial extends Model
         'id_historial',
     ];
 
+    protected function casts(): array
+    {
+        return [
+            'fecha_registro' => 'date:Y-m-d',
+        ];
+    }
+
     public function historial(): BelongsTo
     {
         return $this->belongsTo(Historial::class, 'id_historial');

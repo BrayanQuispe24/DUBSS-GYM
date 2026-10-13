@@ -26,46 +26,47 @@ const PermissionTable: React.FC<PermissionTableProps> = ({
 
   if (permisos.length === 0) {
     return (
-      <div style={{ textAlign: 'center', padding: '3rem', color: '#64748B', backgroundColor: '#FFF', borderRadius: '12px', border: '1px solid #E2E8F0' }}>
+      <div style={{ textAlign: 'center', padding: '3rem', color: '#64748B', backgroundColor: '#FFF', borderRadius: '4px', border: '1px solid #CBD5E1', fontSize: '0.85rem' }}>
         No hay permisos individuales registrados en el sistema.
       </div>
     );
   }
 
   return (
-    <div style={{ backgroundColor: '#FFFFFF', borderRadius: '12px', border: '1px solid #E2E8F0', overflow: 'hidden' }}>
-      <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.88rem' }}>
+    <div style={{ backgroundColor: '#FFFFFF', borderRadius: '4px', border: '1px solid #CBD5E1', overflow: 'hidden' }}>
+      <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.82rem' }}>
         <thead>
-          <tr style={{ backgroundColor: '#F8FAFC', borderBottom: '1px solid #E2E8F0', color: '#475569', fontWeight: 700 }}>
-            <th style={{ padding: '0.85rem 1.25rem' }}>Identificador Permiso</th>
-            <th style={{ padding: '0.85rem 1.25rem' }}>Descripción / Alcance</th>
-            <th style={{ padding: '0.85rem 1.25rem', textAlign: 'right' }}>Acciones</th>
+          <tr style={{ backgroundColor: '#F8FAFC', borderBottom: '1px solid #CBD5E1', color: '#475569', fontWeight: 700, fontSize: '0.72rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+            <th style={{ padding: '0.65rem 0.85rem' }}>Identificador Permiso</th>
+            <th style={{ padding: '0.65rem 0.85rem' }}>Descripción / Alcance</th>
+            <th style={{ padding: '0.65rem 0.85rem', textAlign: 'right' }}>Acciones</th>
           </tr>
         </thead>
         <tbody>
           {permisos.map((permiso) => (
-            <tr key={permiso.id} style={{ borderBottom: '1px solid #F1F5F9' }}>
-              <td style={{ padding: '0.85rem 1.25rem', fontWeight: 700, color: '#0B1727' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                  <FaKey style={{ color: '#D97706', fontSize: '0.9rem' }} />
-                  <span>{permiso.nombre}</span>
+            <tr key={permiso.id} style={{ borderBottom: '1px solid #E2E8F0' }}>
+              <td style={{ padding: '0.65rem 0.85rem', fontWeight: 700, color: '#0B1727' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
+                  <FaKey style={{ color: '#D97706', fontSize: '0.8rem' }} />
+                  <span style={{ fontFamily: 'monospace' }}>{permiso.nombre}</span>
                 </div>
               </td>
-              <td style={{ padding: '0.85rem 1.25rem', color: '#64748B' }}>
+              <td style={{ padding: '0.65rem 0.85rem', color: '#64748B' }}>
                 {permiso.descripcion || 'Sin descripción'}
               </td>
-              <td style={{ padding: '0.85rem 1.25rem', textAlign: 'right' }}>
-                <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '0.4rem' }}>
+              <td style={{ padding: '0.65rem 0.85rem', textAlign: 'right' }}>
+                <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '0.35rem' }}>
                   <button
                     onClick={() => onEdit(permiso)}
                     title="Editar Permiso"
                     style={{
-                      padding: '0.4rem 0.6rem',
-                      borderRadius: '6px',
+                      padding: '0.3rem 0.55rem',
+                      borderRadius: '4px',
                       backgroundColor: '#F1F5F9',
                       color: '#475569',
-                      border: 'none',
+                      border: '1px solid #CBD5E1',
                       cursor: 'pointer',
+                      fontSize: '0.75rem'
                     }}
                   >
                     <FaPenToSquare />
@@ -74,12 +75,13 @@ const PermissionTable: React.FC<PermissionTableProps> = ({
                     onClick={() => onDelete(permiso.id)}
                     title="Eliminar Permiso"
                     style={{
-                      padding: '0.4rem 0.6rem',
-                      borderRadius: '6px',
+                      padding: '0.3rem 0.55rem',
+                      borderRadius: '4px',
                       backgroundColor: '#FEE2E2',
                       color: '#DC2626',
-                      border: 'none',
+                      border: '1px solid #FCA5A5',
                       cursor: 'pointer',
+                      fontSize: '0.75rem'
                     }}
                   >
                     <FaTrashCan />

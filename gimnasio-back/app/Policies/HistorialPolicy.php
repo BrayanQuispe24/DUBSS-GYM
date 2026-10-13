@@ -15,7 +15,7 @@ class HistorialPolicy
     public function viewAny(Usuario $user): bool
     {
         $rol = $this->getRole($user);
-        return in_array($rol, ['cliente', 'instructor', 'administrador'], true);
+        return in_array($rol, ['cliente', 'administrador'], true);
     }
 
     public function view(Usuario $user, Historial $historial): bool
@@ -24,7 +24,7 @@ class HistorialPolicy
         if ($rol === 'cliente') {
             return $historial->id_usuario === $user->id;
         }
-        return in_array($rol, ['instructor', 'administrador'], true);
+        return $rol === 'administrador';
     }
 
     public function create(Usuario $user): bool

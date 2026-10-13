@@ -157,7 +157,7 @@ const MovimientoListPage: React.FC = () => {
             <tbody>
               {movimientos.map((m) => {
                 const tipoNombre = (m.tipoMovimiento?.nombre || '').toUpperCase();
-                const esMovSalida = Boolean(m.tipoMovimiento?.es_salida) || tipoNombre.includes('SALIDA') || tipoNombre.includes('EGRESO') || tipoNombre.includes('BAJA');
+                const esMovSalida = Boolean((m.tipoMovimiento as any)?.es_salida) || tipoNombre.includes('SALIDA') || tipoNombre.includes('EGRESO') || tipoNombre.includes('BAJA');
 
                 return (
                   <tr key={m.id} style={{ borderBottom: '1px solid #F1F5F9' }}>

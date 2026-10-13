@@ -24,13 +24,17 @@ const DisciplinaDetailModal: React.FC<DisciplinaDetailModalProps> = ({
     disciplina.disciplina_horarios || disciplina.disciplinaHorarios || [];
   const directHorarios = disciplina.horarios || [];
 
+  const totalOcupados = disciplina.total_cupos_ocupados ?? assignedItems.reduce((acc, curr) => acc + (curr.cupos_ocupados ?? 0), 0);
+  const totalMax = disciplina.cantidad_cupos ?? (assignedItems.length > 0 ? assignedItems.reduce((acc, curr) => acc + (curr.cupo_maximo ?? 0), 0) : 0);
+  const totalDisponibles = disciplina.total_cupos_disponibles ?? Math.max(0, totalMax - totalOcupados);
+
   return (
     <div style={{
       position: 'fixed', top: 0, left: 0, right: 0, bottom: 0,
       backgroundColor: 'rgba(11, 23, 39, 0.75)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 99999
     }}>
       <div style={{
-        backgroundColor: '#FFFFFF', borderRadius: '12px', padding: '1.75rem', width: '95%', maxWidth: '640px',
+        backgroundColor: '#FFFFFF', borderRadius: '12px', padding: '1.75rem', width: '95%', maxWidth: '680px',
         boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)', maxHeight: '90vh', overflowY: 'auto'
       }}>
         {/* MODAL HEADER */}
@@ -75,22 +79,31 @@ const DisciplinaDetailModal: React.FC<DisciplinaDetailModalProps> = ({
         </div>
 
         {/* FICHA GENERAL */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', marginBottom: '1.5rem' }}>
-          <div style={{ backgroundColor: '#F8FAFC', padding: '1rem', borderRadius: '8px', border: '1px solid #E2E8F0' }}>
-            <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#64748B', display: 'flex', alignItems: 'center', gap: '0.35rem', marginBottom: '0.25rem' }}>
-              <FaUsers style={{ color: '#003B70' }} /> Capacidad Máxima de Cupos:
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '0.85rem', marginBottom: '1.35rem' }}>
+          <div style={{ backgroundColor: '#F8FAFC', padding: '0.85rem', borderRadius: '8px', border: '1px solid #E2E8F0' }}>
+            <span style={{ fontSize: '0.73rem', fontWeight: 700, color: '#64748B', display: 'flex', alignItems: 'center', gap: '0.35rem', marginBottom: '0.2rem' }}>
+              <FaUsers style={{ color: '#003B70' }} /> Capacidad Máxima:
             </span>
-            <div style={{ fontSize: '1.1rem', fontWeight: 800, color: '#003B70' }}>
-              {disciplina.cantidad_cupos ?? 0} Cupos Totales
+            <div style={{ fontSize: '1.05rem', fontWeight: 800, color: '#003B70' }}>
+              {totalMax} Cupos
             </div>
           </div>
 
-          <div style={{ backgroundColor: '#F8FAFC', padding: '1rem', borderRadius: '8px', border: '1px solid #E2E8F0' }}>
-            <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#64748B', display: 'flex', alignItems: 'center', gap: '0.35rem', marginBottom: '0.25rem' }}>
-              <FaCircleInfo style={{ color: '#D97706' }} /> Estado de Operación:
+          <div style={{ backgroundColor: '#F8FAFC', padding: '0.85rem', borderRadius: '8px', border: '1px solid #E2E8F0' }}>
+            <span style={{ fontSize: '0.73rem', fontWeight: 700, color: '#64748B', display: 'flex', alignItems: 'center', gap: '0.35rem', marginBottom: '0.2rem' }}>
+              <FaUsers style={{ color: totalDisponibles > 0 ? '#15803D' : '#DC2626' }} /> Ocupados / Libres:
             </span>
-            <div style={{ fontSize: '0.95rem', fontWeight: 700, color: isActive ? '#15803D' : '#DC2626' }}>
-              {isActive ? 'Habilitada para inscripciones' : 'Suspendida / Fuera de servicio'}
+            <div style={{ fontSize: '1rem', fontWeight: 800, color: '#0F172A' }}>
+              {totalOcupados} <span style={{ fontSize: '0.75rem', fontWeight: 600, color: '#64748B' }}>ocup.</span> · <span style={{ color: totalDisponibles > 0 ? '#15803D' : '#DC2626' }}>{totalDisponibles} disp.</span>
+            </div>
+          </div>
+
+          <div style={{ backgroundColor: '#F8FAFC', padding: '0.85rem', borderRadius: '8px', border: '1px solid #E2E8F0' }}>
+            <span style={{ fontSize: '0.73rem', fontWeight: 700, color: '#64748B', display: 'flex', alignItems: 'center', gap: '0.35rem', marginBottom: '0.2rem' }}>
+              <FaCircleInfo style={{ color: '#D97706' }} /> Estado Operativo:
+            </span>
+            <div style={{ fontSize: '0.88rem', fontWeight: 700, color: isActive ? '#15803D' : '#DC2626' }}>
+              {isActive ? 'Habilitada' : 'Suspendida'}
             </div>
           </div>
         </div>
@@ -137,34 +150,61 @@ const DisciplinaDetailModal: React.FC<DisciplinaDetailModalProps> = ({
               <table className="data-table" style={{ fontSize: '0.82rem' }}>
                 <thead>
                   <tr>
-                    <th>Día de la Semana</th>
+                    <th>Frecuencia / Día(s)</th>
                     <th>Rango Horario</th>
-                    <th>Cupos por Turno</th>
+                    <th>Ocupación / Capacidad</th>
+                    <th>Cupos Libres</th>
                     <th>Estado</th>
                   </tr>
                 </thead>
                 <tbody>
                   {assignedItems.length > 0
-                    ? assignedItems.map((item) => (
-                        <tr key={item.id}>
-                          <td style={{ fontWeight: 700, color: '#0B1727' }}>
-                            {item.horario?.dia_semana || 'Día Programado'}
-                          </td>
-                          <td style={{ color: '#003B70', fontWeight: 700 }}>
-                            {item.horario?.hora_inicio || '00:00'} - {item.horario?.hora_fin || '00:00'}
-                          </td>
-                          <td>
-                            <span style={{ padding: '0.15rem 0.5rem', borderRadius: '4px', backgroundColor: '#FEF3C7', color: '#B45309', fontWeight: 700, fontSize: '0.75rem' }}>
-                              {item.cupo_maximo ?? disciplina.cantidad_cupos ?? 30} cupos
-                            </span>
-                          </td>
-                          <td>
-                            <span style={{ padding: '0.15rem 0.45rem', borderRadius: '4px', backgroundColor: '#DCFCE7', color: '#15803D', fontWeight: 700, fontSize: '0.72rem' }}>
-                              Habilitado
-                            </span>
-                          </td>
-                        </tr>
-                      ))
+                    ? assignedItems.map((item) => {
+                        const max = item.cupo_maximo ?? disciplina.cantidad_cupos ?? 30;
+                        const ocupados = item.cupos_ocupados ?? 0;
+                        const disponibles = item.cupos_disponibles ?? Math.max(0, max - ocupados);
+                        const isLleno = disponibles <= 0;
+
+                        return (
+                          <tr key={item.id}>
+                            <td style={{ fontWeight: 700, color: '#0B1727' }}>
+                              {item.horario?.dia_semana || 'Día Programado'}
+                            </td>
+                            <td style={{ color: '#003B70', fontWeight: 700 }}>
+                              {item.horario?.hora_inicio || '00:00'} - {item.horario?.hora_fin || '00:00'}
+                            </td>
+                            <td>
+                              <span style={{ padding: '0.15rem 0.5rem', borderRadius: '4px', backgroundColor: '#F1F5F9', color: '#334155', fontWeight: 700, fontSize: '0.75rem' }}>
+                                {ocupados} / {max} cupos
+                              </span>
+                            </td>
+                            <td>
+                              <span style={{
+                                padding: '0.15rem 0.55rem',
+                                borderRadius: '4px',
+                                fontWeight: 800,
+                                fontSize: '0.75rem',
+                                backgroundColor: isLleno ? '#FEE2E2' : '#DCFCE7',
+                                color: isLleno ? '#B91C1C' : '#15803D'
+                              }}>
+                                {disponibles} {disponibles === 1 ? 'disponible' : 'disponibles'}
+                              </span>
+                            </td>
+                            <td>
+                              <span style={{
+                                padding: '0.15rem 0.45rem',
+                                borderRadius: '4px',
+                                backgroundColor: isLleno ? '#FEE2E2' : '#DCFCE7',
+                                color: isLleno ? '#B91C1C' : '#15803D',
+                                fontWeight: 700,
+                                fontSize: '0.72rem'
+                              }}>
+                                {isLleno ? 'Agotado' : 'Habilitado'}
+                              </span>
+                            </td>
+                          </tr>
+                        );
+                      })
                     : directHorarios.map((h) => (
                         <tr key={h.id}>
                           <td style={{ fontWeight: 700, color: '#0B1727' }}>
@@ -174,8 +214,13 @@ const DisciplinaDetailModal: React.FC<DisciplinaDetailModalProps> = ({
                             {h.hora_inicio} - {h.hora_fin}
                           </td>
                           <td>
-                            <span style={{ padding: '0.15rem 0.5rem', borderRadius: '4px', backgroundColor: '#FEF3C7', color: '#B45309', fontWeight: 700, fontSize: '0.75rem' }}>
-                              {disciplina.cantidad_cupos ?? 30} cupos
+                            <span style={{ padding: '0.15rem 0.5rem', borderRadius: '4px', backgroundColor: '#F1F5F9', color: '#334155', fontWeight: 700, fontSize: '0.75rem' }}>
+                              0 / {disciplina.cantidad_cupos ?? 30} cupos
+                            </span>
+                          </td>
+                          <td>
+                            <span style={{ padding: '0.15rem 0.55rem', borderRadius: '4px', fontWeight: 800, fontSize: '0.75rem', backgroundColor: '#DCFCE7', color: '#15803D' }}>
+                              {disciplina.cantidad_cupos ?? 30} disponibles
                             </span>
                           </td>
                           <td>

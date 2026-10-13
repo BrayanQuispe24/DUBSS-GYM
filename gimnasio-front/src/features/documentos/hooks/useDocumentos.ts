@@ -29,6 +29,8 @@ export const useUploadDocumento = () => {
     mutationFn: uploadDocumento,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['documentos'] });
+      queryClient.invalidateQueries({ queryKey: ['user'] });
+      queryClient.invalidateQueries({ queryKey: ['users'] });
       showToast.success('Documento digital subido exitosamente.', 'Documentos');
     },
     onError: (err: any) => {
@@ -43,6 +45,8 @@ export const useDeleteDocumento = () => {
     mutationFn: deleteDocumento,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['documentos'] });
+      queryClient.invalidateQueries({ queryKey: ['user'] });
+      queryClient.invalidateQueries({ queryKey: ['users'] });
       showToast.success('Documento eliminado exitosamente.', 'Documentos');
     },
     onError: (err: any) => {

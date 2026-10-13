@@ -17,18 +17,18 @@ const UserFilters: React.FC<UserFiltersProps> = ({ filters, onChange }) => {
       background: '#FFFFFF',
       border: '1px solid #D2DCEE',
       borderBottom: 'none',
-      padding: '0.85rem 1rem',
-      borderRadius: '10px 10px 0 0',
+      padding: '0.75rem 1rem',
+      borderRadius: '4px 4px 0 0',
       flexWrap: 'wrap',
     }}>
       <div className="search-input-wrapper" style={{ position: 'relative', flex: 1, minWidth: '240px' }}>
         <FaMagnifyingGlass style={{
           position: 'absolute',
-          left: '12px',
+          left: '10px',
           top: '50%',
           transform: 'translateY(-50%)',
-          color: '#64748B',
-          fontSize: '0.85rem',
+          color: '#94A3B8',
+          fontSize: '0.8rem',
           pointerEvents: 'none',
           zIndex: 2,
         }} />
@@ -40,12 +40,12 @@ const UserFilters: React.FC<UserFiltersProps> = ({ filters, onChange }) => {
           onChange={(e) => onChange({ search: e.target.value })}
           style={{
             width: '100%',
-            height: '38px',
-            paddingLeft: '2.25rem',
+            height: '34px',
+            paddingLeft: '2.1rem',
             paddingRight: '0.75rem',
-            borderRadius: '6px',
+            borderRadius: '4px',
             border: '1px solid #CBD5E1',
-            fontSize: '0.85rem',
+            fontSize: '0.82rem',
             color: '#0B1727',
             outline: 'none',
             boxSizing: 'border-box',
@@ -58,17 +58,17 @@ const UserFilters: React.FC<UserFiltersProps> = ({ filters, onChange }) => {
         value={filters.rol || 'todos'}
         onChange={(e) => onChange({ rol: e.target.value })}
         style={{
-          height: '38px',
-          padding: '0 0.85rem',
-          borderRadius: '6px',
+          height: '34px',
+          padding: '0 0.75rem',
+          borderRadius: '4px',
           border: '1px solid #CBD5E1',
-          fontSize: '0.85rem',
+          fontSize: '0.82rem',
           color: '#0B1727',
           backgroundColor: '#FFFFFF',
           cursor: 'pointer',
           outline: 'none',
           boxSizing: 'border-box',
-          minWidth: '160px',
+          minWidth: '150px',
         }}
       >
         <option value="todos">Todos los Roles</option>
@@ -83,17 +83,17 @@ const UserFilters: React.FC<UserFiltersProps> = ({ filters, onChange }) => {
         value={filters.estado || 'todos'}
         onChange={(e) => onChange({ estado: e.target.value })}
         style={{
-          height: '38px',
-          padding: '0 0.85rem',
-          borderRadius: '6px',
+          height: '34px',
+          padding: '0 0.75rem',
+          borderRadius: '4px',
           border: '1px solid #CBD5E1',
-          fontSize: '0.85rem',
+          fontSize: '0.82rem',
           color: '#0B1727',
           backgroundColor: '#FFFFFF',
           cursor: 'pointer',
           outline: 'none',
           boxSizing: 'border-box',
-          minWidth: '160px',
+          minWidth: '150px',
         }}
       >
         <option value="todos">Todos los Estados</option>

@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { FaNotesMedical, FaPlus, FaCalendarDays } from 'react-icons/fa6';
+import { FaNotesMedical, FaPlus, FaCalendarDays, FaCircleInfo } from 'react-icons/fa6';
 import type { Historial } from '../services/historialService';
 import { useCreateDetalleHistorial } from '../hooks/useHistorial';
 
@@ -200,8 +200,8 @@ const DetalleHistorialModal: React.FC<DetalleHistorialModalProps> = ({
             </div>
 
             {calculateIMC() && (
-              <div style={{ padding: '0.65rem 1rem', borderRadius: '8px', backgroundColor: '#E0F2FE', color: '#0369A1', fontSize: '0.85rem', fontWeight: 700 }}>
-                💡 IMC Calculado Automáticamente: {calculateIMC()} kg/m²
+              <div style={{ padding: '0.65rem 1rem', borderRadius: '8px', backgroundColor: '#E0F2FE', color: '#0369A1', fontSize: '0.85rem', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '6px' }}>
+                <FaCircleInfo /> IMC Calculado Automáticamente: {calculateIMC()} kg/m²
               </div>
             )}
 

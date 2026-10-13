@@ -17,7 +17,8 @@ readonly class UpdateUsuarioDTO
         public ?string $celular = null,
         public ?string $ci = null,
         public ?string $tipo_usuario = null,
-        public ?bool $estado = null
+        public ?bool $estado = null,
+        public ?int $id_disciplina = null
     ) {}
 
     public static function fromRequest(UpdateUsuarioRequest $request): self
@@ -27,6 +28,8 @@ readonly class UpdateUsuarioDTO
         if ($estadoInput !== null) {
             $estadoBool = in_array($estadoInput, [true, 1, '1', 'activo'], true);
         }
+
+        $idDisc = $request->validated('id_disciplina');
 
         return new self(
             id: (int) $request->validated('id'),
@@ -39,7 +42,8 @@ readonly class UpdateUsuarioDTO
             celular: $request->validated('celular'),
             ci: $request->validated('ci'),
             tipo_usuario: $request->validated('tipo_usuario'),
-            estado: $estadoBool
+            estado: $estadoBool,
+            id_disciplina: $idDisc !== null ? (int) $idDisc : null
         );
     }
 }

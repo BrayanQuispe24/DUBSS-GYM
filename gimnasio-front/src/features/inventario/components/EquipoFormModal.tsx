@@ -1,10 +1,10 @@
 // src/features/inventario/components/EquipoFormModal.tsx
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { FaXmark, FaBoxesPacking } from 'react-icons/fa6';
-import type { Equipo, Ambiente, Marca, TipoEquipo } from '../services/inventarioService';
+import { FaXmark, FaBoxesPacking, FaImage, FaTrashCan } from 'react-icons/fa6';
+import { getEquipoImageUrl, type Equipo, type Ambiente, type Marca, type TipoEquipo } from '../services/inventarioService';
 
 const equipoSchema = z.object({
   codigo: z.string().min(2, 'El código es obligatorio'),
@@ -28,7 +28,7 @@ interface EquipoFormModalProps {
   marcas: Marca[];
   tipoEquipos: TipoEquipo[];
   onClose: () => void;
-  onSubmit: (data: EquipoFormData) => void;
+  onSubmit: (data: any) => void;
   isPending: boolean;
 }
 
@@ -42,6 +42,9 @@ const EquipoFormModal: React.FC<EquipoFormModalProps> = ({
   onSubmit,
   isPending,
 }) => {
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
+
   const {
     register,
     handleSubmit,
@@ -54,7 +57,7 @@ const EquipoFormModal: React.FC<EquipoFormModalProps> = ({
       nombre: '',
       modelo: '',
       cantidad: 1,
-      estado: 'bueno',
+      estado: '1',
       id_ambiente: undefined,
       id_marca: undefined,
       id_tipo_equipo: undefined,
@@ -64,13 +67,22 @@ const EquipoFormModal: React.FC<EquipoFormModalProps> = ({
   });
 
   useEffect(() => {
+    setSelectedFile(null);
     if (equipoToEdit) {
+      setImagePreview(equipoToEdit.imagen_url ? getEquipoImageUrl(equipoToEdit.imagen_url) : null);
+      const isGood =
+        equipoToEdit.estado === true ||
+        equipoToEdit.estado === 1 ||
+        ['1', 'true', 'bueno', 'operativo', 'en buen estado'].includes(
+          String(equipoToEdit.estado ?? '').toLowerCase()
+        );
+
       reset({
         codigo: equipoToEdit.codigo || '',
         nombre: equipoToEdit.nombre || '',
         modelo: equipoToEdit.modelo || '',
         cantidad: equipoToEdit.cantidad ?? 1,
-        estado: String(equipoToEdit.estado || 'bueno'),
+        estado: isGood ? '1' : '0',
         id_ambiente: equipoToEdit.id_ambiente || undefined,
         id_marca: equipoToEdit.id_marca || undefined,
         id_tipo_equipo: equipoToEdit.id_tipo_equipo || undefined,
@@ -78,14 +90,14 @@ const EquipoFormModal: React.FC<EquipoFormModalProps> = ({
         precio_compra: equipoToEdit.precio_compra || undefined,
       });
     } else {
-      // Auto-generate a default unique code prefix if creating new
+      setImagePreview(null);
       const randomCode = `EQ-${Math.floor(1000 + Math.random() * 9000)}`;
       reset({
         codigo: randomCode,
         nombre: '',
         modelo: '',
         cantidad: 1,
-        estado: 'bueno',
+        estado: '1',
         id_ambiente: undefined,
         id_marca: undefined,
         id_tipo_equipo: undefined,
@@ -94,6 +106,41 @@ const EquipoFormModal: React.FC<EquipoFormModalProps> = ({
       });
     }
   }, [equipoToEdit, isOpen, reset]);
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setSelectedFile(file);
+      setImagePreview(URL.createObjectURL(file));
+    }
+  };
+
+  const handleRemoveImage = () => {
+    setSelectedFile(null);
+    setImagePreview(null);
+  };
+
+  const handleFormSubmit = (data: EquipoFormData) => {
+    if (selectedFile) {
+      const formData = new FormData();
+      formData.append('codigo', data.codigo);
+      formData.append('nombre', data.nombre);
+      if (data.modelo) formData.append('modelo', data.modelo);
+      formData.append('cantidad', String(data.cantidad));
+      formData.append('estado', data.estado);
+      if (data.id_ambiente) formData.append('id_ambiente', String(data.id_ambiente));
+      if (data.id_marca) formData.append('id_marca', String(data.id_marca));
+      if (data.id_tipo_equipo) formData.append('id_tipo_equipo', String(data.id_tipo_equipo));
+      if (data.fecha_adquisicion) formData.append('fecha_adquisicion', data.fecha_adquisicion);
+      if (data.precio_compra !== undefined && data.precio_compra !== null) {
+        formData.append('precio_compra', String(data.precio_compra));
+      }
+      formData.append('imagen', selectedFile);
+      onSubmit(formData);
+    } else {
+      onSubmit(data);
+    }
+  };
 
   if (!isOpen) return null;
 
@@ -163,7 +210,97 @@ const EquipoFormModal: React.FC<EquipoFormModalProps> = ({
         </div>
 
         {/* FORM BODY */}
-        <form onSubmit={handleSubmit(onSubmit)} style={{ padding: '1.5rem', overflowY: 'auto' }}>
+        <form onSubmit={handleSubmit(handleFormSubmit)} style={{ padding: '1.5rem', overflowY: 'auto' }}>
+          {/* Subida de Imagen */}
+          <div style={{ marginBottom: '1.2rem' }}>
+            <label style={{ display: 'block', fontWeight: 700, fontSize: '0.85rem', color: '#334155', marginBottom: '0.4rem' }}>
+              Imagen del Equipo / Máquina
+            </label>
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '1rem',
+                padding: '0.85rem',
+                border: '1px dashed #CBD5E1',
+                borderRadius: '10px',
+                backgroundColor: '#F8FAFC',
+              }}
+            >
+              {imagePreview ? (
+                <div style={{ position: 'relative', width: '80px', height: '80px', borderRadius: '8px', overflow: 'hidden', border: '1px solid #E2E8F0', backgroundColor: '#FFF' }}>
+                  <img src={imagePreview} alt="Preview" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                  <button
+                    type="button"
+                    onClick={handleRemoveImage}
+                    style={{
+                      position: 'absolute',
+                      top: '4px',
+                      right: '4px',
+                      backgroundColor: 'rgba(239, 68, 68, 0.9)',
+                      color: '#FFF',
+                      border: 'none',
+                      borderRadius: '50%',
+                      width: '22px',
+                      height: '22px',
+                      cursor: 'pointer',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      fontSize: '0.7rem',
+                    }}
+                    title="Quitar Imagen"
+                  >
+                    <FaTrashCan />
+                  </button>
+                </div>
+              ) : (
+                <div
+                  style={{
+                    width: '80px',
+                    height: '80px',
+                    borderRadius: '8px',
+                    backgroundColor: '#E2E8F0',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    color: '#94A3B8',
+                    fontSize: '1.8rem',
+                  }}
+                >
+                  <FaImage />
+                </div>
+              )}
+              <div style={{ flex: 1 }}>
+                <input
+                  type="file"
+                  accept="image/*"
+                  id="equipo-imagen-input"
+                  onChange={handleFileChange}
+                  style={{ display: 'none' }}
+                />
+                <label
+                  htmlFor="equipo-imagen-input"
+                  style={{
+                    display: 'inline-block',
+                    padding: '0.45rem 0.9rem',
+                    backgroundColor: '#003B70',
+                    color: '#FFFFFF',
+                    borderRadius: '6px',
+                    fontSize: '0.82rem',
+                    fontWeight: 700,
+                    cursor: 'pointer',
+                  }}
+                >
+                  {imagePreview ? 'Cambiar Imagen' : 'Seleccionar Imagen'}
+                </label>
+                <p style={{ margin: '0.3rem 0 0 0', fontSize: '0.75rem', color: '#64748B' }}>
+                  Formatos permitidos: JPG, PNG, WEBP (Máx. 5MB)
+                </p>
+              </div>
+            </div>
+          </div>
+
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '1.2rem' }}>
             {/* Código */}
             <div>
@@ -265,30 +402,7 @@ const EquipoFormModal: React.FC<EquipoFormModalProps> = ({
               )}
             </div>
 
-            {/* Estado */}
-            <div>
-              <label style={{ display: 'block', fontWeight: 700, fontSize: '0.85rem', color: '#334155', marginBottom: '0.4rem' }}>
-                Estado Técnico <span style={{ color: '#EF4444' }}>*</span>
-              </label>
-              <select
-                {...register('estado')}
-                style={{
-                  width: '100%',
-                  padding: '0.65rem 0.85rem',
-                  borderRadius: '8px',
-                  border: errors.estado ? '1px solid #EF4444' : '1px solid #CBD5E1',
-                  fontSize: '0.88rem',
-                  backgroundColor: '#FFFFFF',
-                  outline: 'none',
-                  boxSizing: 'border-box',
-                }}
-              >
-                <option value="bueno">Bueno (Operativo)</option>
-                <option value="regular">Regular (Requiere Revisión)</option>
-                <option value="mantenimiento">En Mantenimiento</option>
-                <option value="baja">Dado de Baja</option>
-              </select>
-            </div>
+
 
             {/* Ambiente / Sala */}
             <div>

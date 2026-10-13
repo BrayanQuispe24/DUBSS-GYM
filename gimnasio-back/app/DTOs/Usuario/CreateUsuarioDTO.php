@@ -16,7 +16,8 @@ readonly class CreateUsuarioDTO
         public ?string $celular = null,
         public ?string $ci = null,
         public ?string $tipo_usuario = 'estudiante',
-        public ?bool $estado = true
+        public ?bool $estado = true,
+        public ?int $id_disciplina = null
     ) {}
 
     public static function fromRequest(CreateUserRequest $request): self
@@ -26,6 +27,8 @@ readonly class CreateUsuarioDTO
         if ($estadoInput !== null) {
             $estadoBool = in_array($estadoInput, [true, 1, '1', 'activo'], true);
         }
+
+        $idDisc = $request->validated('id_disciplina');
 
         return new self(
             nombre: $request->validated('nombre'),
@@ -37,7 +40,8 @@ readonly class CreateUsuarioDTO
             celular: $request->validated('celular'),
             ci: $request->validated('ci'),
             tipo_usuario: $request->validated('tipo_usuario') ?? 'estudiante',
-            estado: $estadoBool
+            estado: $estadoBool,
+            id_disciplina: $idDisc !== null ? (int) $idDisc : null
         );
     }
 }

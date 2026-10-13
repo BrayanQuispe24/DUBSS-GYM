@@ -1,6 +1,7 @@
 // src/features/deporte/pages/DeporteListPage.tsx
 import React, { useState } from 'react';
 import { FaBasketball, FaPlus } from 'react-icons/fa6';
+import { useAuthStore } from '@/store/authStore';
 import { useDisciplinas, useCreateDisciplina, useUpdateDisciplina, useDeleteDisciplina } from '../hooks/useDeporte';
 import type { Disciplina } from '../services/deporteService';
 import DisciplinaTable from '../components/DisciplinaTable';
@@ -14,17 +15,22 @@ const DeporteListPage: React.FC = () => {
   const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
   const [selectedDisciplina, setSelectedDisciplina] = useState<Disciplina | null>(null);
 
+  const { user } = useAuthStore();
+  const isAdmin = user?.rol === 'administrador';
+
   const { data: disciplinas = [], isLoading } = useDisciplinas();
   const createMutation = useCreateDisciplina();
   const updateMutation = useUpdateDisciplina();
   const deleteMutation = useDeleteDisciplina();
 
   const handleOpenCreate = () => {
+    if (!isAdmin) return;
     setSelectedDisciplina(null);
     setIsModalOpen(true);
   };
 
   const handleOpenEdit = (d: Disciplina) => {
+    if (!isAdmin) return;
     setSelectedDisciplina(d);
     setIsModalOpen(true);
   };
@@ -35,17 +41,20 @@ const DeporteListPage: React.FC = () => {
   };
 
   const handleOpenHorarios = (d: Disciplina) => {
+    if (!isAdmin) return;
     setSelectedDisciplina(d);
     setIsHorariosModalOpen(true);
   };
 
   const handleDelete = (id: number) => {
+    if (!isAdmin) return;
     if (window.confirm('¿Está seguro de eliminar esta disciplina deportiva?')) {
       deleteMutation.mutate(id);
     }
   };
 
   const handleSubmit = (data: any) => {
+    if (!isAdmin) return;
     if (selectedDisciplina) {
       updateMutation.mutate(
         { id: selectedDisciplina.id, data },
@@ -69,22 +78,26 @@ const DeporteListPage: React.FC = () => {
             Catálogo de actividades fitness, artes marciales, musculación y asignación de franjas horarias.
           </p>
         </div>
-        <button
-          onClick={handleOpenCreate}
-          style={{
-            padding: '0.65rem 1.25rem', borderRadius: '8px',
-            background: 'linear-gradient(135deg, #003B70 0%, #002A52 100%)',
-            color: '#FFFFFF', border: 'none', fontWeight: 700, fontSize: '0.88rem', cursor: 'pointer',
-            boxShadow: '0 4px 12px rgba(0, 59, 112, 0.25)', display: 'flex', alignItems: 'center', gap: '0.5rem'
-          }}
-        >
-          <FaPlus /> Crear Disciplina
-        </button>
+        {isAdmin && (
+          <button
+            onClick={handleOpenCreate}
+            style={{
+              padding: '0.55rem 1rem', borderRadius: '4px',
+              background: '#0077D4', color: '#FFFFFF', border: '1px solid #005FA8',
+              fontWeight: 700, fontSize: '0.80rem', cursor: 'pointer',
+              display: 'flex', alignItems: 'center', gap: '0.4rem',
+              textTransform: 'uppercase', letterSpacing: '0.03em'
+            }}
+          >
+            <FaPlus /> Crear Disciplina
+          </button>
+        )}
       </div>
 
       <DisciplinaTable
         disciplinas={disciplinas}
         isLoading={isLoading}
+        isAdmin={isAdmin}
         onView={handleOpenView}
         onEdit={handleOpenEdit}
         onDelete={handleDelete}

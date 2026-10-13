@@ -16,7 +16,14 @@ class Ejercicio extends Model
     protected $fillable = [
         'nombre',
         'descripcion',
+        'url_video',
         'id_tipo_ejercicio',
+        'codigo_externo',
+        'equipamiento',
+        'nivel_dificultad',
+        'mecanica',
+        'patron_movimiento',
+        'fuente_origen',
     ];
 
     public function tipoEjercicio(): BelongsTo
@@ -32,5 +39,10 @@ class Ejercicio extends Model
     public function ejercicioGrupoMusculares(): HasMany
     {
         return $this->hasMany(EjercicioGrupoMuscular::class, 'id_ejercicio');
+    }
+
+    public function imagenes(): HasMany
+    {
+        return $this->hasMany(EjercicioImagen::class, 'id_ejercicio')->orderBy('orden', 'asc');
     }
 }

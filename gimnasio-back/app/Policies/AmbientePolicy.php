@@ -8,17 +8,17 @@ class AmbientePolicy
 {
     private function isAdmin(Usuario $user): bool
     {
-        return mb_strtolower($user->rol->nombre ?? '') === 'administrador';
+        return $user->esAdmin();
     }
 
     public function viewAny(Usuario $user): bool
     {
-        return true;
+        return $user->getRolNombre() !== 'cliente';
     }
 
     public function view(Usuario $user): bool
     {
-        return true;
+        return $user->getRolNombre() !== 'cliente';
     }
 
     public function create(Usuario $user): bool

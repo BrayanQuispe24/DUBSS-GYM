@@ -41,6 +41,7 @@ class UpdateUsuarioRequest extends FormRequest
             'celular' => 'nullable|string|max:20',
             'tipo_usuario' => 'nullable|string|in:estudiante,docente,administrativo,particular',
             'estado' => 'nullable|in:activo,suspendido,1,0',
+            'id_disciplina' => 'nullable|exists:disciplinas,id',
         ];
     }
 

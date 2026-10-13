@@ -20,6 +20,7 @@ return new class extends Migration
             $table->foreignId('id_ambiente')->nullable()->constrained('ambientes')->onDelete('cascade');
             $table->foreignId('id_marca')->nullable()->constrained('marcas')->onDelete('cascade');
             $table->foreignId('id_tipo_equipo')->nullable()->constrained('tipo_equipo')->onDelete('cascade');
+            $table->string('imagen_url')->nullable();
             $table->timestamps();
         });
     }

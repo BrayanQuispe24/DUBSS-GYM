@@ -15,6 +15,7 @@ class CreateDocumentoRequest extends FormRequest
     {
         return [
             'id_tipo_documento' => 'required|exists:tipo_documentos,id',
+            'id_usuario' => 'nullable|exists:usuarios,id',
             'archivo' => 'required|file|mimes:pdf|max:10240',
         ];
     }

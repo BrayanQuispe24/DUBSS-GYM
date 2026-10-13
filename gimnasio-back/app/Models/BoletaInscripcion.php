@@ -25,6 +25,8 @@ class BoletaInscripcion extends Model
         'hora_salida',
         'id_tarifa',
         'id_usuario',
+        'id_disciplina_horario',
+        'id_disciplina',
     ];
 
     public function tarifa(): BelongsTo
@@ -35,6 +37,16 @@ class BoletaInscripcion extends Model
     public function usuario(): BelongsTo
     {
         return $this->belongsTo(Usuario::class, 'id_usuario');
+    }
+
+    public function disciplinaHorario(): BelongsTo
+    {
+        return $this->belongsTo(DisciplinaHorario::class, 'id_disciplina_horario');
+    }
+
+    public function disciplinaRelacion(): BelongsTo
+    {
+        return $this->belongsTo(Disciplina::class, 'id_disciplina');
     }
 
     public function registrosEntradaSalida(): HasMany

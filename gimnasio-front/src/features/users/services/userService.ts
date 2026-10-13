@@ -84,8 +84,15 @@ export const userService = {
     await api.delete(`/usuarios/${id}`);
   },
 
-  toggleStatus: async (id: number, currentStatus?: string): Promise<AuthUser> => {
-    const nextStatus = currentStatus === 'activo' ? 'suspendido' : 'activo';
+  toggleStatus: async (id: number, currentStatus?: string | boolean | number): Promise<AuthUser> => {
+    const isCurrentlyActive =
+      currentStatus === 'activo' ||
+      currentStatus === '1' ||
+      currentStatus === 1 ||
+      currentStatus === true ||
+      currentStatus === 'true';
+
+    const nextStatus = isCurrentlyActive ? 'suspendido' : 'activo';
     const response = await api.patch('/usuarios/estado', { id, estado: nextStatus });
     const normalized = normalizeUser((response.data as { data?: unknown })?.data || response.data);
     return normalized || { id, name: 'Usuario', email: '', rol: 'cliente', estado: nextStatus };

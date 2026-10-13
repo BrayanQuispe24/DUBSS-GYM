@@ -8,6 +8,6 @@ class DeleteEquipoAction
 {
     public function execute(Equipo $equipo): bool
     {
-        return (bool) $equipo->delete();
+        return (bool) $equipo->update(['estado' => false]);
     }
 }

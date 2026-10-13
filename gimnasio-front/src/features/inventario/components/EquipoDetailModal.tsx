@@ -1,7 +1,6 @@
-// src/features/inventario/components/EquipoDetailModal.tsx
 import React from 'react';
-import { FaXmark, FaBoxesPacking, FaCircleInfo, FaBarcode, FaBuildingFlag, FaTag, FaLayerGroup } from 'react-icons/fa6';
-import type { Equipo } from '../services/inventarioService';
+import { FaXmark, FaBoxesPacking, FaCircleInfo, FaBarcode, FaBuildingFlag, FaTag, FaLayerGroup, FaWrench } from 'react-icons/fa6';
+import { getEquipoImageUrl, type Equipo } from '../services/inventarioService';
 
 interface EquipoDetailModalProps {
   isOpen: boolean;
@@ -16,18 +15,12 @@ const EquipoDetailModal: React.FC<EquipoDetailModalProps> = ({
 }) => {
   if (!isOpen || !equipo) return null;
 
-  const getStatusBadge = (estadoRaw: string) => {
-    const est = String(estadoRaw ?? 'bueno').toLowerCase();
-    if (['bueno', 'excelente', 'operativo'].includes(est)) {
-      return { label: 'BUENO (OPERATIVO)', bg: '#DCFCE7', color: '#15803D' };
+  const getStatusBadge = (estadoRaw: any) => {
+    const isVigente = estadoRaw === true || estadoRaw === 1 || ['1', 'true', 'bueno', 'operativo', 'vigente'].includes(String(estadoRaw ?? '').toLowerCase());
+    if (isVigente) {
+      return { label: 'VIGENTE EN SISTEMA', bg: '#DCFCE7', color: '#15803D' };
     }
-    if (['regular', 'revisión'].includes(est)) {
-      return { label: 'REGULAR', bg: '#FEF3C7', color: '#B45309' };
-    }
-    if (['mantenimiento', 'en mantenimiento'].includes(est)) {
-      return { label: 'EN MANTENIMIENTO', bg: '#DBEAFE', color: '#1E40AF' };
-    }
-    return { label: 'DADO DE BAJA', bg: '#FEE2E2', color: '#B91C1C' };
+    return { label: 'ELIMINADO / DADO DE BAJA', bg: '#FEE2E2', color: '#B91C1C' };
   };
 
   const status = getStatusBadge(equipo.estado);
@@ -116,6 +109,13 @@ const EquipoDetailModal: React.FC<EquipoDetailModalProps> = ({
 
         {/* BODY DETAILS */}
         <div style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+          {/* Image banner */}
+          {equipo.imagen_url && (
+            <div style={{ width: '100%', height: '180px', borderRadius: '12px', overflow: 'hidden', border: '1px solid #E2E8F0', backgroundColor: '#F8FAFC' }}>
+              <img src={getEquipoImageUrl(equipo.imagen_url)} alt={equipo.nombre} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+            </div>
+          )}
+
           {/* Main Specs Grid */}
           <div
             style={{
@@ -198,9 +198,12 @@ const EquipoDetailModal: React.FC<EquipoDetailModalProps> = ({
                         padding: '0.2rem 0.5rem',
                         borderRadius: '6px',
                         width: 'fit-content',
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '4px',
                       }}
                     >
-                      🛠️ {cantMant} Unidad(es) en Mantenimiento Activo
+                      <FaWrench size={11} /> {cantMant} Unidad(es) en Mantenimiento Activo
                     </span>
                   );
                 })()}

@@ -8,12 +8,14 @@ import HistorialFormModal from '../components/HistorialFormModal';
 import DetalleHistorialModal from '../components/DetalleHistorialModal';
 import AntecedenteModal from '../components/AntecedenteModal';
 import HistorialPhysicalViewModal from '../components/HistorialPhysicalViewModal';
+import FormularioDUBSSModal from '../components/FormularioDUBSSModal';
 
 const HistorialListPage: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDetalleModalOpen, setIsDetalleModalOpen] = useState(false);
   const [isAntecedenteModalOpen, setIsAntecedenteModalOpen] = useState(false);
   const [isPhysicalViewModalOpen, setIsPhysicalViewModalOpen] = useState(false);
+  const [isDubssModalOpen, setIsDubssModalOpen] = useState(false);
 
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -21,6 +23,7 @@ const HistorialListPage: React.FC = () => {
   const [selectedHistorialForDetalle, setSelectedHistorialForDetalle] = useState<Historial | null>(null);
   const [selectedHistorialForAntecedente, setSelectedHistorialForAntecedente] = useState<Historial | null>(null);
   const [selectedHistorialForPhysicalView, setSelectedHistorialForPhysicalView] = useState<Historial | null>(null);
+  const [selectedHistorialForDubss, setSelectedHistorialForDubss] = useState<Historial | null>(null);
 
   const { data: historiales = [], isLoading } = useHistoriales();
   const createHistorialMutation = useCreateHistorial();
@@ -34,9 +37,10 @@ const HistorialListPage: React.FC = () => {
     const userName = (h.usuario?.name || [h.usuario?.nombre, h.usuario?.apellido].filter(Boolean).join(' ') || '').toLowerCase();
     const userEmail = (h.usuario?.email || '').toLowerCase();
     const userRu = (h.usuario?.registro_universitario || h.usuario?.codigo || '').toLowerCase();
+    const facultad = (h.facultad_carrera || '').toLowerCase();
     const obs = (h.observaciones_generales || h.observaciones || '').toLowerCase();
 
-    return userName.includes(query) || userEmail.includes(query) || userRu.includes(query) || obs.includes(query);
+    return userName.includes(query) || userEmail.includes(query) || userRu.includes(query) || facultad.includes(query) || obs.includes(query);
   });
 
   const handleOpenCreate = () => {
@@ -62,6 +66,11 @@ const HistorialListPage: React.FC = () => {
   const handleOpenPhysicalView = (h: Historial) => {
     setSelectedHistorialForPhysicalView(h);
     setIsPhysicalViewModalOpen(true);
+  };
+
+  const handleOpenDubssForm = (h: Historial) => {
+    setSelectedHistorialForDubss(h);
+    setIsDubssModalOpen(true);
   };
 
   const handleDelete = (id: number) => {
@@ -97,10 +106,10 @@ const HistorialListPage: React.FC = () => {
         <button
           onClick={handleOpenCreate}
           style={{
-            padding: '0.65rem 1.25rem', borderRadius: '8px',
-            background: 'linear-gradient(135deg, #003B70 0%, #002A52 100%)',
-            color: '#FFFFFF', border: 'none', fontWeight: 700, fontSize: '0.88rem', cursor: 'pointer',
-            boxShadow: '0 4px 12px rgba(0, 59, 112, 0.25)', display: 'flex', alignItems: 'center', gap: '0.5rem'
+            padding: '0.55rem 1rem', borderRadius: '4px',
+            background: '#0077D4',
+            color: '#FFFFFF', border: '1px solid #005FA8', fontWeight: 700, fontSize: '0.80rem', cursor: 'pointer',
+            display: 'flex', alignItems: 'center', gap: '0.4rem', textTransform: 'uppercase', letterSpacing: '0.03em'
           }}
         >
           <FaPlus /> Abrir Historial
@@ -109,15 +118,15 @@ const HistorialListPage: React.FC = () => {
 
       {/* BARRA DE BUSQUEDA / FILTRADO POR SOCIO */}
       <div style={{ marginBottom: '1.25rem', position: 'relative', maxWidth: '450px' }}>
-        <FaMagnifyingGlass style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)', color: '#94A3B8' }} />
+        <FaMagnifyingGlass style={{ position: 'absolute', left: '0.85rem', top: '50%', transform: 'translateY(-50%)', color: '#94A3B8', fontSize: '0.85rem' }} />
         <input
           type="text"
           placeholder="Buscar historial por Socio (Nombre, R.U., Email) o Diagnóstico..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           style={{
-            width: '100%', padding: '0.65rem 1rem 0.65rem 2.5rem', borderRadius: '8px',
-            border: '1px solid #CBD5E1', backgroundColor: '#FFF', fontSize: '0.88rem'
+            width: '100%', padding: '0.55rem 0.85rem 0.55rem 2.25rem', borderRadius: '4px',
+            border: '1px solid #CBD5E1', backgroundColor: '#FFF', fontSize: '0.82rem'
           }}
         />
       </div>
@@ -130,6 +139,7 @@ const HistorialListPage: React.FC = () => {
         onAddDetalle={handleOpenDetalle}
         onAddAntecedente={handleOpenAntecedente}
         onViewPhysical={handleOpenPhysicalView}
+        onViewDubssForm={handleOpenDubssForm}
       />
 
       <HistorialFormModal
@@ -156,6 +166,12 @@ const HistorialListPage: React.FC = () => {
         isOpen={isPhysicalViewModalOpen}
         historial={selectedHistorialForPhysicalView}
         onClose={() => setIsPhysicalViewModalOpen(false)}
+      />
+
+      <FormularioDUBSSModal
+        isOpen={isDubssModalOpen}
+        historial={selectedHistorialForDubss}
+        onClose={() => setIsDubssModalOpen(false)}
       />
     </section>
   );

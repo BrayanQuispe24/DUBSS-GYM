@@ -22,6 +22,7 @@ class UpdateHistorialRequest extends FormRequest
             'sexo' => 'nullable|string|max:20',
             'fecha_nacimiento' => 'nullable|date',
             'domicilio' => 'nullable|string|max:255',
+            'facultad_carrera' => 'nullable|string|max:255',
             'celular_emergencia' => 'nullable|string|max:30',
         ];
     }

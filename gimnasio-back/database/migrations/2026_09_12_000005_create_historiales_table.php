@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('sexo')->nullable();
             $table->date('fecha_nacimiento')->nullable();
             $table->string('domicilio')->nullable();
+            $table->string('facultad_carrera')->nullable();
             $table->string('celular_emergencia')->nullable();
             $table->foreignId('id_usuario')->constrained('usuarios')->onDelete('cascade');
             $table->timestamps();

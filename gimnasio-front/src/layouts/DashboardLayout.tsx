@@ -7,25 +7,22 @@ import {
   FaUsers,
   FaShieldHalved,
   FaBuildingFlag,
-  FaClipboardCheck,
   FaGem,
-  FaPercent,
   FaTriangleExclamation,
   FaGears,
-  FaDatabase,
   FaListCheck,
   FaRightFromBracket,
-  FaRotate,
   FaBars,
-  FaMagnifyingGlass,
-  FaBell,
-  FaDownload,
   FaNotesMedical,
   FaFolderOpen,
   FaBasketball,
   FaBoxesPacking,
   FaRightLeft,
   FaWrench,
+  FaCalendarDays,
+  FaAppleWhole,
+  FaFileInvoiceDollar,
+  FaQrcode
 } from 'react-icons/fa6';
 import { useAuthStore } from '@/store/authStore';
 import { useLogout } from '@/features/auth/hooks/useAuth';
@@ -55,6 +52,13 @@ const DashboardLayout: React.FC = () => {
   const getBreadcrumbTitle = () => {
     if (location.pathname.includes('/dashboard/usuarios')) return 'Gestión de Usuarios';
     if (location.pathname.includes('/dashboard/permisos')) return 'Roles y Permisos';
+    if (location.pathname.includes('/dashboard/planes')) return 'Planes & Tarifas de Membresía';
+    if (location.pathname.includes('/dashboard/ejercicios')) return 'Catálogo de Ejercicios';
+    if (location.pathname.includes('/dashboard/rutinas')) return 'Rutinas de Entrenamiento';
+    if (location.pathname.includes('/dashboard/planes-entrenamiento')) return 'Planes de Entrenamiento Personalizados';
+    if (location.pathname.includes('/dashboard/nutricion')) return 'Planes de Alimentación';
+    if (location.pathname.includes('/dashboard/tramites')) return 'Trámites, Pagos & Boletas';
+    if (location.pathname.includes('/dashboard/accesos')) return 'Garita de Acceso & Asistencia';
     if (location.pathname.includes('/dashboard/historial')) return 'Historial Clínico / Deportivo';
     if (location.pathname.includes('/dashboard/documentos')) return 'Documentación Digital';
     if (location.pathname.includes('/dashboard/disciplinas')) return 'Disciplinas Deportivas & Horarios';
@@ -84,17 +88,19 @@ const DashboardLayout: React.FC = () => {
         </div>
 
         <nav className="sidebar-nav">
-          <div className="nav-section-label">Módulos de Gestión</div>
+          <div className="nav-section-label">Módulos Principales</div>
 
-          <NavLink
-            to="/dashboard"
-            end
-            className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}
-            title="Reportes Generales"
-          >
-            <FaChartPie />
-            <span>Reportes Generales</span>
-          </NavLink>
+          {!['cliente', 'instructor'].includes(user?.rol || '') && (
+            <NavLink
+              to="/dashboard"
+              end
+              className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}
+              title="Reportes Generales"
+            >
+              <FaChartPie />
+              <span>Reportes Generales</span>
+            </NavLink>
+          )}
 
           {['administrador', 'recepcionista', 'instructor'].includes(user?.rol || '') && (
             <NavLink
@@ -103,7 +109,7 @@ const DashboardLayout: React.FC = () => {
               title="Gestión de Usuarios del Sistema"
             >
               <FaUsers />
-              <span>Gestión de Usuarios</span>
+              <span>Gestión Usuarios</span>
             </NavLink>
           )}
 
@@ -118,23 +124,78 @@ const DashboardLayout: React.FC = () => {
             </NavLink>
           )}
 
+          {user?.rol !== 'instructor' && (
+            <NavLink
+              to="/dashboard/planes"
+              className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}
+              title="Planes & Tarifas de Membresía"
+            >
+              <FaGem />
+              <span>Planes y Tarifas</span>
+            </NavLink>
+          )}
+
+          <div className="nav-section-label">Deporte & Entrenamiento</div>
+
           <NavLink
-            to="/dashboard/historial"
+            to="/dashboard/ejercicios"
             className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}
-            title="Historial Clínico / Deportivo"
+            title="Catálogo de Ejercicios"
           >
-            <FaNotesMedical />
-            <span>Historial Clínico</span>
+            <FaDumbbell />
+            <span>Catálogo Ejercicios</span>
           </NavLink>
 
           <NavLink
-            to="/dashboard/documentos"
+            to="/dashboard/rutinas"
             className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}
-            title="Repositorio de Documentación"
+            title="Rutinas Deportivas"
           >
-            <FaFolderOpen />
-            <span>Documentación Digital</span>
+            <FaListCheck />
+            <span>Rutinas Deportivas</span>
           </NavLink>
+
+          <NavLink
+            to="/dashboard/planes-entrenamiento"
+            className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}
+            title="Planes de Entrenamiento"
+          >
+            <FaCalendarDays />
+            <span>Planes Entrenamiento</span>
+          </NavLink>
+
+          <NavLink
+            to="/dashboard/nutricion"
+            className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}
+            title="Planes de Alimentación"
+          >
+            <FaAppleWhole />
+            <span>Planes Nutrición</span>
+          </NavLink>
+
+          <div className="nav-section-label">Trámites & Operaciones</div>
+
+          {user?.rol !== 'instructor' && (
+            <NavLink
+              to="/dashboard/tramites"
+              className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}
+              title="Trámites, Pagos y Boletas"
+            >
+              <FaFileInvoiceDollar />
+              <span>Trámites y Pagos</span>
+            </NavLink>
+          )}
+
+          {['administrador', 'recepcionista'].includes(user?.rol || '') && (
+            <NavLink
+              to="/dashboard/accesos"
+              className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}
+              title="Garita & Control de Asistencia"
+            >
+              <FaQrcode />
+              <span>Garita de Acceso</span>
+            </NavLink>
+          )}
 
           <NavLink
             to="/dashboard/disciplinas"
@@ -145,16 +206,42 @@ const DashboardLayout: React.FC = () => {
             <span>Disciplinas & Horarios</span>
           </NavLink>
 
-          <NavLink
-            to="/dashboard/ambientes"
-            className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}
-            title="Ambientes & Espacios"
-          >
-            <FaBuildingFlag />
-            <span>Ambientes y Espacios</span>
-          </NavLink>
+          {user?.rol !== 'instructor' && (
+            <NavLink
+              to="/dashboard/historial"
+              className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}
+              title="Historial Clínico / Deportivo"
+            >
+              <FaNotesMedical />
+              <span>Historial Clínico</span>
+            </NavLink>
+          )}
 
-          <div className="nav-section-label">Inventario & Mantenimiento</div>
+          {user?.rol !== 'instructor' && (
+            <NavLink
+              to="/dashboard/documentos"
+              className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}
+              title="Repositorio de Documentación"
+            >
+              <FaFolderOpen />
+              <span>Documentación Digital</span>
+            </NavLink>
+          )}
+
+          {user?.rol !== 'cliente' && (
+            <>
+              <div className="nav-section-label">Inventario & Espacios</div>
+
+              <NavLink
+                to="/dashboard/ambientes"
+                className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}
+                title="Ambientes & Espacios"
+              >
+                <FaBuildingFlag />
+                <span>Ambientes y Espacios</span>
+              </NavLink>
+            </>
+          )}
 
           {['administrador', 'recepcionista', 'instructor'].includes(user?.rol || '') && (
             <NavLink
@@ -178,11 +265,11 @@ const DashboardLayout: React.FC = () => {
             </NavLink>
           )}
 
-          {['administrador', 'instructor'].includes(user?.rol || '') && (
+          {user?.rol === 'administrador' && (
             <NavLink
               to="/dashboard/mantenimientos"
               className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}
-              title="Mantenimiento Tecnico"
+              title="Mantenimiento Técnico"
             >
               <FaWrench />
               <span>Mantenimientos</span>
@@ -201,17 +288,6 @@ const DashboardLayout: React.FC = () => {
           >
             <FaTriangleExclamation />
             <span>Denuncias y Reportes</span>
-            {!collapsed && (
-              <span style={{
-                marginLeft: 'auto',
-                fontSize: '0.7rem',
-                padding: '0.15rem 0.45rem',
-                borderRadius: '999px',
-                background: '#EF4444',
-                color: '#FFF',
-                fontWeight: 700,
-              }}>2</span>
-            )}
           </a>
 
           <a
@@ -264,61 +340,7 @@ const DashboardLayout: React.FC = () => {
             </div>
           </div>
 
-          <div className="command-search-box" title="Búsqueda Rápida UAGRM">
-            <FaMagnifyingGlass />
-            <span>Buscar por usuario, R.U. o membresía...</span>
-            <kbd>⌘K</kbd>
-          </div>
-
           <div className="topbar-right">
-            <select
-              className="form-select"
-              title="Seleccionar Sede"
-              style={{
-                fontSize: '0.78rem',
-                padding: '0.35rem 0.6rem',
-                borderRadius: '6px',
-                border: '1px solid #CBD5E1',
-                backgroundColor: '#FFFFFF',
-              }}
-            >
-              <option>Sede Central Campus UAGRM</option>
-              <option>Sucursal Montero</option>
-              <option>Sucursal Camiri</option>
-            </select>
-
-            <button
-              className="action-btn"
-              onClick={() => showToast.info('3 notificaciones del sistema pendientes.', 'Notificaciones')}
-              title="Notificaciones del Sistema"
-              style={{ position: 'relative' }}
-            >
-              <FaBell />
-              <span style={{
-                position: 'absolute',
-                top: '-4px',
-                right: '-4px',
-                background: '#EF4444',
-                color: '#FFF',
-                borderRadius: '50%',
-                fontSize: '0.65rem',
-                width: '16px',
-                height: '16px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                fontWeight: 700,
-              }}>3</span>
-            </button>
-
-            <button
-              className="action-btn"
-              onClick={() => showToast.success('Reporte listo para descarga.', 'Exportar Reporte')}
-              title="Programar Exportación"
-            >
-              <FaDownload />
-            </button>
-
             <button
               onClick={() => logout()}
               style={{
@@ -326,7 +348,7 @@ const DashboardLayout: React.FC = () => {
                 alignItems: 'center',
                 gap: '0.4rem',
                 padding: '0.45rem 0.85rem',
-                borderRadius: '6px',
+                borderRadius: '4px',
                 background: '#FEE2E2',
                 color: '#B91C1C',
                 border: '1px solid #FCA5A5',
@@ -352,4 +374,3 @@ const DashboardLayout: React.FC = () => {
 };
 
 export default DashboardLayout;
-

@@ -14,6 +14,11 @@ class UsuarioPolicy
     {
         $authUser = $authUser ?? auth('sanctum')->user();
 
+        // Si el usuario autenticado tiene rol Instructor, denegar terminantemente
+        if ($authUser !== null && strcasecmp($authUser->rol?->nombre ?? '', 'Instructor') === 0) {
+            return Response::deny('No estás autorizado. Los usuarios con rol Instructor no pueden registrar usuarios.');
+        }
+
         // 1. Si el rol deseado es 'Cliente', se permite el registro público
         if (strcasecmp($dto->rol, 'Cliente') === 0) {
             return Response::allow();
@@ -50,12 +55,25 @@ class UsuarioPolicy
 
     public function update(Usuario $authUser, Usuario $targetUser): bool
     {
+        // 0. Los usuarios con rol Instructor no pueden editar usuarios
+        if (strcasecmp($authUser->rol?->nombre ?? '', 'Instructor') === 0) {
+            return false;
+        }
+
         // 1. Si es Administrador, puede actualizar cualquier perfil de cualquier rol
         if (strcasecmp($authUser->rol?->nombre ?? '', 'Administrador') === 0) {
             return true;
         }
         // 2. Cualquier otro rol solo puede actualizar su propio perfil
         return $authUser->id === $targetUser->id;
+    }
+
+    public function delete(Usuario $authUser, Usuario $targetUser): bool
+    {
+        if (strcasecmp($authUser->rol?->nombre ?? '', 'Instructor') === 0) {
+            return false;
+        }
+        return strcasecmp($authUser->rol?->nombre ?? '', 'Administrador') === 0;
     }
 
     /**

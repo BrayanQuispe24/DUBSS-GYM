@@ -20,6 +20,7 @@ class Historial extends Model
         'sexo',
         'fecha_nacimiento',
         'domicilio',
+        'facultad_carrera',
         'celular_emergencia',
         'id_usuario',
     ];

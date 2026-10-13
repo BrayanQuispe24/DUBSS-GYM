@@ -9,6 +9,6 @@ class ListarAmbientesAction
 {
     public function execute(): Collection
     {
-        return Ambiente::all();
+        return Ambiente::where('estado', true)->get();
     }
 }

@@ -17,6 +17,13 @@ import AmbienteListPage from '@/features/inventario/pages/AmbienteListPage';
 import EquipoListPage from '@/features/inventario/pages/EquipoListPage';
 import MovimientoListPage from '@/features/inventario/pages/MovimientoListPage';
 import MantenimientoListPage from '@/features/inventario/pages/MantenimientoListPage';
+import PlanesPage from '@/features/planes/pages/PlanesPage';
+import EjerciciosPage from '@/features/entrenamiento/pages/EjerciciosPage';
+import RutinasPage from '@/features/entrenamiento/pages/RutinasPage';
+import PlanesEntrenamientoPage from '@/features/entrenamiento/pages/PlanesEntrenamientoPage';
+import PlanAlimentacionPage from '@/features/nutricion/pages/PlanAlimentacionPage';
+import TramitesPage from '@/features/tramites/pages/TramitesPage';
+import RegistroAccesosPage from '@/features/accesos/pages/RegistroAccesosPage';
 import ProtectedRoute from './ProtectedRoute';
 
 const AppRoutes: React.FC = () => {
@@ -48,17 +55,46 @@ const AppRoutes: React.FC = () => {
             <Route path="permisos" element={<RoleListPage />} />
           </Route>
 
-          {/* Historial Médico / Deportivo */}
-          <Route path="historial" element={<HistorialListPage />} />
+          {/* Planes y Tarifas de Membresía */}
+          <Route element={<ProtectedRoute allowedRoles={['administrador', 'recepcionista', 'cliente']} />}>
+            <Route path="planes" element={<PlanesPage />} />
+          </Route>
+
+          {/* Entrenamiento & Ejercicios */}
+          <Route path="ejercicios" element={<EjerciciosPage />} />
+          <Route path="rutinas" element={<RutinasPage />} />
+          <Route path="planes-entrenamiento" element={<PlanesEntrenamientoPage />} />
+
+          {/* Nutrición */}
+          <Route path="nutricion" element={<PlanAlimentacionPage />} />
+
+          {/* Trámites, Pagos & Boletas */}
+          <Route element={<ProtectedRoute allowedRoles={['administrador', 'recepcionista', 'cliente']} />}>
+            <Route path="tramites" element={<TramitesPage />} />
+          </Route>
+
+          {/* Control de Accesos / Garita */}
+          <Route element={<ProtectedRoute allowedRoles={['administrador', 'recepcionista']} />}>
+            <Route path="accesos" element={<RegistroAccesosPage />} />
+          </Route>
+
+          {/* Historial Médico / Deportivo (restringido a instructor) */}
+          <Route element={<ProtectedRoute allowedRoles={['administrador', 'recepcionista', 'cliente']} />}>
+            <Route path="historial" element={<HistorialListPage />} />
+          </Route>
 
           {/* Documentación Digital */}
-          <Route path="documentos" element={<DocumentoListPage />} />
+          <Route element={<ProtectedRoute allowedRoles={['administrador', 'recepcionista', 'cliente']} />}>
+            <Route path="documentos" element={<DocumentoListPage />} />
+          </Route>
 
           {/* Deporte & Horarios */}
           <Route path="disciplinas" element={<DeporteListPage />} />
 
-          {/* Espacios / Ambientes */}
-          <Route path="ambientes" element={<AmbienteListPage />} />
+          {/* Espacios / Ambientes (restringido para rol cliente) */}
+          <Route element={<ProtectedRoute allowedRoles={['administrador', 'recepcionista', 'instructor']} />}>
+            <Route path="ambientes" element={<AmbienteListPage />} />
+          </Route>
 
           {/* Inventario de Equipos */}
           <Route element={<ProtectedRoute allowedRoles={['administrador', 'recepcionista', 'instructor']} />}>
@@ -71,7 +107,7 @@ const AppRoutes: React.FC = () => {
           </Route>
 
           {/* Mantenimientos */}
-          <Route element={<ProtectedRoute allowedRoles={['administrador', 'instructor']} />}>
+          <Route element={<ProtectedRoute allowedRoles={['administrador']} />}>
             <Route path="mantenimientos" element={<MantenimientoListPage />} />
           </Route>
         </Route>

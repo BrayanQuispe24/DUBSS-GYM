@@ -8,6 +8,6 @@ class DeleteAmbienteAction
 {
     public function execute(Ambiente $ambiente): bool
     {
-        return (bool) $ambiente->delete();
+        return (bool) $ambiente->update(['estado' => false]);
     }
 }

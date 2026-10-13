@@ -1,6 +1,20 @@
 // src/features/inventario/services/inventarioService.ts
 import api from '@/services/api';
 
+export const getEquipoImageUrl = (urlPath?: string): string => {
+  if (!urlPath) return '';
+  if (urlPath.startsWith('http://') || urlPath.startsWith('https://') || urlPath.startsWith('blob:')) {
+    return urlPath;
+  }
+  const baseUrl = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+  const cleanBase = baseUrl.replace(/\/api\/?$/, '');
+  const cleanPath = urlPath.startsWith('/') ? urlPath : `/${urlPath}`;
+  if (cleanPath.startsWith('/storage')) {
+    return `${cleanBase}${cleanPath}`;
+  }
+  return `${cleanBase}/storage${cleanPath}`;
+};
+
 export interface Ambiente {
   id: number;
   nombre: string;
@@ -28,11 +42,12 @@ export interface Equipo {
   modelo?: string;
   fecha_adquisicion?: string;
   precio_compra?: number;
-  estado: string;
+  estado: string | boolean;
   cantidad: number;
   id_ambiente?: number;
   id_marca?: number;
   id_tipo_equipo?: number;
+  imagen_url?: string;
   ambiente?: Ambiente;
   marca?: Marca;
   tipoEquipo?: TipoEquipo;
@@ -137,12 +152,23 @@ export const deleteTipoEquipo = async (id: number): Promise<void> => {
   await api.delete(`/tipo-equipos/${id}`);
 };
 
-export const createEquipo = async (data: Partial<Equipo>): Promise<Equipo> => {
-  const response = await api.post('/equipos', data);
+export const createEquipo = async (data: any): Promise<Equipo> => {
+  const isFormData = data instanceof FormData;
+  const response = await api.post('/equipos', data, {
+    headers: isFormData ? { 'Content-Type': 'multipart/form-data' } : undefined,
+  });
   return response.data.data;
 };
 
-export const updateEquipo = async (id: number, data: Partial<Equipo>): Promise<Equipo> => {
+export const updateEquipo = async (id: number, data: any): Promise<Equipo> => {
+  const isFormData = data instanceof FormData;
+  if (isFormData) {
+    data.append('_method', 'PUT');
+    const response = await api.post(`/equipos/${id}`, data, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    });
+    return response.data.data;
+  }
   const response = await api.put(`/equipos/${id}`, data);
   return response.data.data;
 };

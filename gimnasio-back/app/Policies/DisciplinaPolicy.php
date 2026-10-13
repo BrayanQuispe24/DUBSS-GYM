@@ -8,7 +8,7 @@ class DisciplinaPolicy
 {
     private function isAdmin(Usuario $user): bool
     {
-        return mb_strtolower($user->rol->nombre ?? '') === 'administrador';
+        return $user->esAdmin();
     }
 
     public function viewAny(Usuario $user): bool

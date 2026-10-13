@@ -161,8 +161,8 @@ const EcosystemRoles: React.FC = () => {
                     </div>
                     <h4 style={{ fontSize: '1.2rem', fontWeight: 800, marginBottom: '0.8rem' }}>Validación en Puerta de Ingreso</h4>
                     <div style={{ background: 'var(--color-success-bg)', padding: '1.2rem', borderRadius: '12px', border: '1px solid var(--color-success)' }}>
-                      <div style={{ color: 'var(--color-success-text)', fontWeight: 800, fontSize: '1rem', marginBottom: '0.3rem' }}>
-                        ✅ ACCESO PERMITIDO - MEMBRESÍA VIGENTE
+                      <div style={{ color: 'var(--color-success-text)', fontWeight: 800, fontSize: '1rem', marginBottom: '0.3rem', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                        <CheckCircle size={18} /> ACCESO PERMITIDO - MEMBRESÍA VIGENTE
                       </div>
                       <div style={{ fontSize: '0.85rem', color: 'var(--color-text-secondary)' }}>
                         Socio: Estudiante Gabriel Justiniano<br />
