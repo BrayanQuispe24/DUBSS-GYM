@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { FaTag, FaPlus } from 'react-icons/fa6';
 import { useCreateTipoDocumento } from '../hooks/useDocumentos';
 import type { TipoDocumento } from '../services/documentoService';
+import { useAuthStore } from '@/store/authStore';
 
 interface TipoDocumentoModalProps {
   isOpen: boolean;
@@ -11,12 +12,46 @@ interface TipoDocumentoModalProps {
 }
 
 const TipoDocumentoModal: React.FC<TipoDocumentoModalProps> = ({ isOpen, tipos, onClose }) => {
+  const { user: currentUser } = useAuthStore();
+  const isAdmin = currentUser?.rol === 'administrador';
+
   const createTipoMutation = useCreateTipoDocumento();
 
   const [nombre, setNombre] = useState('');
   const [descripcion, setDescripcion] = useState('');
 
   if (!isOpen) return null;
+
+  if (!isAdmin) {
+    return (
+      <div style={{
+        position: 'fixed', top: 0, left: 0, right: 0, bottom: 0,
+        backgroundColor: 'rgba(11, 23, 39, 0.6)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 9999
+      }}>
+        <div style={{
+          backgroundColor: '#FFFFFF', borderRadius: '12px', padding: '1.75rem', width: '100%', maxWidth: '420px',
+          boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1)', textAlign: 'center'
+        }}>
+          <h3 style={{ fontSize: '1.1rem', fontWeight: 800, color: '#DC2626', marginBottom: '0.75rem' }}>
+            Acceso Restringido
+          </h3>
+          <p style={{ fontSize: '0.85rem', color: '#64748B', marginBottom: '1.25rem' }}>
+            Únicamente el usuario con rol <strong>Administrador</strong> tiene autorización para crear tipos de documento.
+          </p>
+          <button
+            type="button"
+            onClick={onClose}
+            style={{
+              padding: '0.55rem 1.25rem', borderRadius: '6px',
+              backgroundColor: '#003B70', color: '#FFF', border: 'none', fontWeight: 700, cursor: 'pointer',
+            }}
+          >
+            Cerrar
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();

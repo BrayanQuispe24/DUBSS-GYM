@@ -306,7 +306,7 @@ const CodigoQRInscripcionModal: React.FC<CodigoQRInscripcionModalProps> = ({
                   fontSize: '0.85rem',
                 }}
               >
-                <div style={{ display: 'flex', alignItems: 'center', justifyBetween: 'space-between', marginBottom: '0.35rem' }}>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.35rem' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', fontWeight: 800, color: '#0F172A' }}>
                     <FaUser style={{ color: '#003B70' }} />
                     <span>{user.nombre || 'Socio Universitario'}</span>

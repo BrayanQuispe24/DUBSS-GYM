@@ -147,46 +147,6 @@ const RutinasPage: React.FC = () => {
             <div style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap' }}>
               <button
                 type="button"
-                onClick={() => setIsIAModalOpen(true)}
-                style={{
-                  padding: '0.4rem 0.8rem',
-                  borderRadius: '4px',
-                  border: '1px solid #7C3AED',
-                  background: '#7C3AED',
-                  color: '#FFFFFF',
-                  fontWeight: 700,
-                  fontSize: '0.78rem',
-                  cursor: 'pointer',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '0.4rem',
-                }}
-              >
-                <FaWandMagicSparkles /> Recomendador IA
-              </button>
-
-              <button
-                type="button"
-                onClick={() => setIsAnalisisModalOpen(true)}
-                style={{
-                  padding: '0.4rem 0.8rem',
-                  borderRadius: '4px',
-                  border: '1px solid #0284C7',
-                  background: '#0284C7',
-                  color: '#FFFFFF',
-                  fontWeight: 600,
-                  fontSize: '0.78rem',
-                  cursor: 'pointer',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '0.4rem',
-                }}
-              >
-                <FaCamera /> Análisis MediaPipe
-              </button>
-
-              <button
-                type="button"
                 onClick={() => setIsFormOpen(!isFormOpen)}
                 style={{
                   padding: '0.4rem 0.8rem',

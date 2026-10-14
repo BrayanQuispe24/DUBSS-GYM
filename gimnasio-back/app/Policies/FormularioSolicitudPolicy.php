@@ -14,10 +14,12 @@ class FormularioSolicitudPolicy
         return $rol !== 'instructor';
     }
 
-    private function isAdmin(Usuario $user): bool
+    private function isStaff(Usuario $user): bool
     {
         $user->loadMissing('rol');
-        return mb_strtolower($user->rol->nombre ?? '') === 'administrador';
+        $rol = mb_strtolower($user->rol ? $user->rol->nombre : ($user->tipo_usuario ?? 'cliente'));
+
+        return in_array($rol, ['administrador', 'recepcionista'], true);
     }
 
     public function viewAny(Usuario $user): bool
@@ -32,16 +34,19 @@ class FormularioSolicitudPolicy
 
     public function create(Usuario $user): bool
     {
-        return $this->canView($user);
+        $user->loadMissing('rol');
+        $rol = mb_strtolower($user->rol ? $user->rol->nombre : ($user->tipo_usuario ?? 'cliente'));
+
+        return $rol === 'cliente';
     }
 
     public function update(Usuario $user): bool
     {
-        return $this->isAdmin($user);
+        return $this->isStaff($user);
     }
 
     public function delete(Usuario $user): bool
     {
-        return $this->isAdmin($user);
+        return $this->isStaff($user);
     }
 }

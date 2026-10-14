@@ -11,7 +11,7 @@ import { useAuthStore, type AuthUser } from '@/store/authStore';
 const UserListPage: React.FC = () => {
   const navigate = useNavigate();
   const { user: currentUser } = useAuthStore();
-  const canManage = currentUser?.rol !== 'instructor';
+  const isAdmin = currentUser?.rol === 'administrador';
 
   const [activeTab, setActiveTab] = useState<'list' | 'form'>('list');
   const [filters, setFilters] = useState<UserFilterParams>({ search: '', rol: 'todos', estado: 'todos' });
@@ -49,13 +49,13 @@ const UserListPage: React.FC = () => {
   };
 
   const handleOpenCreate = () => {
-    if (!canManage) return;
+    if (!isAdmin) return;
     setUserToEdit(null);
     setActiveTab('form');
   };
 
   const handleOpenEdit = (user: AuthUser) => {
-    if (!canManage) return;
+    if (!isAdmin) return;
     setUserToEdit(user);
     setActiveTab('form');
   };
@@ -65,7 +65,7 @@ const UserListPage: React.FC = () => {
   };
 
   const handleFormSubmit = (data: UserFormData) => {
-    if (!canManage) return;
+    if (!isAdmin) return;
     if (userToEdit) {
       updateUser(
         { id: userToEdit.id, data },
@@ -87,14 +87,14 @@ const UserListPage: React.FC = () => {
   };
 
   const handleDelete = (id: number) => {
-    if (!canManage) return;
+    if (!isAdmin) return;
     if (window.confirm('¿Está seguro de eliminar este usuario del sistema UAGRM?')) {
       deleteUser(id);
     }
   };
 
   const handleToggleStatus = (user: AuthUser) => {
-    if (!canManage) return;
+    if (!isAdmin) return;
     toggleStatus({ id: user.id, currentStatus: user.estado });
   };
 
@@ -129,7 +129,7 @@ const UserListPage: React.FC = () => {
           <FaUsers size={14} /> Directorio de Usuarios ({baseUsers.length})
         </button>
 
-        {canManage && (
+        {isAdmin && (
           <button
             onClick={handleOpenCreate}
             style={{
@@ -152,7 +152,7 @@ const UserListPage: React.FC = () => {
           </button>
         )}
 
-        {activeTab === 'form' && userToEdit && (
+        {isAdmin && activeTab === 'form' && userToEdit && (
           <button
             style={{
               padding: '0.65rem 1.25rem',
@@ -181,7 +181,7 @@ const UserListPage: React.FC = () => {
           <UserTable
             users={filteredUsers}
             isLoading={isLoading}
-            canManage={canManage}
+            canManage={isAdmin}
             onEdit={handleOpenEdit}
             onDelete={handleDelete}
             onToggleStatus={handleToggleStatus}
@@ -191,7 +191,7 @@ const UserListPage: React.FC = () => {
       )}
 
       {/* TAB CONTENT: FORM */}
-      {activeTab === 'form' && (
+      {isAdmin && activeTab === 'form' && (
         <UserFormPanel
           userToEdit={userToEdit}
           onCancel={() => {

@@ -14,9 +14,11 @@ class CreateFormularioSolicitudAction
 {
     public function execute(CreateFormularioSolicitudDTO $dto): FormularioSolicitud
     {
+        $userId = auth()->id() ?? $dto->idUsuario;
+
         // Monthly restriction: Max 1 active request per discipline per user in current month
         $now = now();
-        $existeSolicitudMes = FormularioSolicitud::where('id_usuario', $dto->idUsuario)
+        $existeSolicitudMes = FormularioSolicitud::where('id_usuario', $userId)
             ->where('id_disciplina', $dto->idDisciplina)
             ->whereYear('created_at', $now->year)
             ->whereMonth('created_at', $now->month)
@@ -44,14 +46,14 @@ class CreateFormularioSolicitudAction
             'id_disciplina' => $dto->idDisciplina,
             'id_disciplina_horario' => $dto->idDisciplinaHorario,
             'id_plan' => $dto->idPlan,
-            'id_usuario' => $dto->idUsuario,
+            'id_usuario' => $userId,
             'estado' => $dto->estado,
             'fecha_registro' => $dto->fechaRegistro ?? now(),
         ]);
 
         // Find or create user Historial
         $historial = Historial::firstOrCreate(
-            ['id_usuario' => $dto->idUsuario],
+            ['id_usuario' => $userId],
             ['fecha_apertura' => now()]
         );
 

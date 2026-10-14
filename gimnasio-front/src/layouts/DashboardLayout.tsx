@@ -164,14 +164,16 @@ const DashboardLayout: React.FC = () => {
             <span>Planes Entrenamiento</span>
           </NavLink>
 
-          <NavLink
-            to="/dashboard/nutricion"
-            className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}
-            title="Planes de Alimentación"
-          >
-            <FaAppleWhole />
-            <span>Planes Nutrición</span>
-          </NavLink>
+          {user?.rol !== 'recepcionista' && (
+            <NavLink
+              to="/dashboard/nutricion"
+              className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}
+              title="Planes de Alimentación"
+            >
+              <FaAppleWhole />
+              <span>Planes Nutrición</span>
+            </NavLink>
+          )}
 
           <div className="nav-section-label">Trámites & Operaciones</div>
 
@@ -206,16 +208,14 @@ const DashboardLayout: React.FC = () => {
             <span>Disciplinas & Horarios</span>
           </NavLink>
 
-          {user?.rol !== 'instructor' && (
-            <NavLink
-              to="/dashboard/historial"
-              className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}
-              title="Historial Clínico / Deportivo"
-            >
-              <FaNotesMedical />
-              <span>Historial Clínico</span>
-            </NavLink>
-          )}
+          <NavLink
+            to="/dashboard/historial"
+            className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}
+            title="Historial Clínico / Deportivo"
+          >
+            <FaNotesMedical />
+            <span>Historial Clínico</span>
+          </NavLink>
 
           {user?.rol !== 'instructor' && (
             <NavLink

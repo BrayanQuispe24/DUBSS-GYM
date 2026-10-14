@@ -52,11 +52,11 @@ class BoletaPagoPolicy
 
     public function update(Usuario $user): bool
     {
-        return $this->isAdmin($user);
+        return $this->isStaff($user);
     }
 
     public function delete(Usuario $user): bool
     {
-        return $this->isAdmin($user);
+        return $this->isStaff($user);
     }
 }

@@ -36,17 +36,50 @@ const DocumentoUploadModal: React.FC<DocumentoUploadModalProps> = ({
   onOpenTipoModal,
 }) => {
   const { user: currentUser } = useAuthStore();
-  const isAdmin = currentUser?.rol === 'administrador' || currentUser?.rol === 'recepcionista';
+  const isCliente = currentUser?.rol === 'cliente';
 
   const [titulo, setTitulo] = useState('');
   const [idTipoDocumento, setIdTipoDocumento] = useState<number | string>('');
-  const [idUsuario, setIdUsuario] = useState<number | string>(defaultUserId || '');
   const [file, setFile] = useState<File | null>(null);
   const [isDragging, setIsDragging] = useState(false);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   if (!isOpen) return null;
+
+  if (!isCliente) {
+    return (
+      <div style={{
+        position: 'fixed', top: 0, left: 0, right: 0, bottom: 0,
+        backgroundColor: 'rgba(11, 23, 39, 0.65)',
+        backdropFilter: 'blur(4px)',
+        display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 9999,
+        padding: '1rem',
+      }}>
+        <div style={{
+          backgroundColor: '#FFFFFF', borderRadius: '12px', padding: '1.75rem', width: '100%', maxWidth: '420px',
+          boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)', border: '1px solid #E2E8F0', textAlign: 'center',
+        }}>
+          <h3 style={{ fontSize: '1.1rem', fontWeight: 800, color: '#DC2626', marginBottom: '0.75rem' }}>
+            Acceso Restringido
+          </h3>
+          <p style={{ fontSize: '0.85rem', color: '#64748B', marginBottom: '1.25rem' }}>
+            Únicamente los usuarios con rol <strong>Cliente</strong> pueden subir documentos al sistema.
+          </p>
+          <button
+            type="button"
+            onClick={onClose}
+            style={{
+              padding: '0.55rem 1.25rem', borderRadius: '6px',
+              backgroundColor: '#003B70', color: '#FFF', border: 'none', fontWeight: 700, cursor: 'pointer',
+            }}
+          >
+            Cerrar
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   const handleDragOver = (e: React.DragEvent) => {
     e.preventDefault();
@@ -99,8 +132,8 @@ const DocumentoUploadModal: React.FC<DocumentoUploadModalProps> = ({
     formData.append('titulo', titulo.trim());
     formData.append('id_tipo_documento', String(idTipoDocumento));
     formData.append('archivo', file);
-    if (idUsuario) {
-      formData.append('id_usuario', String(idUsuario));
+    if (currentUser?.id) {
+      formData.append('id_usuario', String(currentUser.id));
     }
 
     onSubmit(formData);
@@ -158,30 +191,6 @@ const DocumentoUploadModal: React.FC<DocumentoUploadModalProps> = ({
         </div>
 
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.1rem' }}>
-          {/* Campo: Socio / Usuario (Solo para Administradores / Recepcionistas) */}
-          {isAdmin && users.length > 0 && (
-            <div>
-              <label style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.82rem', fontWeight: 700, color: '#334155', marginBottom: '0.4rem' }}>
-                <FaUser style={{ color: '#003B70' }} /> Asignar a Socio / Usuario
-              </label>
-              <select
-                value={idUsuario}
-                onChange={(e) => setIdUsuario(e.target.value)}
-                style={{
-                  width: '100%', padding: '0.65rem 0.85rem', borderRadius: '10px',
-                  border: '1px solid #CBD5E1', fontSize: '0.88rem', color: '#0F172A', backgroundColor: '#F8FAFC',
-                }}
-              >
-                <option value="">Socio actual (Usuario autenticado)</option>
-                {users.map((u) => (
-                  <option key={u.id} value={u.id}>
-                    {u.name} ({u.email}) {u.registro_universitario ? `- RU: ${u.registro_universitario}` : ''}
-                  </option>
-                ))}
-              </select>
-            </div>
-          )}
-
           {/* Campo: Título del Documento */}
           <div>
             <label style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.82rem', fontWeight: 700, color: '#334155', marginBottom: '0.4rem' }}>
@@ -206,7 +215,7 @@ const DocumentoUploadModal: React.FC<DocumentoUploadModalProps> = ({
               <label style={{ fontSize: '0.82rem', fontWeight: 700, color: '#334155' }}>
                 Tipo de Documento *
               </label>
-              {onOpenTipoModal && (
+              {onOpenTipoModal && currentUser?.rol === 'administrador' && (
                 <button
                   type="button"
                   onClick={onOpenTipoModal}
@@ -300,7 +309,7 @@ const DocumentoUploadModal: React.FC<DocumentoUploadModalProps> = ({
                 padding: '1rem',
                 display: 'flex',
                 alignItems: 'center',
-                justify: 'space-between',
+                justifyContent: 'space-between',
               }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem', overflow: 'hidden' }}>
                   <div style={{

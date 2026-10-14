@@ -66,7 +66,9 @@ const AppRoutes: React.FC = () => {
           <Route path="planes-entrenamiento" element={<PlanesEntrenamientoPage />} />
 
           {/* Nutrición */}
-          <Route path="nutricion" element={<PlanAlimentacionPage />} />
+          <Route element={<ProtectedRoute allowedRoles={['administrador', 'instructor', 'cliente']} />}>
+            <Route path="nutricion" element={<PlanAlimentacionPage />} />
+          </Route>
 
           {/* Trámites, Pagos & Boletas */}
           <Route element={<ProtectedRoute allowedRoles={['administrador', 'recepcionista', 'cliente']} />}>
@@ -78,8 +80,8 @@ const AppRoutes: React.FC = () => {
             <Route path="accesos" element={<RegistroAccesosPage />} />
           </Route>
 
-          {/* Historial Médico / Deportivo (restringido a instructor) */}
-          <Route element={<ProtectedRoute allowedRoles={['administrador', 'recepcionista', 'cliente']} />}>
+          {/* Historial Médico / Deportivo */}
+          <Route element={<ProtectedRoute allowedRoles={['administrador', 'recepcionista', 'instructor', 'cliente']} />}>
             <Route path="historial" element={<HistorialListPage />} />
           </Route>
 

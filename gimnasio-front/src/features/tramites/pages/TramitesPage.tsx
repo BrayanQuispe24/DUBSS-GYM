@@ -19,6 +19,7 @@ import showToast from '@/utils/toast';
 const TramitesPage: React.FC = () => {
   const { user } = useAuthStore();
   const isAdmin = user?.rol === 'administrador' || user?.rol === 'recepcionista';
+  const isCliente = user?.rol === 'cliente';
 
   const [tab, setTab] = useState<'solicitudes' | 'pagos' | 'inscripciones'>('solicitudes');
 
@@ -428,17 +429,19 @@ const TramitesPage: React.FC = () => {
             >
               <FaFilePdf /> Imprimir Modelo DUBSS-FR-03
             </button>
-            <button
-              onClick={() => setIsCreateDubssModalOpen(true)}
-              style={{
-                padding: '0.55rem 1rem', background: '#0077D4',
-                color: '#FFF', border: '1px solid #005FA8', borderRadius: '4px', fontWeight: 700, fontSize: '0.80rem',
-                cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.4rem',
-                textTransform: 'uppercase', letterSpacing: '0.03em'
-              }}
-            >
-              <FaPlus /> Crear Solicitud (DUBSS-FR-03)
-            </button>
+            {isCliente && (
+              <button
+                onClick={() => setIsCreateDubssModalOpen(true)}
+                style={{
+                  padding: '0.55rem 1rem', background: '#0077D4',
+                  color: '#FFF', border: '1px solid #005FA8', borderRadius: '4px', fontWeight: 700, fontSize: '0.80rem',
+                  cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.4rem',
+                  textTransform: 'uppercase', letterSpacing: '0.03em'
+                }}
+              >
+                <FaPlus /> Crear Solicitud (DUBSS-FR-03)
+              </button>
+            )}
           </div>
           {loadSol ? <div style={{ fontSize: '0.85rem', color: '#64748B' }}>Cargando solicitudes...</div> : filteredSolicitudes.length === 0 ? (
             <div style={{ padding: '3rem', textAlign: 'center', backgroundColor: '#FFF', borderRadius: '4px', border: '1px solid #CBD5E1', color: '#64748B', fontSize: '0.85rem' }}>
@@ -715,7 +718,7 @@ const TramitesPage: React.FC = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {filteredInscripciones.map((ins, idx) => (
+                  {filteredInscripciones.map((ins: any, idx: number) => (
                     <tr key={ins?.id || idx} style={{ borderBottom: '1px solid #E2E8F0' }}>
                       <td style={{ padding: '0.65rem 0.85rem', fontWeight: 700, color: '#0F172A', fontFamily: 'monospace' }}>{ins?.numero_boleta}</td>
                       <td style={{ padding: '0.65rem 0.85rem' }}>{ins?.usuario?.name || [ins?.usuario?.nombre, ins?.usuario?.apellido].filter(Boolean).join(' ') || ins?.usuario?.email || '-'}</td>

@@ -9,8 +9,12 @@ import DetalleHistorialModal from '../components/DetalleHistorialModal';
 import AntecedenteModal from '../components/AntecedenteModal';
 import HistorialPhysicalViewModal from '../components/HistorialPhysicalViewModal';
 import FormularioDUBSSModal from '../components/FormularioDUBSSModal';
+import { useAuthStore } from '@/store/authStore';
 
 const HistorialListPage: React.FC = () => {
+  const { user: currentUser } = useAuthStore();
+  const isCliente = currentUser?.rol === 'cliente';
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDetalleModalOpen, setIsDetalleModalOpen] = useState(false);
   const [isAntecedenteModalOpen, setIsAntecedenteModalOpen] = useState(false);
@@ -103,17 +107,19 @@ const HistorialListPage: React.FC = () => {
             Seguimiento antropométrico, antecedentes médicos y evaluaciones físicas del universitario UAGRM.
           </p>
         </div>
-        <button
-          onClick={handleOpenCreate}
-          style={{
-            padding: '0.55rem 1rem', borderRadius: '4px',
-            background: '#0077D4',
-            color: '#FFFFFF', border: '1px solid #005FA8', fontWeight: 700, fontSize: '0.80rem', cursor: 'pointer',
-            display: 'flex', alignItems: 'center', gap: '0.4rem', textTransform: 'uppercase', letterSpacing: '0.03em'
-          }}
-        >
-          <FaPlus /> Abrir Historial
-        </button>
+        {isCliente && (
+          <button
+            onClick={handleOpenCreate}
+            style={{
+              padding: '0.55rem 1rem', borderRadius: '4px',
+              background: '#0077D4',
+              color: '#FFFFFF', border: '1px solid #005FA8', fontWeight: 700, fontSize: '0.80rem', cursor: 'pointer',
+              display: 'flex', alignItems: 'center', gap: '0.4rem', textTransform: 'uppercase', letterSpacing: '0.03em'
+            }}
+          >
+            <FaPlus /> Abrir Historial
+          </button>
+        )}
       </div>
 
       {/* BARRA DE BUSQUEDA / FILTRADO POR SOCIO */}

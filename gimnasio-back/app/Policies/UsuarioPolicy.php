@@ -55,24 +55,17 @@ class UsuarioPolicy
 
     public function update(Usuario $authUser, Usuario $targetUser): bool
     {
-        // 0. Los usuarios con rol Instructor no pueden editar usuarios
-        if (strcasecmp($authUser->rol?->nombre ?? '', 'Instructor') === 0) {
-            return false;
+        // 0. Los usuarios con rol Instructor o Recepcionista no pueden editar usuarios de la plataforma
+        if (in_array(strtolower($authUser->rol?->nombre ?? ''), ['instructor', 'recepcionista'], true)) {
+            return $authUser->id === $targetUser->id;
         }
 
         // 1. Si es Administrador, puede actualizar cualquier perfil de cualquier rol
-        if (strcasecmp($authUser->rol?->nombre ?? '', 'Administrador') === 0) {
-            return true;
-        }
-        // 2. Cualquier otro rol solo puede actualizar su propio perfil
-        return $authUser->id === $targetUser->id;
+        return strcasecmp($authUser->rol?->nombre ?? '', 'Administrador') === 0;
     }
 
     public function delete(Usuario $authUser, Usuario $targetUser): bool
     {
-        if (strcasecmp($authUser->rol?->nombre ?? '', 'Instructor') === 0) {
-            return false;
-        }
         return strcasecmp($authUser->rol?->nombre ?? '', 'Administrador') === 0;
     }
 

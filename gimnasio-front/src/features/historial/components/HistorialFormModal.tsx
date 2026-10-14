@@ -5,7 +5,6 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import type { Historial } from '../services/historialService';
 import { useAuthStore } from '@/store/authStore';
-import { useUsers } from '@/features/users/hooks/useUsers';
 
 const historialSchema = z.object({
   id_usuario: z.coerce.number().min(1, 'El ID de usuario es requerido'),
@@ -39,8 +38,6 @@ const HistorialFormModal: React.FC<HistorialFormModalProps> = ({
   isPending,
 }) => {
   const { user: currentUser } = useAuthStore();
-  const { data: users = [] } = useUsers();
-  const isAdminOrStaff = currentUser?.rol === 'administrador' || currentUser?.rol === 'recepcionista' || currentUser?.rol === 'instructor';
 
   const {
     register,
@@ -130,6 +127,40 @@ const HistorialFormModal: React.FC<HistorialFormModalProps> = ({
     });
   };
 
+  if (!isOpen) return null;
+
+  if (currentUser?.rol !== 'cliente') {
+    return (
+      <div style={{
+        position: 'fixed', top: 0, left: 0, right: 0, bottom: 0,
+        backgroundColor: 'rgba(11, 23, 39, 0.65)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 9999,
+        padding: '1rem',
+      }}>
+        <div style={{
+          backgroundColor: '#FFFFFF', borderRadius: '12px', padding: '1.75rem', width: '100%', maxWidth: '420px',
+          boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)', border: '1px solid #E2E8F0', textAlign: 'center',
+        }}>
+          <h3 style={{ fontSize: '1.1rem', fontWeight: 800, color: '#DC2626', marginBottom: '0.75rem' }}>
+            Acceso Restringido
+          </h3>
+          <p style={{ fontSize: '0.85rem', color: '#64748B', marginBottom: '1.25rem' }}>
+            Únicamente los usuarios con rol <strong>Cliente</strong> pueden aperturar o modificar su historial clínico.
+          </p>
+          <button
+            type="button"
+            onClick={onClose}
+            style={{
+              padding: '0.55rem 1.25rem', borderRadius: '6px',
+              backgroundColor: '#003B70', color: '#FFF', border: 'none', fontWeight: 700, cursor: 'pointer',
+            }}
+          >
+            Cerrar
+          </button>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div style={{
       position: 'fixed', top: 0, left: 0, right: 0, bottom: 0,
@@ -147,27 +178,14 @@ const HistorialFormModal: React.FC<HistorialFormModalProps> = ({
           {/* USUARIO */}
           <div>
             <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 700, color: '#334155', marginBottom: '0.35rem' }}>
-              Socio / Usuario Asignado *
+              Socio / Titular del Expediente
             </label>
-            {isAdminOrStaff && users.length > 0 ? (
-              <select
-                {...register('id_usuario')}
-                style={{ width: '100%', padding: '0.6rem 0.8rem', borderRadius: '6px', border: '1px solid #CBD5E1', fontSize: '0.88rem' }}
-              >
-                {users.map((u) => (
-                  <option key={u.id} value={u.id}>
-                    {u.name} ({u.email}) {u.registro_universitario ? `- RU: ${u.registro_universitario}` : ''}
-                  </option>
-                ))}
-              </select>
-            ) : (
-              <div>
-                <input type="hidden" {...register('id_usuario')} value={currentUser?.id || 1} />
-                <div style={{ padding: '0.65rem 0.85rem', backgroundColor: '#F8FAFC', border: '1px solid #CBD5E1', borderRadius: '6px', fontSize: '0.88rem', fontWeight: 700, color: '#0F172A' }}>
-                  {currentUser?.name} ({currentUser?.email})
-                </div>
+            <div>
+              <input type="hidden" {...register('id_usuario')} value={currentUser?.id || 1} />
+              <div style={{ padding: '0.65rem 0.85rem', backgroundColor: '#F8FAFC', border: '1px solid #CBD5E1', borderRadius: '6px', fontSize: '0.88rem', fontWeight: 700, color: '#0F172A' }}>
+                {currentUser?.name} ({currentUser?.email})
               </div>
-            )}
+            </div>
             {errors.id_usuario && (
               <span style={{ color: '#DC2626', fontSize: '0.75rem', marginTop: '0.2rem', display: 'block' }}>
                 {errors.id_usuario.message}

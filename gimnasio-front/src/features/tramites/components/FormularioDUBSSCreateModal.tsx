@@ -80,9 +80,9 @@ const FormularioDUBSSCreateModal: React.FC<FormularioDUBSSCreateModalProps> = ({
       setNumeroFormulario(`DUBSS-FR-03-${new Date().getFullYear()}-${randomNum}`);
 
       // Set default user
-      if (!isAdmin && user) {
+      if (user) {
         setIdUsuario(user.id);
-        if (user.celular) setCelular(user.celular);
+        if ((user as any).celular) setCelular((user as any).celular);
       }
 
       // Fetch users, disciplines, plans, schedules, and disciplina-horario pivot records
@@ -250,6 +250,39 @@ const FormularioDUBSSCreateModal: React.FC<FormularioDUBSSCreateModalProps> = ({
     onSubmit(payload);
   };
 
+  if (!isOpen) return null;
+
+  if (user?.rol !== 'cliente') {
+    return (
+      <div style={{
+        position: 'fixed', inset: 0, zIndex: 99999, backgroundColor: 'rgba(15,23,42,0.8)',
+        display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '1rem'
+      }}>
+        <div style={{
+          backgroundColor: '#FFFFFF', borderRadius: '12px', padding: '1.75rem', width: '100%', maxWidth: '420px',
+          boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)', border: '1px solid #E2E8F0', textAlign: 'center',
+        }}>
+          <h3 style={{ fontSize: '1.1rem', fontWeight: 800, color: '#DC2626', marginBottom: '0.75rem' }}>
+            Acceso Restringido
+          </h3>
+          <p style={{ fontSize: '0.85rem', color: '#64748B', marginBottom: '1.25rem' }}>
+            Únicamente los usuarios con rol <strong>Cliente</strong> pueden emitir solicitudes de inscripción (DUBSS-FR-03).
+          </p>
+          <button
+            type="button"
+            onClick={onClose}
+            style={{
+              padding: '0.55rem 1.25rem', borderRadius: '6px',
+              backgroundColor: '#003B70', color: '#FFF', border: 'none', fontWeight: 700, cursor: 'pointer',
+            }}
+          >
+            Cerrar
+          </button>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div style={{
       position: 'fixed', inset: 0, zIndex: 99999, backgroundColor: 'rgba(15,23,42,0.8)',
@@ -313,28 +346,12 @@ const FormularioDUBSSCreateModal: React.FC<FormularioDUBSSCreateModalProps> = ({
                 <label style={{ fontSize: '0.78rem', fontWeight: 700, color: '#475569', display: 'block', marginBottom: '0.25rem' }}>
                   Socio / Universitario:
                 </label>
-                {isAdmin ? (
-                  <select
-                    value={idUsuario}
-                    onChange={(e) => setIdUsuario(e.target.value ? Number(e.target.value) : '')}
-                    style={{ width: '100%', padding: '0.55rem', borderRadius: '6px', border: '1px solid #CBD5E1', fontSize: '0.88rem', backgroundColor: '#FFF' }}
-                    required
-                  >
-                    <option value="">-- Seleccionar Usuario --</option>
-                    {usuarios.map((u) => (
-                      <option key={u.id} value={u.id}>
-                        {u.nombre} {u.apellido} ({u.codigo || u.email})
-                      </option>
-                    ))}
-                  </select>
-                ) : (
-                  <input
-                    type="text"
-                    value={user?.name || [user?.nombre, user?.apellido].filter(Boolean).join(' ') || user?.email || ''}
-                    disabled
-                    style={{ width: '100%', padding: '0.55rem', borderRadius: '6px', border: '1px solid #CBD5E1', fontSize: '0.88rem', backgroundColor: '#E2E8F0', fontWeight: 700 }}
-                  />
-                )}
+                <input
+                  type="text"
+                  value={user?.name || [user?.nombre, user?.apellido].filter(Boolean).join(' ') || user?.email || ''}
+                  disabled
+                  style={{ width: '100%', padding: '0.55rem', borderRadius: '6px', border: '1px solid #CBD5E1', fontSize: '0.88rem', backgroundColor: '#E2E8F0', fontWeight: 700 }}
+                />
               </div>
 
               <div>

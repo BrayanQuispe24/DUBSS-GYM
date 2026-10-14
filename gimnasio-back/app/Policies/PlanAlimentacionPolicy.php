@@ -15,12 +15,18 @@ class PlanAlimentacionPolicy
 
     public function viewAny(Usuario $user): bool
     {
-        return true;
+        $user->loadMissing('rol');
+        $rol = mb_strtolower($user->rol ? $user->rol->nombre : ($user->tipo_usuario ?? ''));
+
+        return $rol !== 'recepcionista';
     }
 
     public function view(Usuario $user): bool
     {
-        return true;
+        $user->loadMissing('rol');
+        $rol = mb_strtolower($user->rol ? $user->rol->nombre : ($user->tipo_usuario ?? ''));
+
+        return $rol !== 'recepcionista';
     }
 
     public function create(Usuario $user): bool

@@ -98,17 +98,19 @@ const DocumentoListPage: React.FC = () => {
               <FaTag /> Tipos de Documento
             </button>
           )}
-          <button
-            onClick={() => setIsModalOpen(true)}
-            style={{
-              padding: '0.55rem 1rem', borderRadius: '4px',
-              background: '#0077D4',
-              color: '#FFFFFF', border: '1px solid #005FA8', fontWeight: 700, fontSize: '0.80rem', cursor: 'pointer',
-              display: 'flex', alignItems: 'center', gap: '0.4rem', textTransform: 'uppercase', letterSpacing: '0.03em'
-            }}
-          >
-            <FaCloudArrowUp /> Subir Documento
-          </button>
+          {currentUser?.rol === 'cliente' && (
+            <button
+              onClick={() => setIsModalOpen(true)}
+              style={{
+                padding: '0.55rem 1rem', borderRadius: '4px',
+                background: '#0077D4',
+                color: '#FFFFFF', border: '1px solid #005FA8', fontWeight: 700, fontSize: '0.80rem', cursor: 'pointer',
+                display: 'flex', alignItems: 'center', gap: '0.4rem', textTransform: 'uppercase', letterSpacing: '0.03em'
+              }}
+            >
+              <FaCloudArrowUp /> Subir Documento
+            </button>
+          )}
         </div>
       </div>
 

@@ -29,25 +29,18 @@ class DetalleHistorialPolicy
 
     public function create(Usuario $user): bool
     {
-        $rol = $this->getRole($user);
-        return in_array($rol, ['cliente', 'administrador'], true);
+        return $this->getRole($user) === 'cliente';
     }
 
     public function update(Usuario $user, DetalleHistorial $detalle): bool
     {
         $rol = $this->getRole($user);
-        if ($rol === 'cliente') {
-            return $detalle->historial->id_usuario === $user->id;
-        }
-        return $rol === 'administrador';
+        return $rol === 'cliente' && $detalle->historial->id_usuario === $user->id;
     }
 
     public function delete(Usuario $user, DetalleHistorial $detalle): bool
     {
         $rol = $this->getRole($user);
-        if ($rol === 'cliente') {
-            return $detalle->historial->id_usuario === $user->id;
-        }
-        return $rol === 'administrador';
+        return $rol === 'cliente' && $detalle->historial->id_usuario === $user->id;
     }
 }

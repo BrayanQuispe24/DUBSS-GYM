@@ -32,10 +32,14 @@ import HistorialPhysicalViewModal from '@/features/historial/components/Historia
 import FormularioDUBSSModal from '@/features/historial/components/FormularioDUBSSModal';
 import DocumentoPreviewModal from '@/features/documentos/components/DocumentoPreviewModal';
 import DocumentoUploadModal from '@/features/documentos/components/DocumentoUploadModal';
+import { useAuthStore } from '@/store/authStore';
 
 type TabType = 'perfil' | 'historial' | 'antecedentes' | 'documentos';
 
 const UserDetailPage: React.FC = () => {
+  const { user: currentUser } = useAuthStore();
+  const isCliente = currentUser?.rol === 'cliente';
+
   const { id } = useParams<{ id: string }>();
   const userId = Number(id);
   const navigate = useNavigate();
@@ -655,18 +659,20 @@ const UserDetailPage: React.FC = () => {
               <span style={{ fontSize: '0.8rem', color: '#64748B', fontWeight: 600 }}>
                 {documentos.length} Documento(s) adjunto(s)
               </span>
-              <button
-                onClick={() => setIsUploadModalOpen(true)}
-                style={{
-                  padding: '0.45rem 0.9rem', borderRadius: '8px', border: 'none',
-                  background: 'linear-gradient(135deg, #003B70 0%, #002A52 100%)',
-                  color: '#FFFFFF', fontWeight: 700, fontSize: '0.82rem', cursor: 'pointer',
-                  display: 'inline-flex', alignItems: 'center', gap: '0.4rem',
-                  boxShadow: '0 2px 8px rgba(0, 59, 112, 0.2)'
-                }}
-              >
-                <FaCloudArrowUp /> Subir Documento
-              </button>
+              {isCliente && (
+                <button
+                  onClick={() => setIsUploadModalOpen(true)}
+                  style={{
+                    padding: '0.45rem 0.9rem', borderRadius: '8px', border: 'none',
+                    background: 'linear-gradient(135deg, #003B70 0%, #002A52 100%)',
+                    color: '#FFFFFF', fontWeight: 700, fontSize: '0.82rem', cursor: 'pointer',
+                    display: 'inline-flex', alignItems: 'center', gap: '0.4rem',
+                    boxShadow: '0 2px 8px rgba(0, 59, 112, 0.2)'
+                  }}
+                >
+                  <FaCloudArrowUp /> Subir Documento
+                </button>
+              )}
             </div>
           </div>
 
@@ -674,16 +680,18 @@ const UserDetailPage: React.FC = () => {
             <div style={{ padding: '3rem', textAlign: 'center', color: '#64748B', backgroundColor: '#F8FAFC', borderRadius: '8px', border: '1px dashed #CBD5E1' }}>
               <FaFolderOpen style={{ fontSize: '2.5rem', color: '#94A3B8', marginBottom: '0.75rem' }} />
               <p style={{ fontWeight: 700, fontSize: '0.95rem', marginBottom: '1rem' }}>No hay documentos digitales subidos para este socio.</p>
-              <button
-                onClick={() => setIsUploadModalOpen(true)}
-                style={{
-                  padding: '0.55rem 1.1rem', borderRadius: '8px', border: 'none',
-                  backgroundColor: '#003B70', color: '#FFF', fontWeight: 700, fontSize: '0.85rem', cursor: 'pointer',
-                  display: 'inline-flex', alignItems: 'center', gap: '0.4rem'
-                }}
-              >
-                <FaCloudArrowUp /> Subir Primer Documento
-              </button>
+              {isCliente && (
+                <button
+                  onClick={() => setIsUploadModalOpen(true)}
+                  style={{
+                    padding: '0.55rem 1.1rem', borderRadius: '8px', border: 'none',
+                    backgroundColor: '#003B70', color: '#FFF', fontWeight: 700, fontSize: '0.85rem', cursor: 'pointer',
+                    display: 'inline-flex', alignItems: 'center', gap: '0.4rem'
+                  }}
+                >
+                  <FaCloudArrowUp /> Subir Primer Documento
+                </button>
+              )}
             </div>
           ) : (
             <div className="table-responsive">

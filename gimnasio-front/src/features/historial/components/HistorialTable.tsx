@@ -1,7 +1,7 @@
-// src/features/historial/components/HistorialTable.tsx
 import React from 'react';
 import { FaNotesMedical, FaHeartPulse, FaPenToSquare, FaTrashCan, FaEye, FaFilePdf } from 'react-icons/fa6';
 import type { Historial } from '../services/historialService';
+import { useAuthStore } from '@/store/authStore';
 
 interface HistorialTableProps {
   historiales: Historial[];
@@ -24,6 +24,8 @@ const HistorialTable: React.FC<HistorialTableProps> = ({
   onViewPhysical,
   onViewDubssForm,
 }) => {
+  const { user: currentUser } = useAuthStore();
+  const isCliente = currentUser?.rol === 'cliente';
   if (isLoading) {
     return <div style={{ textAlign: 'center', padding: '3rem', color: '#64748B' }}>Cargando historiales clínicos y deportivos...</div>;
   }
@@ -116,34 +118,39 @@ const HistorialTable: React.FC<HistorialTableProps> = ({
                   >
                     <FaEye />
                   </button>
-                  <button
-                    onClick={() => onAddAntecedente(h)}
-                    title="Registrar Antecedentes Médicos"
-                    style={{ padding: '0.3rem 0.55rem', borderRadius: '4px', backgroundColor: '#FEE2E2', color: '#DC2626', border: '1px solid #FCA5A5', cursor: 'pointer', fontSize: '0.75rem' }}
-                  >
-                    <FaHeartPulse />
-                  </button>
-                  <button
-                    onClick={() => onAddDetalle(h)}
-                    title="Agregar Antropometría"
-                    style={{ padding: '0.3rem 0.55rem', borderRadius: '4px', backgroundColor: '#E0F2FE', color: '#0077D4', border: '1px solid #BAE6FD', cursor: 'pointer', fontSize: '0.75rem' }}
-                  >
-                    <FaNotesMedical />
-                  </button>
-                  <button
-                    onClick={() => onEdit(h)}
-                    title="Editar Historial"
-                    style={{ padding: '0.3rem 0.55rem', borderRadius: '4px', backgroundColor: '#F1F5F9', color: '#475569', border: '1px solid #CBD5E1', cursor: 'pointer', fontSize: '0.75rem' }}
-                  >
-                    <FaPenToSquare />
-                  </button>
-                  <button
-                    onClick={() => onDelete(h.id)}
-                    title="Eliminar Historial"
-                    style={{ padding: '0.3rem 0.55rem', borderRadius: '4px', backgroundColor: '#FEE2E2', color: '#DC2626', border: '1px solid #FCA5A5', cursor: 'pointer', fontSize: '0.75rem' }}
-                  >
-                    <FaTrashCan />
-                  </button>
+
+                  {isCliente && h.id_usuario === currentUser?.id && (
+                    <>
+                      <button
+                        onClick={() => onAddAntecedente(h)}
+                        title="Registrar Antecedentes Médicos"
+                        style={{ padding: '0.3rem 0.55rem', borderRadius: '4px', backgroundColor: '#FEE2E2', color: '#DC2626', border: '1px solid #FCA5A5', cursor: 'pointer', fontSize: '0.75rem' }}
+                      >
+                        <FaHeartPulse />
+                      </button>
+                      <button
+                        onClick={() => onAddDetalle(h)}
+                        title="Agregar Antropometría"
+                        style={{ padding: '0.3rem 0.55rem', borderRadius: '4px', backgroundColor: '#E0F2FE', color: '#0077D4', border: '1px solid #BAE6FD', cursor: 'pointer', fontSize: '0.75rem' }}
+                      >
+                        <FaNotesMedical />
+                      </button>
+                      <button
+                        onClick={() => onEdit(h)}
+                        title="Editar Historial"
+                        style={{ padding: '0.3rem 0.55rem', borderRadius: '4px', backgroundColor: '#F1F5F9', color: '#475569', border: '1px solid #CBD5E1', cursor: 'pointer', fontSize: '0.75rem' }}
+                      >
+                        <FaPenToSquare />
+                      </button>
+                      <button
+                        onClick={() => onDelete(h.id)}
+                        title="Eliminar Historial"
+                        style={{ padding: '0.3rem 0.55rem', borderRadius: '4px', backgroundColor: '#FEE2E2', color: '#DC2626', border: '1px solid #FCA5A5', cursor: 'pointer', fontSize: '0.75rem' }}
+                      >
+                        <FaTrashCan />
+                      </button>
+                    </>
+                  )}
                 </div>
               </td>
             </tr>
