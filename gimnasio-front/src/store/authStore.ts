@@ -1,5 +1,5 @@
-// src/store/authStore.ts
 import { create } from 'zustand';
+import { queryClient } from '@/lib/queryClient';
 
 export type UserRole = 'administrador' | 'recepcionista' | 'instructor' | 'cliente';
 
@@ -139,6 +139,7 @@ export const useAuthStore = create<AuthState>((set) => ({
   logout: () => {
     localStorage.removeItem(STORAGE_KEY_TOKEN);
     localStorage.removeItem(STORAGE_KEY_USER);
+    queryClient.clear();
     set({ user: null, token: null, isAuthenticated: false });
   },
 

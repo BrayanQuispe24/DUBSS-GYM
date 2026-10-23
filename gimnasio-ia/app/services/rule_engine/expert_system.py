@@ -1,3 +1,4 @@
+import random
 from typing import List, Dict, Any, Tuple
 from app.schemas.expert_schemas import (
     PerfilUsuarioInput,
@@ -9,7 +10,7 @@ from app.schemas.expert_schemas import (
 )
 
 class RuleEngineExpertSystem:
-    """Motor de Reglas Experto basado en principios ACSM / NSCA."""
+    """Motor de Reglas Experto basado en principios ACSM / NSCA con selección variada y adaptativa."""
 
     def generar_rutina(
         self,
@@ -72,26 +73,31 @@ class RuleEngineExpertSystem:
             reglas_aplicadas.append("REGLA_EXCLUSION_RESTRICCIONES: Se excluyeron ejercicios incompatibles con restricciones declaradas.")
 
         # Inspección Postural Complementaria
+        asimetria_hombros = False
         if perfil.metricas_corporales and perfil.metricas_corporales.inclinacion_hombros_grados:
             if perfil.metricas_corporales.inclinacion_hombros_grados > 3.0:
+                asimetria_hombros = True
                 observaciones.append(
                     f"Atención Postural: Se detectó inclinación de hombros de {perfil.metricas_corporales.inclinacion_hombros_grados}°. El sistema prioriza el trabajo unilateral con mancuernas/poleas para evitar descompensaciones."
                 )
                 reglas_aplicadas.append("REGLA_ADAPTACION_POSTURAL_UNILATERAL: Priorización de ejercicios unilaterales debido a asimetría geométrica de hombros.")
 
         # 4. Parámetros de Volumen e Intensidad (ACSM / NSCA)
-        series, reps, descanso = self._determinar_volumen_intensidad(perfil.objetivo)
+        series, reps, descanso, prescripcion_extra = self._determinar_volumen_intensidad(perfil.objetivo)
         reglas_aplicadas.append(
-            f"REGLA_PARAMETROS_ACSM: Objetivo {perfil.objetivo} -> {series} series, {reps} reps, {descanso}s descanso."
+            f"REGLA_PARAMETROS_ACSM: Objetivo {perfil.objetivo} -> {series} series, {reps} reps, {descanso}s descanso ({prescripcion_extra})."
         )
 
-        # 5. Estructura de Distribución Semanal (Splits)
+        # 5. Estructura de Distribución Semanal Dinámica (Splits Especializados)
         dias_rutina = self._construir_dias_semana(
+            perfil.objetivo,
             perfil.dias_disponibles,
             candidatos_filtrados,
             series,
             reps,
             descanso,
+            prescripcion_extra,
+            asimetria_hombros,
             reglas_aplicadas,
         )
 
@@ -108,88 +114,217 @@ class RuleEngineExpertSystem:
             observaciones=observaciones,
         )
 
-    def _determinar_volumen_intensidad(self, objetivo: str) -> Tuple[int, str, int]:
+    def _determinar_volumen_intensidad(self, objetivo: str) -> Tuple[int, str, int, str]:
         obj = objetivo.upper()
         if obj == "HIPERTROFIA":
-            return (4, "8 - 12", 90)
+            return (4, "8 - 12", 90, "RIR 1-2, Tempo 3-0-1-0 con control excéntrico")
         elif obj == "FUERZA":
-            return (4, "3 - 6", 150)
+            return (4, "3 - 6", 150, "RIR 2-3, Cargas elevadas y fase concéntrica explosiva")
         elif obj == "RESISTENCIA":
-            return (3, "15 - 20", 45)
+            return (3, "15 - 20", 45, "RIR 0-1, Densidad alta y pausas breves")
         else:  # ACONDICIONAMIENTO
-            return (3, "12 - 15", 60)
+            return (3, "12 - 15", 60, "Ritmo continuo, enfoque metabólico y cadencia fluida")
 
     def _construir_dias_semana(
         self,
+        objetivo: str,
         dias: int,
         candidatos: List[EjercicioCatalogoItem],
         series: int,
         reps: str,
         descanso: int,
+        prescripcion_extra: str,
+        asimetria_hombros: bool,
         reglas_aplicadas: List[str],
     ) -> List[DiaRutina]:
+        obj = objetivo.upper()
         resultado_dias = []
 
-        if dias <= 3:
-            reglas_aplicadas.append("REGLA_DISTRIBUCION_SPLIT: Selección de Split Fullbody (Cuerpo Completo) para óptima frecuencia de entrenamiento.")
-            enfoques = [
-                ("Día 1", "Fullbody A - Enfoque Pecho & Cuádriceps", ["Pecho", "Cuádriceps", "Espalda Media", "Hombros", "Abdominales"]),
-                ("Día 2", "Fullbody B - Enfoque Dorsales & Isquiotibiales", ["Dorsales", "Isquiotibiales", "Bíceps", "Tríceps", "Pantorrillas"]),
-                ("Día 3", "Fullbody C - Enfoque Hombros & Glúteos", ["Hombros", "Glúteos", "Pecho", "Dorsales", "Abdominales"]),
-            ]
-            for i in range(min(dias, len(enfoques))):
-                label, nombre_dia, musculos = enfoques[i]
-                ejercicios_dia = self._seleccionar_ejercicios_para_musculos(candidatos, musculos, series, reps, descanso)
-                resultado_dias.append(
-                    DiaRutina(
-                        dia_numero=i + 1,
-                        nombre_dia=nombre_dia,
-                        enfoque_muscular=", ".join(musculos[:3]),
-                        ejercicios=ejercicios_dia,
-                    )
+        # MATRIZ DE SPLITS DIFERENCIADA POR OBJETIVO Y DÍAS
+        enfoques = self._obtener_enfoques_por_objetivo(obj, dias)
+        reglas_aplicadas.append(f"REGLA_SPLIT_ESPECIALIZADO: Split diseñado específicamente para '{obj}' en frecuencia {dias} días.")
+
+        # Mantener seguimiento global de ejercicios usados para evitar repeticiones excesivas entre días
+        usados_global_ids = set()
+
+        for i, (label, nombre_dia, musculos) in enumerate(enfoques):
+            ejercicios_dia = self._seleccionar_ejercicios_para_musculos(
+                candidatos,
+                musculos,
+                series,
+                reps,
+                descanso,
+                prescripcion_extra,
+                obj,
+                asimetria_hombros,
+                usados_global_ids,
+            )
+
+            # Registrar los ejercicios asignados para rotación
+            for ej in ejercicios_dia:
+                usados_global_ids.add(ej.id_ejercicio)
+
+            resultado_dias.append(
+                DiaRutina(
+                    dia_numero=i + 1,
+                    nombre_dia=nombre_dia,
+                    enfoque_muscular=", ".join(musculos[:3]),
+                    ejercicios=ejercicios_dia,
                 )
-        elif dias == 4:
-            reglas_aplicadas.append("REGLA_DISTRIBUCION_SPLIT: Selección de Split Torso / Pierna (Upper / Lower) de 4 días.")
-            enfoques = [
-                ("Día 1", "Torso A (Push/Pull)", ["Pecho", "Dorsales", "Hombros", "Tríceps"]),
-                ("Día 2", "Pierna A (Cuádriceps)", ["Cuádriceps", "Isquiotibiales", "Glúteos", "Pantorrillas", "Abdominales"]),
-                ("Día 3", "Torso B (Pull/Push)", ["Dorsales", "Pecho", "Hombros", "Bíceps"]),
-                ("Día 4", "Pierna B (Cadena Posterior)", ["Isquiotibiales", "Glúteos", "Cuádriceps", "Pantorrillas", "Abdominales"]),
-            ]
-            for i in range(4):
-                label, nombre_dia, musculos = enfoques[i]
-                ejercicios_dia = self._seleccionar_ejercicios_para_musculos(candidatos, musculos, series, reps, descanso)
-                resultado_dias.append(
-                    DiaRutina(
-                        dia_numero=i + 1,
-                        nombre_dia=nombre_dia,
-                        enfoque_muscular=", ".join(musculos[:3]),
-                        ejercicios=ejercicios_dia,
-                    )
-                )
-        else:  # 5-7 Días
-            reglas_aplicadas.append("REGLA_DISTRIBUCION_SPLIT: Selección de Split Push / Pull / Legs (Empuje / Jalón / Pierna) de alta frecuencia.")
-            enfoques = [
-                ("Día 1", "Empuje (Push A)", ["Pecho", "Hombros", "Tríceps"]),
-                ("Día 2", "Jalón (Pull A)", ["Dorsales", "Espalda Media", "Bíceps", "Antebrazos"]),
-                ("Día 3", "Pierna (Legs A)", ["Cuádriceps", "Isquiotibiales", "Glúteos", "Pantorrillas"]),
-                ("Día 4", "Empuje (Push B)", ["Hombros", "Pecho", "Tríceps"]),
-                ("Día 5", "Jalón (Pull B)", ["Dorsales", "Trapecios", "Bíceps"]),
-                ("Día 6", "Pierna (Legs B)", ["Isquiotibiales", "Glúteos", "Cuádriceps", "Pantorrillas"]),
-            ]
-            for i in range(min(dias, len(enfoques))):
-                label, nombre_dia, musculos = enfoques[i]
-                ejercicios_dia = self._seleccionar_ejercicios_para_musculos(candidatos, musculos, series, reps, descanso)
-                resultado_dias.append(
-                    DiaRutina(
-                        dia_numero=i + 1,
-                        nombre_dia=nombre_dia,
-                        enfoque_muscular=", ".join(musculos[:3]),
-                        ejercicios=ejercicios_dia,
-                    )
-                )
+            )
 
         return resultado_dias
+
+    def _obtener_enfoques_por_objetivo(self, objetivo: str, dias: int) -> List[Tuple[str, str, List[str]]]:
+        """Devuelve nombres y grupos musculares según el objetivo atlético y frecuencia semanal."""
+        obj = (objetivo or "").strip().upper()
+        if obj == "ACONDICIONAMIENTO":
+            if dias <= 3:
+                plantilla = [
+                    ("Día 1", "Circuito Metabólico Total & Kettlebell", ["Pecho", "Cuádriceps", "Abdominales", "Hombros", "Espalda Media"]),
+                    ("Día 2", "Capacidad Cardiorrespiratoria & Core", ["Dorsales", "Isquiotibiales", "Abdominales", "Bíceps", "Tríceps"]),
+                    ("Día 3", "Resistencia Dinámica & Tren Inferior", ["Glúteos", "Cuádriceps", "Hombros", "Pecho", "Pantorrillas"]),
+                ]
+            elif dias == 4:
+                plantilla = [
+                    ("Día 1", "Acondicionamiento Funcional Empuje", ["Pecho", "Hombros", "Tríceps", "Abdominales"]),
+                    ("Día 2", "Complejos Metabólicos Tracción", ["Dorsales", "Bíceps", "Espalda Media", "Pantorrillas"]),
+                    ("Día 3", "Potencia & Resistencia de Pierna", ["Cuádriceps", "Glúteos", "Isquiotibiales", "Abdominales"]),
+                    ("Día 4", "Fullbody HIIT & Estabilidad Central", ["Pecho", "Dorsales", "Hombros", "Abdominales"]),
+                ]
+            else:
+                plantilla = [
+                    ("Día 1", "Circuito Metabólico Superior A", ["Pecho", "Hombros", "Abdominales"]),
+                    ("Día 2", "Resistencia Dinámica Inferior A", ["Cuádriceps", "Glúteos", "Pantorrillas"]),
+                    ("Día 3", "Intervalos Funcionales & Core", ["Dorsales", "Espalda Media", "Abdominales"]),
+                    ("Día 4", "Circuito Metabólico Superior B", ["Hombros", "Bíceps", "Tríceps"]),
+                    ("Día 5", "Potencia de Cadena Posterior", ["Isquiotibiales", "Glúteos", "Abdominales"]),
+                    ("Día 6", "Fullbody Cross-Conditioning", ["Pecho", "Dorsales", "Cuádriceps"]),
+                ]
+        elif obj == "FUERZA":
+            if dias <= 3:
+                plantilla = [
+                    ("Día 1", "Fuerza Básicos de Empuje (Bench Focus)", ["Pecho", "Hombros", "Tríceps", "Abdominales"]),
+                    ("Día 2", "Fuerza Tracción & Cadena Posterior", ["Dorsales", "Espalda Media", "Isquiotibiales", "Bíceps"]),
+                    ("Día 3", "Fuerza de Sentadilla & Unilateral", ["Cuádriceps", "Glúteos", "Pantorrillas", "Abdominales"]),
+                ]
+            elif dias == 4:
+                plantilla = [
+                    ("Día 1", "Fuerza Torso Pesado (Press Banca & Remo)", ["Pecho", "Dorsales", "Hombros"]),
+                    ("Día 2", "Fuerza Pierna Pesada (Sentadilla & Glúteos)", ["Cuádriceps", "Glúteos", "Pantorrillas"]),
+                    ("Día 3", "Fuerza Vertical & Tracción (Militar & Pull)", ["Hombros", "Espalda Media", "Bíceps", "Tríceps"]),
+                    ("Día 4", "Fuerza Cadena Posterior (Deadlift Focus)", ["Isquiotibiales", "Glúteos", "Dorsales", "Abdominales"]),
+                ]
+            else:
+                plantilla = [
+                    ("Día 1", "Heavy Push A (Pecho)", ["Pecho", "Hombros", "Tríceps"]),
+                    ("Día 2", "Heavy Pull A (Espalda)", ["Dorsales", "Espalda Media", "Bíceps"]),
+                    ("Día 3", "Heavy Squat (Pierna)", ["Cuádriceps", "Glúteos", "Pantorrillas"]),
+                    ("Día 4", "Heavy Overhead (Deltoides)", ["Hombros", "Tríceps", "Pecho"]),
+                    ("Día 5", "Heavy Deadlift (Cadena Posterior)", ["Isquiotibiales", "Dorsales", "Abdominales"]),
+                    ("Día 6", "Fuerza Unilateral & Soporte", ["Cuádriceps", "Bíceps", "Glúteos"]),
+                ]
+        elif obj == "RESISTENCIA":
+            if dias <= 3:
+                plantilla = [
+                    ("Día 1", "Resistencia de Alta Densidad Tren Superior", ["Pecho", "Dorsales", "Hombros", "Bíceps"]),
+                    ("Día 2", "Resistencia Muscular Tren Inferior", ["Cuádriceps", "Isquiotibiales", "Glúteos", "Pantorrillas"]),
+                    ("Día 3", "Resistencia Funcional & Acondicionamiento Core", ["Pecho", "Dorsales", "Abdominales", "Hombros"]),
+                ]
+            elif dias == 4:
+                plantilla = [
+                    ("Día 1", "Resistencia Empuje & Tracción Superior", ["Pecho", "Dorsales", "Tríceps"]),
+                    ("Día 2", "Resistencia Tren Inferior & Isometría", ["Cuádriceps", "Isquiotibiales", "Glúteos"]),
+                    ("Día 3", "Resistencia Hombros & Brazos", ["Hombros", "Bíceps", "Tríceps", "Abdominales"]),
+                    ("Día 4", "Resistencia Metabólica Fullbody", ["Pecho", "Dorsales", "Piernas", "Core"]),
+                ]
+            else:
+                plantilla = [
+                    ("Día 1", "Resistencia Tren Superior A", ["Pecho", "Hombros", "Tríceps"]),
+                    ("Día 2", "Resistencia Pierna A", ["Cuádriceps", "Pantorrillas", "Glúteos"]),
+                    ("Día 3", "Resistencia Tracción & Dorsales", ["Dorsales", "Bíceps", "Abdominales"]),
+                    ("Día 4", "Resistencia Tren Superior B", ["Hombros", "Pecho", "Espalda Media"]),
+                    ("Día 5", "Resistencia Cadena Posterior B", ["Isquiotibiales", "Glúteos", "Abdominales"]),
+                    ("Día 6", "Resistencia Metabólica Total", ["Pecho", "Cuádriceps", "Dorsales"]),
+                ]
+        else:  # HIPERTROFIA (Default)
+            if dias <= 3:
+                plantilla = [
+                    ("Día 1", "Hipertrofia Empuje & Cuádriceps (Push Focus)", ["Pecho", "Hombros", "Tríceps", "Cuádriceps"]),
+                    ("Día 2", "Hipertrofia Tracción & Cadena Posterior (Pull Focus)", ["Dorsales", "Espalda Media", "Bíceps", "Isquiotibiales"]),
+                    ("Día 3", "Estímulo Hipertrófico Antagonista & Pierna", ["Pecho", "Dorsales", "Glúteos", "Abdominales"]),
+                ]
+            elif dias == 4:
+                plantilla = [
+                    ("Día 1", "Torso Hipertrofia A (Pecho & Espalda)", ["Pecho", "Dorsales", "Hombros", "Tríceps"]),
+                    ("Día 2", "Pierna Hipertrofia A (Enfoque Cuádriceps)", ["Cuádriceps", "Isquiotibiales", "Glúteos", "Pantorrillas"]),
+                    ("Día 3", "Torso Hipertrofia B (Deltoides & Brazos)", ["Hombros", "Bíceps", "Tríceps", "Espalda Media"]),
+                    ("Día 4", "Pierna Hipertrofia B (Enfoque Isquios & Glúteos)", ["Isquiotibiales", "Glúteos", "Cuádriceps", "Abdominales"]),
+                ]
+            else:
+                plantilla = [
+                    ("Día 1", "Hipertrofia Pecho & Tríceps", ["Pecho", "Tríceps", "Hombros"]),
+                    ("Día 2", "Hipertrofia Espalda & Bíceps", ["Dorsales", "Espalda Media", "Bíceps"]),
+                    ("Día 3", "Hipertrofia Cuádriceps & Pantorrillas", ["Cuádriceps", "Pantorrillas", "Abdominales"]),
+                    ("Día 4", "Hipertrofia Deltoides & Trapecios", ["Hombros", "Espalda Media", "Tríceps"]),
+                    ("Día 5", "Hipertrofia Isquiotibiales & Glúteos", ["Isquiotibiales", "Glúteos", "Abdominales"]),
+                    ("Día 6", "Hipertrofia Brazos & Core de Soporte", ["Bíceps", "Tríceps", "Abdominales"]),
+                ]
+
+        return plantilla[:min(dias, len(plantilla))]
+
+    def _evaluar_idoneidad_ejercicio(
+        self,
+        ej: EjercicioCatalogoItem,
+        objetivo: str,
+        asimetria_hombros: bool,
+    ) -> float:
+        """Asigna un puntaje de idoneidad al ejercicio según el objetivo biomecánico."""
+        score = 10.0
+        mecanica = (ej.mecanica or "").lower()
+        equip = (ej.equipamiento or "").lower()
+        nombre = ej.nombre.lower()
+
+        # 1. Ponderación Compuesto vs Aislamiento
+        if "compuesto" in mecanica:
+            if objetivo == "FUERZA":
+                score += 15.0
+            elif objetivo == "HIPERTROFIA":
+                score += 10.0
+            else:
+                score += 6.0
+        elif "aislamiento" in mecanica:
+            if objetivo == "HIPERTROFIA":
+                score += 8.0
+            elif objetivo == "RESISTENCIA":
+                score += 7.0
+            elif objetivo == "FUERZA":
+                score -= 3.0
+
+        # 2. Ponderación por Equipamiento vs Objetivo
+        if objetivo == "ACONDICIONAMIENTO":
+            if any(e in equip for e in ["peso corporal", "kettlebell", "mancuerna", "banda"]):
+                score += 10.0
+            if "barra" in equip and "compuesto" not in mecanica:
+                score -= 4.0
+        elif objetivo == "FUERZA":
+            if any(e in equip for e in ["barra", "mancuerna", "maquina"]):
+                score += 10.0
+        elif objetivo == "RESISTENCIA":
+            if any(e in equip for e in ["peso corporal", "polea", "mancuerna", "banda"]):
+                score += 8.0
+
+        # 3. Adaptación Postural Unilateral (si hay asimetría de hombros)
+        if asimetria_hombros:
+            if any(u in nombre for u in ["unilateral", "mancuerna", "a un brazo", "una mano", "polea"]):
+                score += 14.0
+            elif "barra" in equip:
+                score -= 6.0
+
+        # Agregar pequeño componente aleatorio para romper empates y dar variedad
+        score += random.uniform(0.5, 3.5)
+
+        return score
 
     def _seleccionar_ejercicios_para_musculos(
         self,
@@ -198,40 +333,55 @@ class RuleEngineExpertSystem:
         series: int,
         reps: str,
         descanso: int,
+        prescripcion_extra: str,
+        objetivo: str,
+        asimetria_hombros: bool,
+        usados_previos: set,
     ) -> List[EjercicioAsignado]:
         asignados = []
-        usados_ids = set()
+        usados_dia_ids = set()
 
         orden = 1
         for musculo in musculos_objetivo:
-            # Buscar candidato primario
+            # Buscar candidatos primarios
             coincidencias = [
                 ej for ej in candidatos
-                if ej.id not in usados_ids and any(musculo.lower() in m.lower() for m in ej.grupos_musculares_primarios)
+                if ej.id not in usados_dia_ids and any(musculo.lower() in m.lower() for m in ej.grupos_musculares_primarios)
             ]
 
             if not coincidencias:
                 # Buscar en secundarios
                 coincidencias = [
                     ej for ej in candidatos
-                    if ej.id not in usados_ids and any(musculo.lower() in m.lower() for m in ej.grupos_musculares_secundarios)
+                    if ej.id not in usados_dia_ids and any(musculo.lower() in m.lower() for m in ej.grupos_musculares_secundarios)
                 ]
 
             if coincidencias:
-                # Priorizar compuestos primero
-                coincidencias.sort(key=lambda x: 0 if (x.mecanica and "compuesto" in x.mecanica.lower()) else 1)
-                seleccionado = coincidencias[0]
-                usados_ids.add(seleccionado.id)
+                # Calificar y ordenar candidatos por afinidad al objetivo
+                coincidencias_calificadas = [
+                    (self._evaluar_idoneidad_ejercicio(ej, objetivo, asimetria_hombros) - (4.0 if ej.id in usados_previos else 0.0), ej)
+                    for ej in coincidencias
+                ]
+                coincidencias_calificadas.sort(key=lambda x: x[0], reverse=True)
 
-                # Buscar alternativas
+                # Tomar los 3 mejores y elegir mediante muestreo ponderado para máxima variedad sin perder calidad
+                top_candidatos = [item[1] for item in coincidencias_calificadas[:3]]
+                pesos = [max(item[0], 1.0) for item in coincidencias_calificadas[:3]]
+
+                seleccionado = random.choices(top_candidatos, weights=pesos, k=1)[0]
+                usados_dia_ids.add(seleccionado.id)
+
+                # Alternativas
                 alt_items = [
                     EjercicioAlternativa(id=alt.id, nombre=alt.nombre, equipamiento=alt.equipamiento)
-                    for alt in coincidencias[1:3]
-                ]
+                    for alt in top_candidatos if alt.id != seleccionado.id
+                ][:2]
 
-                obs = f"Ejercicio enfocado en {musculo}."
+                obs = f"Enfoque en {musculo}."
                 if seleccionado.mecanica:
                     obs += f" Patrón {seleccionado.mecanica}."
+                if prescripcion_extra:
+                    obs += f" ({prescripcion_extra})"
 
                 asignados.append(
                     EjercicioAsignado(
@@ -272,3 +422,4 @@ class RuleEngineExpertSystem:
                 lines.append(f"- {obs}")
 
         return "\n".join(lines)
+

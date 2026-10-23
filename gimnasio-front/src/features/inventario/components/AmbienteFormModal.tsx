@@ -9,7 +9,7 @@ import type { Ambiente } from '../services/inventarioService';
 const ambienteSchema = z.object({
   nombre: z.string().min(2, 'El nombre debe tener al menos 2 caracteres'),
   descripcion: z.string().optional(),
-  estado: z.string().optional().default('disponible'),
+  estado: z.string(),
 });
 
 type AmbienteFormData = z.infer<typeof ambienteSchema>;

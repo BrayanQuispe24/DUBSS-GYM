@@ -114,55 +114,55 @@ export const GenerarRutinaIAModal: React.FC<GenerarRutinaIAModalProps> = ({ isOp
           alignItems: 'center',
           justifyContent: 'center',
           backgroundColor: 'rgba(15, 23, 42, 0.65)',
-          backdropFilter: 'blur(4px)',
-          padding: '1.5rem',
+          backdropFilter: 'blur(3px)',
+          padding: '1rem',
         }}
       >
         <div
           style={{
             backgroundColor: '#FFFFFF',
-            borderRadius: '16px',
-            border: '1px solid #E2E8F0',
+            borderRadius: '4px',
+            border: '1px solid #CBD5E1',
             width: '100%',
-            maxWidth: '920px',
+            maxWidth: '880px',
             maxHeight: '90vh',
             display: 'flex',
             flexDirection: 'column',
-            boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
+            boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)',
             overflow: 'hidden',
           }}
         >
-          {/* Header */}
+          {/* Header Enterprise */}
           <div
             style={{
-              padding: '1.25rem 1.75rem',
-              borderBottom: '1px solid #F1F5F9',
+              padding: '0.85rem 1.25rem',
+              borderBottom: '1px solid #E2E8F0',
               display: 'flex',
               justifyContent: 'space-between',
               alignItems: 'center',
               backgroundColor: '#F8FAFC',
             }}
           >
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
               <div
                 style={{
-                  padding: '0.6rem',
-                  backgroundColor: '#F3E8FF',
-                  color: '#7E22CE',
-                  borderRadius: '12px',
+                  padding: '0.45rem',
+                  backgroundColor: '#E0F2FE',
+                  color: '#0077D4',
+                  borderRadius: '4px',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                 }}
               >
-                <Sparkles size={22} />
+                <Sparkles size={18} />
               </div>
               <div>
-                <h2 style={{ fontSize: '1.2rem', fontWeight: 800, color: '#0F172A', margin: 0 }}>
-                  Recomendador de Rutinas por IA Experta
+                <h2 style={{ fontSize: '0.92rem', fontWeight: 800, color: '#0B1727', margin: 0, textTransform: 'uppercase', letterSpacing: '0.03em' }}>
+                  Recomendador de Rutinas por Sistema Experto IA
                 </h2>
-                <p style={{ fontSize: '0.82rem', color: '#64748B', margin: '0.2rem 0 0 0' }}>
-                  Sistema experto basado en reglas ACSM/NSCA & MediaPipe Pose
+                <p style={{ fontSize: '0.75rem', color: '#64748B', margin: '0.15rem 0 0 0' }}>
+                  Motor determinista basado en reglas ACSM/NSCA & Alineación Articular MediaPipe
                 </p>
               </div>
             </div>
@@ -171,36 +171,37 @@ export const GenerarRutinaIAModal: React.FC<GenerarRutinaIAModalProps> = ({ isOp
               style={{
                 background: 'none',
                 border: 'none',
-                color: '#94A3B8',
+                color: '#64748B',
                 cursor: 'pointer',
-                padding: '0.5rem',
-                borderRadius: '8px',
+                padding: '0.35rem',
+                borderRadius: '4px',
                 display: 'flex',
                 alignItems: 'center',
               }}
+              title="Cerrar ventana"
             >
-              <X size={20} />
+              <X size={18} />
             </button>
           </div>
 
           {/* Scrollable Body */}
           <div
             style={{
-              padding: '1.75rem',
+              padding: '1.25rem',
               overflowY: 'auto',
               display: 'flex',
               flexDirection: 'column',
-              gap: '1.5rem',
+              gap: '1.25rem',
               flex: 1,
               backgroundColor: '#FFFFFF',
             }}
           >
             {!resultadoGenerado ? (
-              <form onSubmit={handleGenerar} style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+              <form onSubmit={handleGenerar} id="form-sistema-experto" style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
                 {/* 1. Objetivo & Nivel */}
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '1.25rem' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '1rem' }}>
                   <div>
-                    <label style={{ display: 'block', fontSize: '0.78rem', fontWeight: 800, color: '#334155', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.4rem' }}>
+                    <label style={{ display: 'block', fontSize: '0.72rem', fontWeight: 700, color: '#475569', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.35rem' }}>
                       Objetivo Principal
                     </label>
                     <select
@@ -208,25 +209,25 @@ export const GenerarRutinaIAModal: React.FC<GenerarRutinaIAModalProps> = ({ isOp
                       onChange={(e: any) => setObjetivo(e.target.value)}
                       style={{
                         width: '100%',
-                        padding: '0.65rem 0.85rem',
-                        borderRadius: '10px',
+                        padding: '0.45rem 0.65rem',
+                        borderRadius: '4px',
                         border: '1px solid #CBD5E1',
                         backgroundColor: '#FFFFFF',
-                        fontSize: '0.88rem',
+                        fontSize: '0.82rem',
                         fontWeight: 600,
                         color: '#0F172A',
                         outline: 'none',
                       }}
                     >
                       <option value="HIPERTROFIA">Hipertrofia Muscular (Ganancia de masa)</option>
-                      <option value="FUERZA">Fuerza Máxima (Fuerza explosiva / pesados)</option>
-                      <option value="RESISTENCIA">Resistencia Muscular (Definición / tono)</option>
+                      <option value="FUERZA">Fuerza Máxima (Fuerza explosiva / cargas pesadas)</option>
+                      <option value="RESISTENCIA">Resistencia Muscular (Tono y acondicionamiento)</option>
                       <option value="ACONDICIONAMIENTO">Acondicionamiento Físico General</option>
                     </select>
                   </div>
 
                   <div>
-                    <label style={{ display: 'block', fontSize: '0.78rem', fontWeight: 800, color: '#334155', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.4rem' }}>
+                    <label style={{ display: 'block', fontSize: '0.72rem', fontWeight: 700, color: '#475569', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.35rem' }}>
                       Nivel de Experiencia
                     </label>
                     <select
@@ -234,11 +235,11 @@ export const GenerarRutinaIAModal: React.FC<GenerarRutinaIAModalProps> = ({ isOp
                       onChange={(e: any) => setNivelExperiencia(e.target.value)}
                       style={{
                         width: '100%',
-                        padding: '0.65rem 0.85rem',
-                        borderRadius: '10px',
+                        padding: '0.45rem 0.65rem',
+                        borderRadius: '4px',
                         border: '1px solid #CBD5E1',
                         backgroundColor: '#FFFFFF',
-                        fontSize: '0.88rem',
+                        fontSize: '0.82rem',
                         fontWeight: 600,
                         color: '#0F172A',
                         outline: 'none',
@@ -251,11 +252,11 @@ export const GenerarRutinaIAModal: React.FC<GenerarRutinaIAModalProps> = ({ isOp
                   </div>
                 </div>
 
-                {/* 2. Días & Duración */}
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '1.25rem' }}>
+                {/* 2. Días, Edad & Duración */}
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: '1rem' }}>
                   <div>
-                    <label style={{ display: 'block', fontSize: '0.78rem', fontWeight: 800, color: '#334155', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.4rem' }}>
-                      Edad
+                    <label style={{ display: 'block', fontSize: '0.72rem', fontWeight: 700, color: '#475569', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.35rem' }}>
+                      Edad del Atleta
                     </label>
                     <input
                       type="number"
@@ -263,30 +264,30 @@ export const GenerarRutinaIAModal: React.FC<GenerarRutinaIAModalProps> = ({ isOp
                       onChange={(e) => setEdad(Number(e.target.value))}
                       style={{
                         width: '100%',
-                        padding: '0.6rem 0.85rem',
-                        borderRadius: '10px',
+                        padding: '0.45rem 0.65rem',
+                        borderRadius: '4px',
                         border: '1px solid #CBD5E1',
                         backgroundColor: '#FFFFFF',
-                        fontSize: '0.88rem',
+                        fontSize: '0.82rem',
                         fontWeight: 600,
                         color: '#0F172A',
                       }}
                     />
                   </div>
                   <div>
-                    <label style={{ display: 'block', fontSize: '0.78rem', fontWeight: 800, color: '#334155', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.4rem' }}>
-                      Días por Semana
+                    <label style={{ display: 'block', fontSize: '0.72rem', fontWeight: 700, color: '#475569', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.35rem' }}>
+                      Frecuencia Semanal
                     </label>
                     <select
                       value={diasDisponibles}
                       onChange={(e) => setDiasDisponibles(Number(e.target.value))}
                       style={{
                         width: '100%',
-                        padding: '0.6rem 0.85rem',
-                        borderRadius: '10px',
+                        padding: '0.45rem 0.65rem',
+                        borderRadius: '4px',
                         border: '1px solid #CBD5E1',
                         backgroundColor: '#FFFFFF',
-                        fontSize: '0.88rem',
+                        fontSize: '0.82rem',
                         fontWeight: 600,
                         color: '#0F172A',
                       }}
@@ -299,7 +300,7 @@ export const GenerarRutinaIAModal: React.FC<GenerarRutinaIAModalProps> = ({ isOp
                     </select>
                   </div>
                   <div>
-                    <label style={{ display: 'block', fontSize: '0.78rem', fontWeight: 800, color: '#334155', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.4rem' }}>
+                    <label style={{ display: 'block', fontSize: '0.72rem', fontWeight: 700, color: '#475569', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.35rem' }}>
                       Minutos por Sesión
                     </label>
                     <input
@@ -308,11 +309,11 @@ export const GenerarRutinaIAModal: React.FC<GenerarRutinaIAModalProps> = ({ isOp
                       onChange={(e) => setDuracionSesion(Number(e.target.value))}
                       style={{
                         width: '100%',
-                        padding: '0.6rem 0.85rem',
-                        borderRadius: '10px',
+                        padding: '0.45rem 0.65rem',
+                        borderRadius: '4px',
                         border: '1px solid #CBD5E1',
                         backgroundColor: '#FFFFFF',
-                        fontSize: '0.88rem',
+                        fontSize: '0.82rem',
                         fontWeight: 600,
                         color: '#0F172A',
                       }}
@@ -322,10 +323,10 @@ export const GenerarRutinaIAModal: React.FC<GenerarRutinaIAModalProps> = ({ isOp
 
                 {/* 3. Equipamiento Disponible */}
                 <div>
-                  <label style={{ display: 'block', fontSize: '0.78rem', fontWeight: 800, color: '#334155', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.6rem' }}>
-                    Equipamiento Disponible en tu Gimnasio / Casa
+                  <label style={{ display: 'block', fontSize: '0.72rem', fontWeight: 700, color: '#475569', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.5rem' }}>
+                    Equipamiento Disponible en Gimnasio / Domicilio
                   </label>
-                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(190px, 1fr))', gap: '0.6rem' }}>
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '0.5rem' }}>
                     {EQUIPAMIENTO_OPCIONES.map((item) => {
                       const selected = equipamiento.includes(item);
                       return (
@@ -334,13 +335,13 @@ export const GenerarRutinaIAModal: React.FC<GenerarRutinaIAModalProps> = ({ isOp
                           key={item}
                           onClick={() => toggleEquipamiento(item)}
                           style={{
-                            padding: '0.65rem 0.85rem',
-                            borderRadius: '10px',
-                            border: selected ? '2px solid #7E22CE' : '1px solid #E2E8F0',
-                            backgroundColor: selected ? '#FAF5FF' : '#F8FAFC',
-                            color: selected ? '#6B21A8' : '#475569',
-                            fontWeight: selected ? 800 : 600,
-                            fontSize: '0.82rem',
+                            padding: '0.5rem 0.75rem',
+                            borderRadius: '4px',
+                            border: selected ? '1px solid #0077D4' : '1px solid #CBD5E1',
+                            backgroundColor: selected ? '#E0F2FE' : '#F8FAFC',
+                            color: selected ? '#0077D4' : '#334155',
+                            fontWeight: selected ? 700 : 500,
+                            fontSize: '0.78rem',
                             cursor: 'pointer',
                             display: 'flex',
                             alignItems: 'center',
@@ -349,7 +350,7 @@ export const GenerarRutinaIAModal: React.FC<GenerarRutinaIAModalProps> = ({ isOp
                           }}
                         >
                           <span>{item}</span>
-                          {selected && <CheckCircle2 size={16} style={{ color: '#7E22CE' }} />}
+                          {selected && <CheckCircle2 size={15} style={{ color: '#0077D4' }} />}
                         </button>
                       );
                     })}
@@ -358,10 +359,10 @@ export const GenerarRutinaIAModal: React.FC<GenerarRutinaIAModalProps> = ({ isOp
 
                 {/* 4. Restricciones Físicas */}
                 <div>
-                  <label style={{ display: 'block', fontSize: '0.78rem', fontWeight: 800, color: '#334155', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.6rem' }}>
+                  <label style={{ display: 'block', fontSize: '0.72rem', fontWeight: 700, color: '#475569', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.5rem' }}>
                     Restricciones o Molestias Físicas Declaradas
                   </label>
-                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '0.6rem' }}>
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(190px, 1fr))', gap: '0.5rem' }}>
                     {RESTRICCIONES_OPCIONES.map((item) => {
                       const selected = restricciones.includes(item);
                       return (
@@ -370,13 +371,13 @@ export const GenerarRutinaIAModal: React.FC<GenerarRutinaIAModalProps> = ({ isOp
                           key={item}
                           onClick={() => toggleRestriccion(item)}
                           style={{
-                            padding: '0.65rem 0.85rem',
-                            borderRadius: '10px',
-                            border: selected ? '2px solid #D97706' : '1px solid #E2E8F0',
-                            backgroundColor: selected ? '#FFFBEB' : '#F8FAFC',
-                            color: selected ? '#92400E' : '#475569',
-                            fontWeight: selected ? 800 : 600,
-                            fontSize: '0.82rem',
+                            padding: '0.5rem 0.75rem',
+                            borderRadius: '4px',
+                            border: selected ? '1px solid #0077D4' : '1px solid #CBD5E1',
+                            backgroundColor: selected ? '#E0F2FE' : '#F8FAFC',
+                            color: selected ? '#0077D4' : '#334155',
+                            fontWeight: selected ? 700 : 500,
+                            fontSize: '0.78rem',
                             cursor: 'pointer',
                             display: 'flex',
                             alignItems: 'center',
@@ -385,7 +386,7 @@ export const GenerarRutinaIAModal: React.FC<GenerarRutinaIAModalProps> = ({ isOp
                           }}
                         >
                           <span>{item}</span>
-                          {selected && <CheckCircle2 size={16} style={{ color: '#D97706' }} />}
+                          {selected && <CheckCircle2 size={15} style={{ color: '#0077D4' }} />}
                         </button>
                       );
                     })}
@@ -395,26 +396,27 @@ export const GenerarRutinaIAModal: React.FC<GenerarRutinaIAModalProps> = ({ isOp
                 {/* 5. Análisis Postural MediaPipe */}
                 <div
                   style={{
-                    padding: '1.25rem',
-                    backgroundColor: '#F0F9FF',
-                    border: '1px solid #BAE6FD',
-                    borderRadius: '12px',
+                    padding: '0.85rem 1rem',
+                    backgroundColor: '#F8FAFC',
+                    border: '1px solid #E2E8F0',
+                    borderRadius: '4px',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'space-between',
                     gap: '1rem',
+                    flexWrap: 'wrap',
                   }}
                 >
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
-                    <Brain size={24} style={{ color: '#0369A1' }} />
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                    <Brain size={22} style={{ color: '#0077D4' }} />
                     <div>
-                      <span style={{ fontSize: '0.88rem', fontWeight: 800, color: '#0F172A', display: 'block' }}>
-                        Análisis Corporal con MediaPipe
+                      <span style={{ fontSize: '0.82rem', fontWeight: 700, color: '#0F172A', display: 'block' }}>
+                        Evaluación Corporal Articular (MediaPipe Pose)
                       </span>
-                      <span style={{ fontSize: '0.78rem', color: '#0369A1', fontWeight: 600 }}>
+                      <span style={{ fontSize: '0.75rem', color: '#64748B' }}>
                         {analisisSeleccionado
-                          ? `Análisis activo (${analisisSeleccionado.calidad_analisis})`
-                          : 'No se ha seleccionado ningún análisis de fotografías.'}
+                          ? `Análisis biomecánico activo (${analisisSeleccionado.calidad_analisis})`
+                          : 'No se ha seleccionado ningún análisis fotográfico.'}
                       </span>
                     </div>
                   </div>
@@ -422,77 +424,55 @@ export const GenerarRutinaIAModal: React.FC<GenerarRutinaIAModalProps> = ({ isOp
                     type="button"
                     onClick={() => setModalFotoOpen(true)}
                     style={{
-                      padding: '0.55rem 1rem',
+                      padding: '0.4rem 0.85rem',
                       backgroundColor: '#FFFFFF',
-                      color: '#0369A1',
-                      border: '1px solid #BAE6FD',
-                      borderRadius: '8px',
-                      fontSize: '0.8rem',
-                      fontWeight: 800,
+                      color: '#0F172A',
+                      border: '1px solid #CBD5E1',
+                      borderRadius: '4px',
+                      fontSize: '0.78rem',
+                      fontWeight: 700,
                       cursor: 'pointer',
-                      boxShadow: '0 1px 2px rgba(0,0,0,0.05)',
+                      transition: 'all 0.15s ease',
                     }}
                   >
                     {analisisSeleccionado ? 'Cambiar / Ver Fotografías' : 'Tomar / Subir 3 Fotos'}
                   </button>
                 </div>
-
-                {/* Submit Action */}
-                <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '0.75rem' }}>
-                  <button
-                    type="submit"
-                    disabled={generarRutinaMutation.isPending || savePerfilMutation.isPending}
-                    style={{
-                      padding: '0.85rem 2rem',
-                      background: 'linear-gradient(135deg, #7C3AED 0%, #4F46E5 100%)',
-                      color: '#FFFFFF',
-                      border: 'none',
-                      borderRadius: '12px',
-                      fontWeight: 800,
-                      fontSize: '0.92rem',
-                      cursor: generarRutinaMutation.isPending || savePerfilMutation.isPending ? 'not-allowed' : 'pointer',
-                      boxShadow: '0 4px 14px rgba(124, 58, 237, 0.35)',
-                      transition: 'all 0.2s ease',
-                    }}
-                  >
-                    {generarRutinaMutation.isPending
-                      ? 'Consultando Motor de Reglas ACSM...'
-                      : 'Generar Rutina con Sistema Experto IA'}
-                  </button>
-                </div>
               </form>
             ) : (
               /* Muestra de la Rutina Generada */
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
                 <div
                   style={{
-                    padding: '1.25rem 1.5rem',
-                    background: 'linear-gradient(135deg, #F3E8FF 0%, #E0E7FF 100%)',
-                    border: '1px solid #C084FC',
-                    borderRadius: '14px',
+                    padding: '1rem 1.25rem',
+                    background: '#F4F9FF',
+                    border: '1px solid #BAE6FD',
+                    borderRadius: '4px',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'space-between',
+                    flexWrap: 'wrap',
+                    gap: '0.75rem',
                   }}
                 >
                   <div>
-                    <h3 style={{ fontSize: '1.1rem', fontWeight: 900, color: '#581C87', margin: 0 }}>
+                    <h3 style={{ fontSize: '0.95rem', fontWeight: 800, color: '#003B70', margin: 0 }}>
                       {resultadoGenerado.plan.nombre}
                     </h3>
-                    <p style={{ fontSize: '0.82rem', color: '#431407', margin: '0.3rem 0 0 0' }}>
-                      Objetivo: <strong>{resultadoGenerado.plan.objetivo}</strong> | Días: <strong>{resultadoGenerado.rutinas.length} días</strong>
+                    <p style={{ fontSize: '0.78rem', color: '#475569', margin: '0.2rem 0 0 0' }}>
+                      Objetivo: <strong>{resultadoGenerado.plan.objetivo}</strong> | Distribución: <strong>{resultadoGenerado.rutinas.length} días semanales</strong>
                     </p>
                   </div>
                   <button
                     onClick={() => setResultadoGenerado(null)}
                     style={{
-                      padding: '0.5rem 1rem',
+                      padding: '0.4rem 0.85rem',
                       backgroundColor: '#FFFFFF',
-                      color: '#4C1D95',
-                      border: '1px solid #DDD6FE',
-                      borderRadius: '8px',
-                      fontSize: '0.8rem',
-                      fontWeight: 800,
+                      color: '#0F172A',
+                      border: '1px solid #CBD5E1',
+                      borderRadius: '4px',
+                      fontSize: '0.78rem',
+                      fontWeight: 700,
                       cursor: 'pointer',
                     }}
                   >
@@ -501,39 +481,39 @@ export const GenerarRutinaIAModal: React.FC<GenerarRutinaIAModalProps> = ({ isOp
                 </div>
 
                 {/* Justificación de Reglas */}
-                <div style={{ padding: '1.25rem', backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: '12px', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-                  <h4 style={{ fontSize: '0.78rem', fontWeight: 800, color: '#6B21A8', textTransform: 'uppercase', letterSpacing: '0.05em', margin: 0 }}>
-                    Reglas Aplicadas por el Sistema Experto:
+                <div style={{ padding: '0.85rem 1rem', backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: '4px', display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
+                  <h4 style={{ fontSize: '0.72rem', fontWeight: 700, color: '#0077D4', textTransform: 'uppercase', letterSpacing: '0.05em', margin: 0 }}>
+                    Reglas Biomecánicas Aplicadas por el Motor:
                   </h4>
-                  <ul style={{ margin: 0, paddingLeft: '1.25rem', fontSize: '0.82rem', color: '#334155', display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
+                  <ul style={{ margin: 0, paddingLeft: '1.25rem', fontSize: '0.78rem', color: '#334155', display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
                     {resultadoGenerado.reglas_aplicadas.map((r: string, idx: number) => (
-                      <li key={idx}><code style={{ fontFamily: 'monospace', color: '#581C87' }}>{r}</code></li>
+                      <li key={idx}><code style={{ fontFamily: 'monospace', color: '#003B70' }}>{r}</code></li>
                     ))}
                   </ul>
                 </div>
 
                 {/* Rutinas por Día */}
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
                   {resultadoGenerado.rutinas.map((r: any, idx: number) => (
-                    <div key={r.id || idx} style={{ border: '1px solid #E2E8F0', backgroundColor: '#FFFFFF', borderRadius: '12px', padding: '1.25rem', display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
-                      <h4 style={{ fontSize: '0.95rem', fontWeight: 800, color: '#0F172A', margin: 0, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <div key={r.id || idx} style={{ border: '1px solid #E2E8F0', backgroundColor: '#FFFFFF', borderRadius: '4px', padding: '1rem', display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+                      <h4 style={{ fontSize: '0.85rem', fontWeight: 700, color: '#0F172A', margin: 0, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                         <span>{r.nombre}</span>
-                        <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#6B21A8', backgroundColor: '#F3E8FF', padding: '0.25rem 0.75rem', borderRadius: '20px', border: '1px solid #E9D5FF' }}>
+                        <span style={{ fontSize: '0.70rem', fontWeight: 700, color: '#0077D4', backgroundColor: '#E0F2FE', padding: '0.15rem 0.5rem', borderRadius: '2px', border: '1px solid #BAE6FD' }}>
                           {r.descripcion}
                         </span>
                       </h4>
 
-                      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
                         {r.rutina_ejercicios?.map((re: any) => (
-                          <div key={re.id} style={{ padding: '0.85rem 1rem', backgroundColor: '#F8FAFC', borderRadius: '8px', border: '1px solid #E2E8F0', display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '0.82rem' }}>
+                          <div key={re.id} style={{ padding: '0.5rem 0.75rem', backgroundColor: '#F8FAFC', borderRadius: '4px', border: '1px solid #E2E8F0', display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '0.78rem' }}>
                             <div>
-                              <span style={{ fontWeight: 800, color: '#0F172A', display: 'block' }}>{re.ejercicio?.nombre}</span>
-                              <span style={{ fontSize: '0.75rem', color: '#64748B' }}>{re.observacion}</span>
+                              <span style={{ fontWeight: 700, color: '#0F172A', display: 'block' }}>{re.ejercicio?.nombre}</span>
+                              <span style={{ fontSize: '0.72rem', color: '#64748B' }}>{re.observacion}</span>
                             </div>
-                            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                              <span style={{ backgroundColor: '#FFFFFF', border: '1px solid #CBD5E1', padding: '0.25rem 0.6rem', borderRadius: '6px', fontWeight: 800, fontSize: '0.78rem' }}>{re.series} series</span>
-                              <span style={{ backgroundColor: '#FFFFFF', border: '1px solid #CBD5E1', padding: '0.25rem 0.6rem', borderRadius: '6px', fontWeight: 800, fontSize: '0.78rem' }}>{re.repeticiones} reps</span>
-                              <span style={{ backgroundColor: '#FFFFFF', border: '1px solid #CBD5E1', padding: '0.25rem 0.6rem', borderRadius: '6px', fontWeight: 800, fontSize: '0.78rem' }}>{re.descanso_segundos}s desc.</span>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                              <span style={{ backgroundColor: '#FFFFFF', border: '1px solid #CBD5E1', padding: '0.2rem 0.5rem', borderRadius: '2px', fontWeight: 700, fontSize: '0.72rem', color: '#334155' }}>{re.series} series</span>
+                              <span style={{ backgroundColor: '#FFFFFF', border: '1px solid #CBD5E1', padding: '0.2rem 0.5rem', borderRadius: '2px', fontWeight: 700, fontSize: '0.72rem', color: '#334155' }}>{re.repeticiones} reps</span>
+                              <span style={{ backgroundColor: '#FFFFFF', border: '1px solid #CBD5E1', padding: '0.2rem 0.5rem', borderRadius: '2px', fontWeight: 700, fontSize: '0.72rem', color: '#334155' }}>{re.descanso_segundos}s desc.</span>
                             </div>
                           </div>
                         ))}
@@ -542,6 +522,60 @@ export const GenerarRutinaIAModal: React.FC<GenerarRutinaIAModalProps> = ({ isOp
                   ))}
                 </div>
               </div>
+            )}
+          </div>
+
+          {/* Footer Enterprise Actions */}
+          <div
+            style={{
+              padding: '0.75rem 1.25rem',
+              borderTop: '1px solid #E2E8F0',
+              backgroundColor: '#F8FAFC',
+              display: 'flex',
+              justifyContent: 'flex-end',
+              alignItems: 'center',
+              gap: '0.65rem',
+            }}
+          >
+            <button
+              type="button"
+              onClick={onClose}
+              style={{
+                padding: '0.45rem 1rem',
+                borderRadius: '4px',
+                border: '1px solid #CBD5E1',
+                backgroundColor: '#FFFFFF',
+                color: '#475569',
+                fontSize: '0.80rem',
+                fontWeight: 700,
+                cursor: 'pointer',
+              }}
+            >
+              Cancelar y Cerrar
+            </button>
+            {!resultadoGenerado && (
+              <button
+                type="submit"
+                form="form-sistema-experto"
+                disabled={generarRutinaMutation.isPending || savePerfilMutation.isPending}
+                style={{
+                  padding: '0.45rem 1.25rem',
+                  backgroundColor: '#0077D4',
+                  color: '#FFFFFF',
+                  border: 'none',
+                  borderRadius: '4px',
+                  fontWeight: 700,
+                  fontSize: '0.80rem',
+                  cursor: generarRutinaMutation.isPending || savePerfilMutation.isPending ? 'not-allowed' : 'pointer',
+                  opacity: generarRutinaMutation.isPending || savePerfilMutation.isPending ? 0.7 : 1,
+                  boxShadow: '0 1px 2px rgba(0, 0, 0, 0.05)',
+                  transition: 'all 0.15s ease',
+                }}
+              >
+                {generarRutinaMutation.isPending
+                  ? 'Consultando Motor de Reglas ACSM...'
+                  : 'Generar Rutina con Sistema Experto IA'}
+              </button>
             )}
           </div>
         </div>
@@ -558,3 +592,4 @@ export const GenerarRutinaIAModal: React.FC<GenerarRutinaIAModalProps> = ({ isOp
     </>
   );
 };
+

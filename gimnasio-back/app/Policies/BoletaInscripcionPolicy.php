@@ -34,10 +34,14 @@ class BoletaInscripcionPolicy
         return $this->canView($user);
     }
 
-    public function view(Usuario $user, BoletaInscripcion $boleta): bool
+    public function view(Usuario $user, ?BoletaInscripcion $boleta = null): bool
     {
         if ($this->isStaff($user)) {
             return true;
+        }
+
+        if ($boleta === null) {
+            return $this->canView($user);
         }
 
         return (int) $boleta->id_usuario === (int) $user->id;

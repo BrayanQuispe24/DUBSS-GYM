@@ -72,7 +72,6 @@ const EquipoFormModal: React.FC<EquipoFormModalProps> = ({
       setImagePreview(equipoToEdit.imagen_url ? getEquipoImageUrl(equipoToEdit.imagen_url) : null);
       const isGood =
         equipoToEdit.estado === true ||
-        equipoToEdit.estado === 1 ||
         ['1', 'true', 'bueno', 'operativo', 'en buen estado'].includes(
           String(equipoToEdit.estado ?? '').toLowerCase()
         );

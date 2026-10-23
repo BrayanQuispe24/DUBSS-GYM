@@ -1,7 +1,7 @@
-// src/features/auth/hooks/useAuth.ts
 import { useMutation } from '@tanstack/react-query';
 import { authService } from '../services/authService';
 import { useAuthStore } from '@/store/authStore';
+import { queryClient } from '@/lib/queryClient';
 import type { LoginCredentials, RegisterClienteData } from '../types/auth.types';
 import { useNavigate } from 'react-router-dom';
 import showToast from '@/utils/toast';
@@ -13,6 +13,7 @@ export const useLogin = () => {
   return useMutation({
     mutationFn: (credentials: LoginCredentials) => authService.login(credentials),
     onSuccess: (data) => {
+      queryClient.clear();
       loginStore(data.user, data.access_token);
       showToast.success(`¡Bienvenido ${data.user.name}!`, 'Inicio de Sesión Exitoso');
       navigate('/dashboard');
@@ -32,6 +33,7 @@ export const useRegisterCliente = () => {
   return useMutation({
     mutationFn: (data: RegisterClienteData) => authService.registerCliente(data),
     onSuccess: (data) => {
+      queryClient.clear();
       loginStore(data.user, data.access_token);
       showToast.success('Cuenta de cliente registrada con éxito. ¡Bienvenido a FitGo UAGRM!', 'Registro Exitoso');
       navigate('/dashboard');
@@ -51,6 +53,7 @@ export const useLogout = () => {
   return useMutation({
     mutationFn: () => authService.logout(),
     onSettled: () => {
+      queryClient.clear();
       logoutStore();
       showToast.info('Has cerrado sesión correctamente.', 'Sesión Finalizada');
       navigate('/login');
