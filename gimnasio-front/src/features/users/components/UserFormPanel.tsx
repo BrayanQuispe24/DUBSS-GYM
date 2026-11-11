@@ -120,8 +120,8 @@ const UserFormPanel: React.FC<UserFormPanelProps> = ({
   return (
     <div style={{ width: '100%', maxWidth: '780px', margin: '0 auto' }}>
       <div style={{
-        backgroundColor: '#FFFFFF',
-        border: '1px solid #E2E8F0',
+        backgroundColor: 'var(--color-surface)',
+        border: '1px solid var(--color-border)',
         borderRadius: '4px',
         boxShadow: '0 1px 3px rgba(0,0,0,0.05)',
         overflow: 'hidden',
@@ -129,8 +129,8 @@ const UserFormPanel: React.FC<UserFormPanelProps> = ({
         {/* Panel Header */}
         <div style={{
           padding: '0.85rem 1.25rem',
-          borderBottom: '1px solid #E2E8F0',
-          backgroundColor: '#F8FAFC',
+          borderBottom: '1px solid var(--color-border)',
+          backgroundColor: 'var(--color-surface-muted)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
@@ -138,7 +138,7 @@ const UserFormPanel: React.FC<UserFormPanelProps> = ({
           <h3 style={{
             fontSize: '0.88rem',
             fontWeight: 700,
-            color: '#0B1727',
+            color: 'var(--color-text-primary)',
             display: 'flex',
             alignItems: 'center',
             gap: '0.5rem',
@@ -146,7 +146,7 @@ const UserFormPanel: React.FC<UserFormPanelProps> = ({
             letterSpacing: '0.04em',
             margin: 0,
           }}>
-            <FaUserGear style={{ color: '#0077D4' }} />
+            <FaUserGear style={{ color: 'var(--color-primary-text)' }} />
             {userToEdit ? `Editar Registro: ${userToEdit.name}` : 'Registrar Nuevo Usuario en Plataforma'}
           </h3>
           <button
@@ -157,7 +157,7 @@ const UserFormPanel: React.FC<UserFormPanelProps> = ({
               background: 'none',
               border: 'none',
               cursor: 'pointer',
-              color: '#64748B',
+              color: 'var(--color-text-muted)',
               padding: '0.25rem',
               display: 'flex',
               alignItems: 'center',
@@ -173,8 +173,8 @@ const UserFormPanel: React.FC<UserFormPanelProps> = ({
             {/* Roles and Status Row */}
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '0.85rem' }}>
               <div>
-                <label style={{ display: 'block', fontSize: '0.6875rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: '#64748B', marginBottom: '0.3rem' }}>
-                  Rol en Sistema <span style={{ color: '#DC2626' }}>*</span>
+                <label style={{ display: 'block', fontSize: '0.6875rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--color-text-muted)', marginBottom: '0.3rem' }}>
+                  Rol en Sistema <span style={{ color: 'var(--color-danger-text)' }}>*</span>
                 </label>
                 <select
                   {...register('rol')}
@@ -182,10 +182,10 @@ const UserFormPanel: React.FC<UserFormPanelProps> = ({
                     width: '100%',
                     padding: '0.45rem 0.65rem',
                     borderRadius: '4px',
-                    border: '1px solid #CBD5E1',
+                    border: '1px solid var(--color-border-strong)',
                     fontSize: '0.82rem',
-                    backgroundColor: '#FFFFFF',
-                    color: '#0B1727',
+                    backgroundColor: 'var(--color-surface)',
+                    color: 'var(--color-text-primary)',
                     outline: 'none',
                   }}
                 >
@@ -197,7 +197,7 @@ const UserFormPanel: React.FC<UserFormPanelProps> = ({
               </div>
 
               <div>
-                <label style={{ display: 'block', fontSize: '0.6875rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: '#64748B', marginBottom: '0.3rem' }}>
+                <label style={{ display: 'block', fontSize: '0.6875rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--color-text-muted)', marginBottom: '0.3rem' }}>
                   Estado de Cuenta
                 </label>
                 <select
@@ -206,10 +206,10 @@ const UserFormPanel: React.FC<UserFormPanelProps> = ({
                     width: '100%',
                     padding: '0.45rem 0.65rem',
                     borderRadius: '4px',
-                    border: '1px solid #CBD5E1',
+                    border: '1px solid var(--color-border-strong)',
                     fontSize: '0.82rem',
-                    backgroundColor: '#FFFFFF',
-                    color: '#0B1727',
+                    backgroundColor: 'var(--color-surface)',
+                    color: 'var(--color-text-primary)',
                     outline: 'none',
                   }}
                 >
@@ -221,8 +221,8 @@ const UserFormPanel: React.FC<UserFormPanelProps> = ({
 
             {/* Disciplina si es Instructor */}
             {selectedRol === 'instructor' && (
-              <div style={{ backgroundColor: '#F0F9FF', border: '1px solid #BAE6FD', padding: '0.75rem', borderRadius: '4px' }}>
-                <label style={{ display: 'block', fontSize: '0.6875rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: '#0369A1', marginBottom: '0.3rem' }}>
+              <div style={{ backgroundColor: 'var(--color-primary-soft)', border: '1px solid rgba(220, 38, 38, 0.30)', padding: '0.75rem', borderRadius: '4px' }}>
+                <label style={{ display: 'block', fontSize: '0.6875rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--color-primary-text)', marginBottom: '0.3rem' }}>
                   Disciplina Asignada al Instructor
                 </label>
                 <select
@@ -231,9 +231,9 @@ const UserFormPanel: React.FC<UserFormPanelProps> = ({
                     width: '100%',
                     padding: '0.45rem 0.65rem',
                     borderRadius: '4px',
-                    border: '1px solid #0284C7',
+                    border: '1px solid var(--color-primary)',
                     fontSize: '0.82rem',
-                    backgroundColor: '#FFFFFF',
+                    backgroundColor: 'var(--color-surface)',
                     fontWeight: 600,
                   }}
                 >
@@ -250,8 +250,8 @@ const UserFormPanel: React.FC<UserFormPanelProps> = ({
             {/* Nombres y Apellidos */}
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '0.85rem' }}>
               <div>
-                <label style={{ display: 'block', fontSize: '0.6875rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: '#64748B', marginBottom: '0.3rem' }}>
-                  Nombres <span style={{ color: '#DC2626' }}>*</span>
+                <label style={{ display: 'block', fontSize: '0.6875rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--color-text-muted)', marginBottom: '0.3rem' }}>
+                  Nombres <span style={{ color: 'var(--color-danger-text)' }}>*</span>
                 </label>
                 <input
                   type="text"
@@ -261,17 +261,17 @@ const UserFormPanel: React.FC<UserFormPanelProps> = ({
                     width: '100%',
                     padding: '0.45rem 0.65rem',
                     borderRadius: '4px',
-                    border: errors.nombre ? '1px solid #DC2626' : '1px solid #CBD5E1',
+                    border: errors.nombre ? '1px solid #DC2626' : '1px solid var(--color-border-strong)',
                     fontSize: '0.82rem',
                     boxSizing: 'border-box',
                   }}
                 />
-                {errors.nombre && <span style={{ color: '#DC2626', fontSize: '0.72rem' }}>{errors.nombre.message}</span>}
+                {errors.nombre && <span style={{ color: 'var(--color-danger-text)', fontSize: '0.72rem' }}>{errors.nombre.message}</span>}
               </div>
 
               <div>
-                <label style={{ display: 'block', fontSize: '0.6875rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: '#64748B', marginBottom: '0.3rem' }}>
-                  Apellidos <span style={{ color: '#DC2626' }}>*</span>
+                <label style={{ display: 'block', fontSize: '0.6875rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--color-text-muted)', marginBottom: '0.3rem' }}>
+                  Apellidos <span style={{ color: 'var(--color-danger-text)' }}>*</span>
                 </label>
                 <input
                   type="text"
@@ -281,19 +281,19 @@ const UserFormPanel: React.FC<UserFormPanelProps> = ({
                     width: '100%',
                     padding: '0.45rem 0.65rem',
                     borderRadius: '4px',
-                    border: errors.apellido ? '1px solid #DC2626' : '1px solid #CBD5E1',
+                    border: errors.apellido ? '1px solid #DC2626' : '1px solid var(--color-border-strong)',
                     fontSize: '0.82rem',
                     boxSizing: 'border-box',
                   }}
                 />
-                {errors.apellido && <span style={{ color: '#DC2626', fontSize: '0.72rem' }}>{errors.apellido.message}</span>}
+                {errors.apellido && <span style={{ color: 'var(--color-danger-text)', fontSize: '0.72rem' }}>{errors.apellido.message}</span>}
               </div>
             </div>
 
             {/* Email */}
             <div>
-              <label style={{ display: 'block', fontSize: '0.6875rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: '#64748B', marginBottom: '0.3rem' }}>
-                Correo Electrónico Institucional / Personal <span style={{ color: '#DC2626' }}>*</span>
+              <label style={{ display: 'block', fontSize: '0.6875rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--color-text-muted)', marginBottom: '0.3rem' }}>
+                Correo Electrónico Institucional / Personal <span style={{ color: 'var(--color-danger-text)' }}>*</span>
               </label>
               <input
                 type="email"
@@ -303,18 +303,18 @@ const UserFormPanel: React.FC<UserFormPanelProps> = ({
                   width: '100%',
                   padding: '0.45rem 0.65rem',
                   borderRadius: '4px',
-                  border: errors.email ? '1px solid #DC2626' : '1px solid #CBD5E1',
+                  border: errors.email ? '1px solid #DC2626' : '1px solid var(--color-border-strong)',
                   fontSize: '0.82rem',
                   boxSizing: 'border-box',
                 }}
               />
-              {errors.email && <span style={{ color: '#DC2626', fontSize: '0.72rem' }}>{errors.email.message}</span>}
+              {errors.email && <span style={{ color: 'var(--color-danger-text)', fontSize: '0.72rem' }}>{errors.email.message}</span>}
             </div>
 
             {/* Documentos CI y RU */}
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '0.85rem' }}>
               <div>
-                <label style={{ display: 'block', fontSize: '0.6875rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: '#64748B', marginBottom: '0.3rem' }}>
+                <label style={{ display: 'block', fontSize: '0.6875rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--color-text-muted)', marginBottom: '0.3rem' }}>
                   Cédula de Identidad (C.I.)
                 </label>
                 <input
@@ -325,7 +325,7 @@ const UserFormPanel: React.FC<UserFormPanelProps> = ({
                     width: '100%',
                     padding: '0.45rem 0.65rem',
                     borderRadius: '4px',
-                    border: '1px solid #CBD5E1',
+                    border: '1px solid var(--color-border-strong)',
                     fontSize: '0.82rem',
                     boxSizing: 'border-box',
                   }}
@@ -333,7 +333,7 @@ const UserFormPanel: React.FC<UserFormPanelProps> = ({
               </div>
 
               <div>
-                <label style={{ display: 'block', fontSize: '0.6875rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: '#64748B', marginBottom: '0.3rem' }}>
+                <label style={{ display: 'block', fontSize: '0.6875rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--color-text-muted)', marginBottom: '0.3rem' }}>
                   Registro Universitario (R.U.)
                 </label>
                 <input
@@ -344,7 +344,7 @@ const UserFormPanel: React.FC<UserFormPanelProps> = ({
                     width: '100%',
                     padding: '0.45rem 0.65rem',
                     borderRadius: '4px',
-                    border: '1px solid #CBD5E1',
+                    border: '1px solid var(--color-border-strong)',
                     fontSize: '0.82rem',
                     boxSizing: 'border-box',
                   }}
@@ -355,7 +355,7 @@ const UserFormPanel: React.FC<UserFormPanelProps> = ({
             {/* Teléfono y Tipo Usuario */}
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '0.85rem' }}>
               <div>
-                <label style={{ display: 'block', fontSize: '0.6875rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: '#64748B', marginBottom: '0.3rem' }}>
+                <label style={{ display: 'block', fontSize: '0.6875rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--color-text-muted)', marginBottom: '0.3rem' }}>
                   Teléfono / Celular
                 </label>
                 <input
@@ -366,7 +366,7 @@ const UserFormPanel: React.FC<UserFormPanelProps> = ({
                     width: '100%',
                     padding: '0.45rem 0.65rem',
                     borderRadius: '4px',
-                    border: '1px solid #CBD5E1',
+                    border: '1px solid var(--color-border-strong)',
                     fontSize: '0.82rem',
                     boxSizing: 'border-box',
                   }}
@@ -374,7 +374,7 @@ const UserFormPanel: React.FC<UserFormPanelProps> = ({
               </div>
 
               <div>
-                <label style={{ display: 'block', fontSize: '0.6875rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: '#64748B', marginBottom: '0.3rem' }}>
+                <label style={{ display: 'block', fontSize: '0.6875rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--color-text-muted)', marginBottom: '0.3rem' }}>
                   Tipo de Afiliado UAGRM
                 </label>
                 <select
@@ -383,10 +383,10 @@ const UserFormPanel: React.FC<UserFormPanelProps> = ({
                     width: '100%',
                     padding: '0.45rem 0.65rem',
                     borderRadius: '4px',
-                    border: '1px solid #CBD5E1',
+                    border: '1px solid var(--color-border-strong)',
                     fontSize: '0.82rem',
-                    backgroundColor: '#FFFFFF',
-                    color: '#0B1727',
+                    backgroundColor: 'var(--color-surface)',
+                    color: 'var(--color-text-primary)',
                   }}
                 >
                   <option value="estudiante">Estudiante Regular UAGRM</option>
@@ -399,7 +399,7 @@ const UserFormPanel: React.FC<UserFormPanelProps> = ({
 
             {/* Contraseña */}
             <div>
-              <label style={{ display: 'block', fontSize: '0.6875rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: '#64748B', marginBottom: '0.3rem' }}>
+              <label style={{ display: 'block', fontSize: '0.6875rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--color-text-muted)', marginBottom: '0.3rem' }}>
                 {userToEdit ? 'Nueva Contraseña (Opcional, dejar vacío para mantener la actual)' : 'Contraseña de Acceso *'}
               </label>
               <input
@@ -410,12 +410,12 @@ const UserFormPanel: React.FC<UserFormPanelProps> = ({
                   width: '100%',
                   padding: '0.45rem 0.65rem',
                   borderRadius: '4px',
-                  border: errors.password ? '1px solid #DC2626' : '1px solid #CBD5E1',
+                  border: errors.password ? '1px solid #DC2626' : '1px solid var(--color-border-strong)',
                   fontSize: '0.82rem',
                   boxSizing: 'border-box',
                 }}
               />
-              {errors.password && <span style={{ color: '#DC2626', fontSize: '0.72rem' }}>{errors.password.message}</span>}
+              {errors.password && <span style={{ color: 'var(--color-danger-text)', fontSize: '0.72rem' }}>{errors.password.message}</span>}
             </div>
           </div>
 
@@ -423,7 +423,7 @@ const UserFormPanel: React.FC<UserFormPanelProps> = ({
           <div style={{
             marginTop: '1.5rem',
             paddingTop: '1rem',
-            borderTop: '1px solid #E2E8F0',
+            borderTop: '1px solid var(--color-border)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
@@ -435,9 +435,9 @@ const UserFormPanel: React.FC<UserFormPanelProps> = ({
               style={{
                 padding: '0.5rem 1rem',
                 borderRadius: '4px',
-                border: '1px solid #CBD5E1',
-                backgroundColor: '#FFFFFF',
-                color: '#475569',
+                border: '1px solid var(--color-border-strong)',
+                backgroundColor: 'var(--color-surface)',
+                color: 'var(--color-text-secondary)',
                 fontSize: '0.82rem',
                 fontWeight: 600,
                 cursor: 'pointer',
@@ -454,7 +454,7 @@ const UserFormPanel: React.FC<UserFormPanelProps> = ({
               style={{
                 padding: '0.5rem 1.25rem',
                 borderRadius: '4px',
-                backgroundColor: '#0077D4',
+                backgroundColor: 'var(--color-primary)',
                 color: '#FFFFFF',
                 border: 'none',
                 fontSize: '0.82rem',

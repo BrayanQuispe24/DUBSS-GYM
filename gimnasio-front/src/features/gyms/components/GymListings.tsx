@@ -89,15 +89,15 @@ const GymListings: React.FC = () => {
   return (
     <section className="section listing-grid-section" id="servicios">
       <div className="container">
-        <div className="grid-header-row reveal-up" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem', flexWrap: 'wrap', gap: '1rem' }}>
-          <div>
+        <div className="grid-header-row" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem', flexWrap: 'wrap', gap: '1rem' }}>
+          <div className="reveal-left">
             <h2 className="section-title-sm">Servicios y Disciplinas Deportivas UAGRM</h2>
             <p className="section-subtext">
               Mostrando {initialServices ? initialServices.length : 0} actividades disponibles en la Sede del Gimnasio Universitario DUBS
             </p>
           </div>
 
-          <div className="carousel-header-controls" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+          <div className="carousel-header-controls reveal-right" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
             {/* Direct Carousel Nav Buttons */}
             <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
               <button
@@ -110,13 +110,13 @@ const GymListings: React.FC = () => {
                   width: '42px',
                   height: '42px',
                   borderRadius: '50%',
-                  background: 'rgba(0, 45, 98, 0.12)',
+                  background: 'rgba(255, 255, 255, 0.08)',
                   border: '1px solid var(--color-border)',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
                   cursor: isAnimating ? 'default' : 'pointer',
-                  color: 'var(--color-primary)',
+                  color: '#FFFFFF',
                   transition: 'all 0.2s ease',
                   opacity: isAnimating ? 0.7 : 1,
                 }}
@@ -161,9 +161,13 @@ const GymListings: React.FC = () => {
           <div style={{ textAlign: 'center', padding: '3rem', color: 'var(--color-text-muted)' }}>
             Cargando disciplinas universitarias...
           </div>
+        ) : items.length === 0 ? (
+          <div style={{ textAlign: 'center', padding: '3rem', color: 'var(--color-text-muted)' }}>
+            No hay disciplinas activas registradas para esta categoría.
+          </div>
         ) : (
           <div
-            className="carousel-container-outer"
+            className="carousel-container-outer reveal-up"
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
             style={{ position: 'relative', overflow: 'hidden', paddingBottom: '1rem', paddingTop: '0.5rem' }}

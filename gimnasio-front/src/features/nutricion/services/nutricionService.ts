@@ -5,7 +5,11 @@ export interface DetallePlanAlimentacion {
   id?: number;
   dia_semana?: string;
   tipo_comida?: string;
-  descripcion: string;
+  alimento?: string;
+  descripcion?: string;
+  cantidad?: number;
+  unidad?: string;
+  hora?: string;
   calorias?: number;
   proteinas?: number;
   carbohidratos?: number;

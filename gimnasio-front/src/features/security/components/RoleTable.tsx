@@ -20,7 +20,7 @@ const RoleTable: React.FC<RoleTableProps> = ({
 }) => {
   if (isLoading) {
     return (
-      <div style={{ textAlign: 'center', padding: '3rem', color: '#64748B' }}>
+      <div style={{ textAlign: 'center', padding: '3rem', color: 'var(--color-text-muted)' }}>
         Cargando matriz de roles del sistema...
       </div>
     );
@@ -28,17 +28,17 @@ const RoleTable: React.FC<RoleTableProps> = ({
 
   if (roles.length === 0) {
     return (
-      <div style={{ textAlign: 'center', padding: '3rem', color: '#64748B', backgroundColor: '#FFF', borderRadius: '4px', border: '1px solid #CBD5E1', fontSize: '0.85rem' }}>
+      <div style={{ textAlign: 'center', padding: '3rem', color: 'var(--color-text-muted)', backgroundColor: 'var(--color-surface)', borderRadius: '4px', border: '1px solid var(--color-border-strong)', fontSize: '0.85rem' }}>
         No se encontraron roles registrados.
       </div>
     );
   }
 
   return (
-    <div style={{ backgroundColor: '#FFFFFF', borderRadius: '4px', border: '1px solid #CBD5E1', overflow: 'hidden' }}>
+    <div style={{ backgroundColor: 'var(--color-surface)', borderRadius: '4px', border: '1px solid var(--color-border-strong)', overflow: 'hidden' }}>
       <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.82rem' }}>
         <thead>
-          <tr style={{ backgroundColor: '#F8FAFC', borderBottom: '1px solid #CBD5E1', color: '#475569', fontWeight: 700, fontSize: '0.72rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+          <tr style={{ backgroundColor: 'var(--color-surface-muted)', borderBottom: '1px solid var(--color-border-strong)', color: 'var(--color-text-secondary)', fontWeight: 700, fontSize: '0.72rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
             <th style={{ padding: '0.65rem 0.85rem' }}>Rol</th>
             <th style={{ padding: '0.65rem 0.85rem' }}>Descripción</th>
             <th style={{ padding: '0.65rem 0.85rem' }}>Estado</th>
@@ -53,11 +53,11 @@ const RoleTable: React.FC<RoleTableProps> = ({
               : (rol.rol_permisos || rol.rolPermisos || []).length;
 
             return (
-            <tr key={rol.id} style={{ borderBottom: '1px solid #E2E8F0' }}>
-              <td style={{ padding: '0.65rem 0.85rem', fontWeight: 700, color: '#0B1727' }}>
+            <tr key={rol.id} style={{ borderBottom: '1px solid var(--color-border)' }}>
+              <td style={{ padding: '0.65rem 0.85rem', fontWeight: 700, color: 'var(--color-text-primary)' }}>
                 {rol.nombre}
               </td>
-              <td style={{ padding: '0.65rem 0.85rem', color: '#64748B' }}>
+              <td style={{ padding: '0.65rem 0.85rem', color: 'var(--color-text-muted)' }}>
                 {rol.descripcion || 'Sin descripción'}
               </td>
               <td style={{ padding: '0.65rem 0.85rem' }}>
@@ -69,8 +69,8 @@ const RoleTable: React.FC<RoleTableProps> = ({
                     fontWeight: 700,
                     textTransform: 'uppercase',
                     letterSpacing: '0.03em',
-                    backgroundColor: ['1', 'activo', 'true'].includes(String(rol.estado).toLowerCase()) ? '#DCFCE7' : '#FEE2E2',
-                    color: ['1', 'activo', 'true'].includes(String(rol.estado).toLowerCase()) ? '#15803D' : '#B91C1C',
+                    backgroundColor: ['1', 'activo', 'true'].includes(String(rol.estado).toLowerCase()) ? 'var(--color-success-bg)' : 'var(--color-danger-bg)',
+                    color: ['1', 'activo', 'true'].includes(String(rol.estado).toLowerCase()) ? 'var(--color-success-text)' : 'var(--color-danger-text)',
                   }}
                 >
                   {String(rol.estado ?? 'activo').toUpperCase()}
@@ -85,8 +85,8 @@ const RoleTable: React.FC<RoleTableProps> = ({
                     fontWeight: 700,
                     textTransform: 'uppercase',
                     letterSpacing: '0.03em',
-                    backgroundColor: '#E0F2FE',
-                    color: '#0077D4',
+                    backgroundColor: 'var(--color-primary-soft)',
+                    color: 'var(--color-primary-text)',
                   }}
                 >
                   {countPermisos} Permisos
@@ -100,9 +100,9 @@ const RoleTable: React.FC<RoleTableProps> = ({
                     style={{
                       padding: '0.3rem 0.55rem',
                       borderRadius: '4px',
-                      backgroundColor: '#FEF3C7',
-                      color: '#D97706',
-                      border: '1px solid #FCD34D',
+                      backgroundColor: 'var(--color-warning-bg)',
+                      color: 'var(--color-warning-text)',
+                      border: '1px solid rgba(217, 119, 6, 0.35)',
                       cursor: 'pointer',
                       fontSize: '0.75rem'
                     }}
@@ -115,9 +115,9 @@ const RoleTable: React.FC<RoleTableProps> = ({
                     style={{
                       padding: '0.3rem 0.55rem',
                       borderRadius: '4px',
-                      backgroundColor: '#F1F5F9',
-                      color: '#475569',
-                      border: '1px solid #CBD5E1',
+                      backgroundColor: 'var(--color-surface-muted)',
+                      color: 'var(--color-text-secondary)',
+                      border: '1px solid var(--color-border-strong)',
                       cursor: 'pointer',
                       fontSize: '0.75rem'
                     }}
@@ -130,9 +130,9 @@ const RoleTable: React.FC<RoleTableProps> = ({
                     style={{
                       padding: '0.3rem 0.55rem',
                       borderRadius: '4px',
-                      backgroundColor: '#FEE2E2',
-                      color: '#DC2626',
-                      border: '1px solid #FCA5A5',
+                      backgroundColor: 'var(--color-danger-bg)',
+                      color: 'var(--color-danger-text)',
+                      border: '1px solid rgba(220, 38, 38, 0.35)',
                       cursor: 'pointer',
                       fontSize: '0.75rem'
                     }}

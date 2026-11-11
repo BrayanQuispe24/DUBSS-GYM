@@ -4,35 +4,40 @@
    Full Width 100% Layout & Official Brand Palette
    ========================================== */
 
-:root {
-    /* UAGRM DUBS Brand Colors (Red #990000 & Navy Blue #003B70) */
+:root,
+:root[data-theme="light"] {
+    /* Portada Obsidian & UAGRM Crimson Palette (Light Surface Mode) */
     --color-primary: #990000;
-    /* Rojo Carmesí Institucional UAGRM */
     --color-primary-hover: #7A0000;
     --color-primary-dark: #570000;
+    --color-primary-soft: rgba(153, 0, 0, 0.08);
+    --color-primary-text: #990000;
 
-    --color-secondary: #003B70;
-    /* Azul Marino Profundo DUBS */
-    --color-secondary-hover: #002A52;
-    --color-secondary-dark: #001C38;
+    --color-secondary: #18181B;
+    --color-secondary-hover: #27272A;
+    --color-secondary-dark: #0B0B0D;
 
-    /* UAGRM Accent Gold */
-    --color-accent: #E6A100;
-    --color-accent-hover: #C98D00;
+    --color-accent: #DC2626;
+    --color-accent-hover: #B91C1C;
 
-    /* Base Layout Neutrals */
-    --color-background: #F4F6FC;
+    /* Base Layout Neutrals (Light) */
+    --color-background: #F4F4F6;
     --color-surface: #FFFFFF;
-    --color-surface-hover: #E9EEF7;
-    --color-border: #D2DCEE;
+    --color-surface-muted: #F8F8FA;
+    --color-surface-hover: #EFEFF3;
+    --color-border: #E4E4E7;
+    --color-border-strong: #D4D4D8;
 
-    --color-text-primary: #0B1727;
-    --color-text-secondary: #334155;
-    --color-text-muted: #64748B;
+    --color-text-primary: #0B0B0D;
+    --color-text-secondary: #3F3F46;
+    --color-text-muted: #71717A;
 
     /* Component Tokens */
     --color-topbar-bg: #FFFFFF;
-    --color-topbar-border: #D2DCEE;
+    --color-topbar-border: #E4E4E7;
+    --color-sidebar-bg: #0E0E12;
+    --color-sidebar-footer: #09090C;
+    --color-sidebar-border: #23232D;
 
     /* Status Colors */
     --color-success: #16A34A;
@@ -47,18 +52,18 @@
     --color-warning-bg: #FEF3C7;
     --color-warning-text: #B45309;
 
-    --color-reserved: #0284C7;
-    --color-reserved-bg: #E0F2FE;
+    --color-reserved: #990000;
+    --color-reserved-bg: #FEE2E2;
 
     /* Croquis Tokens */
-    --croquis-bg: #EEF2F9;
-    --croquis-grid: #CBD5E1;
+    --croquis-bg: #EFEFF3;
+    --croquis-grid: #D4D4D8;
     --croquis-available: #16A34A;
     --croquis-occupied: #DC2626;
-    --croquis-reserved: #0284C7;
-    --croquis-out-of-service: #64748B;
-    --croquis-selected: #0891B2;
-    --croquis-disabled: #4F46E5;
+    --croquis-reserved: #990000;
+    --croquis-out-of-service: #71717A;
+    --croquis-selected: #B91C1C;
+    --croquis-disabled: #52525B;
 
     /* Typography */
     --font-heading: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -78,12 +83,75 @@
     --transition: background-color var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast), box-shadow var(--transition-fast), transform var(--transition-fast);
 }
 
-*,
-*::before,
-*::after {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+:root[data-theme="dark"] {
+    /* Portada Obsidian & UAGRM Crimson Palette (Dark Mode) */
+    --color-primary: #DC2626;
+    --color-primary-hover: #B91C1C;
+    --color-primary-dark: #7A0000;
+    --color-primary-soft: rgba(220, 38, 38, 0.14);
+    --color-primary-text: #F87171;
+
+    --color-secondary: #272732;
+    --color-secondary-hover: #323240;
+    --color-secondary-dark: #141419;
+
+    --color-accent: #EF4444;
+    --color-accent-hover: #DC2626;
+
+    /* Base Layout Neutrals (Dark Obsidian + Carbon) */
+    --color-background: #0B0B0D;
+    --color-surface: #141419;
+    --color-surface-muted: #1A1A22;
+    --color-surface-hover: #21212B;
+    --color-border: #272732;
+    --color-border-strong: #383846;
+
+    --color-text-primary: #F4F4F5;
+    --color-text-secondary: #D4D4D8;
+    --color-text-muted: #A1A1AA;
+
+    /* Component Tokens */
+    --color-topbar-bg: #111116;
+    --color-topbar-border: #272732;
+    --color-sidebar-bg: #0E0E12;
+    --color-sidebar-footer: #09090C;
+    --color-sidebar-border: #23232D;
+
+    /* Status Colors tuned for Dark Contrast */
+    --color-success: #22C55E;
+    --color-success-bg: rgba(22, 163, 74, 0.16);
+    --color-success-text: #4ADE80;
+
+    --color-danger: #EF4444;
+    --color-danger-bg: rgba(220, 38, 38, 0.18);
+    --color-danger-text: #FCA5A5;
+
+    --color-warning: #F59E0B;
+    --color-warning-bg: rgba(217, 119, 6, 0.16);
+    --color-warning-text: #FBBF24;
+
+    --color-reserved: #F87171;
+    --color-reserved-bg: rgba(153, 0, 0, 0.22);
+
+    /* Croquis Tokens */
+    --croquis-bg: #141419;
+    --croquis-grid: #272732;
+    --croquis-available: #22C55E;
+    --croquis-occupied: #EF4444;
+    --croquis-reserved: #F87171;
+    --croquis-out-of-service: #71717A;
+    --croquis-selected: #DC2626;
+    --croquis-disabled: #3F3F46;
+}
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+  }
 }
 
 html {
@@ -97,7 +165,7 @@ body {
     color: var(--color-text-primary);
     font-family: var(--font-body);
     line-height: 1.6;
-    overflow-x: hidden;
+    overflow-x: clip;
     width: 100%;
     -webkit-font-smoothing: antialiased;
 }
@@ -234,5 +302,65 @@ a:hover {
 
     .section {
         padding: 3.5rem 0;
+    }
+}
+
+/* Scroll-Driven Animations (Progressive Enhancement, Bidirectional) */
+@keyframes dubs-reveal-up {
+    from {
+        opacity: 0;
+        translate: 0 48px;
+    }
+    to {
+        opacity: 1;
+        translate: 0 0;
+    }
+}
+
+@keyframes dubs-reveal-left {
+    from {
+        opacity: 0;
+        translate: -100px 0;
+    }
+    to {
+        opacity: 1;
+        translate: 0 0;
+    }
+}
+
+@keyframes dubs-reveal-right {
+    from {
+        opacity: 0;
+        translate: 100px 0;
+    }
+    to {
+        opacity: 1;
+        translate: 0 0;
+    }
+}
+
+@supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+        .reveal-up {
+            animation: dubs-reveal-up ease-out both;
+            animation-timeline: view();
+            animation-range: entry 10% cover 35%;
+        }
+
+        .reveal-left {
+            animation: dubs-reveal-left ease-out both;
+            animation-timeline: view();
+            animation-range: entry 10% cover 35%;
+        }
+
+        .reveal-right {
+            animation: dubs-reveal-right ease-out both;
+            animation-timeline: view();
+            animation-range: entry 10% cover 35%;
+        }
+
+        .reveal-end {
+            animation-range: entry 5% cover 45%;
+        }
     }
 }

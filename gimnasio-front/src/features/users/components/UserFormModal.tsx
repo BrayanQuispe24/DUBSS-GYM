@@ -139,7 +139,7 @@ const UserFormModal: React.FC<UserFormModalProps> = ({
       padding: '1rem',
     }}>
       <div style={{
-        backgroundColor: '#FFFFFF',
+        backgroundColor: 'var(--color-surface)',
         borderRadius: '14px',
         width: '100%',
         maxWidth: '580px',
@@ -148,19 +148,19 @@ const UserFormModal: React.FC<UserFormModalProps> = ({
       }}>
         <div style={{
           padding: '1.25rem 1.5rem',
-          borderBottom: '1px solid #E2E8F0',
+          borderBottom: '1px solid var(--color-border)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          background: '#F8FAFC',
+          background: 'var(--color-surface-muted)',
         }}>
-          <h3 style={{ fontSize: '1.1rem', fontWeight: 800, color: '#0B1727', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-            <FaUserGear style={{ color: '#003B70' }} />
+          <h3 style={{ fontSize: '1.1rem', fontWeight: 800, color: 'var(--color-text-primary)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            <FaUserGear style={{ color: 'var(--color-primary-text)' }} />
             {userToEdit ? 'Editar Usuario' : 'Registrar Nuevo Usuario'}
           </h3>
           <button
             onClick={onClose}
-            style={{ background: 'none', border: 'none', fontSize: '1.25rem', cursor: 'pointer', color: '#64748B' }}
+            style={{ background: 'none', border: 'none', fontSize: '1.25rem', cursor: 'pointer', color: 'var(--color-text-muted)' }}
           >
             &times;
           </button>
@@ -179,7 +179,7 @@ const UserFormModal: React.FC<UserFormModalProps> = ({
                     width: '100%',
                     padding: '0.55rem',
                     borderRadius: '6px',
-                    border: '1px solid #CBD5E1',
+                    border: '1px solid var(--color-border-strong)',
                     fontSize: '0.85rem',
                   }}
                 >
@@ -200,7 +200,7 @@ const UserFormModal: React.FC<UserFormModalProps> = ({
                     width: '100%',
                     padding: '0.55rem',
                     borderRadius: '6px',
-                    border: '1px solid #CBD5E1',
+                    border: '1px solid var(--color-border-strong)',
                     fontSize: '0.85rem',
                   }}
                 >
@@ -211,8 +211,8 @@ const UserFormModal: React.FC<UserFormModalProps> = ({
             </div>
 
             {selectedRol === 'instructor' && (
-              <div style={{ background: '#F0F9FF', border: '1px solid #BAE6FD', padding: '0.75rem', borderRadius: '8px' }}>
-                <label style={{ display: 'block', fontWeight: 700, fontSize: '0.82rem', color: '#0369A1', marginBottom: '0.25rem' }}>
+              <div style={{ background: 'var(--color-primary-soft)', border: '1px solid rgba(220, 38, 38, 0.30)', padding: '0.75rem', borderRadius: '8px' }}>
+                <label style={{ display: 'block', fontWeight: 700, fontSize: '0.82rem', color: 'var(--color-primary-text)', marginBottom: '0.25rem' }}>
                   Disciplina Asignada al Instructor
                 </label>
                 <select
@@ -221,9 +221,9 @@ const UserFormModal: React.FC<UserFormModalProps> = ({
                     width: '100%',
                     padding: '0.55rem',
                     borderRadius: '6px',
-                    border: '1px solid #0284C7',
+                    border: '1px solid var(--color-primary)',
                     fontSize: '0.85rem',
-                    backgroundColor: '#FFFFFF',
+                    backgroundColor: 'var(--color-surface)',
                     fontWeight: 600,
                   }}
                 >
@@ -250,11 +250,11 @@ const UserFormModal: React.FC<UserFormModalProps> = ({
                     width: '100%',
                     padding: '0.55rem',
                     borderRadius: '6px',
-                    border: errors.nombre ? '1px solid #DC2626' : '1px solid #CBD5E1',
+                    border: errors.nombre ? '1px solid #DC2626' : '1px solid var(--color-border-strong)',
                     fontSize: '0.85rem',
                   }}
                 />
-                {errors.nombre && <span style={{ color: '#DC2626', fontSize: '0.75rem' }}>{errors.nombre.message}</span>}
+                {errors.nombre && <span style={{ color: 'var(--color-danger-text)', fontSize: '0.75rem' }}>{errors.nombre.message}</span>}
               </div>
 
               <div>
@@ -269,11 +269,11 @@ const UserFormModal: React.FC<UserFormModalProps> = ({
                     width: '100%',
                     padding: '0.55rem',
                     borderRadius: '6px',
-                    border: errors.apellido ? '1px solid #DC2626' : '1px solid #CBD5E1',
+                    border: errors.apellido ? '1px solid #DC2626' : '1px solid var(--color-border-strong)',
                     fontSize: '0.85rem',
                   }}
                 />
-                {errors.apellido && <span style={{ color: '#DC2626', fontSize: '0.75rem' }}>{errors.apellido.message}</span>}
+                {errors.apellido && <span style={{ color: 'var(--color-danger-text)', fontSize: '0.75rem' }}>{errors.apellido.message}</span>}
               </div>
             </div>
 
@@ -289,11 +289,11 @@ const UserFormModal: React.FC<UserFormModalProps> = ({
                   width: '100%',
                   padding: '0.55rem',
                   borderRadius: '6px',
-                  border: errors.email ? '1px solid #DC2626' : '1px solid #CBD5E1',
+                  border: errors.email ? '1px solid #DC2626' : '1px solid var(--color-border-strong)',
                   fontSize: '0.85rem',
                 }}
               />
-              {errors.email && <span style={{ color: '#DC2626', fontSize: '0.75rem' }}>{errors.email.message}</span>}
+              {errors.email && <span style={{ color: 'var(--color-danger-text)', fontSize: '0.75rem' }}>{errors.email.message}</span>}
             </div>
 
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem' }}>
@@ -309,7 +309,7 @@ const UserFormModal: React.FC<UserFormModalProps> = ({
                     width: '100%',
                     padding: '0.55rem',
                     borderRadius: '6px',
-                    border: '1px solid #CBD5E1',
+                    border: '1px solid var(--color-border-strong)',
                     fontSize: '0.85rem',
                   }}
                 />
@@ -327,7 +327,7 @@ const UserFormModal: React.FC<UserFormModalProps> = ({
                     width: '100%',
                     padding: '0.55rem',
                     borderRadius: '6px',
-                    border: '1px solid #CBD5E1',
+                    border: '1px solid var(--color-border-strong)',
                     fontSize: '0.85rem',
                   }}
                 />
@@ -345,7 +345,7 @@ const UserFormModal: React.FC<UserFormModalProps> = ({
                     width: '100%',
                     padding: '0.55rem',
                     borderRadius: '6px',
-                    border: '1px solid #CBD5E1',
+                    border: '1px solid var(--color-border-strong)',
                     fontSize: '0.85rem',
                   }}
                 >
@@ -368,7 +368,7 @@ const UserFormModal: React.FC<UserFormModalProps> = ({
                     width: '100%',
                     padding: '0.55rem',
                     borderRadius: '6px',
-                    border: '1px solid #CBD5E1',
+                    border: '1px solid var(--color-border-strong)',
                     fontSize: '0.85rem',
                   }}
                 />
@@ -387,22 +387,22 @@ const UserFormModal: React.FC<UserFormModalProps> = ({
                   width: '100%',
                   padding: '0.55rem',
                   borderRadius: '6px',
-                  border: errors.password ? '1px solid #DC2626' : '1px solid #CBD5E1',
+                  border: errors.password ? '1px solid #DC2626' : '1px solid var(--color-border-strong)',
                   fontSize: '0.85rem',
                 }}
               />
-              {errors.password && <span style={{ color: '#DC2626', fontSize: '0.75rem' }}>{errors.password.message}</span>}
+              {errors.password && <span style={{ color: 'var(--color-danger-text)', fontSize: '0.75rem' }}>{errors.password.message}</span>}
             </div>
           </div>
 
           <div style={{
             padding: '1rem 1.5rem',
-            borderTop: '1px solid #E2E8F0',
+            borderTop: '1px solid var(--color-border)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'flex-end',
             gap: '0.75rem',
-            background: '#F8FAFC',
+            background: 'var(--color-surface-muted)',
           }}>
             <button
               type="button"
@@ -410,8 +410,8 @@ const UserFormModal: React.FC<UserFormModalProps> = ({
               style={{
                 padding: '0.55rem 1rem',
                 borderRadius: '6px',
-                border: '1px solid #CBD5E1',
-                background: '#FFFFFF',
+                border: '1px solid var(--color-border-strong)',
+                background: 'var(--color-surface)',
                 fontSize: '0.85rem',
                 fontWeight: 600,
                 cursor: 'pointer',
@@ -426,7 +426,7 @@ const UserFormModal: React.FC<UserFormModalProps> = ({
                 padding: '0.55rem 1.25rem',
                 borderRadius: '6px',
                 border: 'none',
-                background: '#003B70',
+                background: 'var(--color-primary)',
                 color: '#FFFFFF',
                 fontSize: '0.85rem',
                 fontWeight: 700,

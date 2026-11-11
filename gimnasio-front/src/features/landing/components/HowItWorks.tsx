@@ -8,7 +8,7 @@ const HowItWorks: React.FC = () => {
       <div className="container">
         <div className="section-header reveal-up text-center mb-5">
           <div className="section-subtitle-guide">
-            <span style={{ color: 'var(--color-accent)', fontWeight: 800, letterSpacing: '0.12em' }}>
+            <span style={{ color: '#F87171', fontWeight: 800, letterSpacing: '0.12em' }}>
               PROCESO SIMPLIFICADO UAGRM
             </span>
           </div>
@@ -20,9 +20,9 @@ const HowItWorks: React.FC = () => {
           </p>
         </div>
 
-        <div className="classgo-steps-grid reveal-up delay-1">
+        <div className="classgo-steps-grid">
           {/* Paso 1 */}
-          <div className="classgo-step-card">
+          <div className="classgo-step-card reveal-left">
             <div className="step-badge-pill">Paso 1</div>
             <div className="step-card-img-wrapper">
               <Search size={44} />
@@ -35,7 +35,7 @@ const HowItWorks: React.FC = () => {
           </div>
 
           {/* Paso 2 */}
-          <div className="classgo-step-card">
+          <div className="classgo-step-card reveal-left">
             <div className="step-badge-pill">Paso 2</div>
             <div className="step-card-img-wrapper">
               <GraduationCap size={44} />
@@ -48,7 +48,7 @@ const HowItWorks: React.FC = () => {
           </div>
 
           {/* Paso 3 */}
-          <div className="classgo-step-card">
+          <div className="classgo-step-card reveal-right">
             <div className="step-badge-pill">Paso 3</div>
             <div className="step-card-img-wrapper">
               <QrCode size={44} />
@@ -61,7 +61,7 @@ const HowItWorks: React.FC = () => {
           </div>
 
           {/* Paso 4 / Highlight */}
-          <div className="classgo-step-card cta-card-highlight">
+          <div className="classgo-step-card cta-card-highlight reveal-right">
             <div className="cta-icon-bubble" style={{ fontSize: '2.5rem', marginBottom: '1rem', color: '#fff' }}>
               <Dumbbell size={44} />
             </div>

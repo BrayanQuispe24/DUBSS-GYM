@@ -18,7 +18,7 @@ const TermsModal: React.FC<TermsModalProps> = ({ isOpen, onClose, onAccept }) =>
       left: 0,
       right: 0,
       bottom: 0,
-      backgroundColor: 'rgba(11, 23, 39, 0.75)',
+      backgroundColor: 'rgba(0, 0, 0, 0.78)',
       backdropFilter: 'blur(4px)',
       display: 'flex',
       alignItems: 'center',
@@ -27,11 +27,12 @@ const TermsModal: React.FC<TermsModalProps> = ({ isOpen, onClose, onAccept }) =>
       padding: '1rem',
     }}>
       <div style={{
-        backgroundColor: '#FFFFFF',
+        backgroundColor: '#121216',
+        border: '1px solid rgba(255, 255, 255, 0.12)',
         borderRadius: '14px',
         width: '100%',
         maxWidth: '640px',
-        boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.35)',
+        boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.65)',
         overflow: 'hidden',
         display: 'flex',
         flexDirection: 'column',
@@ -40,15 +41,15 @@ const TermsModal: React.FC<TermsModalProps> = ({ isOpen, onClose, onAccept }) =>
         {/* Header */}
         <div style={{
           padding: '1.25rem 1.5rem',
-          borderBottom: '1px solid #E2E8F0',
+          borderBottom: '1px solid rgba(255, 255, 255, 0.10)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          background: 'linear-gradient(135deg, #003B70 0%, #002A52 100%)',
+          background: 'linear-gradient(135deg, #16161C 0%, #570000 100%)',
           color: '#FFFFFF',
         }}>
-          <h3 style={{ fontSize: '1.15rem', fontWeight: 800, margin: 0, display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
-            <FaFileContract style={{ color: '#F59E0B' }} />
+          <h3 style={{ fontSize: '1.15rem', fontWeight: 800, margin: 0, color: '#FFFFFF', display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
+            <FaFileContract style={{ color: '#FFD700' }} />
             Términos y Condiciones de Uso del Gimnasio UAGRM
           </h3>
           <button
@@ -58,7 +59,7 @@ const TermsModal: React.FC<TermsModalProps> = ({ isOpen, onClose, onAccept }) =>
               border: 'none',
               fontSize: '1.4rem',
               cursor: 'pointer',
-              color: '#94A3B8',
+              color: '#CBD5E1',
               lineHeight: 1,
             }}
           >
@@ -71,26 +72,26 @@ const TermsModal: React.FC<TermsModalProps> = ({ isOpen, onClose, onAccept }) =>
           padding: '1.5rem',
           overflowY: 'auto',
           fontSize: '0.88rem',
-          color: '#334155',
+          color: '#CBD5E1',
           lineHeight: '1.6',
           display: 'flex',
           flexDirection: 'column',
           gap: '1rem',
         }}>
           <div style={{
-            background: '#FEF3C7',
-            borderLeft: '4px solid #F59E0B',
+            background: 'rgba(230, 161, 0, 0.12)',
+            borderLeft: '4px solid #E6A100',
             padding: '0.75rem 1rem',
             borderRadius: '6px',
             fontSize: '0.82rem',
-            color: '#92400E',
+            color: '#FDE68A',
             fontWeight: 600,
           }}>
             Por favor, lee atentamente el presente reglamento oficial del Gimnasio D.U.B.S. de la Universidad Autónoma Gabriel René Moreno (UAGRM).
           </div>
 
           <section>
-            <h4 style={{ fontWeight: 700, color: '#0B1727', marginBottom: '0.35rem', fontSize: '0.95rem' }}>
+            <h4 style={{ fontWeight: 700, color: '#F8FAFC', marginBottom: '0.35rem', fontSize: '0.95rem' }}>
               1. Identidad y Credencial de Acceso
             </h4>
             <p style={{ margin: 0 }}>
@@ -99,7 +100,7 @@ const TermsModal: React.FC<TermsModalProps> = ({ isOpen, onClose, onAccept }) =>
           </section>
 
           <section>
-            <h4 style={{ fontWeight: 700, color: '#0B1727', marginBottom: '0.35rem', fontSize: '0.95rem' }}>
+            <h4 style={{ fontWeight: 700, color: '#F8FAFC', marginBottom: '0.35rem', fontSize: '0.95rem' }}>
               2. Uso del Equipamiento e Instalaciones
             </h4>
             <p style={{ margin: 0 }}>
@@ -108,7 +109,7 @@ const TermsModal: React.FC<TermsModalProps> = ({ isOpen, onClose, onAccept }) =>
           </section>
 
           <section>
-            <h4 style={{ fontWeight: 700, color: '#0B1727', marginBottom: '0.35rem', fontSize: '0.95rem' }}>
+            <h4 style={{ fontWeight: 700, color: '#F8FAFC', marginBottom: '0.35rem', fontSize: '0.95rem' }}>
               3. Normas de Higiene y Convivencia
             </h4>
             <p style={{ margin: 0 }}>
@@ -117,7 +118,7 @@ const TermsModal: React.FC<TermsModalProps> = ({ isOpen, onClose, onAccept }) =>
           </section>
 
           <section>
-            <h4 style={{ fontWeight: 700, color: '#0B1727', marginBottom: '0.35rem', fontSize: '0.95rem' }}>
+            <h4 style={{ fontWeight: 700, color: '#F8FAFC', marginBottom: '0.35rem', fontSize: '0.95rem' }}>
               4. Aptitud Física y Deslinde de Responsabilidades
             </h4>
             <p style={{ margin: 0 }}>
@@ -126,7 +127,7 @@ const TermsModal: React.FC<TermsModalProps> = ({ isOpen, onClose, onAccept }) =>
           </section>
 
           <section>
-            <h4 style={{ fontWeight: 700, color: '#0B1727', marginBottom: '0.35rem', fontSize: '0.95rem' }}>
+            <h4 style={{ fontWeight: 700, color: '#F8FAFC', marginBottom: '0.35rem', fontSize: '0.95rem' }}>
               5. Uso Responsable de la Plataforma Digital
             </h4>
             <p style={{ margin: 0 }}>
@@ -135,7 +136,7 @@ const TermsModal: React.FC<TermsModalProps> = ({ isOpen, onClose, onAccept }) =>
           </section>
 
           <section>
-            <h4 style={{ fontWeight: 700, color: '#0B1727', marginBottom: '0.35rem', fontSize: '0.95rem' }}>
+            <h4 style={{ fontWeight: 700, color: '#F8FAFC', marginBottom: '0.35rem', fontSize: '0.95rem' }}>
               6. Tratamiento y Uso de Datos Personales
             </h4>
             <p style={{ margin: 0 }}>
@@ -147,12 +148,12 @@ const TermsModal: React.FC<TermsModalProps> = ({ isOpen, onClose, onAccept }) =>
         {/* Footer Actions */}
         <div style={{
           padding: '1rem 1.5rem',
-          borderTop: '1px solid #E2E8F0',
+          borderTop: '1px solid rgba(255, 255, 255, 0.10)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'flex-end',
           gap: '0.75rem',
-          background: '#F8FAFC',
+          background: '#0E0E12',
         }}>
           <button
             type="button"
@@ -160,12 +161,12 @@ const TermsModal: React.FC<TermsModalProps> = ({ isOpen, onClose, onAccept }) =>
             style={{
               padding: '0.55rem 1.25rem',
               borderRadius: '6px',
-              border: '1px solid #CBD5E1',
-              background: '#FFFFFF',
+              border: '1px solid rgba(255, 255, 255, 0.16)',
+              background: '#1A1A22',
               fontSize: '0.85rem',
               fontWeight: 600,
               cursor: 'pointer',
-              color: '#475569',
+              color: '#E2E8F0',
             }}
           >
             Cerrar
@@ -181,7 +182,7 @@ const TermsModal: React.FC<TermsModalProps> = ({ isOpen, onClose, onAccept }) =>
                 padding: '0.55rem 1.25rem',
                 borderRadius: '6px',
                 border: 'none',
-                background: '#003B70',
+                background: 'linear-gradient(135deg, #990000 0%, #7A0000 100%)',
                 color: '#FFFFFF',
                 fontSize: '0.85rem',
                 fontWeight: 700,

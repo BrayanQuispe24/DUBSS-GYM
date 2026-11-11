@@ -100,10 +100,10 @@ const HistorialListPage: React.FC = () => {
     <section>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.25rem' }}>
         <div>
-          <h2 style={{ fontSize: '1.4rem', fontWeight: 800, color: '#0B1727', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-            <FaNotesMedical style={{ color: '#003B70' }} /> Historial Clínico y Deportivo
+          <h2 style={{ fontSize: '1.4rem', fontWeight: 800, color: 'var(--color-text-primary)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            <FaNotesMedical style={{ color: 'var(--color-primary-text)' }} /> Historial Clínico y Deportivo
           </h2>
-          <p style={{ fontSize: '0.85rem', color: '#64748B' }}>
+          <p style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)' }}>
             Seguimiento antropométrico, antecedentes médicos y evaluaciones físicas del universitario UAGRM.
           </p>
         </div>
@@ -112,8 +112,8 @@ const HistorialListPage: React.FC = () => {
             onClick={handleOpenCreate}
             style={{
               padding: '0.55rem 1rem', borderRadius: '4px',
-              background: '#0077D4',
-              color: '#FFFFFF', border: '1px solid #005FA8', fontWeight: 700, fontSize: '0.80rem', cursor: 'pointer',
+              background: 'var(--color-primary)',
+              color: '#FFFFFF', border: '1px solid var(--color-primary)', fontWeight: 700, fontSize: '0.80rem', cursor: 'pointer',
               display: 'flex', alignItems: 'center', gap: '0.4rem', textTransform: 'uppercase', letterSpacing: '0.03em'
             }}
           >
@@ -124,7 +124,7 @@ const HistorialListPage: React.FC = () => {
 
       {/* BARRA DE BUSQUEDA / FILTRADO POR SOCIO */}
       <div style={{ marginBottom: '1.25rem', position: 'relative', maxWidth: '450px' }}>
-        <FaMagnifyingGlass style={{ position: 'absolute', left: '0.85rem', top: '50%', transform: 'translateY(-50%)', color: '#94A3B8', fontSize: '0.85rem' }} />
+        <FaMagnifyingGlass style={{ position: 'absolute', left: '0.85rem', top: '50%', transform: 'translateY(-50%)', color: 'var(--color-text-muted)', fontSize: '0.85rem' }} />
         <input
           type="text"
           placeholder="Buscar historial por Socio (Nombre, R.U., Email) o Diagnóstico..."
@@ -132,7 +132,7 @@ const HistorialListPage: React.FC = () => {
           onChange={(e) => setSearchQuery(e.target.value)}
           style={{
             width: '100%', padding: '0.55rem 0.85rem 0.55rem 2.25rem', borderRadius: '4px',
-            border: '1px solid #CBD5E1', backgroundColor: '#FFF', fontSize: '0.82rem'
+            border: '1px solid var(--color-border-strong)', backgroundColor: 'var(--color-surface)', fontSize: '0.82rem'
           }}
         />
       </div>

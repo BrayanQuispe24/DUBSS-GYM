@@ -75,9 +75,9 @@ const RoleFormModal: React.FC<RoleFormModalProps> = ({
       zIndex: 9999,
     }}>
       <div style={{
-        backgroundColor: '#FFFFFF',
+        backgroundColor: 'var(--color-surface)',
         borderRadius: '4px',
-        border: '1px solid #CBD5E1',
+        border: '1px solid var(--color-border-strong)',
         padding: '1.5rem',
         width: '100%',
         maxWidth: '480px',
@@ -89,16 +89,16 @@ const RoleFormModal: React.FC<RoleFormModalProps> = ({
           alignItems: 'center',
           marginBottom: '1.25rem',
           paddingBottom: '0.75rem',
-          borderBottom: '1px solid #E2E8F0',
+          borderBottom: '1px solid var(--color-border)',
         }}>
-          <h3 style={{ fontSize: '1rem', fontWeight: 800, color: '#0F172A', textTransform: 'uppercase', letterSpacing: '0.02em', margin: 0 }}>
+          <h3 style={{ fontSize: '1rem', fontWeight: 800, color: 'var(--color-text-primary)', textTransform: 'uppercase', letterSpacing: '0.02em', margin: 0 }}>
             {rolToEdit ? 'Editar Rol de Sistema' : 'Nuevo Rol de Sistema'}
           </h3>
         </div>
 
         <form onSubmit={handleSubmit(onSubmit)} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
           <div>
-            <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 700, color: '#475569', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.35rem' }}>
+            <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 700, color: 'var(--color-text-secondary)', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.35rem' }}>
               Nombre del Rol *
             </label>
             <input
@@ -108,21 +108,21 @@ const RoleFormModal: React.FC<RoleFormModalProps> = ({
                 width: '100%',
                 padding: '0.55rem 0.75rem',
                 borderRadius: '4px',
-                border: '1px solid #CBD5E1',
+                border: '1px solid var(--color-border-strong)',
                 fontSize: '0.82rem',
-                color: '#0F172A',
+                color: 'var(--color-text-primary)',
                 outline: 'none',
               }}
             />
             {errors.nombre && (
-              <span style={{ color: '#DC2626', fontSize: '0.72rem', marginTop: '0.2rem', display: 'block', fontWeight: 600 }}>
+              <span style={{ color: 'var(--color-danger-text)', fontSize: '0.72rem', marginTop: '0.2rem', display: 'block', fontWeight: 600 }}>
                 {errors.nombre.message}
               </span>
             )}
           </div>
 
           <div>
-            <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 700, color: '#475569', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.35rem' }}>
+            <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 700, color: 'var(--color-text-secondary)', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.35rem' }}>
               Descripción
             </label>
             <textarea
@@ -133,16 +133,16 @@ const RoleFormModal: React.FC<RoleFormModalProps> = ({
                 width: '100%',
                 padding: '0.55rem 0.75rem',
                 borderRadius: '4px',
-                border: '1px solid #CBD5E1',
+                border: '1px solid var(--color-border-strong)',
                 fontSize: '0.82rem',
-                color: '#0F172A',
+                color: 'var(--color-text-primary)',
                 outline: 'none',
               }}
             />
           </div>
 
           <div>
-            <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 700, color: '#475569', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.35rem' }}>
+            <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 700, color: 'var(--color-text-secondary)', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.35rem' }}>
               Estado
             </label>
             <select
@@ -151,10 +151,10 @@ const RoleFormModal: React.FC<RoleFormModalProps> = ({
                 width: '100%',
                 padding: '0.55rem 0.75rem',
                 borderRadius: '4px',
-                border: '1px solid #CBD5E1',
+                border: '1px solid var(--color-border-strong)',
                 fontSize: '0.82rem',
-                color: '#0F172A',
-                backgroundColor: '#FFF',
+                color: 'var(--color-text-primary)',
+                backgroundColor: 'var(--color-surface)',
                 outline: 'none',
               }}
             >
@@ -163,16 +163,16 @@ const RoleFormModal: React.FC<RoleFormModalProps> = ({
             </select>
           </div>
 
-          <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '0.75rem', marginTop: '0.75rem', paddingTop: '1rem', borderTop: '1px solid #F1F5F9' }}>
+          <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '0.75rem', marginTop: '0.75rem', paddingTop: '1rem', borderTop: '1px solid var(--color-border)' }}>
             <button
               type="button"
               onClick={onClose}
               style={{
                 padding: '0.5rem 1rem',
                 borderRadius: '4px',
-                border: '1px solid #CBD5E1',
-                backgroundColor: '#FFF',
-                color: '#475569',
+                border: '1px solid var(--color-border-strong)',
+                backgroundColor: 'var(--color-surface)',
+                color: 'var(--color-text-secondary)',
                 fontWeight: 700,
                 fontSize: '0.80rem',
                 textTransform: 'uppercase',
@@ -188,8 +188,8 @@ const RoleFormModal: React.FC<RoleFormModalProps> = ({
               style={{
                 padding: '0.5rem 1.25rem',
                 borderRadius: '4px',
-                border: '1px solid #005FA8',
-                backgroundColor: '#0077D4',
+                border: '1px solid var(--color-primary)',
+                backgroundColor: 'var(--color-primary)',
                 color: '#FFF',
                 fontWeight: 700,
                 fontSize: '0.80rem',

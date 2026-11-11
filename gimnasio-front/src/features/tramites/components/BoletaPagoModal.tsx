@@ -53,7 +53,7 @@ const BoletaPagoModal: React.FC<BoletaPagoModalProps> = ({ isOpen, pago, onClose
   return (
     <div className="modal-print-overlay" style={{
       position: 'fixed', top: 0, left: 0, right: 0, bottom: 0,
-      backgroundColor: 'rgba(15, 23, 42, 0.8)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 99999
+      backgroundColor: 'rgba(0, 0, 0, 0.8)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 99999
     }}>
       <style>{`
         @media print {
@@ -90,14 +90,14 @@ const BoletaPagoModal: React.FC<BoletaPagoModalProps> = ({ isOpen, pago, onClose
       `}</style>
 
       <div style={{
-        backgroundColor: '#F8FAFC', borderRadius: '12px', width: '100%', maxWidth: '800px',
+        backgroundColor: 'var(--color-surface-muted)', borderRadius: '12px', width: '100%', maxWidth: '800px',
         maxHeight: '94vh', display: 'flex', flexDirection: 'column', boxShadow: '0 25px 50px -12px rgba(0,0,0,0.3)',
-        border: '1px solid #CBD5E1', overflow: 'hidden'
+        border: '1px solid var(--color-border-strong)', overflow: 'hidden'
       }}>
         {/* CONTROL BAR */}
         <div className="no-print" style={{
           display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-          padding: '1rem 1.5rem', backgroundColor: '#003B70', color: '#FFF'
+          padding: '1rem 1.5rem', backgroundColor: 'var(--color-primary)', color: '#FFF'
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
             <FaReceipt style={{ color: '#F59E0B', fontSize: '1.25rem' }} />
@@ -105,7 +105,7 @@ const BoletaPagoModal: React.FC<BoletaPagoModalProps> = ({ isOpen, pago, onClose
               <h3 style={{ fontSize: '1rem', fontWeight: 800, margin: 0 }}>
                 Boleta de Pago & Orden de Depósito UAGRM
               </h3>
-              <span style={{ fontSize: '0.75rem', color: '#93C5FD' }}>
+              <span style={{ fontSize: '0.75rem', color: '#FCA5A5' }}>
                 Nº: {pago?.numero_boleta || 'PAG-2026'} | Caja Campus UAGRM
               </span>
             </div>
@@ -137,7 +137,7 @@ const BoletaPagoModal: React.FC<BoletaPagoModalProps> = ({ isOpen, pago, onClose
               onClick={handlePrintPDF}
               disabled={isGeneratingPdf}
               style={{
-                padding: '0.55rem 1.2rem', borderRadius: '6px', backgroundColor: '#2563EB', color: '#FFF',
+                padding: '0.55rem 1.2rem', borderRadius: '6px', backgroundColor: 'var(--color-primary)', color: '#FFF',
                 border: 'none', fontWeight: 700, fontSize: '0.85rem', cursor: isGeneratingPdf ? 'wait' : 'pointer',
                 display: 'flex', alignItems: 'center', gap: '0.5rem',
                 boxShadow: '0 4px 6px -1px rgba(37, 99, 235, 0.3)', opacity: isGeneratingPdf ? 0.7 : 1
@@ -162,22 +162,22 @@ const BoletaPagoModal: React.FC<BoletaPagoModalProps> = ({ isOpen, pago, onClose
         {/* PRINTABLE DOCUMENT */}
         <div style={{ overflowY: 'auto', padding: '1.5rem', flex: 1 }}>
           <div className="boleta-printable-document" style={{
-            backgroundColor: '#FFFFFF', padding: '2rem', border: '1px solid #CBD5E1', borderRadius: '8px',
-            fontFamily: "'Segoe UI', Arial, sans-serif", color: '#0F172A', fontSize: '12px', lineHeight: '1.5'
+            backgroundColor: 'var(--color-surface)', padding: '2rem', border: '1px solid var(--color-border-strong)', borderRadius: '8px',
+            fontFamily: "'Segoe UI', Arial, sans-serif", color: 'var(--color-text-primary)', fontSize: '12px', lineHeight: '1.5'
           }}>
             {/* HEADER INSTITUCIONAL */}
             <table style={{ width: '100%', borderCollapse: 'collapse', border: '1.5px solid #000', marginBottom: '1.5rem' }}>
               <tbody>
                 <tr>
                   <td style={{ width: '22%', borderRight: '1.5px solid #000', padding: '8px', textAlign: 'center', verticalAlign: 'middle' }}>
-                    <div style={{ fontWeight: 900, fontSize: '12px', color: '#B91C1C', textTransform: 'uppercase', lineHeight: '1.2' }}>
+                    <div style={{ fontWeight: 900, fontSize: '12px', color: 'var(--color-danger-text)', textTransform: 'uppercase', lineHeight: '1.2' }}>
                       <span style={{ fontSize: '14px', display: 'block', color: '#000' }}>D.U.B.S.S.</span>
                       U.A.G.R.M.
                     </div>
                   </td>
-                  <td style={{ width: '56%', borderRight: '1.5px solid #000', padding: '8px', textAlign: 'center', verticalAlign: 'middle', backgroundColor: '#F1F5F9' }}>
-                    <div style={{ fontWeight: 800, fontSize: '11px', textTransform: 'uppercase', color: '#475569' }}>UNIVERSIDAD AUTÓNOMA GABRIEL RENÉ MORENO</div>
-                    <div style={{ fontWeight: 900, fontSize: '13px', textTransform: 'uppercase', marginTop: '3px', color: '#003B70', letterSpacing: '0.5px' }}>
+                  <td style={{ width: '56%', borderRight: '1.5px solid #000', padding: '8px', textAlign: 'center', verticalAlign: 'middle', backgroundColor: 'var(--color-surface-muted)' }}>
+                    <div style={{ fontWeight: 800, fontSize: '11px', textTransform: 'uppercase', color: 'var(--color-text-secondary)' }}>UNIVERSIDAD AUTÓNOMA GABRIEL RENÉ MORENO</div>
+                    <div style={{ fontWeight: 900, fontSize: '13px', textTransform: 'uppercase', marginTop: '3px', color: 'var(--color-primary-text)', letterSpacing: '0.5px' }}>
                       BOLETA DE PAGO Y ORDEN DE DEPÓSITO - CAJA CAMPUS
                     </div>
                   </td>
@@ -202,14 +202,14 @@ const BoletaPagoModal: React.FC<BoletaPagoModalProps> = ({ isOpen, pago, onClose
 
             {/* SECCIÓN 1: DATOS DE LA BOLETA */}
             <div style={{ border: '1.5px solid #000', marginBottom: '1.25rem' }}>
-              <div style={{ backgroundColor: '#E2E8F0', padding: '4px 8px', fontWeight: 800, fontSize: '11px', textAlign: 'center', borderBottom: '1px solid #000' }}>
+              <div style={{ backgroundColor: 'var(--color-surface-hover)', padding: '4px 8px', fontWeight: 800, fontSize: '11px', textAlign: 'center', borderBottom: '1px solid #000' }}>
                 1. DATOS DE IDENTIFICACIÓN DE LA BOLETA DE PAGO
               </div>
               <table style={{ width: '100%', borderCollapse: 'collapse' }}>
                 <tbody>
                   <tr style={{ borderBottom: '1px solid #000' }}>
                     <td style={{ width: '50%', borderRight: '1px solid #000', padding: '6px 10px' }}>
-                      <strong>Nº BOLETA DE PAGO:</strong> <span style={{ color: '#003B70', fontWeight: 800 }}>{pago?.numero_boleta || 'PAG-2026-XXXX'}</span>
+                      <strong>Nº BOLETA DE PAGO:</strong> <span style={{ color: 'var(--color-primary-text)', fontWeight: 800 }}>{pago?.numero_boleta || 'PAG-2026-XXXX'}</span>
                     </td>
                     <td style={{ width: '50%', padding: '6px 10px' }}>
                       <strong>Nº FORMULARIO SOLICITUD:</strong> <span>{sol?.numero_formulario || 'SOL-XXXX'}</span>
@@ -220,7 +220,7 @@ const BoletaPagoModal: React.FC<BoletaPagoModalProps> = ({ isOpen, pago, onClose
                       <strong>MÉTODO / DESTINO PAGO:</strong> <span>{pago?.metodo_pago || 'Caja Campus UAGRM'}</span>
                     </td>
                     <td style={{ width: '50%', padding: '6px 10px' }}>
-                      <strong>ESTADO ACTUAL:</strong> <span style={{ fontWeight: 800, color: String(pago?.estado).toLowerCase() === 'completado' ? '#166534' : '#B45309' }}>{String(pago?.estado || 'pendiente').toUpperCase()}</span>
+                      <strong>ESTADO ACTUAL:</strong> <span style={{ fontWeight: 800, color: String(pago?.estado).toLowerCase() === 'completado' ? 'var(--color-success-text)' : 'var(--color-warning-text)' }}>{String(pago?.estado || 'pendiente').toUpperCase()}</span>
                     </td>
                   </tr>
                 </tbody>
@@ -229,7 +229,7 @@ const BoletaPagoModal: React.FC<BoletaPagoModalProps> = ({ isOpen, pago, onClose
 
             {/* SECCIÓN 2: DATOS DEL SOCIO */}
             <div style={{ border: '1.5px solid #000', marginBottom: '1.25rem' }}>
-              <div style={{ backgroundColor: '#E2E8F0', padding: '4px 8px', fontWeight: 800, fontSize: '11px', textAlign: 'center', borderBottom: '1px solid #000' }}>
+              <div style={{ backgroundColor: 'var(--color-surface-hover)', padding: '4px 8px', fontWeight: 800, fontSize: '11px', textAlign: 'center', borderBottom: '1px solid #000' }}>
                 2. DATOS DEL POSTULANTE / SOCIO DEL GIMNASIO
               </div>
               <table style={{ width: '100%', borderCollapse: 'collapse' }}>
@@ -266,29 +266,29 @@ const BoletaPagoModal: React.FC<BoletaPagoModalProps> = ({ isOpen, pago, onClose
 
             {/* CAJA MONTO TOTAL */}
             <div style={{
-              margin: '1.25rem 0', padding: '1rem', borderRadius: '8px', backgroundColor: '#F0F9FF',
-              border: '2px solid #003B70', textAlign: 'center'
+              margin: '1.25rem 0', padding: '1rem', borderRadius: '8px', backgroundColor: 'var(--color-primary-soft)',
+              border: '2px solid var(--color-primary)', textAlign: 'center'
             }}>
-              <div style={{ fontSize: '11px', fontWeight: 800, color: '#003B70', textTransform: 'uppercase' }}>
+              <div style={{ fontSize: '11px', fontWeight: 800, color: 'var(--color-primary-text)', textTransform: 'uppercase' }}>
                 MONTO TOTAL A CANCELAR EN CAJA CAMPUS UAGRM
               </div>
-              <div style={{ fontSize: '24px', fontWeight: 900, color: '#003B70', margin: '4px 0' }}>
+              <div style={{ fontSize: '24px', fontWeight: 900, color: 'var(--color-primary-text)', margin: '4px 0' }}>
                 Bs. {Number(pago?.monto || 150).toFixed(2)}
               </div>
-              <div style={{ fontSize: '10px', color: '#64748B', fontStyle: 'italic' }}>
+              <div style={{ fontSize: '10px', color: 'var(--color-text-muted)', fontStyle: 'italic' }}>
                 (Ciento Cincuenta 00/100 Bolivianos)
               </div>
             </div>
 
             {/* INSTRUCCIONES */}
             <div style={{
-              padding: '1rem', backgroundColor: '#F8FAFC', borderRadius: '6px', border: '1px solid #CBD5E1',
+              padding: '1rem', backgroundColor: 'var(--color-surface-muted)', borderRadius: '6px', border: '1px solid var(--color-border-strong)',
               fontSize: '11px', lineHeight: '1.5'
             }}>
-              <div style={{ fontWeight: 800, color: '#334155', marginBottom: '6px', textTransform: 'uppercase' }}>
+              <div style={{ fontWeight: 800, color: 'var(--color-text-secondary)', marginBottom: '6px', textTransform: 'uppercase' }}>
                 INSTRUCCIONES PARA EL SOCIO Y CAJA CAMPUS UAGRM:
               </div>
-              <ol style={{ margin: 0, paddingLeft: '1.25rem', color: '#475569' }}>
+              <ol style={{ margin: 0, paddingLeft: '1.25rem', color: 'var(--color-text-secondary)' }}>
                 <li>Imprimir esta Boleta de Pago u Orden de Depósito y apersonarse por las ventanillas de <strong>Caja Campus UAGRM</strong>.</li>
                 <li>Cancelar el importe de <strong>Bs. 150.00</strong> exigiendo la entrega de su comprobante oficial de pago timbrado por la universidad.</li>
                 <li>Presentar el comprobante físico sellado en la Administración del Gimnasio Universitario para la emisión de su <strong>Boleta de Inscripción</strong> oficial y la habilitación de acceso.</li>

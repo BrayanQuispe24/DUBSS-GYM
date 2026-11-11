@@ -13,10 +13,10 @@ const Footer: React.FC = () => {
                 <Dumbbell size={20} />
               </div>
               <span className="logo-text" style={{ color: '#ffffff', fontSize: '1.4rem', fontWeight: 800 }}>
-                Fit<span style={{ color: 'var(--color-accent)' }}>Go!</span>
+                FITGO <span style={{ color: '#EF4444' }}>UAGRM</span>
               </span>
             </a>
-            <p style={{ fontSize: '0.88rem', color: '#A7B2AB' }}>
+            <p style={{ fontSize: '0.88rem', color: '#A1A1AA' }}>
               Plataforma tecnológica para encontrar, reservar y gestionar gimnasios, clases fitness y entrenamiento libre en Santa Cruz de la Sierra, Bolivia.
             </p>
             <div className="social-links" style={{ display: 'flex', gap: '1rem', marginTop: '1.2rem' }}>
@@ -48,7 +48,7 @@ const Footer: React.FC = () => {
             <h4>Acceso & Soporte</h4>
             <ul>
               <li><a href="#explorar">Iniciar Sesión / Registro</a></li>
-              <li style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#A7B2AB' }}>
+              <li style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#A1A1AA' }}>
                 <Mail size={14} /> contacto@fitgo.bo
               </li>
             </ul>

@@ -68,8 +68,8 @@ const UserTable: React.FC<UserTableProps> = ({
 
   if (isLoading) {
     return (
-      <div className="table-responsive" style={{ padding: '3rem', textAlign: 'center', color: '#64748B' }}>
-        <FaSpinner className="animate-spin" style={{ fontSize: '2rem', color: '#003B70', marginBottom: '0.75rem' }} />
+      <div className="table-responsive" style={{ padding: '3rem', textAlign: 'center', color: 'var(--color-text-muted)' }}>
+        <FaSpinner className="animate-spin" style={{ fontSize: '2rem', color: 'var(--color-primary-text)', marginBottom: '0.75rem' }} />
         <div>Cargando directorio de usuarios UAGRM...</div>
       </div>
     );
@@ -77,8 +77,8 @@ const UserTable: React.FC<UserTableProps> = ({
 
   if (!users || users.length === 0) {
     return (
-      <div className="table-responsive" style={{ padding: '3rem', textAlign: 'center', color: '#64748B' }}>
-        <FaUserSlash style={{ fontSize: '2rem', color: '#94A3B8', marginBottom: '0.75rem' }} />
+      <div className="table-responsive" style={{ padding: '3rem', textAlign: 'center', color: 'var(--color-text-muted)' }}>
+        <FaUserSlash style={{ fontSize: '2rem', color: 'var(--color-text-muted)', marginBottom: '0.75rem' }} />
         <div style={{ fontWeight: 600 }}>No se encontraron usuarios</div>
         <div style={{ fontSize: '0.8rem' }}>Intente ajustar los filtros de búsqueda.</div>
       </div>
@@ -117,7 +117,7 @@ const UserTable: React.FC<UserTableProps> = ({
                       width: '36px',
                       height: '36px',
                       borderRadius: '50%',
-                      background: u.rol === 'administrador' ? '#990000' : u.rol === 'recepcionista' ? '#003B70' : '#059669',
+                      background: u.rol === 'administrador' ? '#990000' : u.rol === 'recepcionista' ? 'var(--color-primary)' : '#059669',
                       color: '#FFFFFF',
                       fontWeight: 700,
                       fontSize: '0.82rem',
@@ -129,8 +129,8 @@ const UserTable: React.FC<UserTableProps> = ({
                       {getInitials(u.name)}
                     </div>
                     <div>
-                      <div style={{ fontWeight: 700, color: '#0B1727' }}>{u.name}</div>
-                      <div style={{ fontSize: '0.75rem', color: '#64748B' }}>{u.email}</div>
+                      <div style={{ fontWeight: 700, color: 'var(--color-text-primary)' }}>{u.name}</div>
+                      <div style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)' }}>{u.email}</div>
                     </div>
                   </div>
                 </td>
@@ -139,7 +139,7 @@ const UserTable: React.FC<UserTableProps> = ({
                     <FaUserShield /> {getRoleLabel(u.rol)}
                   </span>
                   {u.rol === 'instructor' && u.disciplina?.nombre && (
-                    <div style={{ fontSize: '0.72rem', color: '#0284C7', fontWeight: 700, marginTop: '0.2rem' }}>
+                    <div style={{ fontSize: '0.72rem', color: 'var(--color-primary-text)', fontWeight: 700, marginTop: '0.2rem' }}>
                       {u.disciplina.nombre}
                     </div>
                   )}
@@ -148,7 +148,7 @@ const UserTable: React.FC<UserTableProps> = ({
                   <div style={{ fontWeight: 600, fontSize: '0.82rem' }}>
                     {u.registro_universitario || 'N/A'}
                   </div>
-                  <div style={{ fontSize: '0.72rem', color: '#64748B' }}>
+                  <div style={{ fontSize: '0.72rem', color: 'var(--color-text-muted)' }}>
                     CI: {u.ci || 'Sin CI'}
                   </div>
                 </td>
@@ -156,7 +156,7 @@ const UserTable: React.FC<UserTableProps> = ({
                   <div style={{ textTransform: 'capitalize', fontWeight: 600, fontSize: '0.82rem' }}>
                     {u.tipo_usuario || 'Estudiante'}
                   </div>
-                  <div style={{ fontSize: '0.72rem', color: '#64748B' }}>
+                  <div style={{ fontSize: '0.72rem', color: 'var(--color-text-muted)' }}>
                     {u.telefono || 'Sin teléfono'}
                   </div>
                 </td>
@@ -172,7 +172,7 @@ const UserTable: React.FC<UserTableProps> = ({
                       className="action-btn"
                       onClick={() => onView(u)}
                       title="Ver Expediente Completo"
-                      style={{ backgroundColor: '#F8FAFC', color: '#003B70', border: '1px solid #CBD5E1' }}
+                      style={{ backgroundColor: 'var(--color-surface-muted)', color: 'var(--color-primary-text)', border: '1px solid var(--color-border-strong)' }}
                     >
                       <FaEye />
                     </button>
@@ -211,17 +211,17 @@ const UserTable: React.FC<UserTableProps> = ({
 
       <div style={{
         padding: '0.75rem 1rem',
-        borderTop: '1px solid #E2E8F0',
+        borderTop: '1px solid var(--color-border)',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
         fontSize: '0.78rem',
-        color: '#64748B',
+        color: 'var(--color-text-muted)',
       }}>
         <span>Mostrando {users.length} usuarios registrados en la plataforma</span>
         <div style={{ display: 'flex', gap: '0.25rem' }}>
           <button className="action-btn" disabled><FaChevronLeft /></button>
-          <button className="action-btn" style={{ background: '#003B70', color: '#FFF', fontWeight: 700 }}>1</button>
+          <button className="action-btn" style={{ background: 'var(--color-primary)', color: '#FFF', fontWeight: 700 }}>1</button>
           <button className="action-btn" disabled><FaChevronRight /></button>
         </div>
       </div>

@@ -27,7 +27,7 @@ const AuthLayout: React.FC<AuthLayoutProps> = ({
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      background: 'linear-gradient(135deg, #001C38 0%, #003B70 45%, #990000 100%)',
+      background: 'linear-gradient(145deg, #0B0B0D 0%, #1C0508 50%, #0B0B0D 100%)',
       padding: '1.5rem 1rem',
       position: 'relative',
       overflow: 'hidden',
@@ -37,9 +37,9 @@ const AuthLayout: React.FC<AuthLayoutProps> = ({
         position: 'absolute',
         top: '-10%',
         left: '-5%',
-        width: '500px',
-        height: '500px',
-        background: 'radial-gradient(circle, rgba(153,0,0,0.3) 0%, rgba(0,0,0,0) 70%)',
+        width: '520px',
+        height: '520px',
+        background: 'radial-gradient(circle, rgba(153, 0, 0, 0.28) 0%, rgba(0, 0, 0, 0) 70%)',
         borderRadius: '50%',
         pointerEvents: 'none',
       }} />
@@ -49,13 +49,25 @@ const AuthLayout: React.FC<AuthLayoutProps> = ({
         right: '-5%',
         width: '600px',
         height: '600px',
-        background: 'radial-gradient(circle, rgba(0,59,112,0.4) 0%, rgba(0,0,0,0) 70%)',
+        background: 'radial-gradient(circle, rgba(87, 0, 0, 0.24) 0%, rgba(0, 0, 0, 0) 70%)',
         borderRadius: '50%',
         pointerEvents: 'none',
       }} />
 
-      {/* Style block for responsive split hiding */}
+      {/* Style block for responsive split hiding & dark form controls */}
       <style>{`
+        .auth-dark-input {
+          background-color: #1A1A22 !important;
+          color: #F8FAFC !important;
+          transition: border-color 0.15s ease, box-shadow 0.15s ease;
+        }
+        .auth-dark-input::placeholder {
+          color: #64748B;
+        }
+        .auth-dark-input:focus {
+          border-color: #CC1F1F !important;
+          box-shadow: 0 0 0 2px rgba(153, 0, 0, 0.28);
+        }
         @media (max-width: 900px) {
           .auth-left-banner {
             display: none !important;
@@ -71,9 +83,10 @@ const AuthLayout: React.FC<AuthLayoutProps> = ({
       <div style={{
         width: '100%',
         maxWidth: cardMaxWidth,
-        background: '#FFFFFF',
+        background: '#121216',
+        border: '1px solid rgba(255, 255, 255, 0.10)',
         borderRadius: '20px',
-        boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.4)',
+        boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.75)',
         position: 'relative',
         zIndex: 10,
         overflow: 'hidden',
@@ -87,9 +100,10 @@ const AuthLayout: React.FC<AuthLayoutProps> = ({
             style={{
               flex: '0 0 42%',
               position: 'relative',
-              backgroundImage: `linear-gradient(135deg, rgba(0, 28, 56, 0.90) 0%, rgba(0, 59, 112, 0.82) 50%, rgba(153, 0, 0, 0.88) 100%), url('/assets/gym_auth_banner.png')`,
+              backgroundImage: `linear-gradient(145deg, rgba(11, 11, 13, 0.92) 0%, rgba(87, 0, 0, 0.78) 55%, rgba(11, 11, 13, 0.96) 100%), url('/assets/gym_auth_banner.png')`,
               backgroundSize: 'cover',
               backgroundPosition: 'center',
+              borderRight: '1px solid rgba(255, 255, 255, 0.08)',
               padding: '3rem 2.5rem',
               color: '#FFFFFF',
               display: 'flex',
@@ -128,23 +142,6 @@ const AuthLayout: React.FC<AuthLayoutProps> = ({
 
             {/* Central Gym Copy */}
             <div style={{ margin: '2rem 0' }}>
-              <div style={{
-                display: 'inline-block',
-                padding: '0.35rem 0.85rem',
-                borderRadius: '20px',
-                backgroundColor: 'rgba(255, 255, 255, 0.15)',
-                backdropFilter: 'blur(8px)',
-                fontSize: '0.72rem',
-                fontWeight: 800,
-                letterSpacing: '0.1em',
-                textTransform: 'uppercase',
-                color: '#FFD700',
-                marginBottom: '1rem',
-                border: '1px solid rgba(255, 215, 0, 0.3)',
-              }}>
-                Gimnasio Universitario UAGRM
-              </div>
-
               <h2 style={{
                 fontFamily: 'Outfit, sans-serif',
                 fontSize: '2.1rem',
@@ -213,7 +210,7 @@ const AuthLayout: React.FC<AuthLayoutProps> = ({
                 <div style={{
                   width: '44px',
                   height: '44px',
-                  background: '#990000',
+                  background: 'linear-gradient(135deg, #990000 0%, #7A0000 100%)',
                   borderRadius: '10px',
                   display: 'flex',
                   alignItems: 'center',
@@ -221,25 +218,26 @@ const AuthLayout: React.FC<AuthLayoutProps> = ({
                   color: '#FFFFFF',
                   fontSize: '1.4rem',
                   fontWeight: 800,
-                  boxShadow: '0 4px 12px rgba(153, 0, 0, 0.3)',
+                  boxShadow: '0 4px 12px rgba(153, 0, 0, 0.45)',
+                  border: '1px solid rgba(255, 255, 255, 0.15)',
                 }}>
                   <FaDumbbell />
                 </div>
                 <div style={{ textAlign: 'left' }}>
-                  <div style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 800, fontSize: '1.25rem', color: '#003B70', lineHeight: 1.1 }}>
-                    FITGO <span style={{ color: '#990000' }}>UAGRM</span>
+                  <div style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 800, fontSize: '1.25rem', color: '#FFFFFF', lineHeight: 1.1 }}>
+                    FITGO <span style={{ color: '#FF4D4D' }}>UAGRM</span>
                   </div>
-                  <div style={{ fontSize: '0.68rem', fontWeight: 700, color: '#64748B', letterSpacing: '0.12em', textTransform: 'uppercase' }}>
+                  <div style={{ fontSize: '0.68rem', fontWeight: 700, color: '#94A3B8', letterSpacing: '0.12em', textTransform: 'uppercase' }}>
                     D.U.B.S. Universitario
                   </div>
                 </div>
               </Link>
             )}
 
-            <h1 style={{ fontFamily: 'Outfit, sans-serif', fontSize: '1.6rem', fontWeight: 800, color: '#0B1727', marginBottom: '0.25rem' }}>
+            <h1 style={{ fontFamily: 'Outfit, sans-serif', fontSize: '1.6rem', fontWeight: 800, color: '#F8FAFC', marginBottom: '0.25rem' }}>
               {title}
             </h1>
-            <p style={{ fontSize: '0.85rem', color: '#64748B' }}>
+            <p style={{ fontSize: '0.85rem', color: '#94A3B8' }}>
               {subtitle}
             </p>
           </div>
@@ -251,16 +249,16 @@ const AuthLayout: React.FC<AuthLayoutProps> = ({
           <div style={{
             marginTop: '1.5rem',
             paddingTop: '0.85rem',
-            borderTop: '1px solid #E2E8F0',
+            borderTop: '1px solid rgba(255, 255, 255, 0.08)',
             textAlign: 'center',
             fontSize: '0.75rem',
-            color: '#64748B',
+            color: '#94A3B8',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             gap: '0.5rem',
           }}>
-            <FaShieldHalved style={{ color: '#003B70' }} />
+            <FaShieldHalved style={{ color: '#EF4444' }} />
             <span>Acceso Seguro • Universidad Autónoma Gabriel René Moreno</span>
           </div>
         </div>

@@ -137,13 +137,13 @@ const HistorialFormModal: React.FC<HistorialFormModalProps> = ({
         padding: '1rem',
       }}>
         <div style={{
-          backgroundColor: '#FFFFFF', borderRadius: '12px', padding: '1.75rem', width: '100%', maxWidth: '420px',
-          boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)', border: '1px solid #E2E8F0', textAlign: 'center',
+          backgroundColor: 'var(--color-surface)', borderRadius: '12px', padding: '1.75rem', width: '100%', maxWidth: '420px',
+          boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)', border: '1px solid var(--color-border)', textAlign: 'center',
         }}>
-          <h3 style={{ fontSize: '1.1rem', fontWeight: 800, color: '#DC2626', marginBottom: '0.75rem' }}>
+          <h3 style={{ fontSize: '1.1rem', fontWeight: 800, color: 'var(--color-danger-text)', marginBottom: '0.75rem' }}>
             Acceso Restringido
           </h3>
-          <p style={{ fontSize: '0.85rem', color: '#64748B', marginBottom: '1.25rem' }}>
+          <p style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)', marginBottom: '1.25rem' }}>
             Únicamente los usuarios con rol <strong>Cliente</strong> pueden aperturar o modificar su historial clínico.
           </p>
           <button
@@ -151,7 +151,7 @@ const HistorialFormModal: React.FC<HistorialFormModalProps> = ({
             onClick={onClose}
             style={{
               padding: '0.55rem 1.25rem', borderRadius: '6px',
-              backgroundColor: '#003B70', color: '#FFF', border: 'none', fontWeight: 700, cursor: 'pointer',
+              backgroundColor: 'var(--color-primary)', color: '#FFF', border: 'none', fontWeight: 700, cursor: 'pointer',
             }}
           >
             Cerrar
@@ -167,27 +167,27 @@ const HistorialFormModal: React.FC<HistorialFormModalProps> = ({
       backgroundColor: 'rgba(11, 23, 39, 0.65)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 9999
     }}>
       <div style={{
-        backgroundColor: '#FFFFFF', borderRadius: '12px', padding: '1.75rem', width: '100%', maxWidth: '650px',
+        backgroundColor: 'var(--color-surface)', borderRadius: '12px', padding: '1.75rem', width: '100%', maxWidth: '650px',
         boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)', maxHeight: '92vh', overflowY: 'auto'
       }}>
-        <h3 style={{ fontSize: '1.2rem', fontWeight: 800, color: '#0B1727', marginBottom: '1.25rem', borderBottom: '1px solid #E2E8F0', paddingBottom: '0.5rem' }}>
+        <h3 style={{ fontSize: '1.2rem', fontWeight: 800, color: 'var(--color-text-primary)', marginBottom: '1.25rem', borderBottom: '1px solid var(--color-border)', paddingBottom: '0.5rem' }}>
           {historialToEdit ? 'Editar Historial Clínico / Deportivo' : 'Nuevo Historial Clínico / Deportivo'}
         </h3>
 
         <form onSubmit={handleSubmit(handleFormSubmit)} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
           {/* USUARIO */}
           <div>
-            <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 700, color: '#334155', marginBottom: '0.35rem' }}>
+            <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 700, color: 'var(--color-text-secondary)', marginBottom: '0.35rem' }}>
               Socio / Titular del Expediente
             </label>
             <div>
               <input type="hidden" {...register('id_usuario')} value={currentUser?.id || 1} />
-              <div style={{ padding: '0.65rem 0.85rem', backgroundColor: '#F8FAFC', border: '1px solid #CBD5E1', borderRadius: '6px', fontSize: '0.88rem', fontWeight: 700, color: '#0F172A' }}>
+              <div style={{ padding: '0.65rem 0.85rem', backgroundColor: 'var(--color-surface-muted)', border: '1px solid var(--color-border-strong)', borderRadius: '6px', fontSize: '0.88rem', fontWeight: 700, color: 'var(--color-text-primary)' }}>
                 {currentUser?.name} ({currentUser?.email})
               </div>
             </div>
             {errors.id_usuario && (
-              <span style={{ color: '#DC2626', fontSize: '0.75rem', marginTop: '0.2rem', display: 'block' }}>
+              <span style={{ color: 'var(--color-danger-text)', fontSize: '0.75rem', marginTop: '0.2rem', display: 'block' }}>
                 {errors.id_usuario.message}
               </span>
             )}
@@ -196,23 +196,23 @@ const HistorialFormModal: React.FC<HistorialFormModalProps> = ({
           {/* DATOS PERSONALES & FECHAS */}
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
             <div>
-              <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 700, color: '#334155', marginBottom: '0.35rem' }}>
+              <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 700, color: 'var(--color-text-secondary)', marginBottom: '0.35rem' }}>
                 Fecha de Nacimiento
               </label>
               <input
                 type="date"
                 {...register('fecha_nacimiento')}
-                style={{ width: '100%', padding: '0.6rem 0.8rem', borderRadius: '6px', border: '1px solid #CBD5E1', fontSize: '0.88rem' }}
+                style={{ width: '100%', padding: '0.6rem 0.8rem', borderRadius: '6px', border: '1px solid var(--color-border-strong)', fontSize: '0.88rem' }}
               />
             </div>
             <div>
-              <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 700, color: '#334155', marginBottom: '0.35rem' }}>
+              <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 700, color: 'var(--color-text-secondary)', marginBottom: '0.35rem' }}>
                 Fecha de Apertura Expediente
               </label>
               <input
                 type="date"
                 {...register('fecha_apertura')}
-                style={{ width: '100%', padding: '0.6rem 0.8rem', borderRadius: '6px', border: '1px solid #CBD5E1', fontSize: '0.88rem' }}
+                style={{ width: '100%', padding: '0.6rem 0.8rem', borderRadius: '6px', border: '1px solid var(--color-border-strong)', fontSize: '0.88rem' }}
               />
             </div>
           </div>
@@ -220,12 +220,12 @@ const HistorialFormModal: React.FC<HistorialFormModalProps> = ({
           {/* SEXO & GRUPO SANGUÍNEO */}
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
             <div>
-              <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 700, color: '#334155', marginBottom: '0.35rem' }}>
+              <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 700, color: 'var(--color-text-secondary)', marginBottom: '0.35rem' }}>
                 Sexo
               </label>
               <select
                 {...register('sexo')}
-                style={{ width: '100%', padding: '0.6rem 0.8rem', borderRadius: '6px', border: '1px solid #CBD5E1', fontSize: '0.88rem', backgroundColor: '#FFF' }}
+                style={{ width: '100%', padding: '0.6rem 0.8rem', borderRadius: '6px', border: '1px solid var(--color-border-strong)', fontSize: '0.88rem', backgroundColor: 'var(--color-surface)' }}
               >
                 <option value="Masculino">Masculino</option>
                 <option value="Femenino">Femenino</option>
@@ -233,12 +233,12 @@ const HistorialFormModal: React.FC<HistorialFormModalProps> = ({
               </select>
             </div>
             <div>
-              <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 700, color: '#334155', marginBottom: '0.35rem' }}>
+              <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 700, color: 'var(--color-text-secondary)', marginBottom: '0.35rem' }}>
                 Grupo Sanguíneo
               </label>
               <select
                 {...register('grupo_sanguineo')}
-                style={{ width: '100%', padding: '0.6rem 0.8rem', borderRadius: '6px', border: '1px solid #CBD5E1', fontSize: '0.88rem', backgroundColor: '#FFF' }}
+                style={{ width: '100%', padding: '0.6rem 0.8rem', borderRadius: '6px', border: '1px solid var(--color-border-strong)', fontSize: '0.88rem', backgroundColor: 'var(--color-surface)' }}
               >
                 <option value="O+">O+</option>
                 <option value="O-">O-</option>
@@ -254,63 +254,63 @@ const HistorialFormModal: React.FC<HistorialFormModalProps> = ({
 
           {/* FACULTAD / CARRERA */}
           <div>
-            <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 700, color: '#334155', marginBottom: '0.35rem' }}>
+            <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 700, color: 'var(--color-text-secondary)', marginBottom: '0.35rem' }}>
               Facultad / Carrera / Unidad
             </label>
             <input
               {...register('facultad_carrera')}
               placeholder="Ej: Facultad de Ciencias Exactas - Ingeniería Informática"
-              style={{ width: '100%', padding: '0.6rem 0.8rem', borderRadius: '6px', border: '1px solid #CBD5E1', fontSize: '0.88rem' }}
+              style={{ width: '100%', padding: '0.6rem 0.8rem', borderRadius: '6px', border: '1px solid var(--color-border-strong)', fontSize: '0.88rem' }}
             />
           </div>
 
           {/* DOMICILIO & CELULAR EMERGENCIA */}
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
             <div>
-              <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 700, color: '#334155', marginBottom: '0.35rem' }}>
+              <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 700, color: 'var(--color-text-secondary)', marginBottom: '0.35rem' }}>
                 Domicilio / Dirección
               </label>
               <input
                 {...register('domicilio')}
                 placeholder="Ej: Barrio San Martin C/5 #120"
-                style={{ width: '100%', padding: '0.6rem 0.8rem', borderRadius: '6px', border: '1px solid #CBD5E1', fontSize: '0.88rem' }}
+                style={{ width: '100%', padding: '0.6rem 0.8rem', borderRadius: '6px', border: '1px solid var(--color-border-strong)', fontSize: '0.88rem' }}
               />
             </div>
             <div>
-              <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 700, color: '#334155', marginBottom: '0.35rem' }}>
+              <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 700, color: 'var(--color-text-secondary)', marginBottom: '0.35rem' }}>
                 Celular de Contacto / Emergencia
               </label>
               <input
                 {...register('celular_emergencia')}
                 placeholder="Ej: 71234567"
-                style={{ width: '100%', padding: '0.6rem 0.8rem', borderRadius: '6px', border: '1px solid #CBD5E1', fontSize: '0.88rem' }}
+                style={{ width: '100%', padding: '0.6rem 0.8rem', borderRadius: '6px', border: '1px solid var(--color-border-strong)', fontSize: '0.88rem' }}
               />
             </div>
           </div>
 
           {/* ANTECEDENTES MÉDICOS / PATOLOGÍAS */}
           <div>
-            <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 700, color: '#334155', marginBottom: '0.35rem' }}>
+            <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 700, color: 'var(--color-text-secondary)', marginBottom: '0.35rem' }}>
               Antecedentes Médicos / Patologías Generales
             </label>
             <textarea
               {...register('antecedentes')}
               rows={2}
               placeholder="Ej: Asma, hipertensión, lesión en rodilla..."
-              style={{ width: '100%', padding: '0.6rem 0.8rem', borderRadius: '6px', border: '1px solid #CBD5E1', fontSize: '0.88rem' }}
+              style={{ width: '100%', padding: '0.6rem 0.8rem', borderRadius: '6px', border: '1px solid var(--color-border-strong)', fontSize: '0.88rem' }}
             />
           </div>
 
           {/* OBSERVACIONES GENERALES */}
           <div>
-            <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 700, color: '#334155', marginBottom: '0.35rem' }}>
+            <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 700, color: 'var(--color-text-secondary)', marginBottom: '0.35rem' }}>
               Observaciones Generales Clínicas / Deportivas
             </label>
             <textarea
               {...register('observaciones')}
               rows={2}
               placeholder="Ej: Ficha aperturada con certificado de aptitud física presentado..."
-              style={{ width: '100%', padding: '0.6rem 0.8rem', borderRadius: '6px', border: '1px solid #CBD5E1', fontSize: '0.88rem' }}
+              style={{ width: '100%', padding: '0.6rem 0.8rem', borderRadius: '6px', border: '1px solid var(--color-border-strong)', fontSize: '0.88rem' }}
             />
           </div>
 
@@ -319,14 +319,14 @@ const HistorialFormModal: React.FC<HistorialFormModalProps> = ({
             <button
               type="button"
               onClick={onClose}
-              style={{ padding: '0.55rem 1.1rem', borderRadius: '6px', border: '1px solid #CBD5E1', backgroundColor: '#FFF', color: '#475569', fontWeight: 600, cursor: 'pointer' }}
+              style={{ padding: '0.55rem 1.1rem', borderRadius: '6px', border: '1px solid var(--color-border-strong)', backgroundColor: 'var(--color-surface)', color: 'var(--color-text-secondary)', fontWeight: 600, cursor: 'pointer' }}
             >
               Cancelar
             </button>
             <button
               type="submit"
               disabled={isPending}
-              style={{ padding: '0.55rem 1.25rem', borderRadius: '6px', border: 'none', backgroundColor: '#003B70', color: '#FFF', fontWeight: 700, cursor: 'pointer' }}
+              style={{ padding: '0.55rem 1.25rem', borderRadius: '6px', border: 'none', backgroundColor: 'var(--color-primary)', color: '#FFF', fontWeight: 700, cursor: 'pointer' }}
             >
               {isPending ? 'Guardando...' : historialToEdit ? 'Actualizar Historial' : 'Crear Historial'}
             </button>

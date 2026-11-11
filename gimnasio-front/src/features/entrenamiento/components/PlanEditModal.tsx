@@ -115,25 +115,25 @@ const PlanEditModal: React.FC<Props> = ({ plan, onClose }) => {
     <div
       style={{
         position: 'fixed', inset: 0, zIndex: 9999,
-        backgroundColor: 'rgba(15, 23, 42, 0.75)', backdropFilter: 'blur(4px)',
+        backgroundColor: 'rgba(0, 0, 0, 0.75)', backdropFilter: 'blur(4px)',
         display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '1.5rem',
       }}
     >
       <div
         style={{
-          background: '#FFFFFF', borderRadius: '16px', maxWidth: '720px', width: '100%',
+          background: 'var(--color-surface)', borderRadius: '16px', maxWidth: '720px', width: '100%',
           maxHeight: '90vh', overflowY: 'auto', padding: '1.5rem', boxShadow: '0 25px 50px -12px rgba(0,0,0,0.25)',
         }}
       >
         {/* HEADER */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem', borderBottom: '1px solid #E2E8F0', paddingBottom: '0.75rem' }}>
-          <h3 style={{ fontSize: '1.2rem', fontWeight: 800, color: '#0F172A', display: 'flex', alignItems: 'center', gap: '0.5rem', margin: 0 }}>
-            <FaPenToSquare style={{ color: '#003B70' }} /> Editar Plan de Entrenamiento: {plan.nombre}
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem', borderBottom: '1px solid var(--color-border)', paddingBottom: '0.75rem' }}>
+          <h3 style={{ fontSize: '1.2rem', fontWeight: 800, color: 'var(--color-text-primary)', display: 'flex', alignItems: 'center', gap: '0.5rem', margin: 0 }}>
+            <FaPenToSquare style={{ color: 'var(--color-primary-text)' }} /> Editar Plan de Entrenamiento: {plan.nombre}
           </h3>
           <button
             type="button"
             onClick={onClose}
-            style={{ background: '#F1F5F9', border: 'none', width: '34px', height: '34px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', color: '#64748B' }}
+            style={{ background: 'var(--color-surface-muted)', border: 'none', width: '34px', height: '34px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', color: 'var(--color-text-muted)' }}
           >
             <FaXmark style={{ fontSize: '1.1rem' }} />
           </button>
@@ -142,11 +142,11 @@ const PlanEditModal: React.FC<Props> = ({ plan, onClose }) => {
         {/* FORMULARIO */}
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
           <div>
-            <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, color: '#475569', marginBottom: '0.3rem' }}>Atleta / Usuario *</label>
+            <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, color: 'var(--color-text-secondary)', marginBottom: '0.3rem' }}>Atleta / Usuario *</label>
             <select
               value={idUsuario}
               onChange={(e) => setIdUsuario(e.target.value ? Number(e.target.value) : '')}
-              style={{ width: '100%', padding: '0.55rem', borderRadius: '6px', border: '1px solid #CBD5E1', fontSize: '0.88rem', backgroundColor: '#FFF' }}
+              style={{ width: '100%', padding: '0.55rem', borderRadius: '6px', border: '1px solid var(--color-border-strong)', fontSize: '0.88rem', backgroundColor: 'var(--color-surface)' }}
             >
               <option value="">-- Seleccionar Usuario del Sistema --</option>
               {usuarios.map((u) => (
@@ -157,28 +157,28 @@ const PlanEditModal: React.FC<Props> = ({ plan, onClose }) => {
 
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
             <div>
-              <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, color: '#475569', marginBottom: '0.3rem' }}>Nombre del Plan *</label>
+              <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, color: 'var(--color-text-secondary)', marginBottom: '0.3rem' }}>Nombre del Plan *</label>
               <input
                 value={nombre}
                 onChange={(e) => setNombre(e.target.value)}
                 placeholder="Ej: Plan Fuerza Mesociclo 1"
-                style={{ width: '100%', padding: '0.55rem', borderRadius: '6px', border: '1px solid #CBD5E1', fontSize: '0.88rem' }}
+                style={{ width: '100%', padding: '0.55rem', borderRadius: '6px', border: '1px solid var(--color-border-strong)', fontSize: '0.88rem' }}
               />
             </div>
             <div>
-              <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, color: '#475569', marginBottom: '0.3rem' }}>Objetivo Deportivo</label>
+              <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, color: 'var(--color-text-secondary)', marginBottom: '0.3rem' }}>Objetivo Deportivo</label>
               <input
                 value={objetivo}
                 onChange={(e) => setObjetivo(e.target.value)}
                 placeholder="Ej: Aumento de masa muscular"
-                style={{ width: '100%', padding: '0.55rem', borderRadius: '6px', border: '1px solid #CBD5E1', fontSize: '0.88rem' }}
+                style={{ width: '100%', padding: '0.55rem', borderRadius: '6px', border: '1px solid var(--color-border-strong)', fontSize: '0.88rem' }}
               />
             </div>
           </div>
 
           {/* VINCULAR RUTINAS */}
           <div>
-            <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, color: '#475569', marginBottom: '0.3rem' }}>Vincular Rutina al Plan</label>
+            <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, color: 'var(--color-text-secondary)', marginBottom: '0.3rem' }}>Vincular Rutina al Plan</label>
             <select
               onChange={(e) => {
                 if (e.target.value) {
@@ -186,7 +186,7 @@ const PlanEditModal: React.FC<Props> = ({ plan, onClose }) => {
                   e.target.value = '';
                 }
               }}
-              style={{ width: '100%', padding: '0.55rem', borderRadius: '6px', border: '1px solid #CBD5E1', fontSize: '0.88rem', backgroundColor: '#FFF', cursor: 'pointer' }}
+              style={{ width: '100%', padding: '0.55rem', borderRadius: '6px', border: '1px solid var(--color-border-strong)', fontSize: '0.88rem', backgroundColor: 'var(--color-surface)', cursor: 'pointer' }}
             >
               <option value="">-- Seleccionar Rutina del Catálogo --</option>
               {rutinas.map((r) => (
@@ -196,8 +196,8 @@ const PlanEditModal: React.FC<Props> = ({ plan, onClose }) => {
           </div>
 
           {/* CONTENEDOR DE RUTINAS CON CHECKBOXES PARA DÍAS */}
-          <div style={{ border: '1px solid #E2E8F0', borderRadius: '10px', padding: '1rem', background: '#F8FAFC' }}>
-            <span style={{ fontSize: '0.85rem', fontWeight: 700, color: '#0F172A', display: 'block', marginBottom: '0.75rem' }}>
+          <div style={{ border: '1px solid var(--color-border)', borderRadius: '10px', padding: '1rem', background: 'var(--color-surface-muted)' }}>
+            <span style={{ fontSize: '0.85rem', fontWeight: 700, color: 'var(--color-text-primary)', display: 'block', marginBottom: '0.75rem' }}>
               Rutinas Configurada en este Plan ({selectedRutinaAssignments.length})
             </span>
 
@@ -207,8 +207,8 @@ const PlanEditModal: React.FC<Props> = ({ plan, onClose }) => {
                 <div
                   key={item.id_rutina}
                   style={{
-                    background: '#FFFFFF',
-                    border: '1px solid #E2E8F0',
+                    background: 'var(--color-surface)',
+                    border: '1px solid var(--color-border)',
                     borderRadius: '8px',
                     padding: '0.85rem',
                     marginBottom: '0.75rem',
@@ -216,14 +216,14 @@ const PlanEditModal: React.FC<Props> = ({ plan, onClose }) => {
                   }}
                 >
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
-                    <span style={{ fontSize: '0.9rem', fontWeight: 700, color: '#0F172A' }}>
+                    <span style={{ fontSize: '0.9rem', fontWeight: 700, color: 'var(--color-text-primary)' }}>
                       {rObj?.nombre || 'Rutina'} ({rObj?.nivel || 'General'})
                     </span>
                     <button
                       type="button"
                       onClick={() => handleRemoveRutinaAssignment(item.id_rutina)}
                       style={{
-                        background: '#FEE2E2', border: '1px solid #FCA5A5', color: '#DC2626',
+                        background: 'var(--color-danger-bg)', border: '1px solid rgba(220, 38, 38, 0.35)', color: 'var(--color-danger-text)',
                         padding: '0.3rem 0.6rem', borderRadius: '6px', cursor: 'pointer', fontSize: '0.75rem', fontWeight: 700,
                         display: 'flex', alignItems: 'center', gap: '0.25rem',
                       }}
@@ -233,7 +233,7 @@ const PlanEditModal: React.FC<Props> = ({ plan, onClose }) => {
                     </button>
                   </div>
 
-                  <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#475569', display: 'block', marginBottom: '0.4rem' }}>
+                  <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--color-text-secondary)', display: 'block', marginBottom: '0.4rem' }}>
                     Seleccionar Días de la Semana:
                   </span>
 
@@ -249,21 +249,21 @@ const PlanEditModal: React.FC<Props> = ({ plan, onClose }) => {
                             gap: '0.35rem',
                             fontSize: '0.78rem',
                             fontWeight: 700,
-                            background: isChecked ? '#003B70' : '#F1F5F9',
-                            color: isChecked ? '#FFFFFF' : '#475569',
+                            background: isChecked ? 'var(--color-primary)' : 'var(--color-surface-muted)',
+                            color: isChecked ? '#FFFFFF' : 'var(--color-text-secondary)',
                             padding: '0.3rem 0.65rem',
                             borderRadius: '6px',
                             cursor: 'pointer',
                             userSelect: 'none',
                             transition: 'all 0.15s ease',
-                            border: isChecked ? '1px solid #003B70' : '1px solid #E2E8F0',
+                            border: isChecked ? '1px solid var(--color-primary)' : '1px solid var(--color-border)',
                           }}
                         >
                           <input
                             type="checkbox"
                             checked={isChecked}
                             onChange={() => handleToggleDayForRutina(item.id_rutina, dia)}
-                            style={{ cursor: 'pointer', accentColor: '#003B70', width: '14px', height: '14px' }}
+                            style={{ cursor: 'pointer', accentColor: 'var(--color-primary)', width: '14px', height: '14px' }}
                           />
                           {dia}
                         </label>
@@ -275,7 +275,7 @@ const PlanEditModal: React.FC<Props> = ({ plan, onClose }) => {
             })}
 
             {selectedRutinaAssignments.length === 0 && (
-              <div style={{ textAlign: 'center', padding: '1.25rem', color: '#94A3B8', fontSize: '0.82rem', background: '#FFF', borderRadius: '8px', border: '1px dashed #CBD5E1' }}>
+              <div style={{ textAlign: 'center', padding: '1.25rem', color: 'var(--color-text-muted)', fontSize: '0.82rem', background: 'var(--color-surface)', borderRadius: '8px', border: '1px dashed var(--color-border-strong)' }}>
                 No hay rutinas vinculadas a este plan. Selecciona una rutina arriba.
               </div>
             )}
@@ -286,7 +286,7 @@ const PlanEditModal: React.FC<Props> = ({ plan, onClose }) => {
             <button
               type="button"
               onClick={onClose}
-              style={{ padding: '0.6rem 1.2rem', borderRadius: '6px', border: '1px solid #CBD5E1', background: '#F8FAFC', color: '#475569', fontWeight: 600, fontSize: '0.85rem', cursor: 'pointer' }}
+              style={{ padding: '0.6rem 1.2rem', borderRadius: '6px', border: '1px solid var(--color-border-strong)', background: 'var(--color-surface-muted)', color: 'var(--color-text-secondary)', fontWeight: 600, fontSize: '0.85rem', cursor: 'pointer' }}
             >
               Cancelar
             </button>
@@ -295,7 +295,7 @@ const PlanEditModal: React.FC<Props> = ({ plan, onClose }) => {
               disabled={updatePlanMutation.isPending || selectedRutinaAssignments.length === 0}
               style={{
                 padding: '0.6rem 1.25rem', borderRadius: '6px', border: 'none',
-                background: 'linear-gradient(135deg, #003B70 0%, #002A52 100%)', color: '#FFF', fontWeight: 700, fontSize: '0.85rem', cursor: 'pointer',
+                background: 'linear-gradient(135deg, #990000 0%, #570000 100%)', color: '#FFF', fontWeight: 700, fontSize: '0.85rem', cursor: 'pointer',
                 display: 'flex', alignItems: 'center', gap: '0.4rem',
               }}
             >

@@ -118,7 +118,7 @@ const CodigoQRInscripcionModal: React.FC<CodigoQRInscripcionModalProps> = ({
         left: 0,
         right: 0,
         bottom: 0,
-        backgroundColor: 'rgba(15, 23, 42, 0.82)',
+        backgroundColor: 'rgba(0, 0, 0, 0.82)',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -149,7 +149,7 @@ const CodigoQRInscripcionModal: React.FC<CodigoQRInscripcionModalProps> = ({
             top: 20px !important;
             transform: translateX(-50%) !important;
             box-shadow: none !important;
-            border: 2px solid #003B70 !important;
+            border: 2px solid var(--color-primary) !important;
           }
           .no-print-qr {
             display: none !important;
@@ -159,13 +159,13 @@ const CodigoQRInscripcionModal: React.FC<CodigoQRInscripcionModalProps> = ({
 
       <div
         style={{
-          backgroundColor: '#FFFFFF',
+          backgroundColor: 'var(--color-surface)',
           borderRadius: '16px',
           width: '100%',
           maxWidth: '460px',
           overflow: 'hidden',
           boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.4)',
-          border: '1px solid #E2E8F0',
+          border: '1px solid var(--color-border)',
           display: 'flex',
           flexDirection: 'column',
         }}
@@ -174,7 +174,7 @@ const CodigoQRInscripcionModal: React.FC<CodigoQRInscripcionModalProps> = ({
         <div
           className="no-print-qr"
           style={{
-            background: 'linear-gradient(135deg, #003B70 0%, #002347 100%)',
+            background: 'linear-gradient(135deg, #990000 0%, #570000 100%)',
             color: '#FFFFFF',
             padding: '1.2rem 1.5rem',
             display: 'flex',
@@ -193,14 +193,14 @@ const CodigoQRInscripcionModal: React.FC<CodigoQRInscripcionModalProps> = ({
                 alignItems: 'center',
                 justifyContent: 'center',
                 fontSize: '1.2rem',
-                color: '#60A5FA',
+                color: '#FCA5A5',
               }}
             >
               <FaQrcode />
             </div>
             <div>
               <h3 style={{ margin: 0, fontSize: '1.05rem', fontWeight: 800 }}>Pase Digital de Ingreso QR</h3>
-              <div style={{ fontSize: '0.75rem', color: '#93C5FD' }}>Gimnasio UAGRM - DUBSS</div>
+              <div style={{ fontSize: '0.75rem', color: '#FCA5A5' }}>Gimnasio UAGRM - DUBSS</div>
             </div>
           </div>
 
@@ -227,13 +227,13 @@ const CodigoQRInscripcionModal: React.FC<CodigoQRInscripcionModalProps> = ({
         {/* CONTENT CARD */}
         <div style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
           {loading ? (
-            <div style={{ padding: '3rem 1rem', textAlign: 'center', color: '#64748B' }}>
+            <div style={{ padding: '3rem 1rem', textAlign: 'center', color: 'var(--color-text-muted)' }}>
               <div
                 style={{
                   width: '40px',
                   height: '40px',
-                  border: '4px solid #E2E8F0',
-                  borderTopColor: '#003B70',
+                  border: '4px solid var(--color-border)',
+                  borderTopColor: 'var(--color-primary)',
                   borderRadius: '50%',
                   animation: 'spin 1s linear infinite',
                   margin: '0 auto 1rem auto',
@@ -244,7 +244,7 @@ const CodigoQRInscripcionModal: React.FC<CodigoQRInscripcionModalProps> = ({
               <div style={{ fontSize: '0.78rem' }}>Verificando firma de seguridad en servidor</div>
             </div>
           ) : error ? (
-            <div style={{ padding: '2rem 1rem', textAlign: 'center', color: '#B91C1C' }}>
+            <div style={{ padding: '2rem 1rem', textAlign: 'center', color: 'var(--color-danger-text)' }}>
               <p style={{ fontWeight: 700 }}>{error}</p>
               <button
                 onClick={onClose}
@@ -266,9 +266,9 @@ const CodigoQRInscripcionModal: React.FC<CodigoQRInscripcionModalProps> = ({
               className="qr-card-printable"
               style={{
                 width: '100%',
-                background: '#FFFFFF',
+                background: 'var(--color-surface)',
                 borderRadius: '12px',
-                border: '1.5px solid #CBD5E1',
+                border: '1.5px solid var(--color-border-strong)',
                 padding: '1.25rem',
                 display: 'flex',
                 flexDirection: 'column',
@@ -280,16 +280,16 @@ const CodigoQRInscripcionModal: React.FC<CodigoQRInscripcionModalProps> = ({
               <div
                 style={{
                   textAlign: 'center',
-                  borderBottom: '2px solid #003B70',
+                  borderBottom: '2px solid var(--color-primary)',
                   width: '100%',
                   paddingBottom: '0.6rem',
                   marginBottom: '1rem',
                 }}
               >
-                <div style={{ fontWeight: 900, fontSize: '0.82rem', color: '#003B70', letterSpacing: '0.5px' }}>
+                <div style={{ fontWeight: 900, fontSize: '0.82rem', color: 'var(--color-primary-text)', letterSpacing: '0.5px' }}>
                   UNIVERSIDAD AUTÓNOMA GABRIEL RENÉ MORENO
                 </div>
-                <div style={{ fontSize: '0.72rem', color: '#475569', fontWeight: 700 }}>
+                <div style={{ fontSize: '0.72rem', color: 'var(--color-text-secondary)', fontWeight: 700 }}>
                   DIRECCIÓN UNIVERSITARIA DE BIENESTAR SOCIAL Y SALUD (DUBSS)
                 </div>
               </div>
@@ -298,17 +298,17 @@ const CodigoQRInscripcionModal: React.FC<CodigoQRInscripcionModalProps> = ({
               <div
                 style={{
                   width: '100%',
-                  backgroundColor: '#F8FAFC',
+                  backgroundColor: 'var(--color-surface-muted)',
                   borderRadius: '8px',
                   padding: '0.75rem 1rem',
-                  border: '1px solid #E2E8F0',
+                  border: '1px solid var(--color-border)',
                   marginBottom: '1rem',
                   fontSize: '0.85rem',
                 }}
               >
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.35rem' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', fontWeight: 800, color: '#0F172A' }}>
-                    <FaUser style={{ color: '#003B70' }} />
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', fontWeight: 800, color: 'var(--color-text-primary)' }}>
+                    <FaUser style={{ color: 'var(--color-primary-text)' }} />
                     <span>{user.nombre || 'Socio Universitario'}</span>
                   </div>
                   <span
@@ -316,8 +316,8 @@ const CodigoQRInscripcionModal: React.FC<CodigoQRInscripcionModalProps> = ({
                       marginLeft: 'auto',
                       padding: '0.15rem 0.55rem',
                       borderRadius: '12px',
-                      backgroundColor: isActivo ? '#DCFCE7' : '#FEE2E2',
-                      color: isActivo ? '#166534' : '#B91C1C',
+                      backgroundColor: isActivo ? 'var(--color-success-bg)' : 'var(--color-danger-bg)',
+                      color: isActivo ? 'var(--color-success-text)' : 'var(--color-danger-text)',
                       fontWeight: 800,
                       fontSize: '0.72rem',
                       display: 'inline-flex',
@@ -329,9 +329,9 @@ const CodigoQRInscripcionModal: React.FC<CodigoQRInscripcionModalProps> = ({
                   </span>
                 </div>
 
-                <div style={{ fontSize: '0.78rem', color: '#475569', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.4rem', marginTop: '0.4rem' }}>
+                <div style={{ fontSize: '0.78rem', color: 'var(--color-text-secondary)', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.4rem', marginTop: '0.4rem' }}>
                   <div>
-                    <strong>Nº Boleta:</strong> <span style={{ color: '#003B70', fontWeight: 700 }}>{numeroBoleta}</span>
+                    <strong>Nº Boleta:</strong> <span style={{ color: 'var(--color-primary-text)', fontWeight: 700 }}>{numeroBoleta}</span>
                   </div>
                   <div>
                     <strong>C.I.:</strong> {user.ci || 'Sin C.I.'}
@@ -342,11 +342,11 @@ const CodigoQRInscripcionModal: React.FC<CodigoQRInscripcionModalProps> = ({
               {/* QR CODE BOX */}
               <div
                 style={{
-                  background: '#FFFFFF',
+                  background: 'var(--color-surface)',
                   padding: '1rem',
                   borderRadius: '12px',
-                  border: '2px dashed #003B70',
-                  boxShadow: '0 4px 10px rgba(0, 59, 112, 0.08)',
+                  border: '2px dashed var(--color-primary)',
+                  boxShadow: '0 4px 10px rgba(153, 0, 0, 0.08)',
                   display: 'flex',
                   flexDirection: 'column',
                   alignItems: 'center',
@@ -367,8 +367,8 @@ const CodigoQRInscripcionModal: React.FC<CodigoQRInscripcionModalProps> = ({
                     excavate: true,
                   }}
                 />
-                <div style={{ marginTop: '0.5rem', fontSize: '0.72rem', color: '#64748B', display: 'flex', alignItems: 'center', gap: '0.3rem', fontWeight: 700 }}>
-                  <FaShieldHalved style={{ color: '#166534' }} /> Pase Firmado Digitalmente (HMAC-SHA256)
+                <div style={{ marginTop: '0.5rem', fontSize: '0.72rem', color: 'var(--color-text-muted)', display: 'flex', alignItems: 'center', gap: '0.3rem', fontWeight: 700 }}>
+                  <FaShieldHalved style={{ color: 'var(--color-success-text)' }} /> Pase Firmado Digitalmente (HMAC-SHA256)
                 </div>
               </div>
 
@@ -376,23 +376,23 @@ const CodigoQRInscripcionModal: React.FC<CodigoQRInscripcionModalProps> = ({
               <div
                 style={{
                   width: '100%',
-                  backgroundColor: '#FEF3C7',
-                  border: '1px solid #FCD34D',
+                  backgroundColor: 'var(--color-warning-bg)',
+                  border: '1px solid rgba(217, 119, 6, 0.35)',
                   borderRadius: '8px',
                   padding: '0.65rem 0.85rem',
                   fontSize: '0.8rem',
-                  color: '#92400E',
+                  color: 'var(--color-warning-text)',
                   textAlign: 'center',
                 }}
               >
                 <div style={{ fontWeight: 800, textTransform: 'uppercase', fontSize: '0.75rem', marginBottom: '2px' }}>
                   {membresia.disciplina || 'Gimnasio Musculación'}
                 </div>
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.4rem', fontWeight: 900, fontSize: '0.9rem', color: '#B45309' }}>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.4rem', fontWeight: 900, fontSize: '0.9rem', color: 'var(--color-warning-text)' }}>
                   <FaClock /> Turno Habilitado: {membresia.horario_texto || '07:00 - 09:00'}
                 </div>
                 {membresia.fecha_inicio && membresia.fecha_fin && (
-                  <div style={{ fontSize: '0.73rem', marginTop: '2px', color: '#78350F' }}>
+                  <div style={{ fontSize: '0.73rem', marginTop: '2px', color: 'var(--color-warning-text)' }}>
                     Vigente del {membresia.fecha_inicio} al {membresia.fecha_fin}
                   </div>
                 )}
@@ -409,7 +409,7 @@ const CodigoQRInscripcionModal: React.FC<CodigoQRInscripcionModalProps> = ({
                   flex: 1,
                   padding: '0.65rem',
                   borderRadius: '8px',
-                  backgroundColor: '#003B70',
+                  backgroundColor: 'var(--color-primary)',
                   color: '#FFF',
                   border: 'none',
                   fontWeight: 700,
@@ -419,7 +419,7 @@ const CodigoQRInscripcionModal: React.FC<CodigoQRInscripcionModalProps> = ({
                   alignItems: 'center',
                   justifyContent: 'center',
                   gap: '0.4rem',
-                  boxShadow: '0 2px 6px rgba(0, 59, 112, 0.25)',
+                  boxShadow: '0 2px 6px rgba(153, 0, 0, 0.25)',
                 }}
               >
                 <FaPrint /> Imprimir / Guardar QR
@@ -429,9 +429,9 @@ const CodigoQRInscripcionModal: React.FC<CodigoQRInscripcionModalProps> = ({
                 style={{
                   padding: '0.65rem 1.25rem',
                   borderRadius: '8px',
-                  backgroundColor: '#F1F5F9',
-                  color: '#475569',
-                  border: '1px solid #CBD5E1',
+                  backgroundColor: 'var(--color-surface-muted)',
+                  color: 'var(--color-text-secondary)',
+                  border: '1px solid var(--color-border-strong)',
                   fontWeight: 700,
                   fontSize: '0.85rem',
                   cursor: 'pointer',

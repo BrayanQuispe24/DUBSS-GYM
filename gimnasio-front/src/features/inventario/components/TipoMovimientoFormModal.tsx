@@ -84,21 +84,21 @@ const TipoMovimientoFormModal: React.FC<TipoMovimientoFormModalProps> = ({
     >
       <div
         style={{
-          backgroundColor: '#FFFFFF',
+          backgroundColor: 'var(--color-surface)',
           borderRadius: '14px',
           width: '100%',
           maxWidth: '520px',
           boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1)',
           overflow: 'hidden',
-          border: '1px solid #E2E8F0',
+          border: '1px solid var(--color-border)',
         }}
       >
         {/* Header */}
         <div
           style={{
             padding: '1.25rem 1.5rem',
-            borderBottom: '1px solid #E2E8F0',
-            backgroundColor: '#F8FAFC',
+            borderBottom: '1px solid var(--color-border)',
+            backgroundColor: 'var(--color-surface-muted)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
@@ -110,20 +110,20 @@ const TipoMovimientoFormModal: React.FC<TipoMovimientoFormModalProps> = ({
                 width: '36px',
                 height: '36px',
                 borderRadius: '8px',
-                backgroundColor: 'rgba(0, 59, 112, 0.1)',
+                backgroundColor: 'rgba(153, 0, 0, 0.1)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                color: '#003B70',
+                color: 'var(--color-primary-text)',
               }}
             >
               <FaRightLeft />
             </div>
             <div>
-              <h3 style={{ fontSize: '1.05rem', fontWeight: 800, color: '#0B1727', margin: 0 }}>
+              <h3 style={{ fontSize: '1.05rem', fontWeight: 800, color: 'var(--color-text-primary)', margin: 0 }}>
                 {tipoToEdit ? 'Editar Tipo de Movimiento' : 'Nuevo Tipo de Movimiento'}
               </h3>
-              <p style={{ fontSize: '0.78rem', color: '#64748B', margin: 0 }}>
+              <p style={{ fontSize: '0.78rem', color: 'var(--color-text-muted)', margin: 0 }}>
                 Configure si el movimiento sumará o restará unidades del inventario.
               </p>
             </div>
@@ -133,7 +133,7 @@ const TipoMovimientoFormModal: React.FC<TipoMovimientoFormModalProps> = ({
             style={{
               background: 'none',
               border: 'none',
-              color: '#94A3B8',
+              color: 'var(--color-text-muted)',
               cursor: 'pointer',
               fontSize: '1.1rem',
               display: 'flex',
@@ -153,7 +153,7 @@ const TipoMovimientoFormModal: React.FC<TipoMovimientoFormModalProps> = ({
                   display: 'block',
                   fontSize: '0.82rem',
                   fontWeight: 700,
-                  color: '#334155',
+                  color: 'var(--color-text-secondary)',
                   marginBottom: '0.35rem',
                 }}
               >
@@ -167,7 +167,7 @@ const TipoMovimientoFormModal: React.FC<TipoMovimientoFormModalProps> = ({
                   width: '100%',
                   padding: '0.65rem 0.85rem',
                   borderRadius: '8px',
-                  border: errors.nombre ? '1px solid #EF4444' : '1px solid #CBD5E1',
+                  border: errors.nombre ? '1px solid #EF4444' : '1px solid var(--color-border-strong)',
                   fontSize: '0.88rem',
                   boxSizing: 'border-box',
                 }}
@@ -186,7 +186,7 @@ const TipoMovimientoFormModal: React.FC<TipoMovimientoFormModalProps> = ({
                   display: 'block',
                   fontSize: '0.82rem',
                   fontWeight: 700,
-                  color: '#334155',
+                  color: 'var(--color-text-secondary)',
                   marginBottom: '0.5rem',
                 }}
               >
@@ -200,8 +200,8 @@ const TipoMovimientoFormModal: React.FC<TipoMovimientoFormModalProps> = ({
                   style={{
                     padding: '0.85rem',
                     borderRadius: '10px',
-                    border: !currentEsSalida ? '2px solid #16A34A' : '1px solid #E2E8F0',
-                    backgroundColor: !currentEsSalida ? '#F0FDF4' : '#FFFFFF',
+                    border: !currentEsSalida ? '2px solid #16A34A' : '1px solid var(--color-border)',
+                    backgroundColor: !currentEsSalida ? 'var(--color-success-bg)' : 'var(--color-surface)',
                     cursor: 'pointer',
                     display: 'flex',
                     alignItems: 'center',
@@ -216,10 +216,10 @@ const TipoMovimientoFormModal: React.FC<TipoMovimientoFormModalProps> = ({
                     style={{ accentColor: '#16A34A', width: '18px', height: '18px', cursor: 'pointer' }}
                   />
                   <div>
-                    <div style={{ fontSize: '0.85rem', fontWeight: 800, color: !currentEsSalida ? '#15803D' : '#334155', display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
+                    <div style={{ fontSize: '0.85rem', fontWeight: 800, color: !currentEsSalida ? 'var(--color-success-text)' : 'var(--color-text-secondary)', display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
                       <FaArrowUp style={{ fontSize: '0.75rem' }} /> ENTRADA
                     </div>
-                    <span style={{ fontSize: '0.72rem', color: '#64748B' }}>Sumar / Incrementa Stock (+)</span>
+                    <span style={{ fontSize: '0.72rem', color: 'var(--color-text-muted)' }}>Sumar / Incrementa Stock (+)</span>
                   </div>
                 </div>
 
@@ -229,8 +229,8 @@ const TipoMovimientoFormModal: React.FC<TipoMovimientoFormModalProps> = ({
                   style={{
                     padding: '0.85rem',
                     borderRadius: '10px',
-                    border: currentEsSalida ? '2px solid #DC2626' : '1px solid #E2E8F0',
-                    backgroundColor: currentEsSalida ? '#FEF2F2' : '#FFFFFF',
+                    border: currentEsSalida ? '2px solid #DC2626' : '1px solid var(--color-border)',
+                    backgroundColor: currentEsSalida ? 'var(--color-danger-bg)' : 'var(--color-surface)',
                     cursor: 'pointer',
                     display: 'flex',
                     alignItems: 'center',
@@ -245,10 +245,10 @@ const TipoMovimientoFormModal: React.FC<TipoMovimientoFormModalProps> = ({
                     style={{ accentColor: '#DC2626', width: '18px', height: '18px', cursor: 'pointer' }}
                   />
                   <div>
-                    <div style={{ fontSize: '0.85rem', fontWeight: 800, color: currentEsSalida ? '#B91C1C' : '#334155', display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
+                    <div style={{ fontSize: '0.85rem', fontWeight: 800, color: currentEsSalida ? 'var(--color-danger-text)' : 'var(--color-text-secondary)', display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
                       <FaArrowDown style={{ fontSize: '0.75rem' }} /> SALIDA
                     </div>
-                    <span style={{ fontSize: '0.72rem', color: '#64748B' }}>Restar / Reduce Stock (-)</span>
+                    <span style={{ fontSize: '0.72rem', color: 'var(--color-text-muted)' }}>Restar / Reduce Stock (-)</span>
                   </div>
                 </div>
               </div>
@@ -260,7 +260,7 @@ const TipoMovimientoFormModal: React.FC<TipoMovimientoFormModalProps> = ({
                   display: 'block',
                   fontSize: '0.82rem',
                   fontWeight: 700,
-                  color: '#334155',
+                  color: 'var(--color-text-secondary)',
                   marginBottom: '0.35rem',
                 }}
               >
@@ -274,7 +274,7 @@ const TipoMovimientoFormModal: React.FC<TipoMovimientoFormModalProps> = ({
                   width: '100%',
                   padding: '0.65rem 0.85rem',
                   borderRadius: '8px',
-                  border: '1px solid #CBD5E1',
+                  border: '1px solid var(--color-border-strong)',
                   fontSize: '0.88rem',
                   boxSizing: 'border-box',
                   resize: 'vertical',
@@ -291,7 +291,7 @@ const TipoMovimientoFormModal: React.FC<TipoMovimientoFormModalProps> = ({
               gap: '0.75rem',
               marginTop: '1.5rem',
               paddingTop: '1rem',
-              borderTop: '1px solid #F1F5F9',
+              borderTop: '1px solid var(--color-border)',
             }}
           >
             <button
@@ -300,9 +300,9 @@ const TipoMovimientoFormModal: React.FC<TipoMovimientoFormModalProps> = ({
               style={{
                 padding: '0.55rem 1.1rem',
                 borderRadius: '8px',
-                border: '1px solid #CBD5E1',
-                backgroundColor: '#FFFFFF',
-                color: '#475569',
+                border: '1px solid var(--color-border-strong)',
+                backgroundColor: 'var(--color-surface)',
+                color: 'var(--color-text-secondary)',
                 fontWeight: 600,
                 fontSize: '0.85rem',
                 cursor: 'pointer',
@@ -317,12 +317,12 @@ const TipoMovimientoFormModal: React.FC<TipoMovimientoFormModalProps> = ({
                 padding: '0.55rem 1.3rem',
                 borderRadius: '8px',
                 border: 'none',
-                backgroundColor: '#003B70',
+                backgroundColor: 'var(--color-primary)',
                 color: '#FFFFFF',
                 fontWeight: 700,
                 fontSize: '0.85rem',
                 cursor: isPending ? 'not-allowed' : 'pointer',
-                boxShadow: '0 4px 10px rgba(0, 59, 112, 0.2)',
+                boxShadow: '0 4px 10px rgba(153, 0, 0, 0.2)',
               }}
             >
               {isPending ? 'Guardando...' : tipoToEdit ? 'Actualizar Tipo' : 'Registrar Tipo'}

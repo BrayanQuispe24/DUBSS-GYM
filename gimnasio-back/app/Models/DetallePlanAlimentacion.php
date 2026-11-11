@@ -23,6 +23,21 @@ class DetallePlanAlimentacion extends Model
         'id_plan_alimentacion',
     ];
 
+    protected $appends = [
+        'descripcion',
+        'calorias',
+    ];
+
+    public function getDescripcionAttribute(): ?string
+    {
+        return $this->alimento ?? null;
+    }
+
+    public function getCaloriasAttribute(): ?float
+    {
+        return isset($this->cantidad) ? (float) $this->cantidad : null;
+    }
+
     public function planAlimentacion(): BelongsTo
     {
         return $this->belongsTo(PlanAlimentacion::class, 'id_plan_alimentacion');

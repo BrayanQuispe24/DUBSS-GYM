@@ -15,10 +15,10 @@ const EjerciciosPage: React.FC = () => {
   return (
     <section>
       <div style={{ marginBottom: '1.25rem' }}>
-        <h2 style={{ fontSize: '1.4rem', fontWeight: 800, color: '#0B1727', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-          <FaDumbbell style={{ color: '#003B70' }} /> Catálogo de Ejercicios & Musculación
+        <h2 style={{ fontSize: '1.4rem', fontWeight: 800, color: 'var(--color-text-primary)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+          <FaDumbbell style={{ color: 'var(--color-primary-text)' }} /> Catálogo de Ejercicios & Musculación
         </h2>
-        <p style={{ fontSize: '0.85rem', color: '#64748B' }}>
+        <p style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)' }}>
           {isCliente
             ? 'Explora los ejercicios disponibles, técnicas de ejecución y demostraciones visuales.'
             : 'Gestión de movimientos técnicos, agrupaciones musculares y clasificación por tipo de ejercicio.'}
@@ -27,15 +27,15 @@ const EjerciciosPage: React.FC = () => {
 
       {/* TABS NAVIGATION (Oculto para rol cliente si solo visualiza ejercicios) */}
       {!isCliente && (
-        <div style={{ display: 'flex', gap: '0.5rem', borderBottom: '1px solid #E2E8F0', marginBottom: '1.5rem' }}>
+        <div style={{ display: 'flex', gap: '0.5rem', borderBottom: '1px solid var(--color-border)', marginBottom: '1.5rem' }}>
           <button
             onClick={() => setActiveTab('ejercicios')}
             style={{
               padding: '0.65rem 1.25rem',
               background: 'none',
               border: 'none',
-              borderBottom: currentTab === 'ejercicios' ? '2px solid #0077D4' : '2px solid transparent',
-              color: currentTab === 'ejercicios' ? '#0077D4' : '#64748B',
+              borderBottom: currentTab === 'ejercicios' ? '2px solid var(--color-primary)' : '2px solid transparent',
+              color: currentTab === 'ejercicios' ? 'var(--color-primary-text)' : 'var(--color-text-muted)',
               fontWeight: 700,
               fontSize: '0.85rem',
               cursor: 'pointer',
@@ -53,8 +53,8 @@ const EjerciciosPage: React.FC = () => {
               padding: '0.65rem 1.25rem',
               background: 'none',
               border: 'none',
-              borderBottom: currentTab === 'tipos' ? '2px solid #0077D4' : '2px solid transparent',
-              color: currentTab === 'tipos' ? '#0077D4' : '#64748B',
+              borderBottom: currentTab === 'tipos' ? '2px solid var(--color-primary)' : '2px solid transparent',
+              color: currentTab === 'tipos' ? 'var(--color-primary-text)' : 'var(--color-text-muted)',
               fontWeight: 700,
               fontSize: '0.85rem',
               cursor: 'pointer',
@@ -72,8 +72,8 @@ const EjerciciosPage: React.FC = () => {
               padding: '0.65rem 1.25rem',
               background: 'none',
               border: 'none',
-              borderBottom: currentTab === 'grupos' ? '2px solid #0077D4' : '2px solid transparent',
-              color: currentTab === 'grupos' ? '#0077D4' : '#64748B',
+              borderBottom: currentTab === 'grupos' ? '2px solid var(--color-primary)' : '2px solid transparent',
+              color: currentTab === 'grupos' ? 'var(--color-primary-text)' : 'var(--color-text-muted)',
               fontWeight: 700,
               fontSize: '0.85rem',
               cursor: 'pointer',

@@ -71,10 +71,10 @@ const DeporteListPage: React.FC = () => {
     <section>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.25rem' }}>
         <div>
-          <h2 style={{ fontSize: '1.4rem', fontWeight: 800, color: '#0B1727', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-            <FaBasketball style={{ color: '#003B70' }} /> Disciplinas Deportivas & Horarios
+          <h2 style={{ fontSize: '1.4rem', fontWeight: 800, color: 'var(--color-text-primary)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            <FaBasketball style={{ color: 'var(--color-primary-text)' }} /> Disciplinas Deportivas & Horarios
           </h2>
-          <p style={{ fontSize: '0.85rem', color: '#64748B' }}>
+          <p style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)' }}>
             Catálogo de actividades fitness, artes marciales, musculación y asignación de franjas horarias.
           </p>
         </div>
@@ -83,7 +83,7 @@ const DeporteListPage: React.FC = () => {
             onClick={handleOpenCreate}
             style={{
               padding: '0.55rem 1rem', borderRadius: '4px',
-              background: '#0077D4', color: '#FFFFFF', border: '1px solid #005FA8',
+              background: 'var(--color-primary)', color: '#FFFFFF', border: '1px solid var(--color-primary)',
               fontWeight: 700, fontSize: '0.80rem', cursor: 'pointer',
               display: 'flex', alignItems: 'center', gap: '0.4rem',
               textTransform: 'uppercase', letterSpacing: '0.03em'

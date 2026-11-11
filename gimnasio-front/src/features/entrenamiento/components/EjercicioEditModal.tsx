@@ -135,23 +135,23 @@ const EjercicioEditModal: React.FC<Props> = ({ ejercicio, onClose }) => {
     <>
       <div style={{
         position: 'fixed', top: 0, left: 0, right: 0, bottom: 0,
-        backgroundColor: 'rgba(15, 23, 42, 0.75)', backdropFilter: 'blur(4px)',
+        backgroundColor: 'rgba(0, 0, 0, 0.75)', backdropFilter: 'blur(4px)',
         display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 9999, padding: '1.5rem'
       }}>
         <div style={{
-          background: '#FFFFFF', borderRadius: '16px', maxWidth: '850px', width: '100%',
+          background: 'var(--color-surface)', borderRadius: '16px', maxWidth: '850px', width: '100%',
           maxHeight: '90vh', overflowY: 'auto', padding: '1.5rem', boxShadow: '0 25px 50px -12px rgba(0,0,0,0.25)',
           position: 'relative'
         }}>
           {/* HEADER */}
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem', borderBottom: '1px solid #E2E8F0', paddingBottom: '0.75rem' }}>
-            <h3 style={{ fontSize: '1.2rem', fontWeight: 800, color: '#0F172A', display: 'flex', alignItems: 'center', gap: '0.5rem', margin: 0 }}>
-              <FaPenToSquare style={{ color: '#003B70' }} /> Editar Ejercicio: {ejercicio.nombre}
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem', borderBottom: '1px solid var(--color-border)', paddingBottom: '0.75rem' }}>
+            <h3 style={{ fontSize: '1.2rem', fontWeight: 800, color: 'var(--color-text-primary)', display: 'flex', alignItems: 'center', gap: '0.5rem', margin: 0 }}>
+              <FaPenToSquare style={{ color: 'var(--color-primary-text)' }} /> Editar Ejercicio: {ejercicio.nombre}
             </h3>
             <button
               type="button"
               onClick={onClose}
-              style={{ background: '#F1F5F9', border: 'none', width: '34px', height: '34px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', color: '#64748B' }}
+              style={{ background: 'var(--color-surface-muted)', border: 'none', width: '34px', height: '34px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', color: 'var(--color-text-muted)' }}
             >
               <FaXmark style={{ fontSize: '1.1rem' }} />
             </button>
@@ -160,21 +160,21 @@ const EjercicioEditModal: React.FC<Props> = ({ ejercicio, onClose }) => {
           {/* FORMULARIO DE EDICIÓN */}
           <form onSubmit={handleSubmit} style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
             <div>
-              <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, color: '#475569', marginBottom: '0.3rem' }}>Nombre del Ejercicio *</label>
+              <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, color: 'var(--color-text-secondary)', marginBottom: '0.3rem' }}>Nombre del Ejercicio *</label>
               <input
                 value={nombre}
                 onChange={(e) => setNombre(e.target.value)}
                 placeholder="Ej: Press de Banca Plano"
-                style={{ width: '100%', padding: '0.55rem', borderRadius: '6px', border: '1px solid #CBD5E1', fontSize: '0.88rem' }}
+                style={{ width: '100%', padding: '0.55rem', borderRadius: '6px', border: '1px solid var(--color-border-strong)', fontSize: '0.88rem' }}
               />
             </div>
 
             <div>
-              <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, color: '#475569', marginBottom: '0.3rem' }}>Tipo de Ejercicio</label>
+              <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, color: 'var(--color-text-secondary)', marginBottom: '0.3rem' }}>Tipo de Ejercicio</label>
               <select
                 value={idTipo}
                 onChange={(e) => setIdTipo(e.target.value ? Number(e.target.value) : '')}
-                style={{ width: '100%', padding: '0.55rem', borderRadius: '6px', border: '1px solid #CBD5E1', fontSize: '0.88rem', backgroundColor: '#FFF' }}
+                style={{ width: '100%', padding: '0.55rem', borderRadius: '6px', border: '1px solid var(--color-border-strong)', fontSize: '0.88rem', backgroundColor: 'var(--color-surface)' }}
               >
                 <option value="">-- Seleccionar Categoría --</option>
                 {tipos.map((t: any) => (
@@ -184,34 +184,34 @@ const EjercicioEditModal: React.FC<Props> = ({ ejercicio, onClose }) => {
             </div>
 
             <div style={{ gridColumn: '1 / -1' }}>
-              <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, color: '#475569', marginBottom: '0.3rem' }}>
-                <FaVideo style={{ color: '#003B70' }} /> URL de Video Demostrativo
+              <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, color: 'var(--color-text-secondary)', marginBottom: '0.3rem' }}>
+                <FaVideo style={{ color: 'var(--color-primary-text)' }} /> URL de Video Demostrativo
               </label>
               <input
                 value={urlVideo}
                 onChange={(e) => setUrlVideo(e.target.value)}
                 placeholder="Ej: https://youtube.com/watch?v=..."
-                style={{ width: '100%', padding: '0.55rem', borderRadius: '6px', border: '1px solid #CBD5E1', fontSize: '0.88rem' }}
+                style={{ width: '100%', padding: '0.55rem', borderRadius: '6px', border: '1px solid var(--color-border-strong)', fontSize: '0.88rem' }}
               />
             </div>
 
             <div style={{ gridColumn: '1 / -1' }}>
-              <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, color: '#475569', marginBottom: '0.3rem' }}>Descripción / Instrucciones Técnicas</label>
+              <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, color: 'var(--color-text-secondary)', marginBottom: '0.3rem' }}>Descripción / Instrucciones Técnicas</label>
               <textarea
                 rows={3}
                 value={descripcion}
                 onChange={(e) => setDescripcion(e.target.value)}
                 placeholder="Describa la técnica y precauciones del ejercicio..."
-                style={{ width: '100%', padding: '0.55rem', borderRadius: '6px', border: '1px solid #CBD5E1', fontSize: '0.88rem', fontFamily: 'inherit' }}
+                style={{ width: '100%', padding: '0.55rem', borderRadius: '6px', border: '1px solid var(--color-border-strong)', fontSize: '0.88rem', fontFamily: 'inherit' }}
               />
             </div>
 
             {/* CHECKBOXES DE GRUPOS MUSCULARES */}
             <div style={{ gridColumn: '1 / -1' }}>
-              <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, color: '#475569', marginBottom: '0.4rem' }}>
+              <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, color: 'var(--color-text-secondary)', marginBottom: '0.4rem' }}>
                 Grupos Musculares Involucrados
               </label>
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', background: '#F8FAFC', padding: '0.75rem', borderRadius: '6px', border: '1px solid #E2E8F0' }}>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', background: 'var(--color-surface-muted)', padding: '0.75rem', borderRadius: '6px', border: '1px solid var(--color-border)' }}>
                 {grupos.map((g: any) => {
                   const isChecked = selectedGrupos.includes(g.id);
                   return (
@@ -223,7 +223,7 @@ const EjercicioEditModal: React.FC<Props> = ({ ejercicio, onClose }) => {
                         gap: '0.45rem',
                         fontSize: '0.85rem',
                         fontWeight: 500,
-                        color: '#334155',
+                        color: 'var(--color-text-secondary)',
                         cursor: 'pointer',
                         userSelect: 'none',
                       }}
@@ -232,7 +232,7 @@ const EjercicioEditModal: React.FC<Props> = ({ ejercicio, onClose }) => {
                         type="checkbox"
                         checked={isChecked}
                         onChange={() => toggleGrupo(g.id)}
-                        style={{ cursor: 'pointer', accentColor: '#003B70', width: '15px', height: '15px' }}
+                        style={{ cursor: 'pointer', accentColor: 'var(--color-primary)', width: '15px', height: '15px' }}
                       />
                       {g.nombre}
                     </label>
@@ -242,31 +242,31 @@ const EjercicioEditModal: React.FC<Props> = ({ ejercicio, onClose }) => {
             </div>
 
             {/* SECCIÓN 1: IMÁGENES EXISTENTES EN LA GALERÍA CON OPCIÓN DE ELIMINAR */}
-            <div style={{ gridColumn: '1 / -1', background: '#FFF', padding: '1rem', borderRadius: '10px', border: '1px solid #E2E8F0' }}>
-              <h4 style={{ fontSize: '0.88rem', fontWeight: 700, color: '#0F172A', marginBottom: '0.75rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-                <FaImages style={{ color: '#003B70' }} /> Imágenes Actuales en Galería ({imagenesExistentes.length})
+            <div style={{ gridColumn: '1 / -1', background: 'var(--color-surface)', padding: '1rem', borderRadius: '10px', border: '1px solid var(--color-border)' }}>
+              <h4 style={{ fontSize: '0.88rem', fontWeight: 700, color: 'var(--color-text-primary)', marginBottom: '0.75rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                <FaImages style={{ color: 'var(--color-primary-text)' }} /> Imágenes Actuales en Galería ({imagenesExistentes.length})
               </h4>
 
               {isLoadingImagenes ? (
-                <div style={{ fontSize: '0.8rem', color: '#64748B', padding: '0.5rem' }}>Cargando imágenes actuales...</div>
+                <div style={{ fontSize: '0.8rem', color: 'var(--color-text-muted)', padding: '0.5rem' }}>Cargando imágenes actuales...</div>
               ) : imagenesExistentes.length > 0 ? (
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(130px, 1fr))', gap: '0.75rem' }}>
                   {imagenesExistentes.map((img: EjercicioImagen) => (
                     <div
                       key={img.id}
                       style={{
-                        border: '1px solid #E2E8F0', borderRadius: '8px', overflow: 'hidden', background: '#F8FAFC',
+                        border: '1px solid var(--color-border)', borderRadius: '8px', overflow: 'hidden', background: 'var(--color-surface-muted)',
                         display: 'flex', flexDirection: 'column', position: 'relative'
                       }}
                     >
                       <img src={img.path_imagen} alt={img.titulo} style={{ width: '100%', height: '90px', objectFit: 'cover' }} />
                       <div style={{ padding: '0.4rem', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                         <div>
-                          <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#1E293B', display: 'block', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                          <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--color-text-primary)', display: 'block', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                             {img.titulo}
                           </span>
                           {img.descripcion && (
-                            <span style={{ fontSize: '0.68rem', color: '#64748B', display: 'block', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                            <span style={{ fontSize: '0.68rem', color: 'var(--color-text-muted)', display: 'block', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                               {img.descripcion}
                             </span>
                           )}
@@ -276,7 +276,7 @@ const EjercicioEditModal: React.FC<Props> = ({ ejercicio, onClose }) => {
                           onClick={() => setDeletingImageId(img.id)}
                           disabled={deleteImagenMutation.isPending}
                           style={{
-                            marginTop: '0.35rem', background: '#FEF2F2', border: '1px solid #FCA5A5', color: '#DC2626',
+                            marginTop: '0.35rem', background: 'var(--color-danger-bg)', border: '1px solid rgba(220, 38, 38, 0.35)', color: 'var(--color-danger-text)',
                             borderRadius: '4px', padding: '0.25rem', fontSize: '0.72rem', fontWeight: 700, cursor: 'pointer',
                             display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.25rem'
                           }}
@@ -288,18 +288,18 @@ const EjercicioEditModal: React.FC<Props> = ({ ejercicio, onClose }) => {
                   ))}
                 </div>
               ) : (
-                <p style={{ fontSize: '0.8rem', color: '#94A3B8', margin: 0, fontStyle: 'italic' }}>
+                <p style={{ fontSize: '0.8rem', color: 'var(--color-text-muted)', margin: 0, fontStyle: 'italic' }}>
                   Este ejercicio aún no cuenta con imágenes en su galería.
                 </p>
               )}
             </div>
 
             {/* SECCIÓN 2: CARGAR MÚLTIPLES NUEVAS IMÁGENES LOCALES CON TÍTULO Y DESCRIPCIÓN */}
-            <div style={{ gridColumn: '1 / -1', background: '#F0F9FF', padding: '1rem', borderRadius: '10px', border: '1px dashed #7DD3FC' }}>
-              <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, color: '#0369A1', marginBottom: '0.4rem' }}>
+            <div style={{ gridColumn: '1 / -1', background: 'var(--color-primary-soft)', padding: '1rem', borderRadius: '10px', border: '1px dashed rgba(220, 38, 38, 0.30)' }}>
+              <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, color: 'var(--color-primary-text)', marginBottom: '0.4rem' }}>
                 <FaUpload /> Cargar Múltiples Nuevas Imágenes al Ejercicio (con Título y Descripción)
               </label>
-              <p style={{ fontSize: '0.78rem', color: '#0284C7', margin: '0 0 0.75rem 0' }}>
+              <p style={{ fontSize: '0.78rem', color: 'var(--color-primary-text)', margin: '0 0 0.75rem 0' }}>
                 Puedes seleccionar una o varias imágenes al mismo tiempo desde tu dispositivo e ingresar su título y descripción individual.
               </p>
 
@@ -308,13 +308,13 @@ const EjercicioEditModal: React.FC<Props> = ({ ejercicio, onClose }) => {
                 accept="image/*"
                 multiple
                 onChange={handleMultipleFilesChange}
-                style={{ width: '100%', padding: '0.45rem', borderRadius: '6px', border: '1px solid #7DD3FC', fontSize: '0.82rem', background: '#FFF', cursor: 'pointer' }}
+                style={{ width: '100%', padding: '0.45rem', borderRadius: '6px', border: '1px solid rgba(220, 38, 38, 0.30)', fontSize: '0.82rem', background: 'var(--color-surface)', cursor: 'pointer' }}
               />
 
               {/* PREVISUALIZACIÓN DE ARCHIVOS PENDIENTES DE SUBIR CON CAMPOS DE TÍTULO Y DESCRIPCIÓN */}
               {newImagesList.length > 0 && (
                 <div style={{ marginTop: '0.85rem' }}>
-                  <span style={{ fontSize: '0.78rem', fontWeight: 700, color: '#0F172A', display: 'block', marginBottom: '0.5rem' }}>
+                  <span style={{ fontSize: '0.78rem', fontWeight: 700, color: 'var(--color-text-primary)', display: 'block', marginBottom: '0.5rem' }}>
                     Nuevas imágenes a subir ({newImagesList.length}):
                   </span>
 
@@ -323,26 +323,26 @@ const EjercicioEditModal: React.FC<Props> = ({ ejercicio, onClose }) => {
                       <div
                         key={item.id}
                         style={{
-                          background: '#FFF', border: '1px solid #BAE6FD', borderRadius: '8px', padding: '0.65rem',
+                          background: 'var(--color-surface)', border: '1px solid rgba(220, 38, 38, 0.30)', borderRadius: '8px', padding: '0.65rem',
                           display: 'flex', flexDirection: 'column', gap: '0.45rem', position: 'relative', boxShadow: '0 2px 4px rgba(0,0,0,0.03)'
                         }}
                       >
                         <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
-                          <img src={item.preview} alt="Preview" style={{ width: '55px', height: '55px', objectFit: 'cover', borderRadius: '6px', border: '1px solid #E2E8F0' }} />
+                          <img src={item.preview} alt="Preview" style={{ width: '55px', height: '55px', objectFit: 'cover', borderRadius: '6px', border: '1px solid var(--color-border)' }} />
                           <div style={{ flex: 1, minWidth: 0 }}>
-                            <label style={{ display: 'block', fontSize: '0.7rem', fontWeight: 700, color: '#0369A1', marginBottom: '0.15rem' }}>Título de la foto *</label>
+                            <label style={{ display: 'block', fontSize: '0.7rem', fontWeight: 700, color: 'var(--color-primary-text)', marginBottom: '0.15rem' }}>Título de la foto *</label>
                             <input
                               type="text"
                               value={item.titulo}
                               onChange={(e) => handleUpdateNewImageTitle(item.id, e.target.value)}
                               placeholder="Ej: Angulo Lateral"
-                              style={{ width: '100%', padding: '0.3rem 0.4rem', fontSize: '0.78rem', borderRadius: '4px', border: '1px solid #CBD5E1' }}
+                              style={{ width: '100%', padding: '0.3rem 0.4rem', fontSize: '0.78rem', borderRadius: '4px', border: '1px solid var(--color-border-strong)' }}
                             />
                           </div>
                           <button
                             type="button"
                             onClick={() => handleRemoveNewImage(item.id)}
-                            style={{ background: '#FEE2E2', border: 'none', color: '#EF4444', width: '26px', height: '26px', borderRadius: '50%', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}
+                            style={{ background: 'var(--color-danger-bg)', border: 'none', color: '#EF4444', width: '26px', height: '26px', borderRadius: '50%', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}
                             title="Descartar esta imagen"
                           >
                             <FaXmark style={{ fontSize: '0.8rem' }} />
@@ -350,13 +350,13 @@ const EjercicioEditModal: React.FC<Props> = ({ ejercicio, onClose }) => {
                         </div>
 
                         <div>
-                          <label style={{ display: 'block', fontSize: '0.7rem', fontWeight: 700, color: '#475569', marginBottom: '0.15rem' }}>Descripción / Explicación Técnica (Opcional)</label>
+                          <label style={{ display: 'block', fontSize: '0.7rem', fontWeight: 700, color: 'var(--color-text-secondary)', marginBottom: '0.15rem' }}>Descripción / Explicación Técnica (Opcional)</label>
                           <input
                             type="text"
                             value={item.descripcion}
                             onChange={(e) => handleUpdateNewImageDescription(item.id, e.target.value)}
                             placeholder="Ej: Mantener la retracción escapular durante el movimiento."
-                            style={{ width: '100%', padding: '0.3rem 0.4rem', fontSize: '0.75rem', borderRadius: '4px', border: '1px solid #CBD5E1' }}
+                            style={{ width: '100%', padding: '0.3rem 0.4rem', fontSize: '0.75rem', borderRadius: '4px', border: '1px solid var(--color-border-strong)' }}
                           />
                         </div>
                       </div>
@@ -371,7 +371,7 @@ const EjercicioEditModal: React.FC<Props> = ({ ejercicio, onClose }) => {
               <button
                 type="button"
                 onClick={onClose}
-                style={{ padding: '0.6rem 1.2rem', borderRadius: '6px', border: '1px solid #CBD5E1', background: '#F1F5F9', color: '#475569', fontWeight: 600, fontSize: '0.85rem', cursor: 'pointer' }}
+                style={{ padding: '0.6rem 1.2rem', borderRadius: '6px', border: '1px solid var(--color-border-strong)', background: 'var(--color-surface-muted)', color: 'var(--color-text-secondary)', fontWeight: 600, fontSize: '0.85rem', cursor: 'pointer' }}
               >
                 Cancelar
               </button>
@@ -380,7 +380,7 @@ const EjercicioEditModal: React.FC<Props> = ({ ejercicio, onClose }) => {
                 disabled={updateMutation.isPending || uploadImagenMutation.isPending}
                 style={{
                   padding: '0.6rem 1.25rem', borderRadius: '6px', border: 'none',
-                  background: 'linear-gradient(135deg, #003B70 0%, #002A52 100%)', color: '#FFF', fontWeight: 700, fontSize: '0.85rem', cursor: 'pointer',
+                  background: 'linear-gradient(135deg, #990000 0%, #570000 100%)', color: '#FFF', fontWeight: 700, fontSize: '0.85rem', cursor: 'pointer',
                   display: 'flex', alignItems: 'center', gap: '0.4rem'
                 }}
               >

@@ -57,13 +57,13 @@ const DocumentoUploadModal: React.FC<DocumentoUploadModalProps> = ({
         padding: '1rem',
       }}>
         <div style={{
-          backgroundColor: '#FFFFFF', borderRadius: '12px', padding: '1.75rem', width: '100%', maxWidth: '420px',
-          boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)', border: '1px solid #E2E8F0', textAlign: 'center',
+          backgroundColor: 'var(--color-surface)', borderRadius: '12px', padding: '1.75rem', width: '100%', maxWidth: '420px',
+          boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)', border: '1px solid var(--color-border)', textAlign: 'center',
         }}>
-          <h3 style={{ fontSize: '1.1rem', fontWeight: 800, color: '#DC2626', marginBottom: '0.75rem' }}>
+          <h3 style={{ fontSize: '1.1rem', fontWeight: 800, color: 'var(--color-danger-text)', marginBottom: '0.75rem' }}>
             Acceso Restringido
           </h3>
-          <p style={{ fontSize: '0.85rem', color: '#64748B', marginBottom: '1.25rem' }}>
+          <p style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)', marginBottom: '1.25rem' }}>
             Únicamente los usuarios con rol <strong>Cliente</strong> pueden subir documentos al sistema.
           </p>
           <button
@@ -71,7 +71,7 @@ const DocumentoUploadModal: React.FC<DocumentoUploadModalProps> = ({
             onClick={onClose}
             style={{
               padding: '0.55rem 1.25rem', borderRadius: '6px',
-              backgroundColor: '#003B70', color: '#FFF', border: 'none', fontWeight: 700, cursor: 'pointer',
+              backgroundColor: 'var(--color-primary)', color: '#FFF', border: 'none', fontWeight: 700, cursor: 'pointer',
             }}
           >
             Cerrar
@@ -148,23 +148,23 @@ const DocumentoUploadModal: React.FC<DocumentoUploadModalProps> = ({
       padding: '1rem',
     }}>
       <div style={{
-        backgroundColor: '#FFFFFF', borderRadius: '16px', padding: '1.75rem 2rem', width: '100%', maxWidth: '520px',
-        boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)', border: '1px solid #E2E8F0', position: 'relative',
+        backgroundColor: 'var(--color-surface)', borderRadius: '16px', padding: '1.75rem 2rem', width: '100%', maxWidth: '520px',
+        boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)', border: '1px solid var(--color-border)', position: 'relative',
       }}>
         {/* Header with Close Icon */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1.25rem' }}>
           <div>
-            <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#0B1727', margin: 0, display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
+            <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--color-text-primary)', margin: 0, display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
               <span style={{
                 width: '36px', height: '36px', borderRadius: '10px',
-                background: 'linear-gradient(135deg, #003B70 0%, #002A52 100%)',
+                background: 'linear-gradient(135deg, #990000 0%, #570000 100%)',
                 color: '#FFF', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: '1rem',
               }}>
                 <FaCloudArrowUp />
               </span>
               Subir Documento Digital
             </h3>
-            <p style={{ fontSize: '0.82rem', color: '#64748B', marginTop: '0.25rem', margin: '0.25rem 0 0 0' }}>
+            <p style={{ fontSize: '0.82rem', color: 'var(--color-text-muted)', marginTop: '0.25rem', margin: '0.25rem 0 0 0' }}>
               Cargue carnets, certificados o respaldos en formato PDF.
             </p>
           </div>
@@ -173,17 +173,17 @@ const DocumentoUploadModal: React.FC<DocumentoUploadModalProps> = ({
             type="button"
             onClick={onClose}
             style={{
-              background: '#F1F5F9', border: 'none', borderRadius: '50%', width: '32px', height: '32px',
-              color: '#64748B', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center',
+              background: 'var(--color-surface-muted)', border: 'none', borderRadius: '50%', width: '32px', height: '32px',
+              color: 'var(--color-text-muted)', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center',
               fontSize: '1rem', transition: 'all 0.15s ease',
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.background = '#E2E8F0';
-              e.currentTarget.style.color = '#0F172A';
+              e.currentTarget.style.background = 'var(--color-surface-hover)';
+              e.currentTarget.style.color = 'var(--color-text-primary)';
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.background = '#F1F5F9';
-              e.currentTarget.style.color = '#64748B';
+              e.currentTarget.style.background = 'var(--color-surface-muted)';
+              e.currentTarget.style.color = 'var(--color-text-muted)';
             }}
           >
             <FaXmark />
@@ -193,8 +193,8 @@ const DocumentoUploadModal: React.FC<DocumentoUploadModalProps> = ({
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.1rem' }}>
           {/* Campo: Título del Documento */}
           <div>
-            <label style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.82rem', fontWeight: 700, color: '#334155', marginBottom: '0.4rem' }}>
-              <FaFileLines style={{ color: '#003B70' }} /> Título del Documento *
+            <label style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.82rem', fontWeight: 700, color: 'var(--color-text-secondary)', marginBottom: '0.4rem' }}>
+              <FaFileLines style={{ color: 'var(--color-primary-text)' }} /> Título del Documento *
             </label>
             <input
               type="text"
@@ -204,7 +204,7 @@ const DocumentoUploadModal: React.FC<DocumentoUploadModalProps> = ({
               required
               style={{
                 width: '100%', padding: '0.65rem 0.85rem', borderRadius: '10px',
-                border: '1px solid #CBD5E1', fontSize: '0.88rem', color: '#0F172A',
+                border: '1px solid var(--color-border-strong)', fontSize: '0.88rem', color: 'var(--color-text-primary)',
               }}
             />
           </div>
@@ -212,7 +212,7 @@ const DocumentoUploadModal: React.FC<DocumentoUploadModalProps> = ({
           {/* Campo: Tipo de Documento */}
           <div>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.4rem' }}>
-              <label style={{ fontSize: '0.82rem', fontWeight: 700, color: '#334155' }}>
+              <label style={{ fontSize: '0.82rem', fontWeight: 700, color: 'var(--color-text-secondary)' }}>
                 Tipo de Documento *
               </label>
               {onOpenTipoModal && currentUser?.rol === 'administrador' && (
@@ -220,7 +220,7 @@ const DocumentoUploadModal: React.FC<DocumentoUploadModalProps> = ({
                   type="button"
                   onClick={onOpenTipoModal}
                   style={{
-                    background: 'none', border: 'none', color: '#003B70', fontSize: '0.75rem', fontWeight: 700,
+                    background: 'none', border: 'none', color: 'var(--color-primary-text)', fontSize: '0.75rem', fontWeight: 700,
                     cursor: 'pointer', padding: 0, display: 'inline-flex', alignItems: 'center', gap: '0.2rem',
                   }}
                 >
@@ -234,7 +234,7 @@ const DocumentoUploadModal: React.FC<DocumentoUploadModalProps> = ({
               required
               style={{
                 width: '100%', padding: '0.65rem 0.85rem', borderRadius: '10px',
-                border: '1px solid #CBD5E1', fontSize: '0.88rem', color: '#0F172A',
+                border: '1px solid var(--color-border-strong)', fontSize: '0.88rem', color: 'var(--color-text-primary)',
               }}
             >
               <option value="">Seleccione tipo de documento...</option>
@@ -248,7 +248,7 @@ const DocumentoUploadModal: React.FC<DocumentoUploadModalProps> = ({
 
           {/* Drag & Drop Zone / File Picker */}
           <div>
-            <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 700, color: '#334155', marginBottom: '0.4rem' }}>
+            <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 700, color: 'var(--color-text-secondary)', marginBottom: '0.4rem' }}>
               Archivo PDF (Máx. 10 MB) *
             </label>
 
@@ -267,8 +267,8 @@ const DocumentoUploadModal: React.FC<DocumentoUploadModalProps> = ({
                 onDragLeave={handleDragLeave}
                 onDrop={handleDrop}
                 style={{
-                  border: isDragging ? '2px dashed #003B70' : '2px dashed #CBD5E1',
-                  backgroundColor: isDragging ? '#F0F7FF' : '#F8FAFC',
+                  border: isDragging ? '2px dashed var(--color-primary)' : '2px dashed var(--color-border-strong)',
+                  backgroundColor: isDragging ? 'var(--color-primary-soft)' : 'var(--color-surface-muted)',
                   borderRadius: '12px',
                   padding: '1.5rem 1rem',
                   textAlign: 'center',
@@ -276,34 +276,34 @@ const DocumentoUploadModal: React.FC<DocumentoUploadModalProps> = ({
                   transition: 'all 0.2s ease',
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.borderColor = '#003B70';
-                  e.currentTarget.style.backgroundColor = '#F0F7FF';
+                  e.currentTarget.style.borderColor = 'var(--color-primary)';
+                  e.currentTarget.style.backgroundColor = 'var(--color-primary-soft)';
                 }}
                 onMouseLeave={(e) => {
                   if (!isDragging) {
-                    e.currentTarget.style.borderColor = '#CBD5E1';
-                    e.currentTarget.style.backgroundColor = '#F8FAFC';
+                    e.currentTarget.style.borderColor = 'var(--color-border-strong)';
+                    e.currentTarget.style.backgroundColor = 'var(--color-surface-muted)';
                   }
                 }}
               >
                 <div style={{
-                  width: '44px', height: '44px', borderRadius: '50%', backgroundColor: '#FFFFFF',
-                  border: '1px solid #E2E8F0', color: '#003B70', margin: '0 auto 0.75rem auto',
+                  width: '44px', height: '44px', borderRadius: '50%', backgroundColor: 'var(--color-surface)',
+                  border: '1px solid var(--color-border)', color: 'var(--color-primary-text)', margin: '0 auto 0.75rem auto',
                   display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.25rem',
                   boxShadow: '0 2px 8px rgba(0,0,0,0.05)',
                 }}>
                   <FaCloudArrowUp />
                 </div>
-                <div style={{ fontSize: '0.88rem', fontWeight: 700, color: '#1E293B', marginBottom: '0.25rem' }}>
-                  Arrastra tu archivo PDF aquí o <span style={{ color: '#003B70', textDecoration: 'underline' }}>Explorar</span>
+                <div style={{ fontSize: '0.88rem', fontWeight: 700, color: 'var(--color-text-primary)', marginBottom: '0.25rem' }}>
+                  Arrastra tu archivo PDF aquí o <span style={{ color: 'var(--color-primary-text)', textDecoration: 'underline' }}>Explorar</span>
                 </div>
-                <div style={{ fontSize: '0.75rem', color: '#64748B' }}>
+                <div style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)' }}>
                   Solo formato .pdf (Tamaño máximo 10 MB)
                 </div>
               </div>
             ) : (
               <div style={{
-                border: '1px solid #A7F3D0',
+                border: '1px solid rgba(22, 163, 74, 0.35)',
                 backgroundColor: '#ECFDF5',
                 borderRadius: '12px',
                 padding: '1rem',
@@ -313,20 +313,20 @@ const DocumentoUploadModal: React.FC<DocumentoUploadModalProps> = ({
               }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem', overflow: 'hidden' }}>
                   <div style={{
-                    width: '40px', height: '40px', borderRadius: '10px', backgroundColor: '#FEE2E2',
-                    color: '#DC2626', display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    width: '40px', height: '40px', borderRadius: '10px', backgroundColor: 'var(--color-danger-bg)',
+                    color: 'var(--color-danger-text)', display: 'flex', alignItems: 'center', justifyContent: 'center',
                     fontSize: '1.3rem', flexShrink: 0,
                   }}>
                     <FaFilePdf />
                   </div>
                   <div style={{ overflow: 'hidden' }}>
                     <div style={{
-                      fontWeight: 700, fontSize: '0.88rem', color: '#0F172A',
+                      fontWeight: 700, fontSize: '0.88rem', color: 'var(--color-text-primary)',
                       whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', maxWidth: '280px',
                     }}>
                       {file.name}
                     </div>
-                    <div style={{ fontSize: '0.75rem', color: '#047857', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
+                    <div style={{ fontSize: '0.75rem', color: 'var(--color-success-text)', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
                       <FaCheck /> {formatFileSize(file.size)} • Listo para subir
                     </div>
                   </div>
@@ -336,8 +336,8 @@ const DocumentoUploadModal: React.FC<DocumentoUploadModalProps> = ({
                   type="button"
                   onClick={() => setFile(null)}
                   style={{
-                    background: '#FFFFFF', border: '1px solid #FECACA', borderRadius: '8px',
-                    padding: '0.4rem 0.6rem', color: '#DC2626', cursor: 'pointer', fontSize: '0.8rem',
+                    background: 'var(--color-surface)', border: '1px solid rgba(220, 38, 38, 0.35)', borderRadius: '8px',
+                    padding: '0.4rem 0.6rem', color: 'var(--color-danger-text)', cursor: 'pointer', fontSize: '0.8rem',
                     fontWeight: 600, display: 'flex', alignItems: 'center', gap: '0.3rem',
                   }}
                   title="Quitar archivo"
@@ -354,8 +354,8 @@ const DocumentoUploadModal: React.FC<DocumentoUploadModalProps> = ({
               type="button"
               onClick={onClose}
               style={{
-                padding: '0.65rem 1.25rem', borderRadius: '10px', border: '1px solid #CBD5E1',
-                backgroundColor: '#FFFFFF', color: '#475569', fontWeight: 700, fontSize: '0.85rem', cursor: 'pointer',
+                padding: '0.65rem 1.25rem', borderRadius: '10px', border: '1px solid var(--color-border-strong)',
+                backgroundColor: 'var(--color-surface)', color: 'var(--color-text-secondary)', fontWeight: 700, fontSize: '0.85rem', cursor: 'pointer',
               }}
             >
               Cancelar
@@ -365,9 +365,9 @@ const DocumentoUploadModal: React.FC<DocumentoUploadModalProps> = ({
               disabled={isPending || !file}
               style={{
                 padding: '0.65rem 1.5rem', borderRadius: '10px', border: 'none',
-                background: isPending || !file ? '#94A3B8' : 'linear-gradient(135deg, #003B70 0%, #002A52 100%)',
+                background: isPending || !file ? '#94A3B8' : 'linear-gradient(135deg, #990000 0%, #570000 100%)',
                 color: '#FFFFFF', fontWeight: 700, fontSize: '0.85rem', cursor: isPending || !file ? 'not-allowed' : 'pointer',
-                display: 'flex', alignItems: 'center', gap: '0.5rem', boxShadow: isPending || !file ? 'none' : '0 4px 12px rgba(0, 59, 112, 0.25)',
+                display: 'flex', alignItems: 'center', gap: '0.5rem', boxShadow: isPending || !file ? 'none' : '0 4px 12px rgba(153, 0, 0, 0.25)',
               }}
             >
               {isPending ? (

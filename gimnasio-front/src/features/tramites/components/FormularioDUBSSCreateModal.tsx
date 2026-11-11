@@ -255,17 +255,17 @@ const FormularioDUBSSCreateModal: React.FC<FormularioDUBSSCreateModalProps> = ({
   if (user?.rol !== 'cliente') {
     return (
       <div style={{
-        position: 'fixed', inset: 0, zIndex: 99999, backgroundColor: 'rgba(15,23,42,0.8)',
+        position: 'fixed', inset: 0, zIndex: 99999, backgroundColor: 'rgba(0, 0, 0,0.8)',
         display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '1rem'
       }}>
         <div style={{
-          backgroundColor: '#FFFFFF', borderRadius: '12px', padding: '1.75rem', width: '100%', maxWidth: '420px',
-          boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)', border: '1px solid #E2E8F0', textAlign: 'center',
+          backgroundColor: 'var(--color-surface)', borderRadius: '12px', padding: '1.75rem', width: '100%', maxWidth: '420px',
+          boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)', border: '1px solid var(--color-border)', textAlign: 'center',
         }}>
-          <h3 style={{ fontSize: '1.1rem', fontWeight: 800, color: '#DC2626', marginBottom: '0.75rem' }}>
+          <h3 style={{ fontSize: '1.1rem', fontWeight: 800, color: 'var(--color-danger-text)', marginBottom: '0.75rem' }}>
             Acceso Restringido
           </h3>
-          <p style={{ fontSize: '0.85rem', color: '#64748B', marginBottom: '1.25rem' }}>
+          <p style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)', marginBottom: '1.25rem' }}>
             Únicamente los usuarios con rol <strong>Cliente</strong> pueden emitir solicitudes de inscripción (DUBSS-FR-03).
           </p>
           <button
@@ -273,7 +273,7 @@ const FormularioDUBSSCreateModal: React.FC<FormularioDUBSSCreateModalProps> = ({
             onClick={onClose}
             style={{
               padding: '0.55rem 1.25rem', borderRadius: '6px',
-              backgroundColor: '#003B70', color: '#FFF', border: 'none', fontWeight: 700, cursor: 'pointer',
+              backgroundColor: 'var(--color-primary)', color: '#FFF', border: 'none', fontWeight: 700, cursor: 'pointer',
             }}
           >
             Cerrar
@@ -285,18 +285,18 @@ const FormularioDUBSSCreateModal: React.FC<FormularioDUBSSCreateModalProps> = ({
 
   return (
     <div style={{
-      position: 'fixed', inset: 0, zIndex: 99999, backgroundColor: 'rgba(15,23,42,0.8)',
+      position: 'fixed', inset: 0, zIndex: 99999, backgroundColor: 'rgba(0, 0, 0,0.8)',
       display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '1rem'
     }}>
       <div style={{
-        backgroundColor: '#FFFFFF', borderRadius: '14px', width: '100%', maxWidth: '850px',
+        backgroundColor: 'var(--color-surface)', borderRadius: '14px', width: '100%', maxWidth: '850px',
         maxHeight: '92vh', display: 'flex', flexDirection: 'column', boxShadow: '0 25px 50px -12px rgba(0,0,0,0.3)',
-        overflow: 'hidden', border: '1px solid #CBD5E1'
+        overflow: 'hidden', border: '1px solid var(--color-border-strong)'
       }}>
         {/* HEADER BAR */}
         <div style={{
           display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-          padding: '1.25rem 1.75rem', backgroundColor: '#0F172A', color: '#FFF'
+          padding: '1.25rem 1.75rem', backgroundColor: '#141419', color: '#FFF'
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
             <FaFilePdf style={{ color: '#F59E0B', fontSize: '1.4rem' }} />
@@ -304,7 +304,7 @@ const FormularioDUBSSCreateModal: React.FC<FormularioDUBSSCreateModalProps> = ({
               <h3 style={{ fontSize: '1.1rem', fontWeight: 800, margin: 0, textTransform: 'uppercase' }}>
                 Formulario de Inscripción DUBSS-FR-03
               </h3>
-              <span style={{ fontSize: '0.78rem', color: '#94A3B8' }}>
+              <span style={{ fontSize: '0.78rem', color: 'var(--color-text-muted)' }}>
                 Completar Ficha y Cuestionario Médico para Solicitud de Membresía
               </span>
             </div>
@@ -324,38 +324,38 @@ const FormularioDUBSSCreateModal: React.FC<FormularioDUBSSCreateModalProps> = ({
         <form onSubmit={handleSubmit} style={{ overflowY: 'auto', padding: '1.5rem', flex: 1, display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
           
           {/* SECCIÓN 1: DATOS DE LA SOLICITUD */}
-          <div style={{ backgroundColor: '#F8FAFC', padding: '1.25rem', borderRadius: '10px', border: '1px solid #E2E8F0' }}>
-            <h4 style={{ fontSize: '0.95rem', fontWeight: 800, color: '#003B70', margin: '0 0 1rem 0', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              <FaUserCheck style={{ color: '#003B70' }} /> 1. Datos de la Solicitud y Membresía
+          <div style={{ backgroundColor: 'var(--color-surface-muted)', padding: '1.25rem', borderRadius: '10px', border: '1px solid var(--color-border)' }}>
+            <h4 style={{ fontSize: '0.95rem', fontWeight: 800, color: 'var(--color-primary-text)', margin: '0 0 1rem 0', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+              <FaUserCheck style={{ color: 'var(--color-primary-text)' }} /> 1. Datos de la Solicitud y Membresía
             </h4>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '1rem' }}>
               <div>
-                <label style={{ fontSize: '0.78rem', fontWeight: 700, color: '#475569', display: 'block', marginBottom: '0.25rem' }}>
+                <label style={{ fontSize: '0.78rem', fontWeight: 700, color: 'var(--color-text-secondary)', display: 'block', marginBottom: '0.25rem' }}>
                   Nº de Formulario:
                 </label>
                 <input
                   type="text"
                   value={numeroFormulario}
                   onChange={(e) => setNumeroFormulario(e.target.value)}
-                  style={{ width: '100%', padding: '0.55rem', borderRadius: '6px', border: '1px solid #CBD5E1', fontSize: '0.88rem', fontWeight: 700, backgroundColor: '#FFF' }}
+                  style={{ width: '100%', padding: '0.55rem', borderRadius: '6px', border: '1px solid var(--color-border-strong)', fontSize: '0.88rem', fontWeight: 700, backgroundColor: 'var(--color-surface)' }}
                   required
                 />
               </div>
 
               <div>
-                <label style={{ fontSize: '0.78rem', fontWeight: 700, color: '#475569', display: 'block', marginBottom: '0.25rem' }}>
+                <label style={{ fontSize: '0.78rem', fontWeight: 700, color: 'var(--color-text-secondary)', display: 'block', marginBottom: '0.25rem' }}>
                   Socio / Universitario:
                 </label>
                 <input
                   type="text"
                   value={user?.name || [user?.nombre, user?.apellido].filter(Boolean).join(' ') || user?.email || ''}
                   disabled
-                  style={{ width: '100%', padding: '0.55rem', borderRadius: '6px', border: '1px solid #CBD5E1', fontSize: '0.88rem', backgroundColor: '#E2E8F0', fontWeight: 700 }}
+                  style={{ width: '100%', padding: '0.55rem', borderRadius: '6px', border: '1px solid var(--color-border-strong)', fontSize: '0.88rem', backgroundColor: 'var(--color-surface-hover)', fontWeight: 700 }}
                 />
               </div>
 
               <div>
-                <label style={{ fontSize: '0.78rem', fontWeight: 700, color: '#475569', display: 'block', marginBottom: '0.25rem' }}>
+                <label style={{ fontSize: '0.78rem', fontWeight: 700, color: 'var(--color-text-secondary)', display: 'block', marginBottom: '0.25rem' }}>
                   Disciplina Deportiva:
                 </label>
                 <select
@@ -366,7 +366,7 @@ const FormularioDUBSSCreateModal: React.FC<FormularioDUBSSCreateModalProps> = ({
                     setIdDisciplinaHorario('');
                     setHorarioSeleccionado('');
                   }}
-                  style={{ width: '100%', padding: '0.55rem', borderRadius: '6px', border: '1px solid #CBD5E1', fontSize: '0.88rem', backgroundColor: '#FFF' }}
+                  style={{ width: '100%', padding: '0.55rem', borderRadius: '6px', border: '1px solid var(--color-border-strong)', fontSize: '0.88rem', backgroundColor: 'var(--color-surface)' }}
                   required
                 >
                   <option value="">-- Seleccionar Disciplina --</option>
@@ -379,13 +379,13 @@ const FormularioDUBSSCreateModal: React.FC<FormularioDUBSSCreateModalProps> = ({
               </div>
 
               <div>
-                <label style={{ fontSize: '0.78rem', fontWeight: 700, color: '#475569', display: 'block', marginBottom: '0.25rem' }}>
+                <label style={{ fontSize: '0.78rem', fontWeight: 700, color: 'var(--color-text-secondary)', display: 'block', marginBottom: '0.25rem' }}>
                   Plan de Membresía / Tarifa:
                 </label>
                 <select
                   value={idPlan}
                   onChange={(e) => setIdPlan(e.target.value ? Number(e.target.value) : '')}
-                  style={{ width: '100%', padding: '0.55rem', borderRadius: '6px', border: '1px solid #CBD5E1', fontSize: '0.88rem', backgroundColor: '#FFF' }}
+                  style={{ width: '100%', padding: '0.55rem', borderRadius: '6px', border: '1px solid var(--color-border-strong)', fontSize: '0.88rem', backgroundColor: 'var(--color-surface)' }}
                   required
                 >
                   <option value="">-- Seleccionar Plan de Membresía --</option>
@@ -401,7 +401,7 @@ const FormularioDUBSSCreateModal: React.FC<FormularioDUBSSCreateModalProps> = ({
               </div>
 
               <div>
-                <label style={{ fontSize: '0.78rem', fontWeight: 700, color: '#475569', display: 'block', marginBottom: '0.25rem' }}>
+                <label style={{ fontSize: '0.78rem', fontWeight: 700, color: 'var(--color-text-secondary)', display: 'block', marginBottom: '0.25rem' }}>
                   Horario / Turno de Asistencia (Cupos):
                 </label>
                 <select
@@ -419,7 +419,7 @@ const FormularioDUBSSCreateModal: React.FC<FormularioDUBSSCreateModalProps> = ({
                       setHorarioSeleccionado('');
                     }
                   }}
-                  style={{ width: '100%', padding: '0.55rem', borderRadius: '6px', border: '1px solid #CBD5E1', fontSize: '0.88rem', backgroundColor: '#FFF' }}
+                  style={{ width: '100%', padding: '0.55rem', borderRadius: '6px', border: '1px solid var(--color-border-strong)', fontSize: '0.88rem', backgroundColor: 'var(--color-surface)' }}
                   required
                   disabled={!idDisciplina}
                 >
@@ -453,13 +453,13 @@ const FormularioDUBSSCreateModal: React.FC<FormularioDUBSSCreateModalProps> = ({
           </div>
 
           {/* SECCIÓN 2: DATOS PERSONALES DEL SOCIO */}
-          <div style={{ backgroundColor: '#FFF', padding: '1.25rem', borderRadius: '10px', border: '1px solid #E2E8F0' }}>
-            <h4 style={{ fontSize: '0.95rem', fontWeight: 800, color: '#003B70', margin: '0 0 1rem 0', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              <FaNotesMedical style={{ color: '#0284C7' }} /> 2. Datos Personales & Físicos del Socio
+          <div style={{ backgroundColor: 'var(--color-surface)', padding: '1.25rem', borderRadius: '10px', border: '1px solid var(--color-border)' }}>
+            <h4 style={{ fontSize: '0.95rem', fontWeight: 800, color: 'var(--color-primary-text)', margin: '0 0 1rem 0', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+              <FaNotesMedical style={{ color: 'var(--color-primary-text)' }} /> 2. Datos Personales & Físicos del Socio
             </h4>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1rem' }}>
               <div>
-                <label style={{ fontSize: '0.78rem', fontWeight: 700, color: '#475569', display: 'block', marginBottom: '0.25rem' }}>
+                <label style={{ fontSize: '0.78rem', fontWeight: 700, color: 'var(--color-text-secondary)', display: 'block', marginBottom: '0.25rem' }}>
                   Facultad / Carrera / Unidad:
                 </label>
                 <input
@@ -467,12 +467,12 @@ const FormularioDUBSSCreateModal: React.FC<FormularioDUBSSCreateModalProps> = ({
                   placeholder="Ej: Facultad de Cs. de la Computación"
                   value={facultadCarrera}
                   onChange={(e) => setFacultadCarrera(e.target.value)}
-                  style={{ width: '100%', padding: '0.55rem', borderRadius: '6px', border: '1px solid #CBD5E1', fontSize: '0.88rem' }}
+                  style={{ width: '100%', padding: '0.55rem', borderRadius: '6px', border: '1px solid var(--color-border-strong)', fontSize: '0.88rem' }}
                 />
               </div>
 
               <div>
-                <label style={{ fontSize: '0.78rem', fontWeight: 700, color: '#475569', display: 'block', marginBottom: '0.25rem' }}>
+                <label style={{ fontSize: '0.78rem', fontWeight: 700, color: 'var(--color-text-secondary)', display: 'block', marginBottom: '0.25rem' }}>
                   Domicilio Actual:
                 </label>
                 <input
@@ -480,12 +480,12 @@ const FormularioDUBSSCreateModal: React.FC<FormularioDUBSSCreateModalProps> = ({
                   placeholder="Ej: Av. Busch 2do Anillo"
                   value={domicilio}
                   onChange={(e) => setDomicilio(e.target.value)}
-                  style={{ width: '100%', padding: '0.55rem', borderRadius: '6px', border: '1px solid #CBD5E1', fontSize: '0.88rem' }}
+                  style={{ width: '100%', padding: '0.55rem', borderRadius: '6px', border: '1px solid var(--color-border-strong)', fontSize: '0.88rem' }}
                 />
               </div>
 
               <div>
-                <label style={{ fontSize: '0.78rem', fontWeight: 700, color: '#475569', display: 'block', marginBottom: '0.25rem' }}>
+                <label style={{ fontSize: '0.78rem', fontWeight: 700, color: 'var(--color-text-secondary)', display: 'block', marginBottom: '0.25rem' }}>
                   Celular:
                 </label>
                 <input
@@ -493,30 +493,30 @@ const FormularioDUBSSCreateModal: React.FC<FormularioDUBSSCreateModalProps> = ({
                   placeholder="Ej: 77012345"
                   value={celular}
                   onChange={(e) => setCelular(e.target.value)}
-                  style={{ width: '100%', padding: '0.55rem', borderRadius: '6px', border: '1px solid #CBD5E1', fontSize: '0.88rem' }}
+                  style={{ width: '100%', padding: '0.55rem', borderRadius: '6px', border: '1px solid var(--color-border-strong)', fontSize: '0.88rem' }}
                 />
               </div>
 
               <div>
-                <label style={{ fontSize: '0.78rem', fontWeight: 700, color: '#475569', display: 'block', marginBottom: '0.25rem' }}>
+                <label style={{ fontSize: '0.78rem', fontWeight: 700, color: 'var(--color-text-secondary)', display: 'block', marginBottom: '0.25rem' }}>
                   Fecha de Nacimiento:
                 </label>
                 <input
                   type="date"
                   value={fechaNacimiento}
                   onChange={(e) => setFechaNacimiento(e.target.value)}
-                  style={{ width: '100%', padding: '0.55rem', borderRadius: '6px', border: '1px solid #CBD5E1', fontSize: '0.88rem' }}
+                  style={{ width: '100%', padding: '0.55rem', borderRadius: '6px', border: '1px solid var(--color-border-strong)', fontSize: '0.88rem' }}
                 />
               </div>
 
               <div>
-                <label style={{ fontSize: '0.78rem', fontWeight: 700, color: '#475569', display: 'block', marginBottom: '0.25rem' }}>
+                <label style={{ fontSize: '0.78rem', fontWeight: 700, color: 'var(--color-text-secondary)', display: 'block', marginBottom: '0.25rem' }}>
                   Sexo:
                 </label>
                 <select
                   value={sexo}
                   onChange={(e) => setSexo(e.target.value)}
-                  style={{ width: '100%', padding: '0.55rem', borderRadius: '6px', border: '1px solid #CBD5E1', fontSize: '0.88rem', backgroundColor: '#FFF' }}
+                  style={{ width: '100%', padding: '0.55rem', borderRadius: '6px', border: '1px solid var(--color-border-strong)', fontSize: '0.88rem', backgroundColor: 'var(--color-surface)' }}
                 >
                   <option value="Masculino">Masculino (M)</option>
                   <option value="Femenino">Femenino (F)</option>
@@ -524,7 +524,7 @@ const FormularioDUBSSCreateModal: React.FC<FormularioDUBSSCreateModalProps> = ({
               </div>
 
               <div>
-                <label style={{ fontSize: '0.78rem', fontWeight: 700, color: '#475569', display: 'block', marginBottom: '0.25rem' }}>
+                <label style={{ fontSize: '0.78rem', fontWeight: 700, color: 'var(--color-text-secondary)', display: 'block', marginBottom: '0.25rem' }}>
                   Grupo Sanguíneo:
                 </label>
                 <input
@@ -532,12 +532,12 @@ const FormularioDUBSSCreateModal: React.FC<FormularioDUBSSCreateModalProps> = ({
                   placeholder="Ej: O+, A+, B-"
                   value={grupoSanguineo}
                   onChange={(e) => setGrupoSanguineo(e.target.value)}
-                  style={{ width: '100%', padding: '0.55rem', borderRadius: '6px', border: '1px solid #CBD5E1', fontSize: '0.88rem' }}
+                  style={{ width: '100%', padding: '0.55rem', borderRadius: '6px', border: '1px solid var(--color-border-strong)', fontSize: '0.88rem' }}
                 />
               </div>
 
               <div>
-                <label style={{ fontSize: '0.78rem', fontWeight: 700, color: '#475569', display: 'block', marginBottom: '0.25rem' }}>
+                <label style={{ fontSize: '0.78rem', fontWeight: 700, color: 'var(--color-text-secondary)', display: 'block', marginBottom: '0.25rem' }}>
                   Peso (kg):
                 </label>
                 <input
@@ -545,12 +545,12 @@ const FormularioDUBSSCreateModal: React.FC<FormularioDUBSSCreateModalProps> = ({
                   placeholder="Ej: 70"
                   value={peso}
                   onChange={(e) => setPeso(e.target.value ? Number(e.target.value) : '')}
-                  style={{ width: '100%', padding: '0.55rem', borderRadius: '6px', border: '1px solid #CBD5E1', fontSize: '0.88rem' }}
+                  style={{ width: '100%', padding: '0.55rem', borderRadius: '6px', border: '1px solid var(--color-border-strong)', fontSize: '0.88rem' }}
                 />
               </div>
 
               <div>
-                <label style={{ fontSize: '0.78rem', fontWeight: 700, color: '#475569', display: 'block', marginBottom: '0.25rem' }}>
+                <label style={{ fontSize: '0.78rem', fontWeight: 700, color: 'var(--color-text-secondary)', display: 'block', marginBottom: '0.25rem' }}>
                   Altura (cm):
                 </label>
                 <input
@@ -558,25 +558,25 @@ const FormularioDUBSSCreateModal: React.FC<FormularioDUBSSCreateModalProps> = ({
                   placeholder="Ej: 175"
                   value={altura}
                   onChange={(e) => setAltura(e.target.value ? Number(e.target.value) : '')}
-                  style={{ width: '100%', padding: '0.55rem', borderRadius: '6px', border: '1px solid #CBD5E1', fontSize: '0.88rem' }}
+                  style={{ width: '100%', padding: '0.55rem', borderRadius: '6px', border: '1px solid var(--color-border-strong)', fontSize: '0.88rem' }}
                 />
               </div>
             </div>
           </div>
 
           {/* SECCIÓN 3: CUESTIONARIO MÉDICO */}
-          <div style={{ backgroundColor: '#FFF', padding: '1.25rem', borderRadius: '10px', border: '1px solid #E2E8F0' }}>
-            <h4 style={{ fontSize: '0.95rem', fontWeight: 800, color: '#003B70', margin: '0 0 0.5rem 0', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              <FaHeartPulse style={{ color: '#DC2626' }} /> 3. Cuestionario Médico – Gimnasio Universitario
+          <div style={{ backgroundColor: 'var(--color-surface)', padding: '1.25rem', borderRadius: '10px', border: '1px solid var(--color-border)' }}>
+            <h4 style={{ fontSize: '0.95rem', fontWeight: 800, color: 'var(--color-primary-text)', margin: '0 0 0.5rem 0', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+              <FaHeartPulse style={{ color: 'var(--color-danger-text)' }} /> 3. Cuestionario Médico – Gimnasio Universitario
             </h4>
-            <p style={{ fontSize: '0.8rem', color: '#64748B', marginBottom: '1rem', fontStyle: 'italic' }}>
+            <p style={{ fontSize: '0.8rem', color: 'var(--color-text-muted)', marginBottom: '1rem', fontStyle: 'italic' }}>
               Por favor responda con sinceridad las siguientes preguntas sobre su salud:
             </p>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', fontSize: '0.85rem' }}>
               {/* CARDIO */}
-              <div style={{ padding: '0.75rem', borderRadius: '8px', backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0' }}>
-                <label style={{ fontWeight: 700, color: '#0F172A', display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer' }}>
+              <div style={{ padding: '0.75rem', borderRadius: '8px', backgroundColor: 'var(--color-surface-muted)', border: '1px solid var(--color-border)' }}>
+                <label style={{ fontWeight: 700, color: 'var(--color-text-primary)', display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer' }}>
                   <input type="checkbox" checked={tieneCardio} onChange={(e) => setTieneCardio(e.target.checked)} />
                   ¿Tiene antecedentes de enfermedades cardiovasculares?
                 </label>
@@ -586,14 +586,14 @@ const FormularioDUBSSCreateModal: React.FC<FormularioDUBSSCreateModalProps> = ({
                     placeholder="Especifique antecedentes cardiovasculares..."
                     value={detCardio}
                     onChange={(e) => setDetCardio(e.target.value)}
-                    style={{ width: '100%', padding: '0.45rem', marginTop: '0.5rem', borderRadius: '6px', border: '1px solid #CBD5E1', fontSize: '0.82rem' }}
+                    style={{ width: '100%', padding: '0.45rem', marginTop: '0.5rem', borderRadius: '6px', border: '1px solid var(--color-border-strong)', fontSize: '0.82rem' }}
                   />
                 )}
               </div>
 
               {/* PROCEDIMIENTO CARDIO */}
-              <div style={{ padding: '0.75rem', borderRadius: '8px', backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0' }}>
-                <label style={{ fontWeight: 700, color: '#0F172A', display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer' }}>
+              <div style={{ padding: '0.75rem', borderRadius: '8px', backgroundColor: 'var(--color-surface-muted)', border: '1px solid var(--color-border)' }}>
+                <label style={{ fontWeight: 700, color: 'var(--color-text-primary)', display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer' }}>
                   <input type="checkbox" checked={tieneProcCardio} onChange={(e) => setTieneProcCardio(e.target.checked)} />
                   ¿Se le ha realizado algún procedimiento cardiovascular (bypass, marcapasos, angioplastia, etc.)?
                 </label>
@@ -603,14 +603,14 @@ const FormularioDUBSSCreateModal: React.FC<FormularioDUBSSCreateModalProps> = ({
                     placeholder="Especifique procedimiento cardiovascular..."
                     value={detProcCardio}
                     onChange={(e) => setDetProcCardio(e.target.value)}
-                    style={{ width: '100%', padding: '0.45rem', marginTop: '0.5rem', borderRadius: '6px', border: '1px solid #CBD5E1', fontSize: '0.82rem' }}
+                    style={{ width: '100%', padding: '0.45rem', marginTop: '0.5rem', borderRadius: '6px', border: '1px solid var(--color-border-strong)', fontSize: '0.82rem' }}
                   />
                 )}
               </div>
 
               {/* CONDICIONES ESPECIFICAS */}
-              <div style={{ padding: '0.75rem', borderRadius: '8px', backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0' }}>
-                <span style={{ fontWeight: 700, color: '#0F172A', display: 'block', marginBottom: '0.5rem' }}>
+              <div style={{ padding: '0.75rem', borderRadius: '8px', backgroundColor: 'var(--color-surface-muted)', border: '1px solid var(--color-border)' }}>
+                <span style={{ fontWeight: 700, color: 'var(--color-text-primary)', display: 'block', marginBottom: '0.5rem' }}>
                   Marque si padece alguna de las siguientes condiciones:
                 </span>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '0.5rem' }}>
@@ -639,14 +639,14 @@ const FormularioDUBSSCreateModal: React.FC<FormularioDUBSSCreateModalProps> = ({
                     placeholder="Detalle sobre la(s) condición(es) marcada(s)..."
                     value={detCondiciones}
                     onChange={(e) => setDetCondiciones(e.target.value)}
-                    style={{ width: '100%', padding: '0.45rem', marginTop: '0.5rem', borderRadius: '6px', border: '1px solid #CBD5E1', fontSize: '0.82rem' }}
+                    style={{ width: '100%', padding: '0.45rem', marginTop: '0.5rem', borderRadius: '6px', border: '1px solid var(--color-border-strong)', fontSize: '0.82rem' }}
                   />
                 )}
               </div>
 
               {/* CIRUGIAS */}
-              <div style={{ padding: '0.75rem', borderRadius: '8px', backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0' }}>
-                <label style={{ fontWeight: 700, color: '#0F172A', display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer' }}>
+              <div style={{ padding: '0.75rem', borderRadius: '8px', backgroundColor: 'var(--color-surface-muted)', border: '1px solid var(--color-border)' }}>
+                <label style={{ fontWeight: 700, color: 'var(--color-text-primary)', display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer' }}>
                   <input type="checkbox" checked={tieneCirugia} onChange={(e) => setTieneCirugia(e.target.checked)} />
                   ¿Le realizaron alguna intervención quirúrgica?
                 </label>
@@ -656,14 +656,14 @@ const FormularioDUBSSCreateModal: React.FC<FormularioDUBSSCreateModalProps> = ({
                     placeholder="Especifique intervención quirúrgica..."
                     value={detCirugia}
                     onChange={(e) => setDetCirugia(e.target.value)}
-                    style={{ width: '100%', padding: '0.45rem', marginTop: '0.5rem', borderRadius: '6px', border: '1px solid #CBD5E1', fontSize: '0.82rem' }}
+                    style={{ width: '100%', padding: '0.45rem', marginTop: '0.5rem', borderRadius: '6px', border: '1px solid var(--color-border-strong)', fontSize: '0.82rem' }}
                   />
                 )}
               </div>
 
               {/* FRACTURAS */}
-              <div style={{ padding: '0.75rem', borderRadius: '8px', backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0' }}>
-                <label style={{ fontWeight: 700, color: '#0F172A', display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer' }}>
+              <div style={{ padding: '0.75rem', borderRadius: '8px', backgroundColor: 'var(--color-surface-muted)', border: '1px solid var(--color-border)' }}>
+                <label style={{ fontWeight: 700, color: 'var(--color-text-primary)', display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer' }}>
                   <input type="checkbox" checked={tieneFracturas} onChange={(e) => setTieneFracturas(e.target.checked)} />
                   ¿Ha sufrido fracturas óseas?
                 </label>
@@ -673,14 +673,14 @@ const FormularioDUBSSCreateModal: React.FC<FormularioDUBSSCreateModalProps> = ({
                     placeholder="Especifique fracturas óseas..."
                     value={detFracturas}
                     onChange={(e) => setDetFracturas(e.target.value)}
-                    style={{ width: '100%', padding: '0.45rem', marginTop: '0.5rem', borderRadius: '6px', border: '1px solid #CBD5E1', fontSize: '0.82rem' }}
+                    style={{ width: '100%', padding: '0.45rem', marginTop: '0.5rem', borderRadius: '6px', border: '1px solid var(--color-border-strong)', fontSize: '0.82rem' }}
                   />
                 )}
               </div>
 
               {/* SINTOMAS DEPORTIVOS */}
-              <div style={{ padding: '0.75rem', borderRadius: '8px', backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0' }}>
-                <label style={{ fontWeight: 700, color: '#0F172A', display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer' }}>
+              <div style={{ padding: '0.75rem', borderRadius: '8px', backgroundColor: 'var(--color-surface-muted)', border: '1px solid var(--color-border)' }}>
+                <label style={{ fontWeight: 700, color: 'var(--color-text-primary)', display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer' }}>
                   <input type="checkbox" checked={tieneSintomas} onChange={(e) => setTieneSintomas(e.target.checked)} />
                   ¿Ha sufrido durante el deporte deshidratación, mareos, obnubilación o pérdida de conocimiento?
                 </label>
@@ -690,7 +690,7 @@ const FormularioDUBSSCreateModal: React.FC<FormularioDUBSSCreateModalProps> = ({
                     placeholder="Detalle el episodio..."
                     value={detSintomas}
                     onChange={(e) => setDetSintomas(e.target.value)}
-                    style={{ width: '100%', padding: '0.45rem', marginTop: '0.5rem', borderRadius: '6px', border: '1px solid #CBD5E1', fontSize: '0.82rem' }}
+                    style={{ width: '100%', padding: '0.45rem', marginTop: '0.5rem', borderRadius: '6px', border: '1px solid var(--color-border-strong)', fontSize: '0.82rem' }}
                   />
                 )}
               </div>
@@ -698,11 +698,11 @@ const FormularioDUBSSCreateModal: React.FC<FormularioDUBSSCreateModalProps> = ({
           </div>
 
           {/* SECCIÓN 3.5: DOCUMENTACIÓN DIGITAL ADJUNTA DEL POSTULANTE */}
-          <div style={{ backgroundColor: '#FFF', padding: '1.25rem', borderRadius: '10px', border: '1px solid #E2E8F0' }}>
-            <h4 style={{ fontSize: '0.95rem', fontWeight: 800, color: '#003B70', margin: '0 0 0.5rem 0', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              <FaFolderOpen style={{ color: '#D97706' }} /> 3.5. Documentación Adjunta del Postulante / Socio
+          <div style={{ backgroundColor: 'var(--color-surface)', padding: '1.25rem', borderRadius: '10px', border: '1px solid var(--color-border)' }}>
+            <h4 style={{ fontSize: '0.95rem', fontWeight: 800, color: 'var(--color-primary-text)', margin: '0 0 0.5rem 0', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+              <FaFolderOpen style={{ color: 'var(--color-warning-text)' }} /> 3.5. Documentación Adjunta del Postulante / Socio
             </h4>
-            <p style={{ fontSize: '0.8rem', color: '#64748B', marginBottom: '1rem' }}>
+            <p style={{ fontSize: '0.8rem', color: 'var(--color-text-muted)', marginBottom: '1rem' }}>
               Archivos digitales y requisitos registrados previamente en el sistema para verificación:
             </p>
 
@@ -713,14 +713,14 @@ const FormularioDUBSSCreateModal: React.FC<FormularioDUBSSCreateModalProps> = ({
                   const fileUrl = doc.archivo_url || doc.ruta_archivo;
                   return (
                     <div key={doc.id} style={{
-                      padding: '0.75rem', borderRadius: '8px', backgroundColor: '#F8FAFC', border: '1px solid #CBD5E1',
+                      padding: '0.75rem', borderRadius: '8px', backgroundColor: 'var(--color-surface-muted)', border: '1px solid var(--color-border-strong)',
                       display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.5rem'
                     }}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', overflow: 'hidden' }}>
-                        <FaFileLines style={{ color: '#003B70', fontSize: '1.2rem', flexShrink: 0 }} />
+                        <FaFileLines style={{ color: 'var(--color-primary-text)', fontSize: '1.2rem', flexShrink: 0 }} />
                         <div style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                          <div style={{ fontSize: '0.82rem', fontWeight: 700, color: '#0F172A' }}>{nombreTipo}</div>
-                          <span style={{ fontSize: '0.72rem', color: '#166534', fontWeight: 700, display: 'inline-flex', alignItems: 'center', gap: '3px' }}>
+                          <div style={{ fontSize: '0.82rem', fontWeight: 700, color: 'var(--color-text-primary)' }}>{nombreTipo}</div>
+                          <span style={{ fontSize: '0.72rem', color: 'var(--color-success-text)', fontWeight: 700, display: 'inline-flex', alignItems: 'center', gap: '3px' }}>
                             <FaCheck size={10} /> Cargado en Sistema
                           </span>
                         </div>
@@ -731,7 +731,7 @@ const FormularioDUBSSCreateModal: React.FC<FormularioDUBSSCreateModalProps> = ({
                           target="_blank"
                           rel="noopener noreferrer"
                           style={{
-                            padding: '0.3rem 0.6rem', borderRadius: '5px', backgroundColor: '#003B70', color: '#FFF',
+                            padding: '0.3rem 0.6rem', borderRadius: '5px', backgroundColor: 'var(--color-primary)', color: '#FFF',
                             fontSize: '0.75rem', fontWeight: 700, textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '0.3rem', flexShrink: 0
                           }}
                         >
@@ -743,7 +743,7 @@ const FormularioDUBSSCreateModal: React.FC<FormularioDUBSSCreateModalProps> = ({
                 })}
               </div>
             ) : (
-              <div style={{ padding: '0.85rem 1rem', borderRadius: '8px', backgroundColor: '#FEF3C7', border: '1px solid #FCD34D', color: '#92400E', fontSize: '0.82rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+              <div style={{ padding: '0.85rem 1rem', borderRadius: '8px', backgroundColor: 'var(--color-warning-bg)', border: '1px solid rgba(217, 119, 6, 0.35)', color: 'var(--color-warning-text)', fontSize: '0.82rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                 <FaPaperclip style={{ fontSize: '1.1rem', flexShrink: 0 }} />
                 <span>
                   No se encontraron archivos digitales registrados previamente para este usuario. El postulante podrá presentar sus fotocopias (C.I., Matrícula Universitaria) en administración al momento del control.
@@ -753,45 +753,45 @@ const FormularioDUBSSCreateModal: React.FC<FormularioDUBSSCreateModalProps> = ({
           </div>
 
           {/* SECCIÓN 4: REGLAMENTO INTERNO Y DECLARACIÓN JURADA */}
-          <div style={{ backgroundColor: '#F8FAFC', padding: '1.25rem', borderRadius: '10px', border: '1px solid #CBD5E1' }}>
-            <h4 style={{ fontSize: '0.95rem', fontWeight: 800, color: '#003B70', margin: '0 0 0.75rem 0', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              <FaShieldHalved style={{ color: '#003B70' }} /> 4. Reglamento Interno del Gimnasio & Declaración Jurada
+          <div style={{ backgroundColor: 'var(--color-surface-muted)', padding: '1.25rem', borderRadius: '10px', border: '1px solid var(--color-border-strong)' }}>
+            <h4 style={{ fontSize: '0.95rem', fontWeight: 800, color: 'var(--color-primary-text)', margin: '0 0 0.75rem 0', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+              <FaShieldHalved style={{ color: 'var(--color-primary-text)' }} /> 4. Reglamento Interno del Gimnasio & Declaración Jurada
             </h4>
             
             {/* REGLAMENTO INTERNO BOX */}
-            <div style={{ backgroundColor: '#FFFFFF', padding: '1rem', borderRadius: '8px', border: '1px solid #E2E8F0', marginBottom: '1rem' }}>
-              <h5 style={{ fontSize: '0.85rem', fontWeight: 800, color: '#0F172A', margin: '0 0 0.5rem 0', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-                <FaBookOpen style={{ color: '#0284C7' }} /> Normas y Condiciones para el Uso del Gimnasio Universitario (DUBSS-UAGRM):
+            <div style={{ backgroundColor: 'var(--color-surface)', padding: '1rem', borderRadius: '8px', border: '1px solid var(--color-border)', marginBottom: '1rem' }}>
+              <h5 style={{ fontSize: '0.85rem', fontWeight: 800, color: 'var(--color-text-primary)', margin: '0 0 0.5rem 0', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                <FaBookOpen style={{ color: 'var(--color-primary-text)' }} /> Normas y Condiciones para el Uso del Gimnasio Universitario (DUBSS-UAGRM):
               </h5>
-              <div style={{ fontSize: '0.8rem', color: '#475569', display: 'flex', flexDirection: 'column', gap: '0.5rem', lineHeight: '1.4' }}>
+              <div style={{ fontSize: '0.8rem', color: 'var(--color-text-secondary)', display: 'flex', flexDirection: 'column', gap: '0.5rem', lineHeight: '1.4' }}>
                 <div style={{ display: 'flex', gap: '0.4rem' }}>
-                  <strong style={{ color: '#003B70', whiteSpace: 'nowrap' }}>1. Reserva y Frecuencia:</strong>
+                  <strong style={{ color: 'var(--color-primary-text)', whiteSpace: 'nowrap' }}>1. Reserva y Frecuencia:</strong>
                   <span>La reserva de cupo es personal e intransferible. El socio solo puede realizar <strong>1 solicitud por disciplina al mes</strong> y debe asistir en el horario/turno registrado.</span>
                 </div>
                 <div style={{ display: 'flex', gap: '0.4rem' }}>
-                  <strong style={{ color: '#003B70', whiteSpace: 'nowrap' }}>2. Certificado Médico:</strong>
+                  <strong style={{ color: 'var(--color-primary-text)', whiteSpace: 'nowrap' }}>2. Certificado Médico:</strong>
                   <span>En caso de haber respondido afirmativamente en el Cuestionario Médico (Sección 3), el socio se compromete a presentar su <strong>Certificado de Aptitud Física emitido por médico colegiado</strong> en un plazo máximo de <strong>15 días</strong> en administración.</span>
                 </div>
                 <div style={{ display: 'flex', gap: '0.4rem' }}>
-                  <strong style={{ color: '#003B70', whiteSpace: 'nowrap' }}>3. Indumentaria e Higiene:</strong>
+                  <strong style={{ color: 'var(--color-primary-text)', whiteSpace: 'nowrap' }}>3. Indumentaria e Higiene:</strong>
                   <span>Es de carácter obligatorio el uso de ropa deportiva adecuada, zapatillas limpias de uso exclusivo para las salas y <strong>toalla personal</strong> para la desinfección de equipos.</span>
                 </div>
                 <div style={{ display: 'flex', gap: '0.4rem' }}>
-                  <strong style={{ color: '#003B70', whiteSpace: 'nowrap' }}>4. Deslinde Legal:</strong>
+                  <strong style={{ color: 'var(--color-primary-text)', whiteSpace: 'nowrap' }}>4. Deslinde Legal:</strong>
                   <span>El Gimnasio Universitario UAGRM queda eximido de cualquier responsabilidad civil o penal por accidentes o descompensaciones provocadas por la omisión de antecedentes médicos o uso negligente de los aparatos.</span>
                 </div>
               </div>
             </div>
 
             {/* DECLARACIÓN JURADA BOX */}
-            <div style={{ backgroundColor: '#FEF3C7', padding: '1rem', borderRadius: '8px', border: '1px solid #FCD34D' }}>
+            <div style={{ backgroundColor: 'var(--color-warning-bg)', padding: '1rem', borderRadius: '8px', border: '1px solid rgba(217, 119, 6, 0.35)' }}>
               <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.5rem', marginBottom: '0.5rem' }}>
-                <FaCircleInfo style={{ color: '#D97706', fontSize: '1rem', marginTop: '0.15rem', flexShrink: 0 }} />
-                <p style={{ fontSize: '0.8rem', color: '#78350F', lineHeight: '1.4', margin: 0, fontWeight: 600 }}>
+                <FaCircleInfo style={{ color: 'var(--color-warning-text)', fontSize: '1rem', marginTop: '0.15rem', flexShrink: 0 }} />
+                <p style={{ fontSize: '0.8rem', color: 'var(--color-warning-text)', lineHeight: '1.4', margin: 0, fontWeight: 600 }}>
                   <strong>DECLARACIÓN JURADA DUBSS-FR-03:</strong> Declaro bajo juramento que los datos ingresados en esta ficha y cuestionario médico son exactos y verdaderos. Acepto el Reglamento Interno y me comprometo a cumplir todas sus disposiciones sanitarias y disciplinares.
                 </p>
               </div>
-              <label style={{ fontSize: '0.85rem', fontWeight: 800, color: '#78350F', display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer', marginTop: '0.75rem', paddingTop: '0.5rem', borderTop: '1px dashed #F59E0B' }}>
+              <label style={{ fontSize: '0.85rem', fontWeight: 800, color: 'var(--color-warning-text)', display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer', marginTop: '0.75rem', paddingTop: '0.5rem', borderTop: '1px dashed #F59E0B' }}>
                 <input
                   type="checkbox"
                   checked={aceptaDeclaracion}
@@ -808,7 +808,7 @@ const FormularioDUBSSCreateModal: React.FC<FormularioDUBSSCreateModalProps> = ({
               type="button"
               onClick={onClose}
               style={{
-                padding: '0.65rem 1.25rem', borderRadius: '8px', backgroundColor: '#F1F5F9', color: '#475569',
+                padding: '0.65rem 1.25rem', borderRadius: '8px', backgroundColor: 'var(--color-surface-muted)', color: 'var(--color-text-secondary)',
                 border: 'none', fontWeight: 700, fontSize: '0.88rem', cursor: 'pointer'
               }}
             >
@@ -819,10 +819,10 @@ const FormularioDUBSSCreateModal: React.FC<FormularioDUBSSCreateModalProps> = ({
               disabled={isPending}
               style={{
                 padding: '0.65rem 1.5rem', borderRadius: '8px',
-                background: 'linear-gradient(135deg, #003B70 0%, #002A52 100%)',
+                background: 'linear-gradient(135deg, #990000 0%, #570000 100%)',
                 color: '#FFF', border: 'none', fontWeight: 700, fontSize: '0.88rem', cursor: 'pointer',
                 display: 'flex', alignItems: 'center', gap: '0.5rem', opacity: isPending ? 0.7 : 1,
-                boxShadow: '0 4px 12px rgba(0, 59, 112, 0.25)'
+                boxShadow: '0 4px 12px rgba(153, 0, 0, 0.25)'
               }}
             >
               <FaCheck /> {isPending ? 'Guardando Solicitud...' : 'Guardar y Enviar Solicitud DUBSS-FR-03'}

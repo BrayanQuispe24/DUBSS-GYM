@@ -219,22 +219,22 @@ const TramitesPage: React.FC = () => {
     <section>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.25rem' }}>
         <div>
-          <h2 style={{ fontSize: '1.4rem', fontWeight: 800, color: '#0B1727', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-            <FaFileInvoiceDollar style={{ color: '#003B70' }} /> Trámites, Pagos & Boletas de Inscripción
+          <h2 style={{ fontSize: '1.4rem', fontWeight: 800, color: 'var(--color-text-primary)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            <FaFileInvoiceDollar style={{ color: 'var(--color-primary-text)' }} /> Trámites, Pagos & Boletas de Inscripción
           </h2>
-          <p style={{ fontSize: '0.85rem', color: '#64748B' }}>
+          <p style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)' }}>
             Gestión de solicitudes de ingreso, comprobantes de pago y boletas oficiales de membresía universitaria.
           </p>
         </div>
       </div>
 
       {/* TABS NAVEGACIÓN */}
-      <div style={{ display: 'flex', gap: '0.5rem', borderBottom: '1px solid #E2E8F0', marginBottom: '1.25rem' }}>
+      <div style={{ display: 'flex', gap: '0.5rem', borderBottom: '1px solid var(--color-border)', marginBottom: '1.25rem' }}>
         <button
           onClick={() => { setTab('solicitudes'); setFiltroEstado('todos'); }}
           style={{
             padding: '0.65rem 1.25rem', border: 'none', background: 'none', fontWeight: 700, fontSize: '0.85rem', cursor: 'pointer',
-            borderBottom: tab === 'solicitudes' ? '2px solid #0077D4' : '2px solid transparent', color: tab === 'solicitudes' ? '#0077D4' : '#64748B',
+            borderBottom: tab === 'solicitudes' ? '2px solid var(--color-primary)' : '2px solid transparent', color: tab === 'solicitudes' ? 'var(--color-primary-text)' : 'var(--color-text-muted)',
             display: 'flex', alignItems: 'center', gap: '0.4rem', transition: 'all 0.15s ease',
           }}
         >
@@ -244,7 +244,7 @@ const TramitesPage: React.FC = () => {
           onClick={() => { setTab('pagos'); setFiltroEstado('todos'); }}
           style={{
             padding: '0.65rem 1.25rem', border: 'none', background: 'none', fontWeight: 700, fontSize: '0.85rem', cursor: 'pointer',
-            borderBottom: tab === 'pagos' ? '2px solid #0077D4' : '2px solid transparent', color: tab === 'pagos' ? '#0077D4' : '#64748B',
+            borderBottom: tab === 'pagos' ? '2px solid var(--color-primary)' : '2px solid transparent', color: tab === 'pagos' ? 'var(--color-primary-text)' : 'var(--color-text-muted)',
             display: 'flex', alignItems: 'center', gap: '0.4rem', transition: 'all 0.15s ease',
           }}
         >
@@ -254,7 +254,7 @@ const TramitesPage: React.FC = () => {
           onClick={() => { setTab('inscripciones'); setFiltroEstado('todos'); }}
           style={{
             padding: '0.65rem 1.25rem', border: 'none', background: 'none', fontWeight: 700, fontSize: '0.85rem', cursor: 'pointer',
-            borderBottom: tab === 'inscripciones' ? '2px solid #0077D4' : '2px solid transparent', color: tab === 'inscripciones' ? '#0077D4' : '#64748B',
+            borderBottom: tab === 'inscripciones' ? '2px solid var(--color-primary)' : '2px solid transparent', color: tab === 'inscripciones' ? 'var(--color-primary-text)' : 'var(--color-text-muted)',
             display: 'flex', alignItems: 'center', gap: '0.4rem', transition: 'all 0.15s ease',
           }}
         >
@@ -264,10 +264,10 @@ const TramitesPage: React.FC = () => {
 
       {/* BARRA DE FILTROS DINÁMICOS */}
       <div style={{
-        backgroundColor: '#FFF',
+        backgroundColor: 'var(--color-surface)',
         padding: '0.85rem 1rem',
         borderRadius: '4px',
-        border: '1px solid #E2E8F0',
+        border: '1px solid var(--color-border)',
         marginBottom: '1.25rem',
         display: 'flex',
         flexWrap: 'wrap',
@@ -278,8 +278,8 @@ const TramitesPage: React.FC = () => {
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.75rem', alignItems: 'center', flex: 1 }}>
           {/* BUSCADOR POR TEXTO */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem', minWidth: '220px', flex: '1 1 220px' }}>
-            <label style={{ fontSize: '0.72rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: '#475569', display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
-              <FaMagnifyingGlass style={{ color: '#0077D4' }} /> Buscar por N°, Socio o Email
+            <label style={{ fontSize: '0.72rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--color-text-secondary)', display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
+              <FaMagnifyingGlass style={{ color: 'var(--color-primary-text)' }} /> Buscar por N°, Socio o Email
             </label>
             <input
               type="text"
@@ -289,19 +289,19 @@ const TramitesPage: React.FC = () => {
               style={{
                 padding: '0.45rem 0.65rem',
                 borderRadius: '4px',
-                border: '1px solid #CBD5E1',
+                border: '1px solid var(--color-border-strong)',
                 fontSize: '0.82rem',
                 outline: 'none',
                 width: '100%',
-                backgroundColor: '#F8FAFC'
+                backgroundColor: 'var(--color-surface-muted)'
               }}
             />
           </div>
 
           {/* FILTRO DE ESTADO */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem', minWidth: '190px' }}>
-            <label style={{ fontSize: '0.72rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: '#475569', display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
-              <FaFilter style={{ color: '#0077D4' }} /> Estado del Formulario
+            <label style={{ fontSize: '0.72rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--color-text-secondary)', display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
+              <FaFilter style={{ color: 'var(--color-primary-text)' }} /> Estado del Formulario
             </label>
             <select
               value={filtroEstado}
@@ -309,12 +309,12 @@ const TramitesPage: React.FC = () => {
               style={{
                 padding: '0.45rem 0.65rem',
                 borderRadius: '4px',
-                border: '1px solid #CBD5E1',
+                border: '1px solid var(--color-border-strong)',
                 fontSize: '0.82rem',
                 outline: 'none',
-                backgroundColor: '#F8FAFC',
+                backgroundColor: 'var(--color-surface-muted)',
                 fontWeight: 600,
-                color: '#1E293B',
+                color: 'var(--color-text-primary)',
                 cursor: 'pointer'
               }}
             >
@@ -343,8 +343,8 @@ const TramitesPage: React.FC = () => {
 
           {/* FECHA DESDE */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
-            <label style={{ fontSize: '0.72rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: '#475569', display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
-              <FaCalendarDays style={{ color: '#0077D4' }} /> Fecha Desde
+            <label style={{ fontSize: '0.72rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--color-text-secondary)', display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
+              <FaCalendarDays style={{ color: 'var(--color-primary-text)' }} /> Fecha Desde
             </label>
             <input
               type="date"
@@ -353,19 +353,19 @@ const TramitesPage: React.FC = () => {
               style={{
                 padding: '0.45rem 0.65rem',
                 borderRadius: '4px',
-                border: '1px solid #CBD5E1',
+                border: '1px solid var(--color-border-strong)',
                 fontSize: '0.82rem',
                 outline: 'none',
-                backgroundColor: '#F8FAFC',
-                color: '#1E293B'
+                backgroundColor: 'var(--color-surface-muted)',
+                color: 'var(--color-text-primary)'
               }}
             />
           </div>
 
           {/* FECHA HASTA */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
-            <label style={{ fontSize: '0.72rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: '#475569', display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
-              <FaCalendarDays style={{ color: '#0077D4' }} /> Fecha Hasta
+            <label style={{ fontSize: '0.72rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--color-text-secondary)', display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
+              <FaCalendarDays style={{ color: 'var(--color-primary-text)' }} /> Fecha Hasta
             </label>
             <input
               type="date"
@@ -374,11 +374,11 @@ const TramitesPage: React.FC = () => {
               style={{
                 padding: '0.45rem 0.65rem',
                 borderRadius: '4px',
-                border: '1px solid #CBD5E1',
+                border: '1px solid var(--color-border-strong)',
                 fontSize: '0.82rem',
                 outline: 'none',
-                backgroundColor: '#F8FAFC',
-                color: '#1E293B'
+                backgroundColor: 'var(--color-surface-muted)',
+                color: 'var(--color-text-primary)'
               }}
             />
           </div>
@@ -396,9 +396,9 @@ const TramitesPage: React.FC = () => {
             style={{
               padding: '0.45rem 0.75rem',
               borderRadius: '4px',
-              border: '1px solid #CBD5E1',
-              backgroundColor: '#F1F5F9',
-              color: '#475569',
+              border: '1px solid var(--color-border-strong)',
+              backgroundColor: 'var(--color-surface-muted)',
+              color: 'var(--color-text-secondary)',
               fontWeight: 700,
               fontSize: '0.78rem',
               cursor: 'pointer',
@@ -433,8 +433,8 @@ const TramitesPage: React.FC = () => {
               <button
                 onClick={() => setIsCreateDubssModalOpen(true)}
                 style={{
-                  padding: '0.55rem 1rem', background: '#0077D4',
-                  color: '#FFF', border: '1px solid #005FA8', borderRadius: '4px', fontWeight: 700, fontSize: '0.80rem',
+                  padding: '0.55rem 1rem', background: 'var(--color-primary)',
+                  color: '#FFF', border: '1px solid var(--color-primary)', borderRadius: '4px', fontWeight: 700, fontSize: '0.80rem',
                   cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.4rem',
                   textTransform: 'uppercase', letterSpacing: '0.03em'
                 }}
@@ -443,16 +443,16 @@ const TramitesPage: React.FC = () => {
               </button>
             )}
           </div>
-          {loadSol ? <div style={{ fontSize: '0.85rem', color: '#64748B' }}>Cargando solicitudes...</div> : filteredSolicitudes.length === 0 ? (
-            <div style={{ padding: '3rem', textAlign: 'center', backgroundColor: '#FFF', borderRadius: '4px', border: '1px solid #CBD5E1', color: '#64748B', fontSize: '0.85rem' }}>
+          {loadSol ? <div style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)' }}>Cargando solicitudes...</div> : filteredSolicitudes.length === 0 ? (
+            <div style={{ padding: '3rem', textAlign: 'center', backgroundColor: 'var(--color-surface)', borderRadius: '4px', border: '1px solid var(--color-border-strong)', color: 'var(--color-text-muted)', fontSize: '0.85rem' }}>
               {solicitudes.length === 0
                 ? 'No hay formularios de solicitud registrados al momento.'
                 : 'No se encontraron solicitudes que coincidan con los filtros aplicados.'}
             </div>
           ) : (
-            <div style={{ background: '#FFF', borderRadius: '4px', border: '1px solid #CBD5E1', overflow: 'hidden' }}>
+            <div style={{ background: 'var(--color-surface)', borderRadius: '4px', border: '1px solid var(--color-border-strong)', overflow: 'hidden' }}>
               <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.82rem' }}>
-                <thead style={{ background: '#F8FAFC', color: '#475569', fontWeight: 700, fontSize: '0.72rem', textTransform: 'uppercase', letterSpacing: '0.05em', borderBottom: '1px solid #CBD5E1' }}>
+                <thead style={{ background: 'var(--color-surface-muted)', color: 'var(--color-text-secondary)', fontWeight: 700, fontSize: '0.72rem', textTransform: 'uppercase', letterSpacing: '0.05em', borderBottom: '1px solid var(--color-border-strong)' }}>
                   <tr>
                     <th style={{ padding: '0.65rem 0.85rem', textAlign: 'left' }}>Nº Formulario</th>
                     <th style={{ padding: '0.65rem 0.85rem', textAlign: 'left' }}>Usuario / Socio</th>
@@ -472,10 +472,10 @@ const TramitesPage: React.FC = () => {
                     const hasPagoCompletado = boletasList.some((b: any) => String(b.estado || '').toLowerCase() === 'completado');
 
                     const badgeStyle = isAprobado
-                      ? { bg: '#DCFCE7', color: '#15803D', text: 'APROBADO (Cupo Ocupado)' }
+                      ? { bg: 'var(--color-success-bg)', color: 'var(--color-success-text)', text: 'APROBADO (Cupo Ocupado)' }
                       : isRechazado
-                      ? { bg: '#FEE2E2', color: '#B91C1C', text: 'RECHAZADO (Cupo Liberado)' }
-                      : { bg: '#FEF3C7', color: '#92400E', text: 'PENDIENTE (Cupo Reservado)' };
+                      ? { bg: 'var(--color-danger-bg)', color: 'var(--color-danger-text)', text: 'RECHAZADO (Cupo Liberado)' }
+                      : { bg: 'var(--color-warning-bg)', color: 'var(--color-warning-text)', text: 'PENDIENTE (Cupo Reservado)' };
 
                     const dh = s.disciplina_horario || s.disciplinaHorario;
                     const h = dh?.horario;
@@ -483,17 +483,17 @@ const TramitesPage: React.FC = () => {
                     const horarioStr = h ? `${h.dia_semana ? h.dia_semana + ': ' : ''}${formatTime(h.hora_inicio || h.inicio)} - ${formatTime(h.hora_fin || h.fin)}` : '';
 
                     return (
-                      <tr key={s.id} style={{ borderBottom: '1px solid #E2E8F0' }}>
-                        <td style={{ padding: '0.65rem 0.85rem', fontWeight: 700, color: '#0F172A', fontFamily: 'monospace' }}>{s.numero_formulario}</td>
+                      <tr key={s.id} style={{ borderBottom: '1px solid var(--color-border)' }}>
+                        <td style={{ padding: '0.65rem 0.85rem', fontWeight: 700, color: 'var(--color-text-primary)', fontFamily: 'monospace' }}>{s.numero_formulario}</td>
                         <td style={{ padding: '0.65rem 0.85rem' }}>
                           <div style={{ fontWeight: 600 }}>{s.usuario?.nombre} {s.usuario?.apellido}</div>
-                          <div style={{ fontSize: '0.72rem', color: '#64748B' }}>{s.usuario?.email}</div>
+                          <div style={{ fontSize: '0.72rem', color: 'var(--color-text-muted)' }}>{s.usuario?.email}</div>
                         </td>
                         <td style={{ padding: '0.65rem 0.85rem' }}>
-                          <div style={{ fontWeight: 700, color: '#0077D4' }}>{s.disciplina?.nombre}</div>
-                          {horarioStr && <div style={{ fontSize: '0.75rem', color: '#475569', display: 'flex', alignItems: 'center', gap: '4px' }}><FaClock size={11} /> {horarioStr}</div>}
+                          <div style={{ fontWeight: 700, color: 'var(--color-primary-text)' }}>{s.disciplina?.nombre}</div>
+                          {horarioStr && <div style={{ fontSize: '0.75rem', color: 'var(--color-text-secondary)', display: 'flex', alignItems: 'center', gap: '4px' }}><FaClock size={11} /> {horarioStr}</div>}
                           {s.plan && (
-                            <div style={{ fontSize: '0.72rem', color: '#166534', fontWeight: 700, marginTop: '2px', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                            <div style={{ fontSize: '0.72rem', color: 'var(--color-success-text)', fontWeight: 700, marginTop: '2px', display: 'flex', alignItems: 'center', gap: '4px' }}>
                               <FaCreditCard size={11} /> {s.plan.nombre} {s.plan.tarifa?.precio ? `(Bs. ${Number(s.plan.tarifa.precio).toFixed(2)})` : ''}
                             </div>
                           )}
@@ -511,8 +511,8 @@ const TramitesPage: React.FC = () => {
                                   <span
                                     title="La Boleta de Inscripción ya fue emitida. El estado de la solicitud no puede modificarse."
                                     style={{
-                                      padding: '0.3rem 0.55rem', borderRadius: '4px', backgroundColor: '#F1F5F9', color: '#475569',
-                                      border: '1px solid #CBD5E1', fontWeight: 700, fontSize: '0.75rem', display: 'inline-flex', alignItems: 'center', gap: '0.3rem'
+                                      padding: '0.3rem 0.55rem', borderRadius: '4px', backgroundColor: 'var(--color-surface-muted)', color: 'var(--color-text-secondary)',
+                                      border: '1px solid var(--color-border-strong)', fontWeight: 700, fontSize: '0.75rem', display: 'inline-flex', alignItems: 'center', gap: '0.3rem'
                                     }}
                                   >
                                     <FaLock size={11} /> Inscrito / Pago Verificado
@@ -524,8 +524,8 @@ const TramitesPage: React.FC = () => {
                                         onClick={() => updateEstadoMutation.mutate({ id: s.id, estado: 'aprobado' })}
                                         title="Aprobar Solicitud de Membresía"
                                         style={{
-                                          padding: '0.3rem 0.55rem', borderRadius: '4px', backgroundColor: '#DCFCE7', color: '#15803D',
-                                          border: '1px solid #86EFAC', fontWeight: 700, fontSize: '0.75rem', cursor: 'pointer',
+                                          padding: '0.3rem 0.55rem', borderRadius: '4px', backgroundColor: 'var(--color-success-bg)', color: 'var(--color-success-text)',
+                                          border: '1px solid rgba(22, 163, 74, 0.35)', fontWeight: 700, fontSize: '0.75rem', cursor: 'pointer',
                                           display: 'inline-flex', alignItems: 'center', gap: '0.3rem'
                                         }}
                                       >
@@ -537,8 +537,8 @@ const TramitesPage: React.FC = () => {
                                         onClick={() => updateEstadoMutation.mutate({ id: s.id, estado: 'rechazado' })}
                                         title="Rechazar Solicitud (Libera Cupo)"
                                         style={{
-                                          padding: '0.3rem 0.55rem', borderRadius: '4px', backgroundColor: '#FEE2E2', color: '#B91C1C',
-                                          border: '1px solid #FCA5A5', fontWeight: 700, fontSize: '0.75rem', cursor: 'pointer',
+                                          padding: '0.3rem 0.55rem', borderRadius: '4px', backgroundColor: 'var(--color-danger-bg)', color: 'var(--color-danger-text)',
+                                          border: '1px solid rgba(220, 38, 38, 0.35)', fontWeight: 700, fontSize: '0.75rem', cursor: 'pointer',
                                           display: 'inline-flex', alignItems: 'center', gap: '0.3rem'
                                         }}
                                       >
@@ -556,8 +556,8 @@ const TramitesPage: React.FC = () => {
                               }}
                               title="Ver Documentos Digitales Adjuntados por el Usuario"
                               style={{
-                                padding: '0.3rem 0.55rem', borderRadius: '4px', backgroundColor: '#E0F2FE', color: '#0369A1',
-                                border: '1px solid #7DD3FC', fontWeight: 700, fontSize: '0.75rem', cursor: 'pointer',
+                                padding: '0.3rem 0.55rem', borderRadius: '4px', backgroundColor: 'var(--color-primary-soft)', color: 'var(--color-primary-text)',
+                                border: '1px solid rgba(220, 38, 38, 0.30)', fontWeight: 700, fontSize: '0.75rem', cursor: 'pointer',
                                 display: 'inline-flex', alignItems: 'center', gap: '0.3rem'
                               }}
                             >
@@ -570,8 +570,8 @@ const TramitesPage: React.FC = () => {
                               }}
                               title="Ver Formulario Oficial DUBSS-FR-03"
                               style={{
-                                padding: '0.3rem 0.55rem', borderRadius: '4px', backgroundColor: '#FEF3C7', color: '#D97706',
-                                border: '1px solid #FCD34D', fontWeight: 700, fontSize: '0.75rem', cursor: 'pointer',
+                                padding: '0.3rem 0.55rem', borderRadius: '4px', backgroundColor: 'var(--color-warning-bg)', color: 'var(--color-warning-text)',
+                                border: '1px solid rgba(217, 119, 6, 0.35)', fontWeight: 700, fontSize: '0.75rem', cursor: 'pointer',
                                 display: 'inline-flex', alignItems: 'center', gap: '0.3rem'
                               }}
                             >
@@ -594,21 +594,21 @@ const TramitesPage: React.FC = () => {
         <div>
           {isAdmin && (
             <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '1rem' }}>
-              <button onClick={() => setIsPagoModal(true)} style={{ padding: '0.55rem 1rem', background: '#0077D4', color: '#FFF', border: '1px solid #005FA8', borderRadius: '4px', fontWeight: 700, fontSize: '0.80rem', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.4rem', textTransform: 'uppercase', letterSpacing: '0.03em' }}>
+              <button onClick={() => setIsPagoModal(true)} style={{ padding: '0.55rem 1rem', background: 'var(--color-primary)', color: '#FFF', border: '1px solid var(--color-primary)', borderRadius: '4px', fontWeight: 700, fontSize: '0.80rem', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.4rem', textTransform: 'uppercase', letterSpacing: '0.03em' }}>
                 <FaPlus /> Registrar Boleta de Pago Manual
               </button>
             </div>
           )}
-          {loadPagos ? <div style={{ fontSize: '0.85rem', color: '#64748B' }}>Cargando pagos...</div> : filteredPagos.length === 0 ? (
-            <div style={{ padding: '3rem', textAlign: 'center', backgroundColor: '#FFF', borderRadius: '4px', border: '1px solid #CBD5E1', color: '#64748B', fontSize: '0.85rem' }}>
+          {loadPagos ? <div style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)' }}>Cargando pagos...</div> : filteredPagos.length === 0 ? (
+            <div style={{ padding: '3rem', textAlign: 'center', backgroundColor: 'var(--color-surface)', borderRadius: '4px', border: '1px solid var(--color-border-strong)', color: 'var(--color-text-muted)', fontSize: '0.85rem' }}>
               {pagos.length === 0
                 ? 'No hay boletas de pago registradas al momento.'
                 : 'No se encontraron boletas de pago que coincidan con los filtros aplicados.'}
             </div>
           ) : (
-            <div style={{ background: '#FFF', borderRadius: '4px', border: '1px solid #CBD5E1', overflow: 'hidden' }}>
+            <div style={{ background: 'var(--color-surface)', borderRadius: '4px', border: '1px solid var(--color-border-strong)', overflow: 'hidden' }}>
               <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.82rem' }}>
-                <thead style={{ background: '#F8FAFC', color: '#475569', fontWeight: 700, fontSize: '0.72rem', textTransform: 'uppercase', letterSpacing: '0.05em', borderBottom: '1px solid #CBD5E1' }}>
+                <thead style={{ background: 'var(--color-surface-muted)', color: 'var(--color-text-secondary)', fontWeight: 700, fontSize: '0.72rem', textTransform: 'uppercase', letterSpacing: '0.05em', borderBottom: '1px solid var(--color-border-strong)' }}>
                   <tr>
                     <th style={{ padding: '0.65rem 0.85rem', textAlign: 'left' }}>Nº Boleta</th>
                     <th style={{ padding: '0.65rem 0.85rem', textAlign: 'left' }}>Formulario / Socio</th>
@@ -626,17 +626,17 @@ const TramitesPage: React.FC = () => {
                     const u = p?.formulario_solicitud?.usuario;
 
                     const badgeStyle = isCompletadoPago
-                      ? { bg: '#DCFCE7', color: '#166534', text: 'COMPLETADO' }
-                      : { bg: '#FEF3C7', color: '#92400E', text: 'PENDIENTE (Pagar en Caja Campus)' };
+                      ? { bg: 'var(--color-success-bg)', color: 'var(--color-success-text)', text: 'COMPLETADO' }
+                      : { bg: 'var(--color-warning-bg)', color: 'var(--color-warning-text)', text: 'PENDIENTE (Pagar en Caja Campus)' };
 
                     return (
-                      <tr key={p?.id || idx} style={{ borderBottom: '1px solid #E2E8F0' }}>
-                        <td style={{ padding: '0.65rem 0.85rem', fontWeight: 700, color: '#0F172A', fontFamily: 'monospace' }}>{p?.numero_boleta}</td>
+                      <tr key={p?.id || idx} style={{ borderBottom: '1px solid var(--color-border)' }}>
+                        <td style={{ padding: '0.65rem 0.85rem', fontWeight: 700, color: 'var(--color-text-primary)', fontFamily: 'monospace' }}>{p?.numero_boleta}</td>
                         <td style={{ padding: '0.65rem 0.85rem' }}>
                           <div style={{ fontWeight: 600 }}>{u ? `${u.nombre} ${u.apellido}` : '-'}</div>
-                          <div style={{ fontSize: '0.72rem', color: '#64748B' }}>{p?.formulario_solicitud?.numero_formulario}</div>
+                          <div style={{ fontSize: '0.72rem', color: 'var(--color-text-muted)' }}>{p?.formulario_solicitud?.numero_formulario}</div>
                         </td>
-                        <td style={{ padding: '0.65rem 0.85rem', fontWeight: 800, color: '#0077D4' }}>Bs. {p?.monto || 0}</td>
+                        <td style={{ padding: '0.65rem 0.85rem', fontWeight: 800, color: 'var(--color-primary-text)' }}>Bs. {p?.monto || 0}</td>
                         <td style={{ padding: '0.65rem 0.85rem' }}>{p?.metodo_pago || 'Caja Campus UAGRM'}</td>
                         <td style={{ padding: '0.65rem 0.85rem' }}>
                           <span style={{ padding: '0.2rem 0.5rem', borderRadius: '2px', background: badgeStyle.bg, color: badgeStyle.color, fontWeight: 700, fontSize: '0.70rem', textTransform: 'uppercase', letterSpacing: '0.03em', display: 'inline-block' }}>
@@ -652,8 +652,8 @@ const TramitesPage: React.FC = () => {
                               }}
                               title="Ver e Imprimir Boleta de Pago / Orden de Depósito en Caja Campus"
                               style={{
-                                padding: '0.3rem 0.55rem', borderRadius: '4px', backgroundColor: '#FEF3C7', color: '#D97706',
-                                border: '1px solid #FCD34D', fontWeight: 700, fontSize: '0.75rem', cursor: 'pointer',
+                                padding: '0.3rem 0.55rem', borderRadius: '4px', backgroundColor: 'var(--color-warning-bg)', color: 'var(--color-warning-text)',
+                                border: '1px solid rgba(217, 119, 6, 0.35)', fontWeight: 700, fontSize: '0.75rem', cursor: 'pointer',
                                 display: 'inline-flex', alignItems: 'center', gap: '0.3rem'
                               }}
                             >
@@ -668,8 +668,8 @@ const TramitesPage: React.FC = () => {
                                 }}
                                 title="Validar Comprobante de Caja Campus y Emitir Boleta de Inscripción"
                                 style={{
-                                  padding: '0.3rem 0.65rem', borderRadius: '4px', backgroundColor: '#0077D4', color: '#FFF',
-                                  border: '1px solid #005FA8', fontWeight: 700, fontSize: '0.75rem', cursor: 'pointer',
+                                  padding: '0.3rem 0.65rem', borderRadius: '4px', backgroundColor: 'var(--color-primary)', color: '#FFF',
+                                  border: '1px solid var(--color-primary)', fontWeight: 700, fontSize: '0.75rem', cursor: 'pointer',
                                   display: 'inline-flex', alignItems: 'center', gap: '0.35rem'
                                 }}
                               >
@@ -693,21 +693,21 @@ const TramitesPage: React.FC = () => {
         <div>
           {isAdmin && (
             <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '1rem' }}>
-              <button onClick={() => setIsInscModal(true)} style={{ padding: '0.55rem 1rem', background: '#0077D4', color: '#FFF', border: '1px solid #005FA8', borderRadius: '4px', fontWeight: 700, fontSize: '0.80rem', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.4rem', textTransform: 'uppercase', letterSpacing: '0.03em' }}>
+              <button onClick={() => setIsInscModal(true)} style={{ padding: '0.55rem 1rem', background: 'var(--color-primary)', color: '#FFF', border: '1px solid var(--color-primary)', borderRadius: '4px', fontWeight: 700, fontSize: '0.80rem', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.4rem', textTransform: 'uppercase', letterSpacing: '0.03em' }}>
                 <FaPlus /> Emitir Boleta de Inscripción
               </button>
             </div>
           )}
-          {loadInsc ? <div style={{ fontSize: '0.85rem', color: '#64748B' }}>Cargando inscripciones...</div> : filteredInscripciones.length === 0 ? (
-            <div style={{ padding: '3rem', textAlign: 'center', backgroundColor: '#FFF', borderRadius: '4px', border: '1px solid #CBD5E1', color: '#64748B', fontSize: '0.85rem' }}>
+          {loadInsc ? <div style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)' }}>Cargando inscripciones...</div> : filteredInscripciones.length === 0 ? (
+            <div style={{ padding: '3rem', textAlign: 'center', backgroundColor: 'var(--color-surface)', borderRadius: '4px', border: '1px solid var(--color-border-strong)', color: 'var(--color-text-muted)', fontSize: '0.85rem' }}>
               {inscripciones.length === 0
                 ? 'No hay boletas de inscripción registradas al momento.'
                 : 'No se encontraron boletas de inscripción que coincidan con los filtros aplicados.'}
             </div>
           ) : (
-            <div style={{ background: '#FFF', borderRadius: '4px', border: '1px solid #CBD5E1', overflow: 'hidden' }}>
+            <div style={{ background: 'var(--color-surface)', borderRadius: '4px', border: '1px solid var(--color-border-strong)', overflow: 'hidden' }}>
               <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.82rem' }}>
-                <thead style={{ background: '#F8FAFC', color: '#475569', fontWeight: 700, fontSize: '0.72rem', textTransform: 'uppercase', letterSpacing: '0.05em', borderBottom: '1px solid #CBD5E1' }}>
+                <thead style={{ background: 'var(--color-surface-muted)', color: 'var(--color-text-secondary)', fontWeight: 700, fontSize: '0.72rem', textTransform: 'uppercase', letterSpacing: '0.05em', borderBottom: '1px solid var(--color-border-strong)' }}>
                   <tr>
                     <th style={{ padding: '0.65rem 0.85rem', textAlign: 'left' }}>Nº Boleta</th>
                     <th style={{ padding: '0.65rem 0.85rem', textAlign: 'left' }}>Usuario Inscrito</th>
@@ -719,12 +719,12 @@ const TramitesPage: React.FC = () => {
                 </thead>
                 <tbody>
                   {filteredInscripciones.map((ins: any, idx: number) => (
-                    <tr key={ins?.id || idx} style={{ borderBottom: '1px solid #E2E8F0' }}>
-                      <td style={{ padding: '0.65rem 0.85rem', fontWeight: 700, color: '#0F172A', fontFamily: 'monospace' }}>{ins?.numero_boleta}</td>
+                    <tr key={ins?.id || idx} style={{ borderBottom: '1px solid var(--color-border)' }}>
+                      <td style={{ padding: '0.65rem 0.85rem', fontWeight: 700, color: 'var(--color-text-primary)', fontFamily: 'monospace' }}>{ins?.numero_boleta}</td>
                       <td style={{ padding: '0.65rem 0.85rem' }}>{ins?.usuario?.name || [ins?.usuario?.nombre, ins?.usuario?.apellido].filter(Boolean).join(' ') || ins?.usuario?.email || '-'}</td>
-                      <td style={{ padding: '0.65rem 0.85rem', fontWeight: 700, color: '#0077D4' }}>Bs. {ins?.monto || 0}</td>
-                      <td style={{ padding: '0.65rem 0.85rem', color: '#64748B' }}>{ins?.fecha_inicio || 'Hoy'} - {ins?.fecha_fin || '30 días'}</td>
-                      <td style={{ padding: '0.65rem 0.85rem' }}><span style={{ padding: '0.2rem 0.5rem', borderRadius: '2px', background: '#DCFCE7', color: '#166534', fontWeight: 700, fontSize: '0.70rem', textTransform: 'uppercase', letterSpacing: '0.03em' }}>{ins?.estado || 'activo'}</span></td>
+                      <td style={{ padding: '0.65rem 0.85rem', fontWeight: 700, color: 'var(--color-primary-text)' }}>Bs. {ins?.monto || 0}</td>
+                      <td style={{ padding: '0.65rem 0.85rem', color: 'var(--color-text-muted)' }}>{ins?.fecha_inicio || 'Hoy'} - {ins?.fecha_fin || '30 días'}</td>
+                      <td style={{ padding: '0.65rem 0.85rem' }}><span style={{ padding: '0.2rem 0.5rem', borderRadius: '2px', background: 'var(--color-success-bg)', color: 'var(--color-success-text)', fontWeight: 700, fontSize: '0.70rem', textTransform: 'uppercase', letterSpacing: '0.03em' }}>{ins?.estado || 'activo'}</span></td>
                       <td style={{ padding: '0.65rem 0.85rem', textAlign: 'right' }}>
                         <div style={{ display: 'inline-flex', gap: '0.35rem', justifyContent: 'flex-end', flexWrap: 'wrap' }}>
                           <button
@@ -748,8 +748,8 @@ const TramitesPage: React.FC = () => {
                             }}
                             title="Ver y Emitir Boleta Oficial de Inscripción"
                             style={{
-                              padding: '0.3rem 0.55rem', borderRadius: '4px', backgroundColor: '#DCFCE7', color: '#166534',
-                              border: '1px solid #86EFAC', fontWeight: 700, fontSize: '0.75rem', cursor: 'pointer',
+                              padding: '0.3rem 0.55rem', borderRadius: '4px', backgroundColor: 'var(--color-success-bg)', color: 'var(--color-success-text)',
+                              border: '1px solid rgba(22, 163, 74, 0.35)', fontWeight: 700, fontSize: '0.75rem', cursor: 'pointer',
                               display: 'inline-flex', alignItems: 'center', gap: '0.3rem'
                             }}
                           >
@@ -768,20 +768,20 @@ const TramitesPage: React.FC = () => {
 
       {/* MODAL SOLICITUD */}
       {isSolModal && (
-        <div style={{ position: 'fixed', inset: 0, zIndex: 1000, backgroundColor: 'rgba(15,23,42,0.65)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-          <div style={{ background: '#FFF', padding: '1.5rem', borderRadius: '12px', width: '400px' }}>
+        <div style={{ position: 'fixed', inset: 0, zIndex: 1000, backgroundColor: 'rgba(0, 0, 0,0.65)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <div style={{ background: 'var(--color-surface)', padding: '1.5rem', borderRadius: '12px', width: '400px' }}>
             <h3 style={{ fontSize: '1.1rem', fontWeight: 700, marginBottom: '1rem' }}>Nueva Solicitud</h3>
             <form onSubmit={handleCreateSolicitud} style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
-              <input value={numSol} onChange={(e) => setNumSol(e.target.value)} placeholder="Nº Formulario (Ej: SOL-2026-001)" style={{ padding: '0.5rem', border: '1px solid #CBD5E1', borderRadius: '6px' }} />
-              <select value={idUserSol} onChange={(e) => setIdUserSol(e.target.value ? Number(e.target.value) : '')} style={{ padding: '0.5rem', border: '1px solid #CBD5E1', borderRadius: '6px', backgroundColor: '#FFF' }}>
+              <input value={numSol} onChange={(e) => setNumSol(e.target.value)} placeholder="Nº Formulario (Ej: SOL-2026-001)" style={{ padding: '0.5rem', border: '1px solid var(--color-border-strong)', borderRadius: '6px' }} />
+              <select value={idUserSol} onChange={(e) => setIdUserSol(e.target.value ? Number(e.target.value) : '')} style={{ padding: '0.5rem', border: '1px solid var(--color-border-strong)', borderRadius: '6px', backgroundColor: 'var(--color-surface)' }}>
                 <option value="">-- Usuario --</option>{(Array.isArray(usuarios) ? usuarios : []).map((u: any) => <option key={u?.id} value={u?.id}>{u?.nombre || u?.name} {u?.apellido}</option>)}
               </select>
-              <select value={idDiscSol} onChange={(e) => setIdDiscSol(e.target.value ? Number(e.target.value) : '')} style={{ padding: '0.5rem', border: '1px solid #CBD5E1', borderRadius: '6px', backgroundColor: '#FFF' }}>
+              <select value={idDiscSol} onChange={(e) => setIdDiscSol(e.target.value ? Number(e.target.value) : '')} style={{ padding: '0.5rem', border: '1px solid var(--color-border-strong)', borderRadius: '6px', backgroundColor: 'var(--color-surface)' }}>
                 <option value="">-- Disciplina --</option>{(Array.isArray(disciplinas) ? disciplinas : []).map((d) => <option key={d?.id} value={d?.id}>{d?.nombre}</option>)}
               </select>
               <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '0.5rem', marginTop: '0.5rem' }}>
                 <button type="button" onClick={() => setIsSolModal(false)} style={{ padding: '0.5rem 1rem' }}>Cancelar</button>
-                <button type="submit" style={{ padding: '0.5rem 1rem', background: '#003B70', color: '#FFF', border: 'none', borderRadius: '6px' }}>Guardar</button>
+                <button type="submit" style={{ padding: '0.5rem 1rem', background: 'var(--color-primary)', color: '#FFF', border: 'none', borderRadius: '6px' }}>Guardar</button>
               </div>
             </form>
           </div>
@@ -790,23 +790,23 @@ const TramitesPage: React.FC = () => {
 
       {/* MODAL PAGO */}
       {isPagoModal && (
-        <div style={{ position: 'fixed', inset: 0, zIndex: 1000, backgroundColor: 'rgba(15,23,42,0.65)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-          <div style={{ background: '#FFF', padding: '1.5rem', borderRadius: '12px', width: '400px' }}>
+        <div style={{ position: 'fixed', inset: 0, zIndex: 1000, backgroundColor: 'rgba(0, 0, 0,0.65)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <div style={{ background: 'var(--color-surface)', padding: '1.5rem', borderRadius: '12px', width: '400px' }}>
             <h3 style={{ fontSize: '1.1rem', fontWeight: 700, marginBottom: '1rem' }}>Registrar Pago</h3>
             <form onSubmit={handleCreatePago} style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
-              <input value={numPago} onChange={(e) => setNumPago(e.target.value)} placeholder="Nº Boleta Pago (Ej: PAG-00921)" style={{ padding: '0.5rem', border: '1px solid #CBD5E1', borderRadius: '6px' }} />
-              <input type="number" value={montoPago} onChange={(e) => setMontoPago(Number(e.target.value))} placeholder="Monto (Bs.)" style={{ padding: '0.5rem', border: '1px solid #CBD5E1', borderRadius: '6px' }} />
-              <select value={metodoPago} onChange={(e) => setMetodoPago(e.target.value)} style={{ padding: '0.5rem', border: '1px solid #CBD5E1', borderRadius: '6px', backgroundColor: '#FFF' }}>
+              <input value={numPago} onChange={(e) => setNumPago(e.target.value)} placeholder="Nº Boleta Pago (Ej: PAG-00921)" style={{ padding: '0.5rem', border: '1px solid var(--color-border-strong)', borderRadius: '6px' }} />
+              <input type="number" value={montoPago} onChange={(e) => setMontoPago(Number(e.target.value))} placeholder="Monto (Bs.)" style={{ padding: '0.5rem', border: '1px solid var(--color-border-strong)', borderRadius: '6px' }} />
+              <select value={metodoPago} onChange={(e) => setMetodoPago(e.target.value)} style={{ padding: '0.5rem', border: '1px solid var(--color-border-strong)', borderRadius: '6px', backgroundColor: 'var(--color-surface)' }}>
                 <option value="Efectivo">Efectivo</option>
                 <option value="Transferencia QR">Transferencia QR</option>
                 <option value="Tarjeta de Débito">Tarjeta de Débito</option>
               </select>
-              <select value={idFormPago} onChange={(e) => setIdFormPago(e.target.value ? Number(e.target.value) : '')} style={{ padding: '0.5rem', border: '1px solid #CBD5E1', borderRadius: '6px', backgroundColor: '#FFF' }}>
+              <select value={idFormPago} onChange={(e) => setIdFormPago(e.target.value ? Number(e.target.value) : '')} style={{ padding: '0.5rem', border: '1px solid var(--color-border-strong)', borderRadius: '6px', backgroundColor: 'var(--color-surface)' }}>
                 <option value="">-- Referencia Formulario Solicitud --</option>{(Array.isArray(solicitudes) ? solicitudes : []).map((s) => <option key={s.id} value={s.id}>{s.numero_formulario} ({s.usuario?.nombre})</option>)}
               </select>
               <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '0.5rem', marginTop: '0.5rem' }}>
                 <button type="button" onClick={() => setIsPagoModal(false)} style={{ padding: '0.5rem 1rem' }}>Cancelar</button>
-                <button type="submit" style={{ padding: '0.5rem 1rem', background: '#003B70', color: '#FFF', border: 'none', borderRadius: '6px' }}>Guardar Pago</button>
+                <button type="submit" style={{ padding: '0.5rem 1rem', background: 'var(--color-primary)', color: '#FFF', border: 'none', borderRadius: '6px' }}>Guardar Pago</button>
               </div>
             </form>
           </div>
@@ -815,18 +815,18 @@ const TramitesPage: React.FC = () => {
 
       {/* MODAL INSCRIPCION */}
       {isInscModal && (
-        <div style={{ position: 'fixed', inset: 0, zIndex: 1000, backgroundColor: 'rgba(15,23,42,0.65)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-          <div style={{ background: '#FFF', padding: '1.5rem', borderRadius: '12px', width: '400px' }}>
+        <div style={{ position: 'fixed', inset: 0, zIndex: 1000, backgroundColor: 'rgba(0, 0, 0,0.65)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <div style={{ background: 'var(--color-surface)', padding: '1.5rem', borderRadius: '12px', width: '400px' }}>
             <h3 style={{ fontSize: '1.1rem', fontWeight: 700, marginBottom: '1rem' }}>Emitir Inscripción</h3>
             <form onSubmit={handleCreateInscripcion} style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
-              <input value={numInsc} onChange={(e) => setNumInsc(e.target.value)} placeholder="Nº Boleta Inscripción (Ej: INS-2026-88)" style={{ padding: '0.5rem', border: '1px solid #CBD5E1', borderRadius: '6px' }} />
-              <input type="number" value={montoInsc} onChange={(e) => setMontoInsc(Number(e.target.value))} placeholder="Monto (Bs.)" style={{ padding: '0.5rem', border: '1px solid #CBD5E1', borderRadius: '6px' }} />
-              <select value={idUserInsc} onChange={(e) => setIdUserInsc(e.target.value ? Number(e.target.value) : '')} style={{ padding: '0.5rem', border: '1px solid #CBD5E1', borderRadius: '6px', backgroundColor: '#FFF' }}>
+              <input value={numInsc} onChange={(e) => setNumInsc(e.target.value)} placeholder="Nº Boleta Inscripción (Ej: INS-2026-88)" style={{ padding: '0.5rem', border: '1px solid var(--color-border-strong)', borderRadius: '6px' }} />
+              <input type="number" value={montoInsc} onChange={(e) => setMontoInsc(Number(e.target.value))} placeholder="Monto (Bs.)" style={{ padding: '0.5rem', border: '1px solid var(--color-border-strong)', borderRadius: '6px' }} />
+              <select value={idUserInsc} onChange={(e) => setIdUserInsc(e.target.value ? Number(e.target.value) : '')} style={{ padding: '0.5rem', border: '1px solid var(--color-border-strong)', borderRadius: '6px', backgroundColor: 'var(--color-surface)' }}>
                 <option value="">-- Usuario --</option>{(Array.isArray(usuarios) ? usuarios : []).map((u) => <option key={u.id} value={u.id}>{u.nombre} {u.apellido}</option>)}
               </select>
               <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '0.5rem', marginTop: '0.5rem' }}>
                 <button type="button" onClick={() => setIsInscModal(false)} style={{ padding: '0.5rem 1rem' }}>Cancelar</button>
-                <button type="submit" style={{ padding: '0.5rem 1rem', background: '#003B70', color: '#FFF', border: 'none', borderRadius: '6px' }}>Emitir</button>
+                <button type="submit" style={{ padding: '0.5rem 1rem', background: 'var(--color-primary)', color: '#FFF', border: 'none', borderRadius: '6px' }}>Emitir</button>
               </div>
             </form>
           </div>
@@ -863,17 +863,17 @@ const TramitesPage: React.FC = () => {
       {/* MODAL VER DOCUMENTOS DIGITALES DEL USUARIO */}
       {isDocsModalOpen && selectedSolForDocs && (
         <div style={{
-          position: 'fixed', inset: 0, zIndex: 99999, backgroundColor: 'rgba(15,23,42,0.75)',
+          position: 'fixed', inset: 0, zIndex: 99999, backgroundColor: 'rgba(0, 0, 0,0.75)',
           display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '1rem'
         }}>
           <div style={{
-            backgroundColor: '#FFF', borderRadius: '12px', width: '100%', maxWidth: '650px',
+            backgroundColor: 'var(--color-surface)', borderRadius: '12px', width: '100%', maxWidth: '650px',
             maxHeight: '85vh', display: 'flex', flexDirection: 'column', overflow: 'hidden',
-            boxShadow: '0 20px 25px -5px rgba(0,0,0,0.2)', border: '1px solid #CBD5E1'
+            boxShadow: '0 20px 25px -5px rgba(0,0,0,0.2)', border: '1px solid var(--color-border-strong)'
           }}>
             {/* HEADER */}
             <div style={{
-              padding: '1.25rem 1.5rem', backgroundColor: '#003B70', color: '#FFF',
+              padding: '1.25rem 1.5rem', backgroundColor: 'var(--color-primary)', color: '#FFF',
               display: 'flex', alignItems: 'center', justifyContent: 'space-between'
             }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
@@ -882,7 +882,7 @@ const TramitesPage: React.FC = () => {
                   <h3 style={{ fontSize: '1.05rem', fontWeight: 800, margin: 0 }}>
                     Documentos Digitales del Postulante
                   </h3>
-                  <span style={{ fontSize: '0.78rem', color: '#93C5FD' }}>
+                  <span style={{ fontSize: '0.78rem', color: '#FCA5A5' }}>
                     Solicitud Nº: {selectedSolForDocs.numero_formulario}
                   </span>
                 </div>
@@ -896,11 +896,11 @@ const TramitesPage: React.FC = () => {
             </div>
 
             {/* USER INFO BAR */}
-            <div style={{ padding: '1rem 1.5rem', backgroundColor: '#F8FAFC', borderBottom: '1px solid #E2E8F0', fontSize: '0.88rem' }}>
-              <div style={{ fontWeight: 800, color: '#0F172A', display: 'flex', alignItems: 'center', gap: '6px' }}>
+            <div style={{ padding: '1rem 1.5rem', backgroundColor: 'var(--color-surface-muted)', borderBottom: '1px solid var(--color-border)', fontSize: '0.88rem' }}>
+              <div style={{ fontWeight: 800, color: 'var(--color-text-primary)', display: 'flex', alignItems: 'center', gap: '6px' }}>
                 <FaUser /> {selectedSolForDocs.usuario?.nombre} {selectedSolForDocs.usuario?.apellido}
               </div>
-              <div style={{ display: 'flex', gap: '1.5rem', fontSize: '0.78rem', color: '#64748B', marginTop: '0.25rem' }}>
+              <div style={{ display: 'flex', gap: '1.5rem', fontSize: '0.78rem', color: 'var(--color-text-muted)', marginTop: '0.25rem' }}>
                 <span><strong>C.I.:</strong> {selectedSolForDocs.usuario?.ci || '-'}</span>
                 <span><strong>Email:</strong> {selectedSolForDocs.usuario?.email || '-'}</span>
                 <span><strong>Código/RU:</strong> {selectedSolForDocs.usuario?.codigo || '-'}</span>
@@ -916,15 +916,15 @@ const TramitesPage: React.FC = () => {
                     const fileUrl = doc.archivo_url || doc.ruta_archivo;
                     return (
                       <div key={doc.id} style={{
-                        padding: '0.85rem 1rem', borderRadius: '8px', backgroundColor: '#FFF', border: '1px solid #CBD5E1',
+                        padding: '0.85rem 1rem', borderRadius: '8px', backgroundColor: 'var(--color-surface)', border: '1px solid var(--color-border-strong)',
                         display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '1rem',
                         boxShadow: '0 1px 3px rgba(0,0,0,0.05)'
                       }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                          <FaFileLines style={{ color: '#003B70', fontSize: '1.4rem', flexShrink: 0 }} />
+                          <FaFileLines style={{ color: 'var(--color-primary-text)', fontSize: '1.4rem', flexShrink: 0 }} />
                           <div>
-                            <div style={{ fontSize: '0.88rem', fontWeight: 800, color: '#0F172A' }}>{nombreTipo}</div>
-                            <span style={{ fontSize: '0.75rem', color: '#166534', fontWeight: 700, display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+                            <div style={{ fontSize: '0.88rem', fontWeight: 800, color: 'var(--color-text-primary)' }}>{nombreTipo}</div>
+                            <span style={{ fontSize: '0.75rem', color: 'var(--color-success-text)', fontWeight: 700, display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
                               <FaCircleCheck size={12} /> Documento Oficial Cargado
                             </span>
                           </div>
@@ -935,7 +935,7 @@ const TramitesPage: React.FC = () => {
                             target="_blank"
                             rel="noopener noreferrer"
                             style={{
-                              padding: '0.4rem 0.8rem', borderRadius: '6px', backgroundColor: '#003B70', color: '#FFF',
+                              padding: '0.4rem 0.8rem', borderRadius: '6px', backgroundColor: 'var(--color-primary)', color: '#FFF',
                               fontSize: '0.8rem', fontWeight: 700, textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '0.4rem'
                             }}
                           >
@@ -947,7 +947,7 @@ const TramitesPage: React.FC = () => {
                   })}
                 </div>
               ) : (
-                <div style={{ padding: '1.5rem', textAlign: 'center', backgroundColor: '#FEF3C7', borderRadius: '8px', border: '1px solid #FCD34D', color: '#92400E' }}>
+                <div style={{ padding: '1.5rem', textAlign: 'center', backgroundColor: 'var(--color-warning-bg)', borderRadius: '8px', border: '1px solid rgba(217, 119, 6, 0.35)', color: 'var(--color-warning-text)' }}>
                   <FaPaperclip style={{ fontSize: '1.5rem', marginBottom: '0.5rem' }} />
                   <div style={{ fontWeight: 700, fontSize: '0.9rem' }}>Sin archivos digitales adjuntos</div>
                   <div style={{ fontSize: '0.8rem', marginTop: '0.25rem' }}>
@@ -958,7 +958,7 @@ const TramitesPage: React.FC = () => {
             </div>
 
             {/* FOOTER */}
-            <div style={{ padding: '1rem 1.5rem', borderTop: '1px solid #E2E8F0', display: 'flex', justifyContent: 'flex-end', backgroundColor: '#F8FAFC' }}>
+            <div style={{ padding: '1rem 1.5rem', borderTop: '1px solid var(--color-border)', display: 'flex', justifyContent: 'flex-end', backgroundColor: 'var(--color-surface-muted)' }}>
               <button
                 onClick={() => setIsDocsModalOpen(false)}
                 style={{ padding: '0.55rem 1.25rem', borderRadius: '6px', backgroundColor: '#64748B', color: '#FFF', border: 'none', fontWeight: 700, fontSize: '0.85rem', cursor: 'pointer' }}
@@ -972,9 +972,9 @@ const TramitesPage: React.FC = () => {
 
       {/* MODAL EMITIR INSCRIPCION DESDE PAGO CAJA CAMPUS */}
       {isEmitirModalOpen && selectedPagoForEmitir && (
-        <div style={{ position: 'fixed', inset: 0, zIndex: 1000, backgroundColor: 'rgba(15,23,42,0.65)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '1rem' }}>
-          <div style={{ background: '#FFF', borderRadius: '12px', width: '100%', maxWidth: '460px', overflow: 'hidden', boxShadow: '0 20px 25px -5px rgba(0,0,0,0.2)' }}>
-            <div style={{ padding: '1.25rem 1.5rem', backgroundColor: '#003B70', color: '#FFF', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <div style={{ position: 'fixed', inset: 0, zIndex: 1000, backgroundColor: 'rgba(0, 0, 0,0.65)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '1rem' }}>
+          <div style={{ background: 'var(--color-surface)', borderRadius: '12px', width: '100%', maxWidth: '460px', overflow: 'hidden', boxShadow: '0 20px 25px -5px rgba(0,0,0,0.2)' }}>
+            <div style={{ padding: '1.25rem 1.5rem', backgroundColor: 'var(--color-primary)', color: '#FFF', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
                 <FaCreditCard style={{ color: '#F59E0B', fontSize: '1.2rem' }} />
                 <h3 style={{ fontSize: '1.05rem', fontWeight: 800, margin: 0 }}>Validar Pago & Emitir Inscripción</h3>
@@ -997,17 +997,17 @@ const TramitesPage: React.FC = () => {
                 }
               });
             }} style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-              <div style={{ backgroundColor: '#F8FAFC', padding: '0.75rem 1rem', borderRadius: '8px', border: '1px solid #E2E8F0', fontSize: '0.85rem' }}>
-                <div style={{ fontWeight: 700, color: '#0F172A' }}>
+              <div style={{ backgroundColor: 'var(--color-surface-muted)', padding: '0.75rem 1rem', borderRadius: '8px', border: '1px solid var(--color-border)', fontSize: '0.85rem' }}>
+                <div style={{ fontWeight: 700, color: 'var(--color-text-primary)' }}>
                   Socio: {selectedPagoForEmitir?.formulario_solicitud?.usuario?.nombre} {selectedPagoForEmitir?.formulario_solicitud?.usuario?.apellido}
                 </div>
-                <div style={{ color: '#64748B', fontSize: '0.78rem' }}>
+                <div style={{ color: 'var(--color-text-muted)', fontSize: '0.78rem' }}>
                   Formulario: {selectedPagoForEmitir?.formulario_solicitud?.numero_formulario} | Monto: <strong>Bs. {selectedPagoForEmitir?.monto}</strong>
                 </div>
               </div>
 
               <div>
-                <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 700, color: '#334155', marginBottom: '0.35rem' }}>
+                <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 700, color: 'var(--color-text-secondary)', marginBottom: '0.35rem' }}>
                   Nº Comprobante Físico de Caja Campus UAGRM
                 </label>
                 <input
@@ -1016,13 +1016,13 @@ const TramitesPage: React.FC = () => {
                   placeholder="Ej: CC-889412-2026"
                   value={numComprobanteCampus}
                   onChange={(e) => setNumComprobanteCampus(e.target.value)}
-                  style={{ width: '100%', padding: '0.55rem 0.75rem', borderRadius: '6px', border: '1px solid #CBD5E1', fontSize: '0.88rem', boxSizing: 'border-box' }}
+                  style={{ width: '100%', padding: '0.55rem 0.75rem', borderRadius: '6px', border: '1px solid var(--color-border-strong)', fontSize: '0.88rem', boxSizing: 'border-box' }}
                 />
               </div>
 
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem' }}>
                 <div>
-                  <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 700, color: '#334155', marginBottom: '0.35rem' }}>
+                  <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 700, color: 'var(--color-text-secondary)', marginBottom: '0.35rem' }}>
                     Fecha Inicio Membresía
                   </label>
                   <input
@@ -1030,11 +1030,11 @@ const TramitesPage: React.FC = () => {
                     required
                     value={fechaInicioMembresia}
                     onChange={(e) => setFechaInicioMembresia(e.target.value)}
-                    style={{ width: '100%', padding: '0.5rem', borderRadius: '6px', border: '1px solid #CBD5E1', fontSize: '0.85rem', boxSizing: 'border-box' }}
+                    style={{ width: '100%', padding: '0.5rem', borderRadius: '6px', border: '1px solid var(--color-border-strong)', fontSize: '0.85rem', boxSizing: 'border-box' }}
                   />
                 </div>
                 <div>
-                  <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 700, color: '#334155', marginBottom: '0.35rem' }}>
+                  <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 700, color: 'var(--color-text-secondary)', marginBottom: '0.35rem' }}>
                     Fecha Fin Membresía
                   </label>
                   <input
@@ -1042,7 +1042,7 @@ const TramitesPage: React.FC = () => {
                     required
                     value={fechaFinMembresia}
                     onChange={(e) => setFechaFinMembresia(e.target.value)}
-                    style={{ width: '100%', padding: '0.5rem', borderRadius: '6px', border: '1px solid #CBD5E1', fontSize: '0.85rem', boxSizing: 'border-box' }}
+                    style={{ width: '100%', padding: '0.5rem', borderRadius: '6px', border: '1px solid var(--color-border-strong)', fontSize: '0.85rem', boxSizing: 'border-box' }}
                   />
                 </div>
               </div>
@@ -1051,14 +1051,14 @@ const TramitesPage: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setIsEmitirModalOpen(false)}
-                  style={{ padding: '0.55rem 1rem', borderRadius: '6px', border: '1px solid #CBD5E1', backgroundColor: '#FFF', color: '#475569', fontWeight: 700, fontSize: '0.85rem', cursor: 'pointer' }}
+                  style={{ padding: '0.55rem 1rem', borderRadius: '6px', border: '1px solid var(--color-border-strong)', backgroundColor: 'var(--color-surface)', color: 'var(--color-text-secondary)', fontWeight: 700, fontSize: '0.85rem', cursor: 'pointer' }}
                 >
                   Cancelar
                 </button>
                 <button
                   type="submit"
                   disabled={emitirInscripcionMutation.isPending}
-                  style={{ padding: '0.55rem 1.25rem', borderRadius: '6px', border: 'none', backgroundColor: '#003B70', color: '#FFF', fontWeight: 700, fontSize: '0.85rem', cursor: 'pointer' }}
+                  style={{ padding: '0.55rem 1.25rem', borderRadius: '6px', border: 'none', backgroundColor: 'var(--color-primary)', color: '#FFF', fontWeight: 700, fontSize: '0.85rem', cursor: 'pointer' }}
                 >
                   {emitirInscripcionMutation.isPending ? 'Validando...' : 'Confirmar & Emitir Boleta'}
                 </button>

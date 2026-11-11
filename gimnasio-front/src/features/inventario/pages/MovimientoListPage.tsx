@@ -65,10 +65,10 @@ const MovimientoListPage: React.FC = () => {
     <section>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.25rem' }}>
         <div>
-          <h2 style={{ fontSize: '1.4rem', fontWeight: 800, color: '#0B1727', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-            <FaRightLeft style={{ color: '#003B70' }} /> Movimientos de Stock e Inventario
+          <h2 style={{ fontSize: '1.4rem', fontWeight: 800, color: 'var(--color-text-primary)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            <FaRightLeft style={{ color: 'var(--color-primary-text)' }} /> Movimientos de Stock e Inventario
           </h2>
-          <p style={{ fontSize: '0.85rem', color: '#64748B' }}>
+          <p style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)' }}>
             Registro de entradas por compra o donación y salidas por deterioro, traslado o baja.
           </p>
         </div>
@@ -79,9 +79,9 @@ const MovimientoListPage: React.FC = () => {
             style={{
               padding: '0.65rem 1.1rem',
               borderRadius: '8px',
-              backgroundColor: '#FFFFFF',
-              color: '#003B70',
-              border: '1px solid #CBD5E1',
+              backgroundColor: 'var(--color-surface)',
+              color: 'var(--color-primary-text)',
+              border: '1px solid var(--color-border-strong)',
               fontWeight: 700,
               fontSize: '0.88rem',
               cursor: 'pointer',
@@ -102,13 +102,13 @@ const MovimientoListPage: React.FC = () => {
             style={{
               padding: '0.65rem 1.25rem',
               borderRadius: '8px',
-              background: 'linear-gradient(135deg, #003B70 0%, #002A52 100%)',
+              background: 'linear-gradient(135deg, #990000 0%, #570000 100%)',
               color: '#FFFFFF',
               border: 'none',
               fontWeight: 700,
               fontSize: '0.88rem',
               cursor: 'pointer',
-              boxShadow: '0 4px 12px rgba(0, 59, 112, 0.25)',
+              boxShadow: '0 4px 12px rgba(153, 0, 0, 0.25)',
               display: 'flex',
               alignItems: 'center',
               gap: '0.5rem',
@@ -120,7 +120,7 @@ const MovimientoListPage: React.FC = () => {
       </div>
 
       {isLoading ? (
-        <div style={{ textAlign: 'center', padding: '3rem', color: '#64748B' }}>
+        <div style={{ textAlign: 'center', padding: '3rem', color: 'var(--color-text-muted)' }}>
           Cargando bitácora de movimientos de stock...
         </div>
       ) : movimientos.length === 0 ? (
@@ -128,25 +128,25 @@ const MovimientoListPage: React.FC = () => {
           style={{
             textAlign: 'center',
             padding: '3.5rem 2rem',
-            color: '#64748B',
-            backgroundColor: '#FFF',
+            color: 'var(--color-text-muted)',
+            backgroundColor: 'var(--color-surface)',
             borderRadius: '12px',
-            border: '1px solid #E2E8F0',
+            border: '1px solid var(--color-border)',
           }}
         >
           <FaRightLeft style={{ fontSize: '2.5rem', color: '#CBD5E1', marginBottom: '0.75rem' }} />
-          <p style={{ fontWeight: 700, fontSize: '1rem', color: '#334155', margin: 0 }}>
+          <p style={{ fontWeight: 700, fontSize: '1rem', color: 'var(--color-text-secondary)', margin: 0 }}>
             No hay movimientos de stock registrados.
           </p>
-          <p style={{ fontSize: '0.85rem', color: '#64748B', marginTop: '0.25rem' }}>
+          <p style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)', marginTop: '0.25rem' }}>
             Haga clic en "Registrar Movimiento" para añadir entradas o salidas de equipos.
           </p>
         </div>
       ) : (
-        <div style={{ backgroundColor: '#FFFFFF', borderRadius: '12px', border: '1px solid #E2E8F0', overflow: 'hidden' }}>
+        <div style={{ backgroundColor: 'var(--color-surface)', borderRadius: '12px', border: '1px solid var(--color-border)', overflow: 'hidden' }}>
           <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.88rem' }}>
             <thead>
-              <tr style={{ backgroundColor: '#F8FAFC', borderBottom: '1px solid #E2E8F0', color: '#475569', fontWeight: 700 }}>
+              <tr style={{ backgroundColor: 'var(--color-surface-muted)', borderBottom: '1px solid var(--color-border)', color: 'var(--color-text-secondary)', fontWeight: 700 }}>
                 <th style={{ padding: '0.85rem 1.25rem' }}>Fecha</th>
                 <th style={{ padding: '0.85rem 1.25rem' }}>Equipo</th>
                 <th style={{ padding: '0.85rem 1.25rem' }}>Tipo</th>
@@ -160,11 +160,11 @@ const MovimientoListPage: React.FC = () => {
                 const esMovSalida = Boolean((m.tipoMovimiento as any)?.es_salida) || tipoNombre.includes('SALIDA') || tipoNombre.includes('EGRESO') || tipoNombre.includes('BAJA');
 
                 return (
-                  <tr key={m.id} style={{ borderBottom: '1px solid #F1F5F9' }}>
-                    <td style={{ padding: '0.85rem 1.25rem', color: '#64748B' }}>
+                  <tr key={m.id} style={{ borderBottom: '1px solid var(--color-border)' }}>
+                    <td style={{ padding: '0.85rem 1.25rem', color: 'var(--color-text-muted)' }}>
                       {m.fecha_hora ? new Date(m.fecha_hora).toLocaleDateString() : m.fecha_movimiento || 'Sin fecha'}
                     </td>
-                    <td style={{ padding: '0.85rem 1.25rem', fontWeight: 700, color: '#0B1727' }}>
+                    <td style={{ padding: '0.85rem 1.25rem', fontWeight: 700, color: 'var(--color-text-primary)' }}>
                       {m.equipo?.nombre || `Equipo ID: ${m.id_equipo}`}
                     </td>
                     <td style={{ padding: '0.85rem 1.25rem' }}>
@@ -174,8 +174,8 @@ const MovimientoListPage: React.FC = () => {
                           borderRadius: '999px',
                           fontSize: '0.75rem',
                           fontWeight: 700,
-                          backgroundColor: esMovSalida ? '#FEE2E2' : '#DCFCE7',
-                          color: esMovSalida ? '#DC2626' : '#15803D',
+                          backgroundColor: esMovSalida ? 'var(--color-danger-bg)' : 'var(--color-success-bg)',
+                          color: esMovSalida ? 'var(--color-danger-text)' : 'var(--color-success-text)',
                         }}
                       >
                         {m.tipoMovimiento?.nombre || (esMovSalida ? 'SALIDA' : 'ENTRADA')}
@@ -184,7 +184,7 @@ const MovimientoListPage: React.FC = () => {
                     <td style={{ padding: '0.85rem 1.25rem', fontWeight: 800 }}>
                       {esMovSalida ? `-${m.cantidad}` : `+${m.cantidad}`} Unidades
                     </td>
-                    <td style={{ padding: '0.85rem 1.25rem', color: '#475569' }}>
+                    <td style={{ padding: '0.85rem 1.25rem', color: 'var(--color-text-secondary)' }}>
                       {m.motivo || 'Sin especificar'}
                     </td>
                   </tr>
@@ -213,7 +213,7 @@ const MovimientoListPage: React.FC = () => {
         >
           <div
             style={{
-              backgroundColor: '#FFF',
+              backgroundColor: 'var(--color-surface)',
               borderRadius: '12px',
               padding: '1.75rem',
               width: '100%',
@@ -221,7 +221,7 @@ const MovimientoListPage: React.FC = () => {
               boxShadow: '0 20px 25px -5px rgba(0,0,0,0.1)',
             }}
           >
-            <h3 style={{ fontSize: '1.15rem', fontWeight: 800, color: '#0B1727', marginBottom: '1.25rem' }}>
+            <h3 style={{ fontSize: '1.15rem', fontWeight: 800, color: 'var(--color-text-primary)', marginBottom: '1.25rem' }}>
               Registrar Movimiento de Stock
             </h3>
 
@@ -230,11 +230,11 @@ const MovimientoListPage: React.FC = () => {
                 style={{
                   padding: '0.85rem',
                   borderRadius: '8px',
-                  backgroundColor: '#FEF3C7',
-                  color: '#92400E',
+                  backgroundColor: 'var(--color-warning-bg)',
+                  color: 'var(--color-warning-text)',
                   fontSize: '0.82rem',
                   marginBottom: '1rem',
-                  border: '1px solid #FCD34D',
+                  border: '1px solid rgba(217, 119, 6, 0.35)',
                 }}
               >
                 <strong>No existen tipos de movimiento.</strong> Debe crear al menos un tipo (ej: Entrada, Salida) para registrar movimientos.
@@ -264,14 +264,14 @@ const MovimientoListPage: React.FC = () => {
 
             <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
               <div>
-                <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 700, color: '#334155', marginBottom: '0.35rem' }}>
+                <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 700, color: 'var(--color-text-secondary)', marginBottom: '0.35rem' }}>
                   Equipo *
                 </label>
                 <select
                   value={idEquipo}
                   onChange={(e) => setIdEquipo(e.target.value)}
                   required
-                  style={{ width: '100%', padding: '0.6rem 0.8rem', borderRadius: '6px', border: '1px solid #CBD5E1', fontSize: '0.88rem' }}
+                  style={{ width: '100%', padding: '0.6rem 0.8rem', borderRadius: '6px', border: '1px solid var(--color-border-strong)', fontSize: '0.88rem' }}
                 >
                   <option value="">Seleccione equipo...</option>
                   {equipos.map((eq) => (
@@ -283,14 +283,14 @@ const MovimientoListPage: React.FC = () => {
               </div>
 
               <div>
-                <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 700, color: '#334155', marginBottom: '0.35rem' }}>
+                <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 700, color: 'var(--color-text-secondary)', marginBottom: '0.35rem' }}>
                   Tipo de Movimiento *
                 </label>
                 <select
                   value={tipoMovimiento}
                   onChange={(e) => setTipoMovimiento(e.target.value)}
                   required
-                  style={{ width: '100%', padding: '0.6rem 0.8rem', borderRadius: '6px', border: '1px solid #CBD5E1', fontSize: '0.88rem' }}
+                  style={{ width: '100%', padding: '0.6rem 0.8rem', borderRadius: '6px', border: '1px solid var(--color-border-strong)', fontSize: '0.88rem' }}
                 >
                   {tiposMovimiento.length === 0 ? (
                     <option value="">No hay tipos registrados...</option>
@@ -305,7 +305,7 @@ const MovimientoListPage: React.FC = () => {
               </div>
 
               <div>
-                <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 700, color: '#334155', marginBottom: '0.35rem' }}>
+                <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 700, color: 'var(--color-text-secondary)', marginBottom: '0.35rem' }}>
                   Cantidad *
                 </label>
                 <input
@@ -314,7 +314,7 @@ const MovimientoListPage: React.FC = () => {
                   onChange={(e) => setCantidad(e.target.value)}
                   required
                   placeholder="Ej: 10 o -10"
-                  style={{ width: '100%', padding: '0.6rem 0.8rem', borderRadius: '6px', border: '1px solid #CBD5E1', fontSize: '0.88rem' }}
+                  style={{ width: '100%', padding: '0.6rem 0.8rem', borderRadius: '6px', border: '1px solid var(--color-border-strong)', fontSize: '0.88rem' }}
                 />
               </div>
 
@@ -325,9 +325,9 @@ const MovimientoListPage: React.FC = () => {
                     padding: '0.75rem 0.9rem',
                     borderRadius: '8px',
                     fontSize: '0.82rem',
-                    backgroundColor: esSalida ? '#FEF2F2' : '#F0FDF4',
-                    border: esSalida ? '1px solid #FCA5A5' : '1px solid #86EFAC',
-                    color: esSalida ? '#991B1B' : '#166534',
+                    backgroundColor: esSalida ? 'var(--color-danger-bg)' : 'var(--color-success-bg)',
+                    border: esSalida ? '1px solid rgba(220, 38, 38, 0.35)' : '1px solid rgba(22, 163, 74, 0.35)',
+                    color: esSalida ? 'var(--color-danger-text)' : 'var(--color-success-text)',
                     display: 'flex',
                     alignItems: 'center',
                     gap: '0.5rem',
@@ -343,7 +343,7 @@ const MovimientoListPage: React.FC = () => {
               )}
 
               <div>
-                <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 700, color: '#334155', marginBottom: '0.35rem' }}>
+                <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 700, color: 'var(--color-text-secondary)', marginBottom: '0.35rem' }}>
                   Motivo
                 </label>
                 <textarea
@@ -351,7 +351,7 @@ const MovimientoListPage: React.FC = () => {
                   onChange={(e) => setMotivo(e.target.value)}
                   rows={2}
                   placeholder="Ej: Compra nueva, desgaste por uso, rotura..."
-                  style={{ width: '100%', padding: '0.6rem 0.8rem', borderRadius: '6px', border: '1px solid #CBD5E1', fontSize: '0.88rem' }}
+                  style={{ width: '100%', padding: '0.6rem 0.8rem', borderRadius: '6px', border: '1px solid var(--color-border-strong)', fontSize: '0.88rem' }}
                 />
               </div>
 
@@ -359,7 +359,7 @@ const MovimientoListPage: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setIsModalOpen(false)}
-                  style={{ padding: '0.55rem 1.1rem', borderRadius: '6px', border: '1px solid #CBD5E1', backgroundColor: '#FFF', color: '#475569', fontWeight: 600, cursor: 'pointer' }}
+                  style={{ padding: '0.55rem 1.1rem', borderRadius: '6px', border: '1px solid var(--color-border-strong)', backgroundColor: 'var(--color-surface)', color: 'var(--color-text-secondary)', fontWeight: 600, cursor: 'pointer' }}
                 >
                   Cancelar
                 </button>
@@ -370,7 +370,7 @@ const MovimientoListPage: React.FC = () => {
                     padding: '0.55rem 1.25rem',
                     borderRadius: '6px',
                     border: 'none',
-                    backgroundColor: '#003B70',
+                    backgroundColor: 'var(--color-primary)',
                     color: '#FFF',
                     fontWeight: 700,
                     cursor: createMutation.isPending || tiposMovimiento.length === 0 ? 'not-allowed' : 'pointer',

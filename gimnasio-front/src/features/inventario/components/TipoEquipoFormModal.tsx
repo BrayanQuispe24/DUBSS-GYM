@@ -80,29 +80,29 @@ const TipoEquipoFormModal: React.FC<TipoEquipoFormModalProps> = ({
     >
       <div
         style={{
-          backgroundColor: '#FFFFFF',
+          backgroundColor: 'var(--color-surface)',
           borderRadius: '14px',
           width: '100%',
           maxWidth: '520px',
           boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1)',
           overflow: 'hidden',
-          border: '1px solid #E2E8F0',
+          border: '1px solid var(--color-border)',
         }}
       >
         {/* Header */}
         <div
           style={{
             padding: '1.25rem 1.5rem',
-            borderBottom: '1px solid #E2E8F0',
-            backgroundColor: '#F8FAFC',
+            borderBottom: '1px solid var(--color-border)',
+            backgroundColor: 'var(--color-surface-muted)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
           }}
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-            <FaLayerGroup style={{ color: '#003B70', fontSize: '1.1rem' }} />
-            <h3 style={{ fontSize: '1.1rem', fontWeight: 800, color: '#0B1727', margin: 0 }}>
+            <FaLayerGroup style={{ color: 'var(--color-primary-text)', fontSize: '1.1rem' }} />
+            <h3 style={{ fontSize: '1.1rem', fontWeight: 800, color: 'var(--color-text-primary)', margin: 0 }}>
               {tipoToEdit ? 'Editar Tipo de Equipo' : 'Registrar Nuevo Tipo de Equipo'}
             </h3>
           </div>
@@ -113,7 +113,7 @@ const TipoEquipoFormModal: React.FC<TipoEquipoFormModalProps> = ({
               background: 'transparent',
               border: 'none',
               fontSize: '1.2rem',
-              color: '#94A3B8',
+              color: 'var(--color-text-muted)',
               cursor: 'pointer',
               display: 'flex',
               alignItems: 'center',
@@ -128,7 +128,7 @@ const TipoEquipoFormModal: React.FC<TipoEquipoFormModalProps> = ({
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1.2rem' }}>
             {/* Nombre */}
             <div>
-              <label style={{ display: 'block', fontWeight: 700, fontSize: '0.85rem', color: '#334155', marginBottom: '0.4rem' }}>
+              <label style={{ display: 'block', fontWeight: 700, fontSize: '0.85rem', color: 'var(--color-text-secondary)', marginBottom: '0.4rem' }}>
                 Nombre de la Categoría / Tipo <span style={{ color: '#EF4444' }}>*</span>
               </label>
               <input
@@ -139,7 +139,7 @@ const TipoEquipoFormModal: React.FC<TipoEquipoFormModalProps> = ({
                   width: '100%',
                   padding: '0.65rem 0.85rem',
                   borderRadius: '8px',
-                  border: errors.nombre ? '1px solid #EF4444' : '1px solid #CBD5E1',
+                  border: errors.nombre ? '1px solid #EF4444' : '1px solid var(--color-border-strong)',
                   fontSize: '0.88rem',
                   outline: 'none',
                   boxSizing: 'border-box',
@@ -154,7 +154,7 @@ const TipoEquipoFormModal: React.FC<TipoEquipoFormModalProps> = ({
 
             {/* Estado */}
             <div>
-              <label style={{ display: 'block', fontWeight: 700, fontSize: '0.85rem', color: '#334155', marginBottom: '0.4rem' }}>
+              <label style={{ display: 'block', fontWeight: 700, fontSize: '0.85rem', color: 'var(--color-text-secondary)', marginBottom: '0.4rem' }}>
                 Estado <span style={{ color: '#EF4444' }}>*</span>
               </label>
               <select
@@ -163,9 +163,9 @@ const TipoEquipoFormModal: React.FC<TipoEquipoFormModalProps> = ({
                   width: '100%',
                   padding: '0.65rem 0.85rem',
                   borderRadius: '8px',
-                  border: errors.estado ? '1px solid #EF4444' : '1px solid #CBD5E1',
+                  border: errors.estado ? '1px solid #EF4444' : '1px solid var(--color-border-strong)',
                   fontSize: '0.88rem',
-                  backgroundColor: '#FFFFFF',
+                  backgroundColor: 'var(--color-surface)',
                   outline: 'none',
                   boxSizing: 'border-box',
                 }}
@@ -177,7 +177,7 @@ const TipoEquipoFormModal: React.FC<TipoEquipoFormModalProps> = ({
 
             {/* Descripción */}
             <div>
-              <label style={{ display: 'block', fontWeight: 700, fontSize: '0.85rem', color: '#334155', marginBottom: '0.4rem' }}>
+              <label style={{ display: 'block', fontWeight: 700, fontSize: '0.85rem', color: 'var(--color-text-secondary)', marginBottom: '0.4rem' }}>
                 Descripción de la Categoría
               </label>
               <textarea
@@ -188,7 +188,7 @@ const TipoEquipoFormModal: React.FC<TipoEquipoFormModalProps> = ({
                   width: '100%',
                   padding: '0.65rem 0.85rem',
                   borderRadius: '8px',
-                  border: '1px solid #CBD5E1',
+                  border: '1px solid var(--color-border-strong)',
                   fontSize: '0.88rem',
                   outline: 'none',
                   resize: 'vertical',
@@ -206,9 +206,9 @@ const TipoEquipoFormModal: React.FC<TipoEquipoFormModalProps> = ({
               style={{
                 padding: '0.6rem 1.2rem',
                 borderRadius: '8px',
-                border: '1px solid #CBD5E1',
-                backgroundColor: '#FFFFFF',
-                color: '#475569',
+                border: '1px solid var(--color-border-strong)',
+                backgroundColor: 'var(--color-surface)',
+                color: 'var(--color-text-secondary)',
                 fontWeight: 600,
                 fontSize: '0.85rem',
                 cursor: 'pointer',
@@ -223,12 +223,12 @@ const TipoEquipoFormModal: React.FC<TipoEquipoFormModalProps> = ({
                 padding: '0.6rem 1.5rem',
                 borderRadius: '8px',
                 border: 'none',
-                backgroundColor: '#003B70',
+                backgroundColor: 'var(--color-primary)',
                 color: '#FFFFFF',
                 fontWeight: 700,
                 fontSize: '0.85rem',
                 cursor: 'pointer',
-                boxShadow: '0 2px 6px rgba(0,59,112,0.2)',
+                boxShadow: '0 2px 6px rgba(153, 0, 0,0.2)',
               }}
             >
               {isPending ? 'Guardando...' : tipoToEdit ? 'Actualizar Categoría' : 'Registrar Categoría'}

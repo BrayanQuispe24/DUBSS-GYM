@@ -26,17 +26,17 @@ const DocumentoPreviewModal: React.FC<DocumentoPreviewModalProps> = ({ isOpen, d
       backgroundColor: 'rgba(11, 23, 39, 0.8)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 99999
     }}>
       <div style={{
-        backgroundColor: '#FFFFFF', borderRadius: '12px', padding: '1.5rem', width: '95%', maxWidth: '900px',
+        backgroundColor: 'var(--color-surface)', borderRadius: '12px', padding: '1.5rem', width: '95%', maxWidth: '900px',
         boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.3)', maxHeight: '92vh', display: 'flex', flexDirection: 'column'
       }}>
         {/* MODAL HEADER */}
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid #E2E8F0', paddingBottom: '0.85rem', marginBottom: '1rem' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid var(--color-border)', paddingBottom: '0.85rem', marginBottom: '1rem' }}>
           <div>
-            <h3 style={{ fontSize: '1.1rem', fontWeight: 800, color: '#0B1727', display: 'flex', alignItems: 'center', gap: '0.5rem', margin: 0 }}>
-              {isImage ? <FaImage style={{ color: '#0284C7' }} /> : <FaFilePdf style={{ color: '#EF4444' }} />}
+            <h3 style={{ fontSize: '1.1rem', fontWeight: 800, color: 'var(--color-text-primary)', display: 'flex', alignItems: 'center', gap: '0.5rem', margin: 0 }}>
+              {isImage ? <FaImage style={{ color: 'var(--color-primary-text)' }} /> : <FaFilePdf style={{ color: '#EF4444' }} />}
               {docTitle}
             </h3>
-            <p style={{ fontSize: '0.78rem', color: '#64748B', margin: '0.2rem 0 0 0' }}>
+            <p style={{ fontSize: '0.78rem', color: 'var(--color-text-muted)', margin: '0.2rem 0 0 0' }}>
               Socio: <strong>{userName}</strong> — Tipo: <strong>{tipoNombre}</strong>
             </p>
           </div>
@@ -46,7 +46,7 @@ const DocumentoPreviewModal: React.FC<DocumentoPreviewModalProps> = ({ isOpen, d
               target="_blank"
               rel="noreferrer"
               title="Abrir en pestaña nueva"
-              style={{ padding: '0.45rem 0.8rem', borderRadius: '6px', backgroundColor: '#F1F5F9', color: '#475569', fontSize: '0.82rem', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '0.4rem', textDecoration: 'none' }}
+              style={{ padding: '0.45rem 0.8rem', borderRadius: '6px', backgroundColor: 'var(--color-surface-muted)', color: 'var(--color-text-secondary)', fontSize: '0.82rem', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '0.4rem', textDecoration: 'none' }}
             >
               <FaArrowUpRightFromSquare /> Pestaña Nueva
             </a>
@@ -54,13 +54,13 @@ const DocumentoPreviewModal: React.FC<DocumentoPreviewModalProps> = ({ isOpen, d
               href={fileUrl}
               download
               title="Descargar Archivo"
-              style={{ padding: '0.45rem 0.85rem', borderRadius: '6px', backgroundColor: '#003B70', color: '#FFF', fontSize: '0.82rem', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '0.4rem', textDecoration: 'none' }}
+              style={{ padding: '0.45rem 0.85rem', borderRadius: '6px', backgroundColor: 'var(--color-primary)', color: '#FFF', fontSize: '0.82rem', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '0.4rem', textDecoration: 'none' }}
             >
               <FaDownload /> Descargar
             </a>
             <button
               onClick={onClose}
-              style={{ padding: '0.45rem', borderRadius: '6px', backgroundColor: '#F1F5F9', color: '#475569', border: 'none', cursor: 'pointer', fontSize: '1rem', display: 'flex', alignItems: 'center' }}
+              style={{ padding: '0.45rem', borderRadius: '6px', backgroundColor: 'var(--color-surface-muted)', color: 'var(--color-text-secondary)', border: 'none', cursor: 'pointer', fontSize: '1rem', display: 'flex', alignItems: 'center' }}
             >
               <FaXmark />
             </button>
@@ -69,7 +69,7 @@ const DocumentoPreviewModal: React.FC<DocumentoPreviewModalProps> = ({ isOpen, d
 
         {/* FILE PREVIEW CANVAS */}
         <div style={{
-          flex: 1, minHeight: '450px', backgroundColor: '#F8FAFC', borderRadius: '8px', border: '1px solid #E2E8F0',
+          flex: 1, minHeight: '450px', backgroundColor: 'var(--color-surface-muted)', borderRadius: '8px', border: '1px solid var(--color-border)',
           display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden', padding: '0.5rem'
         }}>
           {isImage ? (
@@ -85,12 +85,12 @@ const DocumentoPreviewModal: React.FC<DocumentoPreviewModalProps> = ({ isOpen, d
               style={{ width: '100%', height: '72vh', border: 'none', borderRadius: '6px' }}
             />
           ) : (
-            <div style={{ textAlign: 'center', padding: '3rem', color: '#64748B' }}>
+            <div style={{ textAlign: 'center', padding: '3rem', color: 'var(--color-text-muted)' }}>
               <p style={{ fontWeight: 700, fontSize: '1rem', marginBottom: '0.5rem' }}>Vista previa no disponible para este tipo de archivo.</p>
               <a
                 href={fileUrl}
                 download
-                style={{ color: '#003B70', fontWeight: 700, textDecoration: 'underline', fontSize: '0.88rem' }}
+                style={{ color: 'var(--color-primary-text)', fontWeight: 700, textDecoration: 'underline', fontSize: '0.88rem' }}
               >
                 Haga clic aquí para descargar el archivo.
               </a>

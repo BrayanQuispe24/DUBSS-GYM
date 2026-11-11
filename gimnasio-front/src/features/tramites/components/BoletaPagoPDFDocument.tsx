@@ -122,8 +122,8 @@ const styles = StyleSheet.create({
   montoBox: {
     marginVertical: 10,
     borderWidth: 1.5,
-    borderColor: '#003B70',
-    backgroundColor: '#F0F9FF',
+    borderColor: '#990000',
+    backgroundColor: '#FEF2F2',
     padding: 10,
     borderRadius: 4,
     alignItems: 'center',
@@ -131,13 +131,13 @@ const styles = StyleSheet.create({
   },
   montoTitle: {
     fontSize: 10,
-    color: '#003B70',
+    color: '#990000',
     fontWeight: 'bold',
     textTransform: 'uppercase',
   },
   montoVal: {
     fontSize: 18,
-    color: '#003B70',
+    color: '#990000',
     fontWeight: 'bold',
     marginTop: 4,
   },

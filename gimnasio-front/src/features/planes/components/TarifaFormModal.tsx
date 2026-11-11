@@ -43,28 +43,28 @@ const TarifaFormModal: React.FC<Props> = ({ isOpen, onClose, onSubmit, isPending
   return (
     <div style={{
       position: 'fixed', inset: 0, zIndex: 1000,
-      backgroundColor: 'rgba(15, 23, 42, 0.65)',
+      backgroundColor: 'rgba(0, 0, 0, 0.65)',
       display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '1rem',
     }}>
       <div style={{
-        background: '#FFFFFF', borderRadius: '4px', width: '100%', maxWidth: '480px',
-        boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)', overflow: 'hidden', border: '1px solid #CBD5E1',
+        background: 'var(--color-surface)', borderRadius: '4px', width: '100%', maxWidth: '480px',
+        boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)', overflow: 'hidden', border: '1px solid var(--color-border-strong)',
       }}>
         <div style={{
-          padding: '1rem 1.5rem', background: '#0F172A', color: '#FFFFFF',
+          padding: '1rem 1.5rem', background: '#141419', color: '#FFFFFF',
           display: 'flex', alignItems: 'center', justifyContent: 'space-between',
         }}>
           <h3 style={{ fontSize: '0.95rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.03em', margin: 0 }}>
             Nueva Tarifa Institucional
           </h3>
-          <button onClick={onClose} style={{ background: 'none', border: 'none', color: '#94A3B8', cursor: 'pointer', fontSize: '1.1rem', padding: '0.2rem' }}>
+          <button onClick={onClose} style={{ background: 'none', border: 'none', color: 'var(--color-text-muted)', cursor: 'pointer', fontSize: '1.1rem', padding: '0.2rem' }}>
             <FaXmark />
           </button>
         </div>
 
         <form onSubmit={handleSubmit((data) => { onSubmit(data); reset(); })} style={{ padding: '1.25rem 1.5rem', display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
           <div>
-            <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 700, color: '#475569', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.35rem' }}>
+            <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 700, color: 'var(--color-text-secondary)', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.35rem' }}>
               Nombre de la Tarifa *
             </label>
             <input
@@ -72,15 +72,15 @@ const TarifaFormModal: React.FC<Props> = ({ isOpen, onClose, onSubmit, isPending
               placeholder="Ej: Tarifa Regular Estudiante UAGRM"
               style={{
                 width: '100%', padding: '0.55rem 0.75rem', borderRadius: '4px',
-                border: errors.nombre ? '1px solid #EF4444' : '1px solid #CBD5E1', fontSize: '0.82rem',
-                color: '#0F172A', outline: 'none',
+                border: errors.nombre ? '1px solid #EF4444' : '1px solid var(--color-border-strong)', fontSize: '0.82rem',
+                color: 'var(--color-text-primary)', outline: 'none',
               }}
             />
             {errors.nombre && <span style={{ color: '#EF4444', fontSize: '0.72rem', fontWeight: 600, marginTop: '0.2rem', display: 'block' }}>{errors.nombre.message}</span>}
           </div>
 
           <div>
-            <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 700, color: '#475569', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.35rem' }}>
+            <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 700, color: 'var(--color-text-secondary)', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.35rem' }}>
               Precio (Bs.) *
             </label>
             <input
@@ -89,8 +89,8 @@ const TarifaFormModal: React.FC<Props> = ({ isOpen, onClose, onSubmit, isPending
               {...register('precio')}
               style={{
                 width: '100%', padding: '0.55rem 0.75rem', borderRadius: '4px',
-                border: errors.precio ? '1px solid #EF4444' : '1px solid #CBD5E1', fontSize: '0.82rem',
-                color: '#0F172A', outline: 'none',
+                border: errors.precio ? '1px solid #EF4444' : '1px solid var(--color-border-strong)', fontSize: '0.82rem',
+                color: 'var(--color-text-primary)', outline: 'none',
               }}
             />
             {errors.precio && <span style={{ color: '#EF4444', fontSize: '0.72rem', fontWeight: 600, marginTop: '0.2rem', display: 'block' }}>{errors.precio.message}</span>}
@@ -98,34 +98,34 @@ const TarifaFormModal: React.FC<Props> = ({ isOpen, onClose, onSubmit, isPending
 
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.85rem' }}>
             <div>
-              <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 700, color: '#475569', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.35rem' }}>
+              <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 700, color: 'var(--color-text-secondary)', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.35rem' }}>
                 Vigente Desde
               </label>
               <input
                 type="date"
                 {...register('fecha_inicio')}
-                style={{ width: '100%', padding: '0.55rem 0.75rem', borderRadius: '4px', border: '1px solid #CBD5E1', fontSize: '0.82rem', color: '#0F172A', outline: 'none' }}
+                style={{ width: '100%', padding: '0.55rem 0.75rem', borderRadius: '4px', border: '1px solid var(--color-border-strong)', fontSize: '0.82rem', color: 'var(--color-text-primary)', outline: 'none' }}
               />
             </div>
             <div>
-              <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 700, color: '#475569', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.35rem' }}>
+              <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 700, color: 'var(--color-text-secondary)', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.35rem' }}>
                 Vigente Hasta
               </label>
               <input
                 type="date"
                 {...register('fecha_fin')}
-                style={{ width: '100%', padding: '0.55rem 0.75rem', borderRadius: '4px', border: '1px solid #CBD5E1', fontSize: '0.82rem', color: '#0F172A', outline: 'none' }}
+                style={{ width: '100%', padding: '0.55rem 0.75rem', borderRadius: '4px', border: '1px solid var(--color-border-strong)', fontSize: '0.82rem', color: 'var(--color-text-primary)', outline: 'none' }}
               />
             </div>
           </div>
 
-          <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '0.75rem', marginTop: '0.75rem', paddingTop: '1rem', borderTop: '1px solid #F1F5F9' }}>
+          <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '0.75rem', marginTop: '0.75rem', paddingTop: '1rem', borderTop: '1px solid var(--color-border)' }}>
             <button
               type="button"
               onClick={onClose}
               style={{
-                padding: '0.50rem 1rem', borderRadius: '4px', border: '1px solid #CBD5E1',
-                background: '#FFFFFF', color: '#475569', fontWeight: 700, fontSize: '0.80rem', cursor: 'pointer',
+                padding: '0.50rem 1rem', borderRadius: '4px', border: '1px solid var(--color-border-strong)',
+                background: 'var(--color-surface)', color: 'var(--color-text-secondary)', fontWeight: 700, fontSize: '0.80rem', cursor: 'pointer',
                 textTransform: 'uppercase', letterSpacing: '0.03em',
               }}
             >
@@ -135,8 +135,8 @@ const TarifaFormModal: React.FC<Props> = ({ isOpen, onClose, onSubmit, isPending
               type="submit"
               disabled={isPending}
               style={{
-                padding: '0.50rem 1.25rem', borderRadius: '4px', border: '1px solid #005FA8',
-                background: '#0077D4',
+                padding: '0.50rem 1.25rem', borderRadius: '4px', border: '1px solid var(--color-primary)',
+                background: 'var(--color-primary)',
                 color: '#FFFFFF', fontWeight: 700, fontSize: '0.80rem', cursor: 'pointer',
                 textTransform: 'uppercase', letterSpacing: '0.03em',
               }}

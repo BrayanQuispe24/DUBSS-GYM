@@ -19,9 +19,9 @@ const Header: React.FC = () => {
         <Link to="/" className="logo" style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', textDecoration: 'none' }}>
           <div style={{ display: 'flex', flexDirection: 'column' }}>
             <span className="logo-text" style={{ color: '#ffffff', fontSize: '1.35rem', fontWeight: 800, lineHeight: 1 }}>
-              FITGO <span style={{ color: 'var(--color-accent)' }}>UAGRM</span>
+              FITGO <span style={{ color: '#EF4444' }}>UAGRM</span>
             </span>
-            <span style={{ fontSize: '0.68rem', color: '#CBD5E1', fontWeight: 600, letterSpacing: '0.05em' }}>
+            <span style={{ fontSize: '0.68rem', color: '#A1A1AA', fontWeight: 600, letterSpacing: '0.05em' }}>
               D.U.B.S. Bienestar Social
             </span>
           </div>
@@ -117,7 +117,7 @@ const Header: React.FC = () => {
                 }}
                 title="Registro Público de Cliente (Estudiantes/Docentes)"
               >
-                <UserPlus size={16} style={{ color: 'var(--color-accent)' }} />
+                <UserPlus size={16} style={{ color: '#EF4444' }} />
                 <span>Registrarse</span>
               </Link>
             </>
@@ -135,7 +135,7 @@ const Header: React.FC = () => {
             </div>
 
             <div className={`user-menu-popover ${isUserMenuOpen ? 'show' : ''}`} id="user-menu-popover">
-              <div style={{ fontSize: '0.72rem', color: 'var(--color-accent)', fontWeight: 800, textTransform: 'uppercase', padding: '0.3rem 0.6rem' }}>
+              <div style={{ fontSize: '0.72rem', color: '#F87171', fontWeight: 800, textTransform: 'uppercase', padding: '0.3rem 0.6rem' }}>
                 Acceso Rápido por Rol:
               </div>
               <a

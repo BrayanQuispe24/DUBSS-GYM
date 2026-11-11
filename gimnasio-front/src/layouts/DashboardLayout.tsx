@@ -24,7 +24,9 @@ import {
   FaFileInvoiceDollar,
   FaQrcode
 } from 'react-icons/fa6';
+import { Sun, Moon, Minus, Plus, Type } from 'lucide-react';
 import { useAuthStore } from '@/store/authStore';
+import { useUIStore, FONT_SCALES, FONT_SCALE_ORDER } from '@/store/uiStore';
 import { useLogout } from '@/features/auth/hooks/useAuth';
 import showToast from '@/utils/toast';
 
@@ -32,8 +34,20 @@ const DashboardLayout: React.FC = () => {
   const [collapsed, setCollapsed] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const { user } = useAuthStore();
+  const {
+    theme,
+    toggleTheme,
+    fontScale,
+    increaseFontScale,
+    decreaseFontScale,
+    resetFontScale,
+  } = useUIStore();
   const { mutate: logout } = useLogout();
   const location = useLocation();
+
+  const fontScaleIdx = FONT_SCALE_ORDER.indexOf(fontScale);
+  const canDecreaseFont = fontScaleIdx > 0;
+  const canIncreaseFont = fontScaleIdx < FONT_SCALE_ORDER.length - 1;
 
   const getInitials = (name?: string) => {
     if (!name) return 'GU';
@@ -66,6 +80,7 @@ const DashboardLayout: React.FC = () => {
     if (location.pathname.includes('/dashboard/equipos')) return 'Inventario de Equipos';
     if (location.pathname.includes('/dashboard/movimientos-inventario')) return 'Movimientos de Stock';
     if (location.pathname.includes('/dashboard/mantenimientos')) return 'Mantenimiento de Equipamiento';
+    if (location.pathname.includes('/dashboard/configuracion')) return 'Configuración del Sistema';
     return 'Reportes Generales';
   };
 
@@ -290,17 +305,15 @@ const DashboardLayout: React.FC = () => {
             <span>Denuncias y Reportes</span>
           </a>
 
-          <a
-            className="nav-item"
-            title="Configuración General"
-            onClick={(e) => {
-              e.preventDefault();
-              showToast.info('Configuración del sistema operativa.', 'Configuración');
-            }}
+          <NavLink
+            to="/dashboard/configuracion"
+            className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}
+            title="Configuración del Sistema"
+            onClick={() => setMobileOpen(false)}
           >
             <FaGears />
             <span>Configuración Sistema</span>
-          </a>
+          </NavLink>
         </nav>
 
         <div className="sidebar-footer">
@@ -341,25 +354,63 @@ const DashboardLayout: React.FC = () => {
           </div>
 
           <div className="topbar-right">
+            {/* Control global de tamaño de fuente */}
+            <div className="topbar-font-group" role="group" aria-label="Tamaño de fuente">
+              <span className="topbar-font-icon" title="Tamaño de texto">
+                <Type size={13} />
+              </span>
+              <button
+                type="button"
+                className="topbar-ctrl-btn"
+                onClick={decreaseFontScale}
+                disabled={!canDecreaseFont}
+                title="Reducir tamaño de fuente"
+                aria-label="Reducir tamaño de fuente"
+              >
+                <Minus size={12} />
+                <span className="sr-only">A-</span>
+              </button>
+              <button
+                type="button"
+                className="topbar-font-value"
+                onClick={resetFontScale}
+                title="Restablecer tamaño de fuente (100%)"
+                aria-label={`Tamaño actual ${FONT_SCALES[fontScale].label}, pulsar para restablecer`}
+              >
+                {FONT_SCALES[fontScale].label}
+              </button>
+              <button
+                type="button"
+                className="topbar-ctrl-btn"
+                onClick={increaseFontScale}
+                disabled={!canIncreaseFont}
+                title="Aumentar tamaño de fuente"
+                aria-label="Aumentar tamaño de fuente"
+              >
+                <Plus size={12} />
+                <span className="sr-only">A+</span>
+              </button>
+            </div>
+
+            {/* Selector Tema Oscuro / Claro */}
+            <button
+              type="button"
+              className="topbar-theme-btn"
+              onClick={toggleTheme}
+              title={theme === 'dark' ? 'Cambiar a tema claro' : 'Cambiar a tema oscuro'}
+              aria-label={theme === 'dark' ? 'Cambiar a tema claro' : 'Cambiar a tema oscuro'}
+            >
+              {theme === 'dark' ? <Sun size={15} /> : <Moon size={15} />}
+              <span className="topbar-btn-label">{theme === 'dark' ? 'Claro' : 'Oscuro'}</span>
+            </button>
+
             <button
               onClick={() => logout()}
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '0.4rem',
-                padding: '0.45rem 0.85rem',
-                borderRadius: '4px',
-                background: '#FEE2E2',
-                color: '#B91C1C',
-                border: '1px solid #FCA5A5',
-                fontSize: '0.8rem',
-                fontWeight: 700,
-                cursor: 'pointer',
-              }}
+              className="topbar-logout-btn"
               title="Cerrar Sesión"
             >
               <FaRightFromBracket />
-              <span>Salir</span>
+              <span className="topbar-btn-label">Salir</span>
             </button>
           </div>
         </header>

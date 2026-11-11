@@ -6,6 +6,7 @@ use App\Http\Controllers\RecomendacionRutinaController;
 use App\Http\Controllers\AmbienteController;
 use App\Http\Controllers\AntecedenteController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BiDashboardController;
 use App\Http\Controllers\BoletaInscripcionController;
 use App\Http\Controllers\BoletaPagoController;
 use App\Http\Controllers\DetalleHistorialController;
@@ -27,6 +28,7 @@ use App\Http\Controllers\PermisoController;
 use App\Http\Controllers\PlanAlimentacionController;
 use App\Http\Controllers\PlanController;
 use App\Http\Controllers\PlanEntrenamientoController;
+use App\Http\Controllers\PublicLandingController;
 use App\Http\Controllers\RegistroEntradaSalidaController;
 use App\Http\Controllers\RolController;
 use App\Http\Controllers\RolPermisoController;
@@ -39,7 +41,8 @@ use App\Http\Controllers\TipoMovimientoController;
 use App\Http\Controllers\UsuarioController;
 use Illuminate\Support\Facades\Route;
 
-// Rutas Públicas de Autenticación
+// Rutas Públicas de Autenticación y Catálogo Landing
+Route::get('/public/landing', [PublicLandingController::class, 'index']);
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
@@ -150,4 +153,14 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/movimientos-inventario', [MovimientoInventarioController::class, 'index']);
     Route::post('/movimientos-inventario', [MovimientoInventarioController::class, 'store']);
     Route::apiResource('mantenimientos', MantenimientoController::class);
+
+    // Módulo 10: Business Intelligence & Dashboard Analítico
+    Route::prefix('bi')->group(function () {
+        Route::get('/resumen', [BiDashboardController::class, 'resumen']);
+        Route::get('/series', [BiDashboardController::class, 'series']);
+        Route::get('/distribucion', [BiDashboardController::class, 'distribucion']);
+        Route::get('/aforo-tiempo-real', [BiDashboardController::class, 'aforoTiempoReal']);
+        Route::get('/movimientos', [BiDashboardController::class, 'movimientos']);
+        Route::get('/exportar-datos', [BiDashboardController::class, 'exportarDatos']);
+    });
 });

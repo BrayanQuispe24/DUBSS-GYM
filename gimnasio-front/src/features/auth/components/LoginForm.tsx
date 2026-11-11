@@ -49,9 +49,9 @@ const LoginForm: React.FC = () => {
         <div style={{
           padding: '0.75rem 1rem',
           borderRadius: '8px',
-          backgroundColor: '#FEE2E2',
-          border: '1px solid #FCA5A5',
-          color: '#991B1B',
+          backgroundColor: 'rgba(153, 0, 0, 0.16)',
+          border: '1px solid rgba(239, 68, 68, 0.4)',
+          color: '#FCA5A5',
           fontSize: '0.85rem',
           display: 'flex',
           alignItems: 'center',
@@ -63,7 +63,7 @@ const LoginForm: React.FC = () => {
       )}
 
       <div>
-        <label style={{ display: 'block', fontWeight: 600, fontSize: '0.85rem', color: '#1E293B', marginBottom: '0.35rem' }}>
+        <label style={{ display: 'block', fontWeight: 600, fontSize: '0.85rem', color: '#E2E8F0', marginBottom: '0.35rem' }}>
           Correo o Registro Universitario (R.U.)
         </label>
         <div style={{ position: 'relative' }}>
@@ -72,18 +72,19 @@ const LoginForm: React.FC = () => {
             left: '12px',
             top: '50%',
             transform: 'translateY(-50%)',
-            color: '#64748B',
+            color: '#94A3B8',
             fontSize: '0.9rem',
           }} />
           <input
             type="text"
             placeholder="ejemplo@uagrm.edu.bo o 218000000"
+            className="auth-dark-input"
             {...register('identifier')}
             style={{
               width: '100%',
               padding: '0.65rem 0.75rem 0.65rem 2.25rem',
               borderRadius: '8px',
-              border: errors.identifier ? '1px solid #DC2626' : '1px solid #CBD5E1',
+              border: errors.identifier ? '1px solid #EF4444' : '1px solid rgba(255, 255, 255, 0.14)',
               fontSize: '0.9rem',
               outline: 'none',
               transition: 'all 0.15s ease',
@@ -91,14 +92,14 @@ const LoginForm: React.FC = () => {
           />
         </div>
         {errors.identifier && (
-          <span style={{ color: '#DC2626', fontSize: '0.78rem', marginTop: '0.25rem', display: 'block' }}>
+          <span style={{ color: '#F87171', fontSize: '0.78rem', marginTop: '0.25rem', display: 'block' }}>
             {errors.identifier.message}
           </span>
         )}
       </div>
 
       <div>
-        <label style={{ display: 'block', fontWeight: 600, fontSize: '0.85rem', color: '#1E293B', marginBottom: '0.35rem' }}>
+        <label style={{ display: 'block', fontWeight: 600, fontSize: '0.85rem', color: '#E2E8F0', marginBottom: '0.35rem' }}>
           Contraseña
         </label>
         <div style={{ position: 'relative' }}>
@@ -107,18 +108,19 @@ const LoginForm: React.FC = () => {
             left: '12px',
             top: '50%',
             transform: 'translateY(-50%)',
-            color: '#64748B',
+            color: '#94A3B8',
             fontSize: '0.9rem',
           }} />
           <input
             type="password"
             placeholder="••••••••"
+            className="auth-dark-input"
             {...register('password')}
             style={{
               width: '100%',
               padding: '0.65rem 0.75rem 0.65rem 2.25rem',
               borderRadius: '8px',
-              border: errors.password ? '1px solid #DC2626' : '1px solid #CBD5E1',
+              border: errors.password ? '1px solid #EF4444' : '1px solid rgba(255, 255, 255, 0.14)',
               fontSize: '0.9rem',
               outline: 'none',
               transition: 'all 0.15s ease',
@@ -126,18 +128,18 @@ const LoginForm: React.FC = () => {
           />
         </div>
         {errors.password && (
-          <span style={{ color: '#DC2626', fontSize: '0.78rem', marginTop: '0.25rem', display: 'block' }}>
+          <span style={{ color: '#F87171', fontSize: '0.78rem', marginTop: '0.25rem', display: 'block' }}>
             {errors.password.message}
           </span>
         )}
       </div>
 
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '0.82rem' }}>
-        <label style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', cursor: 'pointer', color: '#475569' }}>
-          <input type="checkbox" style={{ accentColor: '#003B70' }} />
+        <label style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', cursor: 'pointer', color: '#CBD5E1' }}>
+          <input type="checkbox" style={{ accentColor: '#CC1F1F' }} />
           Recordar sesión
         </label>
-        <a href="#forgot" onClick={(e) => { e.preventDefault(); alert('Por favor contacte a Soporte Técnico D.U.B.S.'); }} style={{ color: '#003B70', fontWeight: 600, textDecoration: 'none' }}>
+        <a href="#forgot" onClick={(e) => { e.preventDefault(); alert('Por favor contacte a Soporte Técnico D.U.B.S.'); }} style={{ color: '#F87171', fontWeight: 600, textDecoration: 'none' }}>
           ¿Olvidó su contraseña?
         </a>
       </div>
@@ -149,14 +151,14 @@ const LoginForm: React.FC = () => {
           width: '100%',
           padding: '0.75rem',
           borderRadius: '8px',
-          background: 'linear-gradient(135deg, #003B70 0%, #002A52 100%)',
+          background: 'linear-gradient(135deg, #990000 0%, #7A0000 100%)',
           color: '#FFFFFF',
           border: 'none',
           fontWeight: 700,
           fontSize: '0.95rem',
           cursor: isPending ? 'not-allowed' : 'pointer',
           opacity: isPending ? 0.7 : 1,
-          boxShadow: '0 4px 12px rgba(0, 59, 112, 0.25)',
+          boxShadow: '0 6px 18px rgba(153, 0, 0, 0.35)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
@@ -180,11 +182,11 @@ const LoginForm: React.FC = () => {
         marginTop: '0.5rem',
         padding: '0.85rem',
         borderRadius: '8px',
-        backgroundColor: '#F8FAFC',
-        border: '1px dashed #CBD5E1',
+        backgroundColor: '#1A1A22',
+        border: '1px dashed rgba(255, 255, 255, 0.14)',
         textAlign: 'center',
       }}>
-        <div style={{ fontSize: '0.82rem', color: '#475569', marginBottom: '0.35rem' }}>
+        <div style={{ fontSize: '0.82rem', color: '#94A3B8', marginBottom: '0.35rem' }}>
           ¿Eres estudiante, docente o administrativo UAGRM?
         </div>
         <Link
@@ -193,7 +195,7 @@ const LoginForm: React.FC = () => {
             display: 'inline-flex',
             alignItems: 'center',
             gap: '0.35rem',
-            color: '#990000',
+            color: '#F87171',
             fontWeight: 700,
             fontSize: '0.88rem',
             textDecoration: 'none',

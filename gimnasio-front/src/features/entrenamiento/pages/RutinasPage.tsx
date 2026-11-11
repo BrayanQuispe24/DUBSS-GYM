@@ -150,7 +150,7 @@ const RutinasPage: React.FC = () => {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
-        borderBottom: '1px solid #E2E8F0',
+        borderBottom: '1px solid var(--color-border)',
         marginBottom: '1.25rem',
         flexWrap: 'wrap',
         gap: '0.5rem',
@@ -165,8 +165,8 @@ const RutinasPage: React.FC = () => {
               cursor: 'pointer',
               border: 'none',
               background: 'none',
-              borderBottom: activeTab === 'list' ? '2px solid #0077D4' : '2px solid transparent',
-              color: activeTab === 'list' ? '#0077D4' : '#64748B',
+              borderBottom: activeTab === 'list' ? '2px solid var(--color-primary)' : '2px solid transparent',
+              color: activeTab === 'list' ? 'var(--color-primary-text)' : 'var(--color-text-muted)',
               marginBottom: '-1px',
               display: 'inline-flex',
               alignItems: 'center',
@@ -187,8 +187,8 @@ const RutinasPage: React.FC = () => {
                 cursor: 'pointer',
                 border: 'none',
                 background: 'none',
-                borderBottom: activeTab === 'form' ? '2px solid #0077D4' : '2px solid transparent',
-                color: activeTab === 'form' ? '#0077D4' : '#64748B',
+                borderBottom: activeTab === 'form' ? '2px solid var(--color-primary)' : '2px solid transparent',
+                color: activeTab === 'form' ? 'var(--color-primary-text)' : 'var(--color-text-muted)',
                 marginBottom: '-1px',
                 display: 'inline-flex',
                 alignItems: 'center',
@@ -210,7 +210,7 @@ const RutinasPage: React.FC = () => {
               border: 'none',
               background: 'none',
               borderBottom: '2px solid transparent',
-              color: '#0077D4',
+              color: 'var(--color-primary-text)',
               marginBottom: '-1px',
               display: 'inline-flex',
               alignItems: 'center',
@@ -233,9 +233,9 @@ const RutinasPage: React.FC = () => {
               fontWeight: 700,
               cursor: 'pointer',
               borderRadius: '4px',
-              border: '1px solid #CBD5E1',
-              background: '#FFFFFF',
-              color: '#0F172A',
+              border: '1px solid var(--color-border-strong)',
+              background: 'var(--color-surface)',
+              color: 'var(--color-text-primary)',
               display: 'inline-flex',
               alignItems: 'center',
               gap: '0.4rem',
@@ -243,7 +243,7 @@ const RutinasPage: React.FC = () => {
             }}
             title="Evaluación corporal y alineación postural con MediaPipe Pose"
           >
-            <FaCamera size={13} style={{ color: '#0077D4' }} /> Análisis Postural (MediaPipe)
+            <FaCamera size={13} style={{ color: 'var(--color-primary-text)' }} /> Análisis Postural (MediaPipe)
           </button>
         </div>
       </div>
@@ -251,9 +251,9 @@ const RutinasPage: React.FC = () => {
       {/* TAB 1: LISTADO DE RUTINAS */}
       {activeTab === 'list' && (
         <div style={{
-          background: '#FFFFFF',
+          background: 'var(--color-surface)',
           borderRadius: '4px',
-          border: '1px solid #E2E8F0',
+          border: '1px solid var(--color-border)',
           boxShadow: '0 1px 2px rgba(0,0,0,0.03)',
           overflow: 'hidden',
           marginBottom: '1.5rem',
@@ -261,8 +261,8 @@ const RutinasPage: React.FC = () => {
           {/* TOOLBAR */}
           <div style={{
             padding: '0.75rem 1rem',
-            borderBottom: '1px solid #E2E8F0',
-            background: '#F8FAFC',
+            borderBottom: '1px solid var(--color-border)',
+            background: 'var(--color-surface-muted)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
@@ -281,16 +281,16 @@ const RutinasPage: React.FC = () => {
                   fontSize: '0.80rem',
                   fontWeight: 500,
                   borderRadius: '4px',
-                  border: '1px solid #CBD5E1',
-                  background: '#FFFFFF',
+                  border: '1px solid var(--color-border-strong)',
+                  background: 'var(--color-surface)',
                   outline: 'none',
                 }}
               />
-              <FaMagnifyingGlass style={{ position: 'absolute', left: '0.65rem', top: '50%', transform: 'translateY(-50%)', color: '#94A3B8', fontSize: '0.75rem' }} />
+              <FaMagnifyingGlass style={{ position: 'absolute', left: '0.65rem', top: '50%', transform: 'translateY(-50%)', color: 'var(--color-text-muted)', fontSize: '0.75rem' }} />
               {listSearch && (
                 <button
                   onClick={() => setListSearch('')}
-                  style={{ position: 'absolute', right: '0.65rem', top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', color: '#94A3B8', cursor: 'pointer', fontSize: '0.75rem' }}
+                  style={{ position: 'absolute', right: '0.65rem', top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', color: 'var(--color-text-muted)', cursor: 'pointer', fontSize: '0.75rem' }}
                 >
                   <FaXmark />
                 </button>
@@ -298,7 +298,7 @@ const RutinasPage: React.FC = () => {
             </div>
 
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              <span style={{ fontSize: '0.70rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: '#64748B' }}>
+              <span style={{ fontSize: '0.70rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--color-text-muted)' }}>
                 Nivel:
               </span>
               <select
@@ -307,11 +307,11 @@ const RutinasPage: React.FC = () => {
                 style={{
                   padding: '0.45rem 0.65rem',
                   borderRadius: '4px',
-                  border: '1px solid #CBD5E1',
+                  border: '1px solid var(--color-border-strong)',
                   fontSize: '0.80rem',
                   fontWeight: 600,
-                  background: '#FFFFFF',
-                  color: '#0F172A',
+                  background: 'var(--color-surface)',
+                  color: 'var(--color-text-primary)',
                   cursor: 'pointer',
                   minWidth: '150px',
                 }}
@@ -326,13 +326,13 @@ const RutinasPage: React.FC = () => {
 
           {/* TABLA DESKTOP */}
           {isLoading ? (
-            <div style={{ padding: '2.5rem', textAlign: 'center', color: '#64748B', fontSize: '0.85rem' }}>
+            <div style={{ padding: '2.5rem', textAlign: 'center', color: 'var(--color-text-muted)', fontSize: '0.85rem' }}>
               Cargando catálogo de rutinas de entrenamiento...
             </div>
           ) : (
             <div style={{ overflowX: 'auto' }}>
               <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.82rem' }}>
-                <thead style={{ background: '#F8FAFC', borderBottom: '1px solid #E2E8F0', color: '#475569', fontWeight: 700, fontSize: '0.72rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                <thead style={{ background: 'var(--color-surface-muted)', borderBottom: '1px solid var(--color-border)', color: 'var(--color-text-secondary)', fontWeight: 700, fontSize: '0.72rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                   <tr>
                     <th style={{ padding: '0.65rem 1rem' }}>RUTINA / DENOMINACIÓN</th>
                     <th style={{ padding: '0.65rem 1rem' }}>NIVEL</th>
@@ -347,15 +347,15 @@ const RutinasPage: React.FC = () => {
                     const totalEjercicios = r.rutina_ejercicios?.length || 0;
 
                     return (
-                      <tr key={r.id} style={{ borderBottom: '1px solid #F1F5F9' }}>
-                        <td style={{ padding: '0.65rem 1rem', fontWeight: 700, color: '#0F172A' }}>
+                      <tr key={r.id} style={{ borderBottom: '1px solid var(--color-border)' }}>
+                        <td style={{ padding: '0.65rem 1rem', fontWeight: 700, color: 'var(--color-text-primary)' }}>
                           <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
-                            <FaListCheck style={{ color: '#0077D4' }} /> {r.nombre}
+                            <FaListCheck style={{ color: 'var(--color-primary-text)' }} /> {r.nombre}
                           </div>
                         </td>
 
                         <td style={{ padding: '0.65rem 1rem' }}>
-                          <span style={{ fontSize: '0.70rem', background: '#E0F2FE', color: '#0077D4', padding: '0.15rem 0.45rem', borderRadius: '2px', fontWeight: 700, textTransform: 'uppercase' }}>
+                          <span style={{ fontSize: '0.70rem', background: 'var(--color-primary-soft)', color: 'var(--color-primary-text)', padding: '0.15rem 0.45rem', borderRadius: '2px', fontWeight: 700, textTransform: 'uppercase' }}>
                             {r.nivel || 'General'}
                           </span>
                         </td>
@@ -363,17 +363,17 @@ const RutinasPage: React.FC = () => {
                         <td style={{ padding: '0.65rem 1rem' }}>
                           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.3rem', alignItems: 'center' }}>
                             {r.rutina_ejercicios?.slice(0, 3).map((re: any, idx: number) => (
-                              <span key={idx} style={{ fontSize: '0.70rem', background: '#F1F5F9', color: '#334155', padding: '0.12rem 0.4rem', borderRadius: '2px', fontWeight: 600 }}>
+                              <span key={idx} style={{ fontSize: '0.70rem', background: 'var(--color-surface-muted)', color: 'var(--color-text-secondary)', padding: '0.12rem 0.4rem', borderRadius: '2px', fontWeight: 600 }}>
                                 {re.ejercicio?.nombre || 'Ejercicio'} ({re.series || 4}x{re.repeticiones || 12})
                               </span>
                             ))}
                             {totalEjercicios > 3 && (
-                              <span style={{ fontSize: '0.70rem', color: '#64748B', fontWeight: 600 }}>
+                              <span style={{ fontSize: '0.70rem', color: 'var(--color-text-muted)', fontWeight: 600 }}>
                                 +{totalEjercicios - 3} más
                               </span>
                             )}
                             {totalEjercicios === 0 && (
-                              <span style={{ fontSize: '0.72rem', color: '#94A3B8' }}>Sin ejercicios asignados</span>
+                              <span style={{ fontSize: '0.72rem', color: 'var(--color-text-muted)' }}>Sin ejercicios asignados</span>
                             )}
                           </div>
                         </td>
@@ -384,15 +384,15 @@ const RutinasPage: React.FC = () => {
                             onClick={() => setViewRutinaDetail(r)}
                             title="Ver detalle completo con videos e imágenes del ejercicio"
                             style={{
-                              background: '#F8FAFC', border: '1px solid #CBD5E1', padding: '0.35rem 0.65rem', borderRadius: '4px',
-                              cursor: 'pointer', color: '#0F172A', display: 'inline-flex', alignItems: 'center', gap: '0.35rem', fontSize: '0.75rem', fontWeight: 700
+                              background: 'var(--color-surface-muted)', border: '1px solid var(--color-border-strong)', padding: '0.35rem 0.65rem', borderRadius: '4px',
+                              cursor: 'pointer', color: 'var(--color-text-primary)', display: 'inline-flex', alignItems: 'center', gap: '0.35rem', fontSize: '0.75rem', fontWeight: 700
                             }}
                           >
-                            <FaEye style={{ color: '#0077D4' }} /> Ver Rutina ({totalEjercicios})
+                            <FaEye style={{ color: 'var(--color-primary-text)' }} /> Ver Rutina ({totalEjercicios})
                           </button>
                         </td>
 
-                        <td style={{ padding: '0.65rem 1rem', color: '#64748B', maxWidth: '250px' }}>
+                        <td style={{ padding: '0.65rem 1rem', color: 'var(--color-text-muted)', maxWidth: '250px' }}>
                           <span style={{ display: 'inline-block', maxWidth: '250px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                             {r.descripcion || '-'}
                           </span>
@@ -404,14 +404,14 @@ const RutinasPage: React.FC = () => {
                               <button
                                 onClick={() => setEditRutina(r)}
                                 title="Editar rutina"
-                                style={{ background: '#F8FAFC', border: '1px solid #CBD5E1', color: '#0077D4', cursor: 'pointer', fontSize: '0.80rem', padding: '0.35rem 0.55rem', borderRadius: '4px' }}
+                                style={{ background: 'var(--color-surface-muted)', border: '1px solid var(--color-border-strong)', color: 'var(--color-primary-text)', cursor: 'pointer', fontSize: '0.80rem', padding: '0.35rem 0.55rem', borderRadius: '4px' }}
                               >
                                 <FaPenToSquare />
                               </button>
                               <button
                                 onClick={() => setDeletingRutinaId(r.id)}
                                 title="Eliminar rutina"
-                                style={{ background: '#FEE2E2', border: '1px solid #FECACA', color: '#DC2626', cursor: 'pointer', fontSize: '0.80rem', padding: '0.35rem 0.55rem', borderRadius: '4px' }}
+                                style={{ background: 'var(--color-danger-bg)', border: '1px solid rgba(220, 38, 38, 0.35)', color: 'var(--color-danger-text)', cursor: 'pointer', fontSize: '0.80rem', padding: '0.35rem 0.55rem', borderRadius: '4px' }}
                               >
                                 <FaTrash />
                               </button>
@@ -423,10 +423,10 @@ const RutinasPage: React.FC = () => {
                   })}
                   {filteredRutinas.length === 0 && (
                     <tr>
-                      <td colSpan={canManage ? 6 : 5} style={{ padding: '2.5rem 1rem', textAlign: 'center', color: '#64748B' }}>
+                      <td colSpan={canManage ? 6 : 5} style={{ padding: '2.5rem 1rem', textAlign: 'center', color: 'var(--color-text-muted)' }}>
                         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem' }}>
-                          <span style={{ fontWeight: 600, color: '#475569', fontSize: '0.90rem' }}>No se encontraron rutinas con los filtros seleccionados.</span>
-                          <span style={{ fontSize: '0.78rem', color: '#94A3B8' }}>Utiliza la pestaña "Diseñar Nueva Rutina" para registrar una.</span>
+                          <span style={{ fontWeight: 600, color: 'var(--color-text-secondary)', fontSize: '0.90rem' }}>No se encontraron rutinas con los filtros seleccionados.</span>
+                          <span style={{ fontSize: '0.78rem', color: 'var(--color-text-muted)' }}>Utiliza la pestaña "Diseñar Nueva Rutina" para registrar una.</span>
                         </div>
                       </td>
                     </tr>
@@ -439,13 +439,13 @@ const RutinasPage: React.FC = () => {
           {/* PIE DE TABLA / PAGINACIÓN ENTERPRISE */}
           <div style={{
             padding: '0.65rem 1rem',
-            background: '#F8FAFC',
-            borderTop: '1px solid #E2E8F0',
+            background: 'var(--color-surface-muted)',
+            borderTop: '1px solid var(--color-border)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
             fontSize: '0.75rem',
-            color: '#64748B',
+            color: 'var(--color-text-muted)',
             flexWrap: 'wrap',
             gap: '0.5rem',
           }}>
@@ -453,7 +453,7 @@ const RutinasPage: React.FC = () => {
               Mostrando <strong>{filteredRutinas.length}</strong> {filteredRutinas.length === 1 ? 'rutina registrada' : 'rutinas registradas'} en plataforma
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
-              <span style={{ padding: '0.2rem 0.6rem', borderRadius: '4px', background: '#0077D4', color: '#FFF', fontWeight: 700, fontSize: '0.72rem' }}>
+              <span style={{ padding: '0.2rem 0.6rem', borderRadius: '4px', background: 'var(--color-primary)', color: '#FFF', fontWeight: 700, fontSize: '0.72rem' }}>
                 Página 1
               </span>
             </div>
@@ -464,24 +464,24 @@ const RutinasPage: React.FC = () => {
       {/* TAB 2: PANEL DE FORMULARIO CENTRADO ENTERPRISE */}
       {canManage && activeTab === 'form' && (
         <div style={{ maxWidth: '850px', margin: '0 auto 2rem' }}>
-          <div style={{ background: '#FFFFFF', borderRadius: '4px', border: '1px solid #CBD5E1', boxShadow: '0 1px 3px rgba(0,0,0,0.05)', overflow: 'hidden' }}>
+          <div style={{ background: 'var(--color-surface)', borderRadius: '4px', border: '1px solid var(--color-border-strong)', boxShadow: '0 1px 3px rgba(0,0,0,0.05)', overflow: 'hidden' }}>
             {/* Header del Panel */}
             <div style={{
               padding: '0.85rem 1.25rem',
-              borderBottom: '1px solid #E2E8F0',
-              background: '#F8FAFC',
+              borderBottom: '1px solid var(--color-border)',
+              background: 'var(--color-surface-muted)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between',
             }}>
-              <h3 style={{ fontSize: '0.88rem', fontWeight: 700, color: '#0F172A', display: 'flex', alignItems: 'center', gap: '0.5rem', margin: 0, textTransform: 'uppercase', letterSpacing: '0.04em' }}>
-                <FaListCheck style={{ color: '#0077D4' }} /> Diseñar Nueva Rutina de Entrenamiento
+              <h3 style={{ fontSize: '0.88rem', fontWeight: 700, color: 'var(--color-text-primary)', display: 'flex', alignItems: 'center', gap: '0.5rem', margin: 0, textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+                <FaListCheck style={{ color: 'var(--color-primary-text)' }} /> Diseñar Nueva Rutina de Entrenamiento
               </h3>
               <button
                 type="button"
                 onClick={() => setActiveTab('list')}
                 style={{
-                  background: 'none', border: 'none', color: '#64748B', cursor: 'pointer',
+                  background: 'none', border: 'none', color: 'var(--color-text-muted)', cursor: 'pointer',
                   fontSize: '0.80rem', fontWeight: 600, padding: '0.2rem 0.5rem', borderRadius: '4px',
                 }}
               >
@@ -493,8 +493,8 @@ const RutinasPage: React.FC = () => {
             <div style={{
               margin: '1.25rem 1.25rem 0',
               padding: '0.75rem 1rem',
-              background: '#F4F9FF',
-              border: '1px solid #BAE6FD',
+              background: 'var(--color-surface-muted)',
+              border: '1px solid rgba(220, 38, 38, 0.30)',
               borderRadius: '4px',
               display: 'flex',
               alignItems: 'center',
@@ -503,12 +503,12 @@ const RutinasPage: React.FC = () => {
               flexWrap: 'wrap',
             }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
-                <FaWandMagicSparkles style={{ color: '#0077D4', fontSize: '1.1rem' }} />
+                <FaWandMagicSparkles style={{ color: 'var(--color-primary-text)', fontSize: '1.1rem' }} />
                 <div>
-                  <div style={{ fontSize: '0.80rem', fontWeight: 700, color: '#003B70' }}>
+                  <div style={{ fontSize: '0.80rem', fontWeight: 700, color: 'var(--color-primary-text)' }}>
                     ¿Prefieres que el Sistema Experto elabore esta rutina automáticamente?
                   </div>
-                  <div style={{ fontSize: '0.75rem', color: '#64748B' }}>
+                  <div style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)' }}>
                     Selección determinista por nivel, grupo muscular e hipertrofia/fuerza.
                   </div>
                 </div>
@@ -517,7 +517,7 @@ const RutinasPage: React.FC = () => {
                 type="button"
                 onClick={() => setIsIAModalOpen(true)}
                 style={{
-                  background: '#0077D4',
+                  background: 'var(--color-primary)',
                   color: '#FFFFFF',
                   border: 'none',
                   padding: '0.4rem 0.85rem',
@@ -538,7 +538,7 @@ const RutinasPage: React.FC = () => {
             <form onSubmit={handleCreateRutina} style={{ padding: '1.25rem', display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
               <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '1rem' }}>
                 <div>
-                  <label style={{ display: 'block', fontSize: '0.72rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: '#475569', marginBottom: '0.35rem' }}>
+                  <label style={{ display: 'block', fontSize: '0.72rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--color-text-secondary)', marginBottom: '0.35rem' }}>
                     Nombre de la Rutina *
                   </label>
                   <input
@@ -547,17 +547,17 @@ const RutinasPage: React.FC = () => {
                     value={nombre}
                     onChange={(e) => setNombre(e.target.value)}
                     placeholder="Ej: Rutina Pectoral & Tríceps Hipertrofia"
-                    style={{ width: '100%', padding: '0.5rem 0.65rem', borderRadius: '4px', border: '1px solid #CBD5E1', fontSize: '0.82rem' }}
+                    style={{ width: '100%', padding: '0.5rem 0.65rem', borderRadius: '4px', border: '1px solid var(--color-border-strong)', fontSize: '0.82rem' }}
                   />
                 </div>
                 <div>
-                  <label style={{ display: 'block', fontSize: '0.72rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: '#475569', marginBottom: '0.35rem' }}>
+                  <label style={{ display: 'block', fontSize: '0.72rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--color-text-secondary)', marginBottom: '0.35rem' }}>
                     Nivel de Dificultad
                   </label>
                   <select
                     value={nivel}
                     onChange={(e) => setNivel(e.target.value)}
-                    style={{ width: '100%', padding: '0.5rem 0.65rem', borderRadius: '4px', border: '1px solid #CBD5E1', fontSize: '0.82rem', backgroundColor: '#FFF' }}
+                    style={{ width: '100%', padding: '0.5rem 0.65rem', borderRadius: '4px', border: '1px solid var(--color-border-strong)', fontSize: '0.82rem', backgroundColor: 'var(--color-surface)' }}
                   >
                     <option value="Principiante">Principiante</option>
                     <option value="Intermedio">Intermedio</option>
@@ -567,7 +567,7 @@ const RutinasPage: React.FC = () => {
               </div>
 
               <div>
-                <label style={{ display: 'block', fontSize: '0.72rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: '#475569', marginBottom: '0.35rem' }}>
+                <label style={{ display: 'block', fontSize: '0.72rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--color-text-secondary)', marginBottom: '0.35rem' }}>
                   Descripción / Recomendaciones Técnicas
                 </label>
                 <input
@@ -575,23 +575,23 @@ const RutinasPage: React.FC = () => {
                   value={descripcion}
                   onChange={(e) => setDescripcion(e.target.value)}
                   placeholder="Ej: Orientado al desarrollo hipertrófico con descansos entre 60 y 90 segundos."
-                  style={{ width: '100%', padding: '0.5rem 0.65rem', borderRadius: '4px', border: '1px solid #CBD5E1', fontSize: '0.82rem' }}
+                  style={{ width: '100%', padding: '0.5rem 0.65rem', borderRadius: '4px', border: '1px solid var(--color-border-strong)', fontSize: '0.82rem' }}
                 />
               </div>
 
               {/* SECCIÓN DE BÚSQUEDA Y FILTROS PARA ASIGNAR EJERCICIOS */}
-              <div style={{ background: '#F8FAFC', padding: '1rem', borderRadius: '4px', border: '1px solid #E2E8F0' }}>
-                <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: '#0F172A', marginBottom: '0.65rem' }}>
-                  <FaFilter style={{ color: '#0077D4', marginRight: '0.3rem' }} /> Filtrar y Vincular Ejercicios a la Rutina
+              <div style={{ background: 'var(--color-surface-muted)', padding: '1rem', borderRadius: '4px', border: '1px solid var(--color-border)' }}>
+                <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--color-text-primary)', marginBottom: '0.65rem' }}>
+                  <FaFilter style={{ color: 'var(--color-primary-text)', marginRight: '0.3rem' }} /> Filtrar y Vincular Ejercicios a la Rutina
                 </label>
 
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '0.65rem', marginBottom: '0.75rem' }}>
                   <div>
-                    <label style={{ display: 'block', fontSize: '0.70rem', fontWeight: 600, color: '#64748B', marginBottom: '0.2rem' }}>Por Categoría / Tipo</label>
+                    <label style={{ display: 'block', fontSize: '0.70rem', fontWeight: 600, color: 'var(--color-text-muted)', marginBottom: '0.2rem' }}>Por Categoría / Tipo</label>
                     <select
                       value={filterTipoId}
                       onChange={(e) => setFilterTipoId(e.target.value ? Number(e.target.value) : '')}
-                      style={{ width: '100%', padding: '0.4rem', borderRadius: '4px', border: '1px solid #CBD5E1', fontSize: '0.78rem', background: '#FFF' }}
+                      style={{ width: '100%', padding: '0.4rem', borderRadius: '4px', border: '1px solid var(--color-border-strong)', fontSize: '0.78rem', background: 'var(--color-surface)' }}
                     >
                       <option value="">-- Todos los Tipos --</option>
                       {tipos.map((t: any) => (
@@ -601,11 +601,11 @@ const RutinasPage: React.FC = () => {
                   </div>
 
                   <div>
-                    <label style={{ display: 'block', fontSize: '0.70rem', fontWeight: 600, color: '#64748B', marginBottom: '0.2rem' }}>Por Grupo Muscular</label>
+                    <label style={{ display: 'block', fontSize: '0.70rem', fontWeight: 600, color: 'var(--color-text-muted)', marginBottom: '0.2rem' }}>Por Grupo Muscular</label>
                     <select
                       value={filterGrupoId}
                       onChange={(e) => setFilterGrupoId(e.target.value ? Number(e.target.value) : '')}
-                      style={{ width: '100%', padding: '0.4rem', borderRadius: '4px', border: '1px solid #CBD5E1', fontSize: '0.78rem', background: '#FFF' }}
+                      style={{ width: '100%', padding: '0.4rem', borderRadius: '4px', border: '1px solid var(--color-border-strong)', fontSize: '0.78rem', background: 'var(--color-surface)' }}
                     >
                       <option value="">-- Todos los Grupos --</option>
                       {grupos.map((g: any) => (
@@ -615,16 +615,16 @@ const RutinasPage: React.FC = () => {
                   </div>
 
                   <div>
-                    <label style={{ display: 'block', fontSize: '0.70rem', fontWeight: 600, color: '#64748B', marginBottom: '0.2rem' }}>Buscar por Nombre</label>
+                    <label style={{ display: 'block', fontSize: '0.70rem', fontWeight: 600, color: 'var(--color-text-muted)', marginBottom: '0.2rem' }}>Buscar por Nombre</label>
                     <div style={{ position: 'relative' }}>
                       <input
                         type="text"
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
                         placeholder="Ej: Press, Biceps..."
-                        style={{ width: '100%', padding: '0.4rem 0.4rem 0.4rem 1.6rem', borderRadius: '4px', border: '1px solid #CBD5E1', fontSize: '0.78rem', background: '#FFF' }}
+                        style={{ width: '100%', padding: '0.4rem 0.4rem 0.4rem 1.6rem', borderRadius: '4px', border: '1px solid var(--color-border-strong)', fontSize: '0.78rem', background: 'var(--color-surface)' }}
                       />
-                      <FaMagnifyingGlass style={{ position: 'absolute', left: '0.5rem', top: '50%', transform: 'translateY(-50%)', color: '#94A3B8', fontSize: '0.70rem' }} />
+                      <FaMagnifyingGlass style={{ position: 'absolute', left: '0.5rem', top: '50%', transform: 'translateY(-50%)', color: 'var(--color-text-muted)', fontSize: '0.70rem' }} />
                     </div>
                   </div>
                 </div>
@@ -636,7 +636,7 @@ const RutinasPage: React.FC = () => {
                       e.target.value = '';
                     }
                   }}
-                  style={{ width: '100%', padding: '0.5rem', borderRadius: '4px', border: '1px solid #0077D4', fontSize: '0.80rem', backgroundColor: '#FFF', fontWeight: 600, cursor: 'pointer', color: '#0077D4' }}
+                  style={{ width: '100%', padding: '0.5rem', borderRadius: '4px', border: '1px solid var(--color-primary)', fontSize: '0.80rem', backgroundColor: 'var(--color-surface)', fontWeight: 600, cursor: 'pointer', color: 'var(--color-primary-text)' }}
                 >
                   <option value="">
                     Seleccionar Ejercicio del Catálogo ({filteredCatalogEjercicios.length} de {ejercicios.length} disponibles)...
@@ -650,8 +650,8 @@ const RutinasPage: React.FC = () => {
               </div>
 
               {/* LISTA DE EJERCICIOS CONFIGURADOS */}
-              <div style={{ border: '1px solid #E2E8F0', borderRadius: '4px', padding: '0.85rem', background: '#FFFFFF' }}>
-                <span style={{ fontSize: '0.75rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: '#0F172A', display: 'block', marginBottom: '0.65rem' }}>
+              <div style={{ border: '1px solid var(--color-border)', borderRadius: '4px', padding: '0.85rem', background: 'var(--color-surface)' }}>
+                <span style={{ fontSize: '0.75rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--color-text-primary)', display: 'block', marginBottom: '0.65rem' }}>
                   Ejercicios Configurados ({selectedEjercicios.length})
                 </span>
 
@@ -662,12 +662,12 @@ const RutinasPage: React.FC = () => {
                       gridTemplateColumns: '2fr 1fr 1fr 1.2fr auto',
                       gap: '0.5rem',
                       padding: '0.4rem 0.5rem',
-                      background: '#F1F5F9',
+                      background: 'var(--color-surface-muted)',
                       borderRadius: '4px',
                       marginBottom: '0.4rem',
                       fontSize: '0.70rem',
                       fontWeight: 700,
-                      color: '#475569',
+                      color: 'var(--color-text-secondary)',
                       textTransform: 'uppercase',
                       letterSpacing: '0.04em',
                       alignItems: 'center',
@@ -675,13 +675,13 @@ const RutinasPage: React.FC = () => {
                   >
                     <div>Nombre del Ejercicio</div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.2rem' }}>
-                      <FaRepeat style={{ color: '#0077D4' }} /> Series
+                      <FaRepeat style={{ color: 'var(--color-primary-text)' }} /> Series
                     </div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.2rem' }}>
-                      <FaDumbbell style={{ color: '#0077D4' }} /> Repeticiones
+                      <FaDumbbell style={{ color: 'var(--color-primary-text)' }} /> Repeticiones
                     </div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.2rem' }}>
-                      <FaClock style={{ color: '#0077D4' }} /> Descanso (seg)
+                      <FaClock style={{ color: 'var(--color-primary-text)' }} /> Descanso (seg)
                     </div>
                     <div style={{ textAlign: 'center' }}>Acción</div>
                   </div>
@@ -698,13 +698,13 @@ const RutinasPage: React.FC = () => {
                         gap: '0.5rem',
                         alignItems: 'center',
                         marginBottom: '0.4rem',
-                        background: '#F8FAFC',
+                        background: 'var(--color-surface-muted)',
                         padding: '0.4rem 0.5rem',
                         borderRadius: '4px',
-                        border: '1px solid #E2E8F0',
+                        border: '1px solid var(--color-border)',
                       }}
                     >
-                      <span style={{ fontSize: '0.80rem', fontWeight: 600, color: '#0F172A' }}>{ejObj?.nombre}</span>
+                      <span style={{ fontSize: '0.80rem', fontWeight: 600, color: 'var(--color-text-primary)' }}>{ejObj?.nombre}</span>
 
                       <div>
                         <input
@@ -718,7 +718,7 @@ const RutinasPage: React.FC = () => {
                             setSelectedEjercicios(newArr);
                           }}
                           placeholder="Series"
-                          style={{ width: '100%', padding: '0.35rem 0.5rem', fontSize: '0.80rem', borderRadius: '4px', border: '1px solid #CBD5E1' }}
+                          style={{ width: '100%', padding: '0.35rem 0.5rem', fontSize: '0.80rem', borderRadius: '4px', border: '1px solid var(--color-border-strong)' }}
                         />
                       </div>
 
@@ -734,7 +734,7 @@ const RutinasPage: React.FC = () => {
                             setSelectedEjercicios(newArr);
                           }}
                           placeholder="Reps"
-                          style={{ width: '100%', padding: '0.35rem 0.5rem', fontSize: '0.80rem', borderRadius: '4px', border: '1px solid #CBD5E1' }}
+                          style={{ width: '100%', padding: '0.35rem 0.5rem', fontSize: '0.80rem', borderRadius: '4px', border: '1px solid var(--color-border-strong)' }}
                         />
                       </div>
 
@@ -751,9 +751,9 @@ const RutinasPage: React.FC = () => {
                             setSelectedEjercicios(newArr);
                           }}
                           placeholder="Segundos"
-                          style={{ width: '100%', padding: '0.35rem 0.5rem', fontSize: '0.80rem', borderRadius: '4px', border: '1px solid #CBD5E1' }}
+                          style={{ width: '100%', padding: '0.35rem 0.5rem', fontSize: '0.80rem', borderRadius: '4px', border: '1px solid var(--color-border-strong)' }}
                         />
-                        <span style={{ fontSize: '0.72rem', color: '#64748B', fontWeight: 600 }}>seg</span>
+                        <span style={{ fontSize: '0.72rem', color: 'var(--color-text-muted)', fontWeight: 600 }}>seg</span>
                       </div>
 
                       <button
@@ -769,7 +769,7 @@ const RutinasPage: React.FC = () => {
                 })}
 
                 {selectedEjercicios.length === 0 && (
-                  <div style={{ textAlign: 'center', padding: '1rem', color: '#94A3B8', fontSize: '0.80rem' }}>
+                  <div style={{ textAlign: 'center', padding: '1rem', color: 'var(--color-text-muted)', fontSize: '0.80rem' }}>
                     No hay ejercicios agregados a esta rutina. Utiliza el selector superior para vincular ejercicios.
                   </div>
                 )}
@@ -781,7 +781,7 @@ const RutinasPage: React.FC = () => {
                 justifyContent: 'flex-end',
                 alignItems: 'center',
                 gap: '0.75rem',
-                borderTop: '1px solid #E2E8F0',
+                borderTop: '1px solid var(--color-border)',
                 paddingTop: '1rem',
               }}>
                 <button
@@ -790,9 +790,9 @@ const RutinasPage: React.FC = () => {
                   style={{
                     padding: '0.5rem 1rem',
                     borderRadius: '4px',
-                    border: '1px solid #CBD5E1',
-                    background: '#FFFFFF',
-                    color: '#475569',
+                    border: '1px solid var(--color-border-strong)',
+                    background: 'var(--color-surface)',
+                    color: 'var(--color-text-secondary)',
                     fontSize: '0.80rem',
                     fontWeight: 700,
                     cursor: 'pointer',
@@ -807,7 +807,7 @@ const RutinasPage: React.FC = () => {
                     padding: '0.5rem 1.25rem',
                     borderRadius: '4px',
                     border: 'none',
-                    background: '#0077D4',
+                    background: 'var(--color-primary)',
                     color: '#FFFFFF',
                     fontSize: '0.80rem',
                     fontWeight: 700,

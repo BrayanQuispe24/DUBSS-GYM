@@ -65,8 +65,8 @@ const UserDetailPage: React.FC = () => {
 
   if (isLoading) {
     return (
-      <div style={{ padding: '4rem', textAlign: 'center', color: '#64748B' }}>
-        <FaSpinner className="animate-spin" style={{ fontSize: '2.5rem', color: '#003B70', marginBottom: '1rem' }} />
+      <div style={{ padding: '4rem', textAlign: 'center', color: 'var(--color-text-muted)' }}>
+        <FaSpinner className="animate-spin" style={{ fontSize: '2.5rem', color: 'var(--color-primary-text)', marginBottom: '1rem' }} />
         <p style={{ fontWeight: 600 }}>Cargando expediente completo del usuario...</p>
       </div>
     );
@@ -75,9 +75,9 @@ const UserDetailPage: React.FC = () => {
   if (isError || !user) {
     return (
       <div style={{ padding: '3rem', textAlign: 'center' }}>
-        <FaCircleExclamation style={{ fontSize: '3rem', color: '#DC2626', marginBottom: '1rem' }} />
-        <h3 style={{ color: '#0B1727', fontWeight: 800 }}>No se pudo cargar la información del socio</h3>
-        <p style={{ color: '#64748B', fontSize: '0.9rem', marginBottom: '1.5rem' }}>
+        <FaCircleExclamation style={{ fontSize: '3rem', color: 'var(--color-danger-text)', marginBottom: '1rem' }} />
+        <h3 style={{ color: 'var(--color-text-primary)', fontWeight: 800 }}>No se pudo cargar la información del socio</h3>
+        <p style={{ color: 'var(--color-text-muted)', fontSize: '0.9rem', marginBottom: '1.5rem' }}>
           {(error as Error)?.message || 'Ocurrió un error al consultar la API de usuarios.'}
         </p>
         <button
@@ -85,7 +85,7 @@ const UserDetailPage: React.FC = () => {
           style={{
             padding: '0.65rem 1.25rem',
             borderRadius: '8px',
-            backgroundColor: '#003B70',
+            backgroundColor: 'var(--color-primary)',
             color: '#FFF',
             border: 'none',
             fontWeight: 700,
@@ -111,13 +111,13 @@ const UserDetailPage: React.FC = () => {
   const getRoleBadgeStyle = (rol: string) => {
     switch (rol) {
       case 'administrador':
-        return { bg: '#FEE2E2', color: '#990000', label: 'Administrador' };
+        return { bg: 'var(--color-danger-bg)', color: 'var(--color-primary-text)', label: 'Administrador' };
       case 'recepcionista':
-        return { bg: '#E0F2FE', color: '#003B70', label: 'Recepcionista' };
+        return { bg: 'var(--color-primary-soft)', color: 'var(--color-primary-text)', label: 'Recepcionista' };
       case 'instructor':
-        return { bg: '#FEF3C7', color: '#D97706', label: 'Instructor' };
+        return { bg: 'var(--color-warning-bg)', color: 'var(--color-warning-text)', label: 'Instructor' };
       default:
-        return { bg: '#DCFCE7', color: '#15803D', label: 'Cliente / Socio' };
+        return { bg: 'var(--color-success-bg)', color: 'var(--color-success-text)', label: 'Cliente / Socio' };
     }
   };
 
@@ -190,9 +190,9 @@ const UserDetailPage: React.FC = () => {
             gap: '0.5rem',
             padding: '0.5rem 1rem',
             borderRadius: '6px',
-            backgroundColor: '#FFFFFF',
-            border: '1px solid #CBD5E1',
-            color: '#003B70',
+            backgroundColor: 'var(--color-surface)',
+            border: '1px solid var(--color-border-strong)',
+            color: 'var(--color-primary-text)',
             fontWeight: 700,
             fontSize: '0.85rem',
             cursor: 'pointer',
@@ -206,10 +206,10 @@ const UserDetailPage: React.FC = () => {
       {/* USER BANNER / HEADER CARD */}
       <div
         style={{
-          backgroundColor: '#FFFFFF',
+          backgroundColor: 'var(--color-surface)',
           borderRadius: '12px',
           padding: '1.5rem 2rem',
-          border: '1px solid #E2E8F0',
+          border: '1px solid var(--color-border)',
           boxShadow: '0 4px 12px rgba(0,0,0,0.03)',
           marginBottom: '1.5rem',
           display: 'flex',
@@ -225,7 +225,7 @@ const UserDetailPage: React.FC = () => {
               width: '72px',
               height: '72px',
               borderRadius: '50%',
-              background: user.rol === 'administrador' ? '#990000' : user.rol === 'recepcionista' ? '#003B70' : '#059669',
+              background: user.rol === 'administrador' ? '#990000' : user.rol === 'recepcionista' ? 'var(--color-primary)' : '#059669',
               color: '#FFFFFF',
               fontWeight: 800,
               fontSize: '1.6rem',
@@ -241,7 +241,7 @@ const UserDetailPage: React.FC = () => {
 
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap' }}>
-              <h2 style={{ fontSize: '1.4rem', fontWeight: 800, color: '#0B1727', margin: 0 }}>
+              <h2 style={{ fontSize: '1.4rem', fontWeight: 800, color: 'var(--color-text-primary)', margin: 0 }}>
                 {user.name}
               </h2>
               <span
@@ -268,21 +268,21 @@ const UserDetailPage: React.FC = () => {
               </span>
             </div>
 
-            <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem', marginTop: '0.6rem', flexWrap: 'wrap', fontSize: '0.82rem', color: '#64748B' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem', marginTop: '0.6rem', flexWrap: 'wrap', fontSize: '0.82rem', color: 'var(--color-text-muted)' }}>
               <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.35rem' }}>
-                <FaEnvelope style={{ color: '#003B70', flexShrink: 0 }} />
+                <FaEnvelope style={{ color: 'var(--color-primary-text)', flexShrink: 0 }} />
                 <span>{user.email}</span>
               </span>
               <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.35rem' }}>
-                <FaIdCard style={{ color: '#D97706', flexShrink: 0 }} />
+                <FaIdCard style={{ color: 'var(--color-warning-text)', flexShrink: 0 }} />
                 <span>R.U.: <strong>{user.registro_universitario || 'N/A'}</strong></span>
               </span>
               <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.35rem' }}>
-                <FaIdCard style={{ color: '#0284C7', flexShrink: 0 }} />
+                <FaIdCard style={{ color: 'var(--color-primary-text)', flexShrink: 0 }} />
                 <span>CI: <strong>{user.ci || 'Sin CI'}</strong></span>
               </span>
               <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.35rem' }}>
-                <FaPhone style={{ color: '#059669', flexShrink: 0 }} />
+                <FaPhone style={{ color: 'var(--color-success-text)', flexShrink: 0 }} />
                 <span>{user.telefono || 'Sin celular'}</span>
               </span>
             </div>
@@ -315,7 +315,7 @@ const UserDetailPage: React.FC = () => {
               style={{
                 padding: '0.65rem 1.25rem',
                 borderRadius: '8px',
-                backgroundColor: '#003B70',
+                backgroundColor: 'var(--color-primary)',
                 color: '#FFF',
                 border: 'none',
                 fontWeight: 700,
@@ -324,7 +324,7 @@ const UserDetailPage: React.FC = () => {
                 display: 'flex',
                 alignItems: 'center',
                 gap: '0.5rem',
-                boxShadow: '0 4px 10px rgba(0,59,112,0.2)',
+                boxShadow: '0 4px 10px rgba(153, 0, 0,0.2)',
               }}
             >
               <FaPrint /> Ver Ficha Física Impresa
@@ -338,9 +338,9 @@ const UserDetailPage: React.FC = () => {
         style={{
           display: 'flex',
           gap: '0.5rem',
-          borderBottom: '2px solid #E2E8F0',
+          borderBottom: '2px solid var(--color-border)',
           marginBottom: '1.5rem',
-          backgroundColor: '#FFFFFF',
+          backgroundColor: 'var(--color-surface)',
           padding: '0.5rem 1rem 0 1rem',
           borderRadius: '8px 8px 0 0',
         }}
@@ -350,9 +350,9 @@ const UserDetailPage: React.FC = () => {
           style={{
             padding: '0.75rem 1.25rem',
             border: 'none',
-            borderBottom: activeTab === 'perfil' ? '3px solid #003B70' : '3px solid transparent',
+            borderBottom: activeTab === 'perfil' ? '3px solid var(--color-primary)' : '3px solid transparent',
             backgroundColor: 'transparent',
-            color: activeTab === 'perfil' ? '#003B70' : '#64748B',
+            color: activeTab === 'perfil' ? 'var(--color-primary-text)' : 'var(--color-text-muted)',
             fontWeight: activeTab === 'perfil' ? 800 : 600,
             fontSize: '0.9rem',
             cursor: 'pointer',
@@ -369,9 +369,9 @@ const UserDetailPage: React.FC = () => {
           style={{
             padding: '0.75rem 1.25rem',
             border: 'none',
-            borderBottom: activeTab === 'historial' ? '3px solid #003B70' : '3px solid transparent',
+            borderBottom: activeTab === 'historial' ? '3px solid var(--color-primary)' : '3px solid transparent',
             backgroundColor: 'transparent',
-            color: activeTab === 'historial' ? '#003B70' : '#64748B',
+            color: activeTab === 'historial' ? 'var(--color-primary-text)' : 'var(--color-text-muted)',
             fontWeight: activeTab === 'historial' ? 800 : 600,
             fontSize: '0.9rem',
             cursor: 'pointer',
@@ -388,9 +388,9 @@ const UserDetailPage: React.FC = () => {
           style={{
             padding: '0.75rem 1.25rem',
             border: 'none',
-            borderBottom: activeTab === 'antecedentes' ? '3px solid #003B70' : '3px solid transparent',
+            borderBottom: activeTab === 'antecedentes' ? '3px solid var(--color-primary)' : '3px solid transparent',
             backgroundColor: 'transparent',
-            color: activeTab === 'antecedentes' ? '#003B70' : '#64748B',
+            color: activeTab === 'antecedentes' ? 'var(--color-primary-text)' : 'var(--color-text-muted)',
             fontWeight: activeTab === 'antecedentes' ? 800 : 600,
             fontSize: '0.9rem',
             cursor: 'pointer',
@@ -399,7 +399,7 @@ const UserDetailPage: React.FC = () => {
             gap: '0.5rem',
           }}
         >
-          <FaHeartPulse style={{ color: '#DC2626' }} /> Antecedentes Médicos
+          <FaHeartPulse style={{ color: 'var(--color-danger-text)' }} /> Antecedentes Médicos
         </button>
 
         <button
@@ -407,9 +407,9 @@ const UserDetailPage: React.FC = () => {
           style={{
             padding: '0.75rem 1.25rem',
             border: 'none',
-            borderBottom: activeTab === 'documentos' ? '3px solid #003B70' : '3px solid transparent',
+            borderBottom: activeTab === 'documentos' ? '3px solid var(--color-primary)' : '3px solid transparent',
             backgroundColor: 'transparent',
-            color: activeTab === 'documentos' ? '#003B70' : '#64748B',
+            color: activeTab === 'documentos' ? 'var(--color-primary-text)' : 'var(--color-text-muted)',
             fontWeight: activeTab === 'documentos' ? 800 : 600,
             fontSize: '0.9rem',
             cursor: 'pointer',
@@ -418,59 +418,59 @@ const UserDetailPage: React.FC = () => {
             gap: '0.5rem',
           }}
         >
-          <FaFolderOpen style={{ color: '#0284C7' }} /> Documentos Digitales ({documentos.length})
+          <FaFolderOpen style={{ color: 'var(--color-primary-text)' }} /> Documentos Digitales ({documentos.length})
         </button>
       </div>
 
       {/* TAB CONTENT: PERFIL */}
       {activeTab === 'perfil' && (
-        <div style={{ backgroundColor: '#FFFFFF', padding: '1.75rem', borderRadius: '12px', border: '1px solid #E2E8F0', boxShadow: '0 4px 12px rgba(0,0,0,0.03)' }}>
-          <h3 style={{ fontSize: '1.1rem', fontWeight: 800, color: '#003B70', marginBottom: '1.25rem', borderBottom: '1px solid #E2E8F0', paddingBottom: '0.5rem' }}>
+        <div style={{ backgroundColor: 'var(--color-surface)', padding: '1.75rem', borderRadius: '12px', border: '1px solid var(--color-border)', boxShadow: '0 4px 12px rgba(0,0,0,0.03)' }}>
+          <h3 style={{ fontSize: '1.1rem', fontWeight: 800, color: 'var(--color-primary-text)', marginBottom: '1.25rem', borderBottom: '1px solid var(--color-border)', paddingBottom: '0.5rem' }}>
             Información de Registro & Datos Personales
           </h3>
 
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem' }}>
             <div>
-              <span style={{ fontSize: '0.78rem', color: '#64748B', display: 'block', fontWeight: 600, marginBottom: '0.2rem' }}>Nombre Completo:</span>
-              <div style={{ fontSize: '0.95rem', fontWeight: 700, color: '#0B1727' }}>{user.name}</div>
+              <span style={{ fontSize: '0.78rem', color: 'var(--color-text-muted)', display: 'block', fontWeight: 600, marginBottom: '0.2rem' }}>Nombre Completo:</span>
+              <div style={{ fontSize: '0.95rem', fontWeight: 700, color: 'var(--color-text-primary)' }}>{user.name}</div>
             </div>
 
             <div>
-              <span style={{ fontSize: '0.78rem', color: '#64748B', display: 'block', fontWeight: 600, marginBottom: '0.2rem' }}>Correo Electrónico Institucional:</span>
-              <div style={{ fontSize: '0.95rem', fontWeight: 700, color: '#0B1727' }}>{user.email}</div>
+              <span style={{ fontSize: '0.78rem', color: 'var(--color-text-muted)', display: 'block', fontWeight: 600, marginBottom: '0.2rem' }}>Correo Electrónico Institucional:</span>
+              <div style={{ fontSize: '0.95rem', fontWeight: 700, color: 'var(--color-text-primary)' }}>{user.email}</div>
             </div>
 
             <div>
-              <span style={{ fontSize: '0.78rem', color: '#64748B', display: 'block', fontWeight: 600, marginBottom: '0.2rem' }}>Rol en el Sistema:</span>
+              <span style={{ fontSize: '0.78rem', color: 'var(--color-text-muted)', display: 'block', fontWeight: 600, marginBottom: '0.2rem' }}>Rol en el Sistema:</span>
               <div style={{ textTransform: 'capitalize', fontWeight: 700, color: roleStyle.color }}>{user.rol}</div>
             </div>
 
             <div>
-              <span style={{ fontSize: '0.78rem', color: '#64748B', display: 'block', fontWeight: 600, marginBottom: '0.2rem' }}>Tipo de Usuario:</span>
-              <div style={{ textTransform: 'capitalize', fontWeight: 700, color: '#0B1727', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-                <FaGraduationCap style={{ color: '#003B70' }} /> {user.tipo_usuario || 'Estudiante'}
+              <span style={{ fontSize: '0.78rem', color: 'var(--color-text-muted)', display: 'block', fontWeight: 600, marginBottom: '0.2rem' }}>Tipo de Usuario:</span>
+              <div style={{ textTransform: 'capitalize', fontWeight: 700, color: 'var(--color-text-primary)', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                <FaGraduationCap style={{ color: 'var(--color-primary-text)' }} /> {user.tipo_usuario || 'Estudiante'}
               </div>
             </div>
 
             <div>
-              <span style={{ fontSize: '0.78rem', color: '#64748B', display: 'block', fontWeight: 600, marginBottom: '0.2rem' }}>Registro Universitario (R.U.):</span>
-              <div style={{ fontSize: '0.95rem', fontWeight: 700, color: '#0B1727' }}>{user.registro_universitario || 'N/A'}</div>
+              <span style={{ fontSize: '0.78rem', color: 'var(--color-text-muted)', display: 'block', fontWeight: 600, marginBottom: '0.2rem' }}>Registro Universitario (R.U.):</span>
+              <div style={{ fontSize: '0.95rem', fontWeight: 700, color: 'var(--color-text-primary)' }}>{user.registro_universitario || 'N/A'}</div>
             </div>
 
             <div>
-              <span style={{ fontSize: '0.78rem', color: '#64748B', display: 'block', fontWeight: 600, marginBottom: '0.2rem' }}>Cédula de Identidad (C.I.):</span>
-              <div style={{ fontSize: '0.95rem', fontWeight: 700, color: '#0B1727' }}>{user.ci || 'Sin C.I.'}</div>
+              <span style={{ fontSize: '0.78rem', color: 'var(--color-text-muted)', display: 'block', fontWeight: 600, marginBottom: '0.2rem' }}>Cédula de Identidad (C.I.):</span>
+              <div style={{ fontSize: '0.95rem', fontWeight: 700, color: 'var(--color-text-primary)' }}>{user.ci || 'Sin C.I.'}</div>
             </div>
 
             <div>
-              <span style={{ fontSize: '0.78rem', color: '#64748B', display: 'block', fontWeight: 600, marginBottom: '0.2rem' }}>Teléfono / Celular de Contacto:</span>
-              <div style={{ fontSize: '0.95rem', fontWeight: 700, color: '#0B1727' }}>{user.telefono || 'Sin teléfono'}</div>
+              <span style={{ fontSize: '0.78rem', color: 'var(--color-text-muted)', display: 'block', fontWeight: 600, marginBottom: '0.2rem' }}>Teléfono / Celular de Contacto:</span>
+              <div style={{ fontSize: '0.95rem', fontWeight: 700, color: 'var(--color-text-primary)' }}>{user.telefono || 'Sin teléfono'}</div>
             </div>
 
             <div>
-              <span style={{ fontSize: '0.78rem', color: '#64748B', display: 'block', fontWeight: 600, marginBottom: '0.2rem' }}>Fecha de Alta en el Sistema:</span>
-              <div style={{ fontSize: '0.95rem', fontWeight: 700, color: '#0B1727', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-                <FaCalendarDays style={{ color: '#D97706' }} />
+              <span style={{ fontSize: '0.78rem', color: 'var(--color-text-muted)', display: 'block', fontWeight: 600, marginBottom: '0.2rem' }}>Fecha de Alta en el Sistema:</span>
+              <div style={{ fontSize: '0.95rem', fontWeight: 700, color: 'var(--color-text-primary)', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                <FaCalendarDays style={{ color: 'var(--color-warning-text)' }} />
                 {user.created_at ? new Date(user.created_at).toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' }) : 'Registrado'}
               </div>
             </div>
@@ -480,32 +480,32 @@ const UserDetailPage: React.FC = () => {
 
       {/* TAB CONTENT: HISTORIAL CLINICO */}
       {activeTab === 'historial' && (
-        <div style={{ backgroundColor: '#FFFFFF', padding: '1.75rem', borderRadius: '12px', border: '1px solid #E2E8F0', boxShadow: '0 4px 12px rgba(0,0,0,0.03)' }}>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.25rem', borderBottom: '1px solid #E2E8F0', paddingBottom: '0.5rem' }}>
-            <h3 style={{ fontSize: '1.1rem', fontWeight: 800, color: '#003B70', margin: 0 }}>
+        <div style={{ backgroundColor: 'var(--color-surface)', padding: '1.75rem', borderRadius: '12px', border: '1px solid var(--color-border)', boxShadow: '0 4px 12px rgba(0,0,0,0.03)' }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.25rem', borderBottom: '1px solid var(--color-border)', paddingBottom: '0.5rem' }}>
+            <h3 style={{ fontSize: '1.1rem', fontWeight: 800, color: 'var(--color-primary-text)', margin: 0 }}>
               Historial Clínico y Evaluaciones Físicas
             </h3>
-            <span style={{ fontSize: '0.8rem', color: '#64748B', fontWeight: 600 }}>
+            <span style={{ fontSize: '0.8rem', color: 'var(--color-text-muted)', fontWeight: 600 }}>
               {historiales.length} Expediente(s) encontrado(s)
             </span>
           </div>
 
           {historiales.length === 0 ? (
-            <div style={{ padding: '3rem', textAlign: 'center', color: '#64748B', backgroundColor: '#F8FAFC', borderRadius: '8px', border: '1px dashed #CBD5E1' }}>
-              <FaFileMedical style={{ fontSize: '2.5rem', color: '#94A3B8', marginBottom: '0.75rem' }} />
+            <div style={{ padding: '3rem', textAlign: 'center', color: 'var(--color-text-muted)', backgroundColor: 'var(--color-surface-muted)', borderRadius: '8px', border: '1px dashed var(--color-border-strong)' }}>
+              <FaFileMedical style={{ fontSize: '2.5rem', color: 'var(--color-text-muted)', marginBottom: '0.75rem' }} />
               <p style={{ fontWeight: 700, fontSize: '0.95rem', margin: 0 }}>Este socio no cuenta con un historial clínico aperturado.</p>
             </div>
           ) : (
             historiales.map((hist) => {
               const detalles: DetalleHistorial[] = hist.detalles || [];
               return (
-                <div key={hist.id} style={{ marginBottom: '2rem', border: '1px solid #E2E8F0', borderRadius: '10px', padding: '1.25rem', backgroundColor: '#FAF9F6' }}>
+                <div key={hist.id} style={{ marginBottom: '2rem', border: '1px solid var(--color-border)', borderRadius: '10px', padding: '1.25rem', backgroundColor: '#FAF9F6' }}>
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1rem', flexWrap: 'wrap', gap: '0.5rem' }}>
                     <div>
-                      <span style={{ fontSize: '0.78rem', color: '#64748B', fontWeight: 700 }}>
+                      <span style={{ fontSize: '0.78rem', color: 'var(--color-text-muted)', fontWeight: 700 }}>
                         EXPEDIENTE Nº #{hist.id.toString().padStart(6, '0')}
                       </span>
-                      <h4 style={{ fontSize: '1rem', fontWeight: 800, color: '#003B70', margin: '0.1rem 0 0 0' }}>
+                      <h4 style={{ fontSize: '1rem', fontWeight: 800, color: 'var(--color-primary-text)', margin: '0.1rem 0 0 0' }}>
                         Apertura: {hist.created_at ? new Date(hist.created_at).toLocaleDateString() : 'Aperturado'}
                       </h4>
                     </div>
@@ -515,7 +515,7 @@ const UserDetailPage: React.FC = () => {
                       style={{
                         padding: '0.45rem 0.9rem',
                         borderRadius: '6px',
-                        backgroundColor: '#003B70',
+                        backgroundColor: 'var(--color-primary)',
                         color: '#FFF',
                         border: 'none',
                         fontWeight: 700,
@@ -530,21 +530,21 @@ const UserDetailPage: React.FC = () => {
                     </button>
                   </div>
 
-                  <div style={{ marginBottom: '1rem', backgroundColor: '#FFFFFF', padding: '0.85rem 1rem', borderRadius: '6px', border: '1px solid #E2E8F0' }}>
-                    <span style={{ fontSize: '0.78rem', fontWeight: 700, color: '#003B70', display: 'block', marginBottom: '0.25rem' }}>
+                  <div style={{ marginBottom: '1rem', backgroundColor: 'var(--color-surface)', padding: '0.85rem 1rem', borderRadius: '6px', border: '1px solid var(--color-border)' }}>
+                    <span style={{ fontSize: '0.78rem', fontWeight: 700, color: 'var(--color-primary-text)', display: 'block', marginBottom: '0.25rem' }}>
                       Observaciones Médicas / Diagnóstico:
                     </span>
-                    <p style={{ fontSize: '0.85rem', color: '#334155', margin: 0 }}>
+                    <p style={{ fontSize: '0.85rem', color: 'var(--color-text-secondary)', margin: 0 }}>
                       {hist.observaciones_generales || hist.observaciones || 'Sin observaciones adicionales declaradas.'}
                     </p>
                   </div>
 
-                  <h5 style={{ fontSize: '0.88rem', fontWeight: 800, color: '#0B1727', marginBottom: '0.6rem' }}>
+                  <h5 style={{ fontSize: '0.88rem', fontWeight: 800, color: 'var(--color-text-primary)', marginBottom: '0.6rem' }}>
                     Evaluaciones Antropométricas Registradas ({detalles.length})
                   </h5>
 
                   {detalles.length === 0 ? (
-                    <p style={{ fontSize: '0.82rem', color: '#64748B', fontStyle: 'italic' }}>
+                    <p style={{ fontSize: '0.82rem', color: 'var(--color-text-muted)', fontStyle: 'italic' }}>
                       No hay mediciones físicas periódicas registradas en este expediente.
                     </p>
                   ) : (
@@ -569,10 +569,10 @@ const UserDetailPage: React.FC = () => {
                               </td>
                               <td>{det.peso ? `${det.peso} kg` : '-'}</td>
                               <td>{det.altura ? `${det.altura} cm` : '-'}</td>
-                              <td style={{ fontWeight: 800, color: '#003B70' }}>{det.imc || '-'}</td>
+                              <td style={{ fontWeight: 800, color: 'var(--color-primary-text)' }}>{det.imc || '-'}</td>
                               <td>{det.porcentaje_grasa ? `${det.porcentaje_grasa}%` : '-'}</td>
                               <td>{det.presion || '-'}</td>
-                              <td style={{ color: '#64748B', fontSize: '0.78rem' }}>{det.observaciones || '-'}</td>
+                              <td style={{ color: 'var(--color-text-muted)', fontSize: '0.78rem' }}>{det.observaciones || '-'}</td>
                             </tr>
                           ))}
                         </tbody>
@@ -588,30 +588,30 @@ const UserDetailPage: React.FC = () => {
 
       {/* TAB CONTENT: ANTECEDENTES MEDICOS */}
       {activeTab === 'antecedentes' && (
-        <div style={{ backgroundColor: '#FFFFFF', padding: '1.75rem', borderRadius: '12px', border: '1px solid #E2E8F0', boxShadow: '0 4px 12px rgba(0,0,0,0.03)' }}>
-          <h3 style={{ fontSize: '1.1rem', fontWeight: 800, color: '#003B70', marginBottom: '1.25rem', borderBottom: '1px solid #E2E8F0', paddingBottom: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-            <FaHeartPulse style={{ color: '#DC2626' }} /> Antecedentes Patológicos & Condición Médica
+        <div style={{ backgroundColor: 'var(--color-surface)', padding: '1.75rem', borderRadius: '12px', border: '1px solid var(--color-border)', boxShadow: '0 4px 12px rgba(0,0,0,0.03)' }}>
+          <h3 style={{ fontSize: '1.1rem', fontWeight: 800, color: 'var(--color-primary-text)', marginBottom: '1.25rem', borderBottom: '1px solid var(--color-border)', paddingBottom: '0.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            <FaHeartPulse style={{ color: 'var(--color-danger-text)' }} /> Antecedentes Patológicos & Condición Médica
           </h3>
 
           {historiales.length === 0 ? (
-            <p style={{ color: '#64748B', fontSize: '0.88rem' }}>Sin historial médico aperturado para consultar antecedentes.</p>
+            <p style={{ color: 'var(--color-text-muted)', fontSize: '0.88rem' }}>Sin historial médico aperturado para consultar antecedentes.</p>
           ) : (
             historiales.map((hist) => {
               const antecedentesList: Antecedente[] = (hist as any).antecedentes || hist.antecedentes_medicos || [];
               return (
                 <div key={hist.id} style={{ marginBottom: '1.5rem' }}>
                   {antecedentesList.length === 0 ? (
-                    <div style={{ padding: '1.5rem', backgroundColor: '#F8FAFC', borderRadius: '8px', border: '1px solid #E2E8F0', color: '#64748B', fontSize: '0.88rem' }}>
+                    <div style={{ padding: '1.5rem', backgroundColor: 'var(--color-surface-muted)', borderRadius: '8px', border: '1px solid var(--color-border)', color: 'var(--color-text-muted)', fontSize: '0.88rem' }}>
                       {typeof hist.antecedentes === 'string' ? hist.antecedentes : 'Sin antecedentes patológicos declarados por el socio.'}
                     </div>
                   ) : (
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1rem' }}>
                       {antecedentesList.map((ant, idx) => (
-                        <div key={idx} style={{ padding: '1.25rem', borderRadius: '8px', border: '1px solid #FCA5A5', backgroundColor: '#FEF2F2' }}>
-                          <h4 style={{ fontSize: '0.92rem', fontWeight: 800, color: '#990000', marginBottom: '0.75rem' }}>
+                        <div key={idx} style={{ padding: '1.25rem', borderRadius: '8px', border: '1px solid rgba(220, 38, 38, 0.35)', backgroundColor: 'var(--color-danger-bg)' }}>
+                          <h4 style={{ fontSize: '0.92rem', fontWeight: 800, color: 'var(--color-primary-text)', marginBottom: '0.75rem' }}>
                             Afecciones y Antecedentes Declarados
                           </h4>
-                          <ul style={{ margin: 0, paddingLeft: '1.2rem', fontSize: '0.85rem', color: '#7F1D1D', display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
+                          <ul style={{ margin: 0, paddingLeft: '1.2rem', fontSize: '0.85rem', color: 'var(--color-danger-text)', display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
                             {ant.tiene_enfermedades_cardiovasculares && (
                               <li><strong>Enfermedades Cardiovasculares:</strong> {ant.detalle_enfermedades_cardiovasculares || 'Declarado'}</li>
                             )}
@@ -649,14 +649,14 @@ const UserDetailPage: React.FC = () => {
 
       {/* TAB CONTENT: DOCUMENTOS DIGITALES */}
       {activeTab === 'documentos' && (
-        <div style={{ backgroundColor: '#FFFFFF', padding: '1.75rem', borderRadius: '12px', border: '1px solid #E2E8F0', boxShadow: '0 4px 12px rgba(0,0,0,0.03)' }}>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.25rem', borderBottom: '1px solid #E2E8F0', paddingBottom: '0.5rem', flexWrap: 'wrap', gap: '0.75rem' }}>
-            <h3 style={{ fontSize: '1.1rem', fontWeight: 800, color: '#003B70', margin: 0, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              <FaFolderOpen style={{ color: '#0284C7' }} /> Documentación Digital de Respaldos
+        <div style={{ backgroundColor: 'var(--color-surface)', padding: '1.75rem', borderRadius: '12px', border: '1px solid var(--color-border)', boxShadow: '0 4px 12px rgba(0,0,0,0.03)' }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.25rem', borderBottom: '1px solid var(--color-border)', paddingBottom: '0.5rem', flexWrap: 'wrap', gap: '0.75rem' }}>
+            <h3 style={{ fontSize: '1.1rem', fontWeight: 800, color: 'var(--color-primary-text)', margin: 0, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+              <FaFolderOpen style={{ color: 'var(--color-primary-text)' }} /> Documentación Digital de Respaldos
             </h3>
 
             <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-              <span style={{ fontSize: '0.8rem', color: '#64748B', fontWeight: 600 }}>
+              <span style={{ fontSize: '0.8rem', color: 'var(--color-text-muted)', fontWeight: 600 }}>
                 {documentos.length} Documento(s) adjunto(s)
               </span>
               {isCliente && (
@@ -664,10 +664,10 @@ const UserDetailPage: React.FC = () => {
                   onClick={() => setIsUploadModalOpen(true)}
                   style={{
                     padding: '0.45rem 0.9rem', borderRadius: '8px', border: 'none',
-                    background: 'linear-gradient(135deg, #003B70 0%, #002A52 100%)',
+                    background: 'linear-gradient(135deg, #990000 0%, #570000 100%)',
                     color: '#FFFFFF', fontWeight: 700, fontSize: '0.82rem', cursor: 'pointer',
                     display: 'inline-flex', alignItems: 'center', gap: '0.4rem',
-                    boxShadow: '0 2px 8px rgba(0, 59, 112, 0.2)'
+                    boxShadow: '0 2px 8px rgba(153, 0, 0, 0.2)'
                   }}
                 >
                   <FaCloudArrowUp /> Subir Documento
@@ -677,15 +677,15 @@ const UserDetailPage: React.FC = () => {
           </div>
 
           {documentos.length === 0 ? (
-            <div style={{ padding: '3rem', textAlign: 'center', color: '#64748B', backgroundColor: '#F8FAFC', borderRadius: '8px', border: '1px dashed #CBD5E1' }}>
-              <FaFolderOpen style={{ fontSize: '2.5rem', color: '#94A3B8', marginBottom: '0.75rem' }} />
+            <div style={{ padding: '3rem', textAlign: 'center', color: 'var(--color-text-muted)', backgroundColor: 'var(--color-surface-muted)', borderRadius: '8px', border: '1px dashed var(--color-border-strong)' }}>
+              <FaFolderOpen style={{ fontSize: '2.5rem', color: 'var(--color-text-muted)', marginBottom: '0.75rem' }} />
               <p style={{ fontWeight: 700, fontSize: '0.95rem', marginBottom: '1rem' }}>No hay documentos digitales subidos para este socio.</p>
               {isCliente && (
                 <button
                   onClick={() => setIsUploadModalOpen(true)}
                   style={{
                     padding: '0.55rem 1.1rem', borderRadius: '8px', border: 'none',
-                    backgroundColor: '#003B70', color: '#FFF', fontWeight: 700, fontSize: '0.85rem', cursor: 'pointer',
+                    backgroundColor: 'var(--color-primary)', color: '#FFF', fontWeight: 700, fontSize: '0.85rem', cursor: 'pointer',
                     display: 'inline-flex', alignItems: 'center', gap: '0.4rem'
                   }}
                 >
@@ -715,25 +715,25 @@ const UserDetailPage: React.FC = () => {
                       <tr key={doc.id}>
                         <td>
                           <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                            <div style={{ fontSize: '1.25rem', color: isImg ? '#0284C7' : '#EF4444' }}>
+                            <div style={{ fontSize: '1.25rem', color: isImg ? 'var(--color-primary-text)' : '#EF4444' }}>
                               {isImg ? <FaImage /> : <FaFilePdf />}
                             </div>
                             <div>
-                              <div style={{ fontWeight: 700, color: '#0B1727' }}>
+                              <div style={{ fontWeight: 700, color: 'var(--color-text-primary)' }}>
                                 {doc.titulo || tipoNombre}
                               </div>
-                              <div style={{ fontSize: '0.72rem', color: '#64748B' }}>
+                              <div style={{ fontSize: '0.72rem', color: 'var(--color-text-muted)' }}>
                                 ID: #{doc.id}
                               </div>
                             </div>
                           </div>
                         </td>
                         <td>
-                          <span style={{ padding: '0.2rem 0.65rem', borderRadius: '4px', backgroundColor: '#E0F2FE', color: '#0369A1', fontWeight: 700, fontSize: '0.78rem' }}>
+                          <span style={{ padding: '0.2rem 0.65rem', borderRadius: '4px', backgroundColor: 'var(--color-primary-soft)', color: 'var(--color-primary-text)', fontWeight: 700, fontSize: '0.78rem' }}>
                             {tipoNombre}
                           </span>
                         </td>
-                        <td style={{ fontSize: '0.82rem', color: '#64748B' }}>
+                        <td style={{ fontSize: '0.82rem', color: 'var(--color-text-muted)' }}>
                           {doc.created_at ? new Date(doc.created_at).toLocaleDateString() : 'Cargado'}
                         </td>
                         <td style={{ textAlign: 'right' }}>
@@ -742,7 +742,7 @@ const UserDetailPage: React.FC = () => {
                               className="action-btn"
                               onClick={() => handleOpenDocPreview(doc)}
                               title="Vista Previa de Documento"
-                              style={{ backgroundColor: '#F8FAFC', color: '#003B70', border: '1px solid #CBD5E1' }}
+                              style={{ backgroundColor: 'var(--color-surface-muted)', color: 'var(--color-primary-text)', border: '1px solid var(--color-border-strong)' }}
                             >
                               <FaEye />
                             </button>
@@ -751,7 +751,7 @@ const UserDetailPage: React.FC = () => {
                               download
                               className="action-btn"
                               title="Descargar Archivo"
-                              style={{ backgroundColor: '#003B70', color: '#FFF', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', textDecoration: 'none' }}
+                              style={{ backgroundColor: 'var(--color-primary)', color: '#FFF', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', textDecoration: 'none' }}
                             >
                               <FaDownload />
                             </a>

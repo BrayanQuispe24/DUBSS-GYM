@@ -20,7 +20,7 @@ const MarcaTable: React.FC<MarcaTableProps> = ({
 }) => {
   if (isLoading) {
     return (
-      <div style={{ textAlign: 'center', padding: '3rem', color: '#64748B' }}>
+      <div style={{ textAlign: 'center', padding: '3rem', color: 'var(--color-text-muted)' }}>
         Cargando catálogo de marcas de equipos...
       </div>
     );
@@ -32,14 +32,14 @@ const MarcaTable: React.FC<MarcaTableProps> = ({
         style={{
           textAlign: 'center',
           padding: '3rem 2rem',
-          color: '#64748B',
-          backgroundColor: '#FFFFFF',
+          color: 'var(--color-text-muted)',
+          backgroundColor: 'var(--color-surface)',
           borderRadius: '4px',
-          border: '1px solid #E2E8F0',
+          border: '1px solid var(--color-border)',
         }}
       >
         <FaTag style={{ fontSize: '2.5rem', color: '#CBD5E1', marginBottom: '0.75rem' }} />
-        <p style={{ fontWeight: 700, fontSize: '0.95rem', color: '#334155', margin: 0 }}>
+        <p style={{ fontWeight: 700, fontSize: '0.95rem', color: 'var(--color-text-secondary)', margin: 0 }}>
           No se encontraron marcas registradas.
         </p>
       </div>
@@ -47,10 +47,10 @@ const MarcaTable: React.FC<MarcaTableProps> = ({
   }
 
   return (
-    <div style={{ backgroundColor: '#FFFFFF', borderRadius: '4px', border: '1px solid #E2E8F0', overflow: 'hidden' }}>
+    <div style={{ backgroundColor: 'var(--color-surface)', borderRadius: '4px', border: '1px solid var(--color-border)', overflow: 'hidden' }}>
       <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.82rem' }}>
         <thead>
-          <tr style={{ backgroundColor: '#F8FAFC', borderBottom: '1px solid #E2E8F0', color: '#475569', fontWeight: 700, fontSize: '0.72rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+          <tr style={{ backgroundColor: 'var(--color-surface-muted)', borderBottom: '1px solid var(--color-border)', color: 'var(--color-text-secondary)', fontWeight: 700, fontSize: '0.72rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
             <th style={{ padding: '0.65rem 1rem' }}>Marca / Fabricante</th>
             <th style={{ padding: '0.65rem 1rem' }}>Estado</th>
             <th style={{ padding: '0.65rem 1rem', textAlign: 'right' }}>Acciones</th>
@@ -60,8 +60,8 @@ const MarcaTable: React.FC<MarcaTableProps> = ({
           {marcas.map((m) => {
             const isActivo = ['1', 'activo', 'true'].includes(String(m.estado).toLowerCase());
             return (
-              <tr key={m.id} style={{ borderBottom: '1px solid #F1F5F9' }}>
-                <td style={{ padding: '0.65rem 1rem', fontWeight: 700, color: '#0B1727' }}>
+              <tr key={m.id} style={{ borderBottom: '1px solid var(--color-border)' }}>
+                <td style={{ padding: '0.65rem 1rem', fontWeight: 700, color: 'var(--color-text-primary)' }}>
                   {m.nombre}
                 </td>
                 <td style={{ padding: '0.65rem 1rem' }}>
@@ -71,8 +71,8 @@ const MarcaTable: React.FC<MarcaTableProps> = ({
                       borderRadius: '2px',
                       fontSize: '0.70rem',
                       fontWeight: 700,
-                      backgroundColor: isActivo ? '#DCFCE7' : '#FEE2E2',
-                      color: isActivo ? '#15803D' : '#B91C1C',
+                      backgroundColor: isActivo ? 'var(--color-success-bg)' : 'var(--color-danger-bg)',
+                      color: isActivo ? 'var(--color-success-text)' : 'var(--color-danger-text)',
                       letterSpacing: '0.04em',
                     }}
                   >
@@ -89,9 +89,9 @@ const MarcaTable: React.FC<MarcaTableProps> = ({
                           style={{
                             padding: '0.35rem 0.55rem',
                             borderRadius: '4px',
-                            backgroundColor: '#F8FAFC',
-                            color: '#475569',
-                            border: '1px solid #CBD5E1',
+                            backgroundColor: 'var(--color-surface-muted)',
+                            color: 'var(--color-text-secondary)',
+                            border: '1px solid var(--color-border-strong)',
                             cursor: 'pointer',
                             fontSize: '0.8rem',
                           }}
@@ -104,9 +104,9 @@ const MarcaTable: React.FC<MarcaTableProps> = ({
                           style={{
                             padding: '0.35rem 0.55rem',
                             borderRadius: '4px',
-                            backgroundColor: '#FEE2E2',
-                            color: '#DC2626',
-                            border: '1px solid #FECACA',
+                            backgroundColor: 'var(--color-danger-bg)',
+                            color: 'var(--color-danger-text)',
+                            border: '1px solid rgba(220, 38, 38, 0.35)',
                             cursor: 'pointer',
                             fontSize: '0.8rem',
                           }}

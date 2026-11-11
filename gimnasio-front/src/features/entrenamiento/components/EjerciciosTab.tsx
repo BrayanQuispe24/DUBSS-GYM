@@ -170,10 +170,10 @@ const EjerciciosTab: React.FC = () => {
     <div>
       {/* FORMULARIO DE REGISTRO RETRÁCTIL */}
       {canManage && (
-        <div style={{ background: '#FFFFFF', padding: '1rem 1.25rem', borderRadius: '4px', border: '1px solid #E2E8F0', marginBottom: '1.25rem' }}>
+        <div style={{ background: 'var(--color-surface)', padding: '1rem 1.25rem', borderRadius: '4px', border: '1px solid var(--color-border)', marginBottom: '1.25rem' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: isFormOpen ? '1rem' : 0 }}>
-            <h3 style={{ fontSize: '0.95rem', fontWeight: 700, color: '#0F172A', display: 'flex', alignItems: 'center', gap: '0.4rem', margin: 0 }}>
-              <FaPlus style={{ color: '#0077D4' }} /> Registrar Nuevo Ejercicio
+            <h3 style={{ fontSize: '0.95rem', fontWeight: 700, color: 'var(--color-text-primary)', display: 'flex', alignItems: 'center', gap: '0.4rem', margin: 0 }}>
+              <FaPlus style={{ color: 'var(--color-primary-text)' }} /> Registrar Nuevo Ejercicio
             </h3>
             <div style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap' }}>
               <button
@@ -182,9 +182,9 @@ const EjerciciosTab: React.FC = () => {
                 style={{
                   padding: '0.4rem 0.8rem',
                   borderRadius: '4px',
-                  border: '1px solid #CBD5E1',
-                  background: isFormOpen ? '#F1F5F9' : '#0077D4',
-                  color: isFormOpen ? '#0077D4' : '#FFFFFF',
+                  border: '1px solid var(--color-border-strong)',
+                  background: isFormOpen ? 'var(--color-surface-muted)' : 'var(--color-primary)',
+                  color: isFormOpen ? 'var(--color-primary-text)' : '#FFFFFF',
                   fontWeight: 700,
                   fontSize: '0.78rem',
                   cursor: 'pointer',
@@ -208,23 +208,23 @@ const EjerciciosTab: React.FC = () => {
           </div>
 
           {isFormOpen && (
-            <form onSubmit={handleCreateEjercicio} style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', borderTop: '1px solid #F1F5F9', paddingTop: '1rem' }}>
+            <form onSubmit={handleCreateEjercicio} style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', borderTop: '1px solid var(--color-border)', paddingTop: '1rem' }}>
               <div>
-                <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: '#475569', marginBottom: '0.3rem' }}>Nombre del Ejercicio *</label>
+                <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--color-text-secondary)', marginBottom: '0.3rem' }}>Nombre del Ejercicio *</label>
                 <input
                   value={nombre}
                   onChange={(e) => setNombre(e.target.value)}
                   placeholder="Ej: Press de Banca Plano con Barra"
-                  style={{ width: '100%', padding: '0.5rem 0.65rem', borderRadius: '4px', border: '1px solid #CBD5E1', fontSize: '0.82rem' }}
+                  style={{ width: '100%', padding: '0.5rem 0.65rem', borderRadius: '4px', border: '1px solid var(--color-border-strong)', fontSize: '0.82rem' }}
                 />
               </div>
 
               <div>
-                <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: '#475569', marginBottom: '0.3rem' }}>Tipo de Ejercicio</label>
+                <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--color-text-secondary)', marginBottom: '0.3rem' }}>Tipo de Ejercicio</label>
                 <select
                   value={idTipo}
                   onChange={(e) => setIdTipo(e.target.value ? Number(e.target.value) : '')}
-                  style={{ width: '100%', padding: '0.5rem 0.65rem', borderRadius: '4px', border: '1px solid #CBD5E1', fontSize: '0.82rem', backgroundColor: '#FFF' }}
+                  style={{ width: '100%', padding: '0.5rem 0.65rem', borderRadius: '4px', border: '1px solid var(--color-border-strong)', fontSize: '0.82rem', backgroundColor: 'var(--color-surface)' }}
                 >
                   <option value="">-- Seleccionar Categoría --</option>
                   {tipos.map((t: any) => (
@@ -235,39 +235,39 @@ const EjerciciosTab: React.FC = () => {
 
               {/* SELECCIÓN DE ARCHIVO DE IMAGEN */}
               <div>
-                <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: '#475569', marginBottom: '0.3rem' }}>
-                  <FaUpload style={{ color: '#0077D4' }} /> Subir Imagen desde el Dispositivo
+                <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--color-text-secondary)', marginBottom: '0.3rem' }}>
+                  <FaUpload style={{ color: 'var(--color-primary-text)' }} /> Subir Imagen desde el Dispositivo
                 </label>
                 <input
                   type="file"
                   accept="image/*"
                   onChange={handleFileChange}
-                  style={{ width: '100%', padding: '0.4rem', borderRadius: '4px', border: '1px solid #CBD5E1', fontSize: '0.80rem', background: '#FFF' }}
+                  style={{ width: '100%', padding: '0.4rem', borderRadius: '4px', border: '1px solid var(--color-border-strong)', fontSize: '0.80rem', background: 'var(--color-surface)' }}
                 />
                 {filePreview && (
-                  <div style={{ marginTop: '0.5rem', background: '#F8FAFC', padding: '0.6rem', borderRadius: '4px', border: '1px solid #E2E8F0', display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
+                  <div style={{ marginTop: '0.5rem', background: 'var(--color-surface-muted)', padding: '0.6rem', borderRadius: '4px', border: '1px solid var(--color-border)', display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                      <img src={filePreview} alt="Preview" style={{ width: '38px', height: '38px', objectFit: 'cover', borderRadius: '4px', border: '1px solid #CBD5E1' }} />
-                      <span style={{ fontSize: '0.72rem', color: '#0077D4', fontWeight: 600 }}>{selectedFile?.name}</span>
+                      <img src={filePreview} alt="Preview" style={{ width: '38px', height: '38px', objectFit: 'cover', borderRadius: '4px', border: '1px solid var(--color-border-strong)' }} />
+                      <span style={{ fontSize: '0.72rem', color: 'var(--color-primary-text)', fontWeight: 600 }}>{selectedFile?.name}</span>
                     </div>
                     <div>
-                      <label style={{ display: 'block', fontSize: '0.70rem', fontWeight: 600, color: '#475569' }}>Título de la Imagen *</label>
+                      <label style={{ display: 'block', fontSize: '0.70rem', fontWeight: 600, color: 'var(--color-text-secondary)' }}>Título de la Imagen *</label>
                       <input
                         type="text"
                         value={imagenTitulo}
                         onChange={(e) => setImagenTitulo(e.target.value)}
                         placeholder="Ej: Posición Inicial"
-                        style={{ width: '100%', padding: '0.3rem 0.4rem', fontSize: '0.75rem', borderRadius: '4px', border: '1px solid #CBD5E1' }}
+                        style={{ width: '100%', padding: '0.3rem 0.4rem', fontSize: '0.75rem', borderRadius: '4px', border: '1px solid var(--color-border-strong)' }}
                       />
                     </div>
                     <div>
-                      <label style={{ display: 'block', fontSize: '0.70rem', fontWeight: 600, color: '#475569' }}>Descripción de la Imagen (Opcional)</label>
+                      <label style={{ display: 'block', fontSize: '0.70rem', fontWeight: 600, color: 'var(--color-text-secondary)' }}>Descripción de la Imagen (Opcional)</label>
                       <input
                         type="text"
                         value={imagenDescripcion}
                         onChange={(e) => setImagenDescripcion(e.target.value)}
                         placeholder="Ej: Mantener la postura alineada..."
-                        style={{ width: '100%', padding: '0.3rem 0.4rem', fontSize: '0.72rem', borderRadius: '4px', border: '1px solid #CBD5E1' }}
+                        style={{ width: '100%', padding: '0.3rem 0.4rem', fontSize: '0.72rem', borderRadius: '4px', border: '1px solid var(--color-border-strong)' }}
                       />
                     </div>
                   </div>
@@ -275,33 +275,33 @@ const EjerciciosTab: React.FC = () => {
               </div>
 
               <div>
-                <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: '#475569', marginBottom: '0.3rem' }}>
-                  <FaVideo style={{ color: '#0077D4' }} /> URL de Video Demostrativo
+                <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--color-text-secondary)', marginBottom: '0.3rem' }}>
+                  <FaVideo style={{ color: 'var(--color-primary-text)' }} /> URL de Video Demostrativo
                 </label>
                 <input
                   value={urlVideo}
                   onChange={(e) => setUrlVideo(e.target.value)}
                   placeholder="Ej: https://youtube.com/watch?v=..."
-                  style={{ width: '100%', padding: '0.5rem 0.65rem', borderRadius: '4px', border: '1px solid #CBD5E1', fontSize: '0.82rem' }}
+                  style={{ width: '100%', padding: '0.5rem 0.65rem', borderRadius: '4px', border: '1px solid var(--color-border-strong)', fontSize: '0.82rem' }}
                 />
               </div>
 
               <div style={{ gridColumn: '1 / -1' }}>
-                <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: '#475569', marginBottom: '0.3rem' }}>Descripción / Instrucción Técnica</label>
+                <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--color-text-secondary)', marginBottom: '0.3rem' }}>Descripción / Instrucción Técnica</label>
                 <input
                   value={descripcion}
                   onChange={(e) => setDescripcion(e.target.value)}
                   placeholder="Ej: Mantener retracción escapular y apoyar firmemente los pies."
-                  style={{ width: '100%', padding: '0.5rem 0.65rem', borderRadius: '4px', border: '1px solid #CBD5E1', fontSize: '0.82rem' }}
+                  style={{ width: '100%', padding: '0.5rem 0.65rem', borderRadius: '4px', border: '1px solid var(--color-border-strong)', fontSize: '0.82rem' }}
                 />
               </div>
 
               {/* SELECCIÓN MÚLTIPLE DE GRUPOS MUSCULARES */}
               <div style={{ gridColumn: '1 / -1' }}>
-                <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: '#475569', marginBottom: '0.4rem' }}>
+                <label style={{ display: 'block', fontSize: '0.75rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--color-text-secondary)', marginBottom: '0.4rem' }}>
                   Grupos Musculares Involucrados
                 </label>
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.75rem', background: '#F8FAFC', padding: '0.65rem', borderRadius: '4px', border: '1px solid #E2E8F0' }}>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.75rem', background: 'var(--color-surface-muted)', padding: '0.65rem', borderRadius: '4px', border: '1px solid var(--color-border)' }}>
                   {grupos.map((g: any) => {
                     const isChecked = selectedGrupos.includes(g.id);
                     return (
@@ -313,7 +313,7 @@ const EjerciciosTab: React.FC = () => {
                           gap: '0.4rem',
                           fontSize: '0.80rem',
                           fontWeight: 500,
-                          color: '#334155',
+                          color: 'var(--color-text-secondary)',
                           cursor: 'pointer',
                           userSelect: 'none',
                         }}
@@ -322,7 +322,7 @@ const EjerciciosTab: React.FC = () => {
                           type="checkbox"
                           checked={isChecked}
                           onChange={() => toggleGrupo(g.id)}
-                          style={{ cursor: 'pointer', accentColor: '#0077D4', width: '14px', height: '14px' }}
+                          style={{ cursor: 'pointer', accentColor: 'var(--color-primary)', width: '14px', height: '14px' }}
                         />
                         {g.nombre}
                       </label>
@@ -337,7 +337,7 @@ const EjerciciosTab: React.FC = () => {
                   disabled={createEjercicioMutation.isPending || uploadImagenMutation.isPending}
                   style={{
                     padding: '0.55rem 1.15rem', borderRadius: '4px', border: 'none',
-                    background: '#0077D4', color: '#FFF', fontWeight: 700, fontSize: '0.82rem', cursor: 'pointer',
+                    background: 'var(--color-primary)', color: '#FFF', fontWeight: 700, fontSize: '0.82rem', cursor: 'pointer',
                   }}
                 >
                   {createEjercicioMutation.isPending || uploadImagenMutation.isPending ? 'Guardando...' : 'Guardar Ejercicio'}
@@ -349,10 +349,10 @@ const EjerciciosTab: React.FC = () => {
       )}
 
       {/* BARRA SUPERIOR DE BUSCADOR Y FILTROS AVANZADOS */}
-      <div style={{ background: '#FFFFFF', padding: '0.85rem 1rem', borderRadius: '4px', border: '1px solid #E2E8F0', marginBottom: '1.25rem', display: 'flex', flexWrap: 'wrap', gap: '0.65rem', alignItems: 'center' }}>
+      <div style={{ background: 'var(--color-surface)', padding: '0.85rem 1rem', borderRadius: '4px', border: '1px solid var(--color-border)', marginBottom: '1.25rem', display: 'flex', flexWrap: 'wrap', gap: '0.65rem', alignItems: 'center' }}>
         {/* BUSCADOR POR TEXTO */}
         <div style={{ flex: '1 1 240px', position: 'relative' }}>
-          <FaMagnifyingGlass style={{ position: 'absolute', left: '0.75rem', top: '50%', transform: 'translateY(-50%)', color: '#94A3B8', fontSize: '0.80rem' }} />
+          <FaMagnifyingGlass style={{ position: 'absolute', left: '0.75rem', top: '50%', transform: 'translateY(-50%)', color: 'var(--color-text-muted)', fontSize: '0.80rem' }} />
           <input
             type="text"
             value={search}
@@ -362,7 +362,7 @@ const EjerciciosTab: React.FC = () => {
               width: '100%',
               padding: '0.5rem 1.8rem 0.5rem 2.1rem',
               borderRadius: '4px',
-              border: '1px solid #CBD5E1',
+              border: '1px solid var(--color-border-strong)',
               fontSize: '0.82rem',
               outline: 'none',
             }}
@@ -371,7 +371,7 @@ const EjerciciosTab: React.FC = () => {
             <button
               type="button"
               onClick={() => setSearch('')}
-              style={{ position: 'absolute', right: '0.5rem', top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', color: '#94A3B8', cursor: 'pointer', fontSize: '0.82rem' }}
+              style={{ position: 'absolute', right: '0.5rem', top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', color: 'var(--color-text-muted)', cursor: 'pointer', fontSize: '0.82rem' }}
             >
               <FaXmark />
             </button>
@@ -386,7 +386,7 @@ const EjerciciosTab: React.FC = () => {
               setIdTipoFilter(e.target.value ? Number(e.target.value) : '');
               setPage(1);
             }}
-            style={{ width: '100%', padding: '0.5rem 0.65rem', borderRadius: '4px', border: '1px solid #CBD5E1', fontSize: '0.82rem', backgroundColor: '#FFF', color: '#1E293B', cursor: 'pointer' }}
+            style={{ width: '100%', padding: '0.5rem 0.65rem', borderRadius: '4px', border: '1px solid var(--color-border-strong)', fontSize: '0.82rem', backgroundColor: 'var(--color-surface)', color: 'var(--color-text-primary)', cursor: 'pointer' }}
           >
             <option value="">-- Todos los Tipos --</option>
             {tipos.map((t: any) => (
@@ -403,7 +403,7 @@ const EjerciciosTab: React.FC = () => {
               setIdGrupoFilter(e.target.value ? Number(e.target.value) : '');
               setPage(1);
             }}
-            style={{ width: '100%', padding: '0.5rem 0.65rem', borderRadius: '4px', border: '1px solid #CBD5E1', fontSize: '0.82rem', backgroundColor: '#FFF', color: '#1E293B', cursor: 'pointer' }}
+            style={{ width: '100%', padding: '0.5rem 0.65rem', borderRadius: '4px', border: '1px solid var(--color-border-strong)', fontSize: '0.82rem', backgroundColor: 'var(--color-surface)', color: 'var(--color-text-primary)', cursor: 'pointer' }}
           >
             <option value="">-- Todos los Grupos --</option>
             {grupos.map((g: any) => (
@@ -420,7 +420,7 @@ const EjerciciosTab: React.FC = () => {
               setPerPage(Number(e.target.value));
               setPage(1);
             }}
-            style={{ width: '100%', padding: '0.5rem 0.65rem', borderRadius: '4px', border: '1px solid #CBD5E1', fontSize: '0.82rem', backgroundColor: '#FFF', color: '#1E293B', cursor: 'pointer' }}
+            style={{ width: '100%', padding: '0.5rem 0.65rem', borderRadius: '4px', border: '1px solid var(--color-border-strong)', fontSize: '0.82rem', backgroundColor: 'var(--color-surface)', color: 'var(--color-text-primary)', cursor: 'pointer' }}
           >
             <option value={15}>15 por pág.</option>
             <option value={25}>25 por pág.</option>
@@ -437,9 +437,9 @@ const EjerciciosTab: React.FC = () => {
             style={{
               padding: '0.5rem 0.75rem',
               borderRadius: '4px',
-              border: '1px solid #CBD5E1',
-              background: '#F8FAFC',
-              color: '#475569',
+              border: '1px solid var(--color-border-strong)',
+              background: 'var(--color-surface-muted)',
+              color: 'var(--color-text-secondary)',
               fontSize: '0.78rem',
               fontWeight: 600,
               cursor: 'pointer',
@@ -455,20 +455,20 @@ const EjerciciosTab: React.FC = () => {
 
       {/* HEADER DEL LISTADO CON CONTEO */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.65rem' }}>
-        <h3 style={{ fontSize: '0.95rem', fontWeight: 700, color: '#1E293B', margin: 0 }}>
-          Listado de Ejercicios <span style={{ fontSize: '0.80rem', color: '#64748B', fontWeight: 600 }}>({totalEjercicios} en total)</span>
+        <h3 style={{ fontSize: '0.95rem', fontWeight: 700, color: 'var(--color-text-primary)', margin: 0 }}>
+          Listado de Ejercicios <span style={{ fontSize: '0.80rem', color: 'var(--color-text-muted)', fontWeight: 600 }}>({totalEjercicios} en total)</span>
         </h3>
       </div>
 
       {/* TABLA DE EJERCICIOS */}
       {isLoading ? (
-        <div style={{ padding: '3rem', textAlign: 'center', color: '#64748B', background: '#FFF', borderRadius: '4px', border: '1px solid #E2E8F0' }}>
+        <div style={{ padding: '3rem', textAlign: 'center', color: 'var(--color-text-muted)', background: 'var(--color-surface)', borderRadius: '4px', border: '1px solid var(--color-border)' }}>
           Cargando catálogo de ejercicios...
         </div>
       ) : (
-        <div style={{ background: '#FFFFFF', borderRadius: '4px', border: '1px solid #E2E8F0', overflow: 'hidden' }}>
+        <div style={{ background: 'var(--color-surface)', borderRadius: '4px', border: '1px solid var(--color-border)', overflow: 'hidden' }}>
           <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.82rem' }}>
-            <thead style={{ background: '#F8FAFC', borderBottom: '1px solid #E2E8F0', color: '#475569', fontWeight: 700, fontSize: '0.72rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+            <thead style={{ background: 'var(--color-surface-muted)', borderBottom: '1px solid var(--color-border)', color: 'var(--color-text-secondary)', fontWeight: 700, fontSize: '0.72rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
               <tr>
                 <th style={{ padding: '0.65rem 1rem' }}>Vista Previa</th>
                 <th style={{ padding: '0.65rem 1rem' }}>Ejercicio</th>
@@ -485,7 +485,7 @@ const EjerciciosTab: React.FC = () => {
                 const totalImagenes = ex.imagenes?.length || 0;
 
                 return (
-                  <tr key={ex.id} style={{ borderBottom: '1px solid #F1F5F9' }}>
+                  <tr key={ex.id} style={{ borderBottom: '1px solid var(--color-border)' }}>
                     {/* MINIATURA DE IMAGEN */}
                     <td style={{ padding: '0.65rem 1rem' }}>
                       {mainImage ? (
@@ -493,19 +493,19 @@ const EjerciciosTab: React.FC = () => {
                           src={mainImage}
                           alt={ex.nombre}
                           onClick={() => setViewEjercicioDetail(ex)}
-                          style={{ width: '40px', height: '40px', objectFit: 'cover', borderRadius: '4px', border: '1px solid #E2E8F0', cursor: 'pointer' }}
+                          style={{ width: '40px', height: '40px', objectFit: 'cover', borderRadius: '4px', border: '1px solid var(--color-border)', cursor: 'pointer' }}
                         />
                       ) : (
-                        <div style={{ width: '40px', height: '40px', borderRadius: '4px', background: '#F1F5F9', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#94A3B8' }}>
+                        <div style={{ width: '40px', height: '40px', borderRadius: '4px', background: 'var(--color-surface-muted)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--color-text-muted)' }}>
                           <FaImage style={{ fontSize: '1rem' }} />
                         </div>
                       )}
                     </td>
 
-                    <td style={{ padding: '0.65rem 1rem', fontWeight: 700, color: '#0F172A' }}>{ex.nombre}</td>
+                    <td style={{ padding: '0.65rem 1rem', fontWeight: 700, color: 'var(--color-text-primary)' }}>{ex.nombre}</td>
 
                     <td style={{ padding: '0.65rem 1rem' }}>
-                      <span style={{ fontSize: '0.72rem', background: '#F1F5F9', padding: '0.15rem 0.45rem', borderRadius: '2px', color: '#334155', fontWeight: 600 }}>
+                      <span style={{ fontSize: '0.72rem', background: 'var(--color-surface-muted)', padding: '0.15rem 0.45rem', borderRadius: '2px', color: 'var(--color-text-secondary)', fontWeight: 600 }}>
                         {ex.tipo_ejercicio?.nombre || 'General'}
                       </span>
                     </td>
@@ -513,7 +513,7 @@ const EjerciciosTab: React.FC = () => {
                     <td style={{ padding: '0.65rem 1rem' }}>
                       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.3rem', alignItems: 'center' }}>
                         {ex.ejercicio_grupo_musculares?.map((gm: any) => (
-                          <span key={gm.id} style={{ fontSize: '0.70rem', background: '#E0F2FE', color: '#0077D4', padding: '0.12rem 0.4rem', borderRadius: '2px', fontWeight: 600 }}>
+                          <span key={gm.id} style={{ fontSize: '0.70rem', background: 'var(--color-primary-soft)', color: 'var(--color-primary-text)', padding: '0.12rem 0.4rem', borderRadius: '2px', fontWeight: 600 }}>
                             {gm.grupo_muscular?.nombre}
                           </span>
                         ))}
@@ -525,7 +525,7 @@ const EjerciciosTab: React.FC = () => {
                                 e.target.value = '';
                               }
                             }}
-                            style={{ fontSize: '0.70rem', padding: '0.15rem', borderRadius: '2px', border: '1px dashed #94A3B8', backgroundColor: '#FFF', cursor: 'pointer' }}
+                            style={{ fontSize: '0.70rem', padding: '0.15rem', borderRadius: '2px', border: '1px dashed var(--color-border-strong)', backgroundColor: 'var(--color-surface)', cursor: 'pointer' }}
                           >
                             <option value="">+ Vincular grupo</option>
                             {grupos.map((g: any) => <option key={g.id} value={g.id}>{g.nombre}</option>)}
@@ -540,15 +540,15 @@ const EjerciciosTab: React.FC = () => {
                         <button
                           onClick={() => setViewEjercicioDetail(ex)}
                           title="Ver tarjeta completa del ejercicio"
-                          style={{ background: '#F8FAFC', border: '1px solid #CBD5E1', padding: '0.35rem 0.55rem', borderRadius: '4px', cursor: 'pointer', color: '#0F172A', display: 'flex', alignItems: 'center', gap: '0.3rem', fontSize: '0.72rem', fontWeight: 700 }}
+                          style={{ background: 'var(--color-surface-muted)', border: '1px solid var(--color-border-strong)', padding: '0.35rem 0.55rem', borderRadius: '4px', cursor: 'pointer', color: 'var(--color-text-primary)', display: 'flex', alignItems: 'center', gap: '0.3rem', fontSize: '0.72rem', fontWeight: 700 }}
                         >
-                          <FaEye style={{ color: '#0077D4' }} /> Ver Ejercicio
+                          <FaEye style={{ color: 'var(--color-primary-text)' }} /> Ver Ejercicio
                         </button>
 
                         <button
                           onClick={() => setSelectedGaleriaEjercicio(ex)}
                           title="Gestionar Galería de Imágenes Locales"
-                          style={{ background: '#F0F9FF', border: '1px solid #BAE6FD', padding: '0.35rem 0.55rem', borderRadius: '4px', cursor: 'pointer', color: '#0077D4', display: 'flex', alignItems: 'center', gap: '0.3rem', fontSize: '0.72rem', fontWeight: 700 }}
+                          style={{ background: 'var(--color-primary-soft)', border: '1px solid rgba(220, 38, 38, 0.30)', padding: '0.35rem 0.55rem', borderRadius: '4px', cursor: 'pointer', color: 'var(--color-primary-text)', display: 'flex', alignItems: 'center', gap: '0.3rem', fontSize: '0.72rem', fontWeight: 700 }}
                         >
                           <FaImages /> Galería ({totalImagenes})
                         </button>
@@ -559,7 +559,7 @@ const EjerciciosTab: React.FC = () => {
                     <td
                       style={{
                         padding: '0.65rem 1rem',
-                        color: '#64748B',
+                        color: 'var(--color-text-muted)',
                         maxWidth: '220px',
                         whiteSpace: 'nowrap',
                         overflow: 'hidden',
@@ -576,14 +576,14 @@ const EjerciciosTab: React.FC = () => {
                           <button
                             onClick={() => setEditEjercicio(ex)}
                             title="Editar ejercicio"
-                            style={{ background: '#F8FAFC', border: '1px solid #CBD5E1', color: '#0077D4', cursor: 'pointer', fontSize: '0.80rem', padding: '0.35rem 0.55rem', borderRadius: '4px' }}
+                            style={{ background: 'var(--color-surface-muted)', border: '1px solid var(--color-border-strong)', color: 'var(--color-primary-text)', cursor: 'pointer', fontSize: '0.80rem', padding: '0.35rem 0.55rem', borderRadius: '4px' }}
                           >
                             <FaPenToSquare />
                           </button>
                           <button
                             onClick={() => setDeletingEjercicio(ex)}
                             title="Eliminar ejercicio"
-                            style={{ background: '#FEE2E2', border: '1px solid #FECACA', color: '#DC2626', cursor: 'pointer', fontSize: '0.80rem', padding: '0.35rem 0.55rem', borderRadius: '4px' }}
+                            style={{ background: 'var(--color-danger-bg)', border: '1px solid rgba(220, 38, 38, 0.35)', color: 'var(--color-danger-text)', cursor: 'pointer', fontSize: '0.80rem', padding: '0.35rem 0.55rem', borderRadius: '4px' }}
                           >
                             <FaTrash />
                           </button>
@@ -596,10 +596,10 @@ const EjerciciosTab: React.FC = () => {
 
               {ejercicios.length === 0 && (
                 <tr>
-                  <td colSpan={canManage ? 7 : 6} style={{ padding: '2.5rem 1rem', textAlign: 'center', color: '#64748B' }}>
+                  <td colSpan={canManage ? 7 : 6} style={{ padding: '2.5rem 1rem', textAlign: 'center', color: 'var(--color-text-muted)' }}>
                     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.5rem' }}>
-                      <span style={{ fontWeight: 600, color: '#475569', fontSize: '0.90rem' }}>No se encontraron ejercicios con los filtros seleccionados.</span>
-                      <span style={{ fontSize: '0.78rem', color: '#94A3B8' }}>Prueba modificando el texto de búsqueda o limpiando los filtros.</span>
+                      <span style={{ fontWeight: 600, color: 'var(--color-text-secondary)', fontSize: '0.90rem' }}>No se encontraron ejercicios con los filtros seleccionados.</span>
+                      <span style={{ fontSize: '0.78rem', color: 'var(--color-text-muted)' }}>Prueba modificando el texto de búsqueda o limpiando los filtros.</span>
                     </div>
                   </td>
                 </tr>
@@ -611,8 +611,8 @@ const EjerciciosTab: React.FC = () => {
 
       {/* CONTROLES DE PAGINACIÓN */}
       {meta && meta.last_page > 1 && (
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '0.75rem', marginTop: '1rem', padding: '0.65rem 1rem', background: '#FFFFFF', borderRadius: '4px', border: '1px solid #E2E8F0' }}>
-          <span style={{ fontSize: '0.78rem', color: '#64748B' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '0.75rem', marginTop: '1rem', padding: '0.65rem 1rem', background: 'var(--color-surface)', borderRadius: '4px', border: '1px solid var(--color-border)' }}>
+          <span style={{ fontSize: '0.78rem', color: 'var(--color-text-muted)' }}>
             Mostrando <strong>{((meta.current_page - 1) * meta.per_page) + 1}</strong> a <strong>{Math.min(meta.current_page * meta.per_page, meta.total)}</strong> de <strong>{meta.total}</strong> ejercicios
           </span>
 
@@ -623,9 +623,9 @@ const EjerciciosTab: React.FC = () => {
               style={{
                 padding: '0.3rem 0.6rem',
                 borderRadius: '4px',
-                border: '1px solid #CBD5E1',
-                background: meta.current_page <= 1 ? '#F1F5F9' : '#FFF',
-                color: meta.current_page <= 1 ? '#94A3B8' : '#334155',
+                border: '1px solid var(--color-border-strong)',
+                background: meta.current_page <= 1 ? 'var(--color-surface-muted)' : 'var(--color-surface)',
+                color: meta.current_page <= 1 ? 'var(--color-text-muted)' : 'var(--color-text-secondary)',
                 cursor: meta.current_page <= 1 ? 'not-allowed' : 'pointer',
                 fontSize: '0.78rem',
                 fontWeight: 600,
@@ -639,9 +639,9 @@ const EjerciciosTab: React.FC = () => {
               style={{
                 padding: '0.3rem 0.6rem',
                 borderRadius: '4px',
-                border: '1px solid #CBD5E1',
-                background: meta.current_page <= 1 ? '#F1F5F9' : '#FFF',
-                color: meta.current_page <= 1 ? '#94A3B8' : '#334155',
+                border: '1px solid var(--color-border-strong)',
+                background: meta.current_page <= 1 ? 'var(--color-surface-muted)' : 'var(--color-surface)',
+                color: meta.current_page <= 1 ? 'var(--color-text-muted)' : 'var(--color-text-secondary)',
                 cursor: meta.current_page <= 1 ? 'not-allowed' : 'pointer',
                 fontSize: '0.78rem',
                 fontWeight: 600,
@@ -653,7 +653,7 @@ const EjerciciosTab: React.FC = () => {
               <FaChevronLeft style={{ fontSize: '0.65rem' }} /> Anterior
             </button>
 
-            <span style={{ fontSize: '0.78rem', padding: '0 0.4rem', fontWeight: 700, color: '#0F172A' }}>
+            <span style={{ fontSize: '0.78rem', padding: '0 0.4rem', fontWeight: 700, color: 'var(--color-text-primary)' }}>
               Página {meta.current_page} de {meta.last_page}
             </span>
 
@@ -663,9 +663,9 @@ const EjerciciosTab: React.FC = () => {
               style={{
                 padding: '0.3rem 0.6rem',
                 borderRadius: '4px',
-                border: '1px solid #CBD5E1',
-                background: meta.current_page >= meta.last_page ? '#F1F5F9' : '#FFF',
-                color: meta.current_page >= meta.last_page ? '#94A3B8' : '#334155',
+                border: '1px solid var(--color-border-strong)',
+                background: meta.current_page >= meta.last_page ? 'var(--color-surface-muted)' : 'var(--color-surface)',
+                color: meta.current_page >= meta.last_page ? 'var(--color-text-muted)' : 'var(--color-text-secondary)',
                 cursor: meta.current_page >= meta.last_page ? 'not-allowed' : 'pointer',
                 fontSize: '0.78rem',
                 fontWeight: 600,
@@ -682,9 +682,9 @@ const EjerciciosTab: React.FC = () => {
               style={{
                 padding: '0.3rem 0.6rem',
                 borderRadius: '4px',
-                border: '1px solid #CBD5E1',
-                background: meta.current_page >= meta.last_page ? '#F1F5F9' : '#FFF',
-                color: meta.current_page >= meta.last_page ? '#94A3B8' : '#334155',
+                border: '1px solid var(--color-border-strong)',
+                background: meta.current_page >= meta.last_page ? 'var(--color-surface-muted)' : 'var(--color-surface)',
+                color: meta.current_page >= meta.last_page ? 'var(--color-text-muted)' : 'var(--color-text-secondary)',
                 cursor: meta.current_page >= meta.last_page ? 'not-allowed' : 'pointer',
                 fontSize: '0.78rem',
                 fontWeight: 600,

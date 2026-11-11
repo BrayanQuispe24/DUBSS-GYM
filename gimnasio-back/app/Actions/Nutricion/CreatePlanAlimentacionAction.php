@@ -13,8 +13,8 @@ class CreatePlanAlimentacionAction
     {
         return DB::transaction(function () use ($dto) {
             $plan = PlanAlimentacion::create([
-                'nombre' => $dto->nombre,
-                'objetivo' => $dto->objetivo,
+                'nombre' => mb_substr($dto->nombre, 0, 250),
+                'objetivo' => $dto->objetivo ? mb_substr($dto->objetivo, 0, 250) : null,
                 'fecha_inicio' => $dto->fechaInicio,
                 'fecha_fin' => $dto->fechaFin,
                 'observacion' => $dto->observacion,
@@ -25,14 +25,13 @@ class CreatePlanAlimentacionAction
             foreach ($dto->detalles as $detalleData) {
                 DetallePlanAlimentacion::create([
                     'id_plan_alimentacion' => $plan->id,
-                    'dia_semana' => $detalleData['dia_semana'] ?? null,
-                    'tipo_comida' => $detalleData['tipo_comida'] ?? null,
-                    'descripcion' => $detalleData['descripcion'],
-                    'calorias' => $detalleData['calorias'] ?? null,
-                    'proteinas' => $detalleData['proteinas'] ?? null,
-                    'carbohidratos' => $detalleData['carbohidratos'] ?? null,
-                    'grasas' => $detalleData['grasas'] ?? null,
-                    'observacion' => $detalleData['observacion'] ?? null,
+                    'dia_semana' => isset($detalleData['dia_semana']) ? mb_substr($detalleData['dia_semana'], 0, 250) : null,
+                    'tipo_comida' => isset($detalleData['tipo_comida']) ? mb_substr($detalleData['tipo_comida'], 0, 250) : null,
+                    'alimento' => mb_substr($detalleData['alimento'] ?? $detalleData['descripcion'] ?? 'Alimento prescrito', 0, 250),
+                    'cantidad' => $detalleData['cantidad'] ?? $detalleData['calorias'] ?? null,
+                    'unidad' => isset($detalleData['unidad']) ? mb_substr($detalleData['unidad'], 0, 50) : 'kcal',
+                    'hora' => $detalleData['hora'] ?? null,
+                    'observacion' => $detalleData['observacion'] ?? ($detalleData['descripcion'] ?? null),
                 ]);
             }
 

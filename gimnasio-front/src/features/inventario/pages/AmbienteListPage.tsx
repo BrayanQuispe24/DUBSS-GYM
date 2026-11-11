@@ -93,10 +93,10 @@ const AmbienteListPage: React.FC = () => {
       {/* PAGE HEADER */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.25rem' }}>
         <div>
-          <h2 style={{ fontSize: '1.4rem', fontWeight: 800, color: '#0B1727', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-            <FaBuildingFlag style={{ color: '#003B70' }} /> Ambientes & Espacios UAGRM
+          <h2 style={{ fontSize: '1.4rem', fontWeight: 800, color: 'var(--color-text-primary)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            <FaBuildingFlag style={{ color: 'var(--color-primary-text)' }} /> Ambientes & Espacios UAGRM
           </h2>
-          <p style={{ fontSize: '0.85rem', color: '#64748B' }}>
+          <p style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)' }}>
             Salas de musculación, áreas de cardio, áreas funcionales y espacios acondicionados.
           </p>
         </div>
@@ -106,7 +106,7 @@ const AmbienteListPage: React.FC = () => {
             style={{
               padding: '0.55rem 1.15rem',
               borderRadius: '4px',
-              backgroundColor: '#0077D4',
+              backgroundColor: 'var(--color-primary)',
               color: '#FFFFFF',
               border: 'none',
               fontWeight: 700,
@@ -131,10 +131,10 @@ const AmbienteListPage: React.FC = () => {
           justifyContent: 'space-between',
           gap: '1rem',
           marginBottom: '1.25rem',
-          backgroundColor: '#FFFFFF',
+          backgroundColor: 'var(--color-surface)',
           padding: '0.75rem 1rem',
           borderRadius: '4px',
-          border: '1px solid #E2E8F0',
+          border: '1px solid var(--color-border)',
           flexWrap: 'wrap',
         }}
       >
@@ -144,14 +144,14 @@ const AmbienteListPage: React.FC = () => {
               display: 'flex',
               alignItems: 'center',
               gap: '0.5rem',
-              backgroundColor: '#F8FAFC',
-              border: '1px solid #CBD5E1',
+              backgroundColor: 'var(--color-surface-muted)',
+              border: '1px solid var(--color-border-strong)',
               borderRadius: '4px',
               padding: '0.45rem 0.75rem',
               flex: 1,
             }}
           >
-            <FaMagnifyingGlass style={{ color: '#94A3B8', fontSize: '0.85rem' }} />
+            <FaMagnifyingGlass style={{ color: 'var(--color-text-muted)', fontSize: '0.85rem' }} />
             <input
               type="text"
               placeholder="Buscar ambiente por nombre o ubicación..."
@@ -163,26 +163,26 @@ const AmbienteListPage: React.FC = () => {
                 fontSize: '0.85rem',
                 width: '100%',
                 backgroundColor: 'transparent',
-                color: '#0B1727',
+                color: 'var(--color-text-primary)',
               }}
             />
           </div>
         </div>
 
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-          <FaLayerGroup style={{ color: '#64748B', fontSize: '0.85rem' }} />
-          <span style={{ fontSize: '0.82rem', fontWeight: 600, color: '#475569' }}>Filtrar Estado:</span>
+          <FaLayerGroup style={{ color: 'var(--color-text-muted)', fontSize: '0.85rem' }} />
+          <span style={{ fontSize: '0.82rem', fontWeight: 600, color: 'var(--color-text-secondary)' }}>Filtrar Estado:</span>
           <select
             value={filterEstado}
             onChange={(e) => setFilterEstado(e.target.value)}
             style={{
               padding: '0.45rem 0.75rem',
               borderRadius: '4px',
-              border: '1px solid #CBD5E1',
+              border: '1px solid var(--color-border-strong)',
               fontSize: '0.82rem',
               fontWeight: 600,
-              backgroundColor: '#FFFFFF',
-              color: '#0B1727',
+              backgroundColor: 'var(--color-surface)',
+              color: 'var(--color-text-primary)',
               outline: 'none',
               cursor: 'pointer',
             }}

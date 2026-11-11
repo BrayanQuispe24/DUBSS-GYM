@@ -22,7 +22,7 @@ const EquipoTable: React.FC<EquipoTableProps> = ({
 }) => {
   if (isLoading) {
     return (
-      <div style={{ textAlign: 'center', padding: '3rem', color: '#64748B' }}>
+      <div style={{ textAlign: 'center', padding: '3rem', color: 'var(--color-text-muted)' }}>
         Cargando inventario de equipos y máquinas...
       </div>
     );
@@ -34,14 +34,14 @@ const EquipoTable: React.FC<EquipoTableProps> = ({
         style={{
           textAlign: 'center',
           padding: '3rem 2rem',
-          color: '#64748B',
-          backgroundColor: '#FFFFFF',
+          color: 'var(--color-text-muted)',
+          backgroundColor: 'var(--color-surface)',
           borderRadius: '4px',
-          border: '1px solid #E2E8F0',
+          border: '1px solid var(--color-border)',
         }}
       >
         <FaBoxesPacking style={{ fontSize: '2.5rem', color: '#CBD5E1', marginBottom: '0.75rem' }} />
-        <p style={{ fontWeight: 700, fontSize: '0.95rem', color: '#334155', margin: 0 }}>
+        <p style={{ fontWeight: 700, fontSize: '0.95rem', color: 'var(--color-text-secondary)', margin: 0 }}>
           No hay equipos registrados en el inventario.
         </p>
       </div>
@@ -51,16 +51,16 @@ const EquipoTable: React.FC<EquipoTableProps> = ({
   const getStatusBadge = (estadoRaw: any) => {
     const isVigente = estadoRaw === true || estadoRaw === 1 || ['1', 'true', 'bueno', 'operativo', 'vigente'].includes(String(estadoRaw ?? '').toLowerCase());
     if (isVigente) {
-      return { label: 'VIGENTE', bg: '#DCFCE7', color: '#15803D' };
+      return { label: 'VIGENTE', bg: 'var(--color-success-bg)', color: 'var(--color-success-text)' };
     }
-    return { label: 'ELIMINADO', bg: '#FEE2E2', color: '#B91C1C' };
+    return { label: 'ELIMINADO', bg: 'var(--color-danger-bg)', color: 'var(--color-danger-text)' };
   };
 
   return (
-    <div style={{ backgroundColor: '#FFFFFF', borderRadius: '4px', border: '1px solid #E2E8F0', overflow: 'hidden' }}>
+    <div style={{ backgroundColor: 'var(--color-surface)', borderRadius: '4px', border: '1px solid var(--color-border)', overflow: 'hidden' }}>
       <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.82rem' }}>
         <thead>
-          <tr style={{ backgroundColor: '#F8FAFC', borderBottom: '1px solid #E2E8F0', color: '#475569', fontWeight: 700, fontSize: '0.72rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+          <tr style={{ backgroundColor: 'var(--color-surface-muted)', borderBottom: '1px solid var(--color-border)', color: 'var(--color-text-secondary)', fontWeight: 700, fontSize: '0.72rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
             <th style={{ padding: '0.65rem 1rem' }}>Código / Nombre</th>
             <th style={{ padding: '0.65rem 1rem' }}>Marca / Modelo</th>
             <th style={{ padding: '0.65rem 1rem' }}>Ambiente / Ubicación</th>
@@ -73,14 +73,14 @@ const EquipoTable: React.FC<EquipoTableProps> = ({
           {equipos.map((eq) => {
             const status = getStatusBadge(eq.estado);
             return (
-              <tr key={eq.id} style={{ borderBottom: '1px solid #F1F5F9' }}>
-                <td style={{ padding: '0.65rem 1rem', fontWeight: 700, color: '#0B1727' }}>
+              <tr key={eq.id} style={{ borderBottom: '1px solid var(--color-border)' }}>
+                <td style={{ padding: '0.65rem 1rem', fontWeight: 700, color: 'var(--color-text-primary)' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
                     {eq.imagen_url ? (
                       <img
                         src={getEquipoImageUrl(eq.imagen_url)}
                         alt={eq.nombre}
-                        style={{ width: '38px', height: '38px', borderRadius: '4px', objectFit: 'cover', border: '1px solid #CBD5E1' }}
+                        style={{ width: '38px', height: '38px', borderRadius: '4px', objectFit: 'cover', border: '1px solid var(--color-border-strong)' }}
                       />
                     ) : (
                       <div
@@ -88,12 +88,12 @@ const EquipoTable: React.FC<EquipoTableProps> = ({
                           width: '38px',
                           height: '38px',
                           borderRadius: '4px',
-                          backgroundColor: '#F1F5F9',
-                          border: '1px solid #E2E8F0',
+                          backgroundColor: 'var(--color-surface-muted)',
+                          border: '1px solid var(--color-border)',
                           display: 'flex',
                           alignItems: 'center',
                           justifyContent: 'center',
-                          color: '#003B70',
+                          color: 'var(--color-primary-text)',
                           flexShrink: 0,
                         }}
                       >
@@ -102,14 +102,14 @@ const EquipoTable: React.FC<EquipoTableProps> = ({
                     )}
                     <div>
                       <div>{eq.nombre}</div>
-                      <div style={{ fontSize: '0.72rem', color: '#0077D4', fontWeight: 700 }}>CÓD: {eq.codigo}</div>
+                      <div style={{ fontSize: '0.72rem', color: 'var(--color-primary-text)', fontWeight: 700 }}>CÓD: {eq.codigo}</div>
                     </div>
                   </div>
                 </td>
-                <td style={{ padding: '0.65rem 1rem', color: '#475569' }}>
+                <td style={{ padding: '0.65rem 1rem', color: 'var(--color-text-secondary)' }}>
                   {eq.marca?.nombre || 'Genérica'} {eq.modelo ? `(${eq.modelo})` : ''}
                 </td>
-                <td style={{ padding: '0.65rem 1rem', color: '#0077D4', fontWeight: 600 }}>
+                <td style={{ padding: '0.65rem 1rem', color: 'var(--color-primary-text)', fontWeight: 600 }}>
                   {eq.ambiente?.nombre || 'General'}
                 </td>
                 <td style={{ padding: '0.65rem 1rem' }}>
@@ -127,8 +127,8 @@ const EquipoTable: React.FC<EquipoTableProps> = ({
                             borderRadius: '2px',
                             fontSize: '0.75rem',
                             fontWeight: 700,
-                            backgroundColor: eq.cantidad > 0 ? '#DCFCE7' : '#FEE2E2',
-                            color: eq.cantidad > 0 ? '#15803D' : '#DC2626',
+                            backgroundColor: eq.cantidad > 0 ? 'var(--color-success-bg)' : 'var(--color-danger-bg)',
+                            color: eq.cantidad > 0 ? 'var(--color-success-text)' : 'var(--color-danger-text)',
                             display: 'inline-block',
                             width: 'fit-content',
                           }}
@@ -140,8 +140,8 @@ const EquipoTable: React.FC<EquipoTableProps> = ({
                             style={{
                               fontSize: '0.70rem',
                               fontWeight: 700,
-                              color: '#B45309',
-                              backgroundColor: '#FEF3C7',
+                              color: 'var(--color-warning-text)',
+                              backgroundColor: 'var(--color-warning-bg)',
                               padding: '0.1rem 0.4rem',
                               borderRadius: '2px',
                               width: 'fit-content',
@@ -180,9 +180,9 @@ const EquipoTable: React.FC<EquipoTableProps> = ({
                       style={{
                         padding: '0.35rem 0.55rem',
                         borderRadius: '4px',
-                        backgroundColor: '#F8FAFC',
-                        color: '#0077D4',
-                        border: '1px solid #CBD5E1',
+                        backgroundColor: 'var(--color-surface-muted)',
+                        color: 'var(--color-primary-text)',
+                        border: '1px solid var(--color-border-strong)',
                         cursor: 'pointer',
                         fontSize: '0.8rem',
                       }}
@@ -197,9 +197,9 @@ const EquipoTable: React.FC<EquipoTableProps> = ({
                           style={{
                             padding: '0.35rem 0.55rem',
                             borderRadius: '4px',
-                            backgroundColor: '#F8FAFC',
-                            color: '#475569',
-                            border: '1px solid #CBD5E1',
+                            backgroundColor: 'var(--color-surface-muted)',
+                            color: 'var(--color-text-secondary)',
+                            border: '1px solid var(--color-border-strong)',
                             cursor: 'pointer',
                             fontSize: '0.8rem',
                           }}
@@ -212,9 +212,9 @@ const EquipoTable: React.FC<EquipoTableProps> = ({
                           style={{
                             padding: '0.35rem 0.55rem',
                             borderRadius: '4px',
-                            backgroundColor: '#FEE2E2',
-                            color: '#DC2626',
-                            border: '1px solid #FECACA',
+                            backgroundColor: 'var(--color-danger-bg)',
+                            color: 'var(--color-danger-text)',
+                            border: '1px solid rgba(220, 38, 38, 0.35)',
                             cursor: 'pointer',
                             fontSize: '0.8rem',
                           }}

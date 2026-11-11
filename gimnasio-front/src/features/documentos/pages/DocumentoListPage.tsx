@@ -78,10 +78,10 @@ const DocumentoListPage: React.FC = () => {
     <section>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.25rem', flexWrap: 'wrap', gap: '1rem' }}>
         <div>
-          <h2 style={{ fontSize: '1.4rem', fontWeight: 800, color: '#0B1727', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-            <FaFolderOpen style={{ color: '#003B70' }} /> Repositorio de Documentación Digital
+          <h2 style={{ fontSize: '1.4rem', fontWeight: 800, color: 'var(--color-text-primary)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            <FaFolderOpen style={{ color: 'var(--color-primary-text)' }} /> Repositorio de Documentación Digital
           </h2>
-          <p style={{ fontSize: '0.85rem', color: '#64748B' }}>
+          <p style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)' }}>
             Carga, filtro, vista previa y consulta de carnets, certificados médicos y respaldos institucionales.
           </p>
         </div>
@@ -91,7 +91,7 @@ const DocumentoListPage: React.FC = () => {
               onClick={() => setIsTipoModalOpen(true)}
               style={{
                 padding: '0.55rem 1rem', borderRadius: '4px',
-                backgroundColor: '#FFF', color: '#0077D4', border: '1px solid #CBD5E1', fontWeight: 700, fontSize: '0.80rem', cursor: 'pointer',
+                backgroundColor: 'var(--color-surface)', color: 'var(--color-primary-text)', border: '1px solid var(--color-border-strong)', fontWeight: 700, fontSize: '0.80rem', cursor: 'pointer',
                 display: 'flex', alignItems: 'center', gap: '0.4rem', textTransform: 'uppercase', letterSpacing: '0.03em'
               }}
             >
@@ -103,8 +103,8 @@ const DocumentoListPage: React.FC = () => {
               onClick={() => setIsModalOpen(true)}
               style={{
                 padding: '0.55rem 1rem', borderRadius: '4px',
-                background: '#0077D4',
-                color: '#FFFFFF', border: '1px solid #005FA8', fontWeight: 700, fontSize: '0.80rem', cursor: 'pointer',
+                background: 'var(--color-primary)',
+                color: '#FFFFFF', border: '1px solid var(--color-primary)', fontWeight: 700, fontSize: '0.80rem', cursor: 'pointer',
                 display: 'flex', alignItems: 'center', gap: '0.4rem', textTransform: 'uppercase', letterSpacing: '0.03em'
               }}
             >
@@ -117,7 +117,7 @@ const DocumentoListPage: React.FC = () => {
       {/* BARRA DE FILTRADO POR USUARIO Y TIPO */}
       <div style={{ display: 'flex', gap: '0.75rem', marginBottom: '1.25rem', flexWrap: 'wrap' }}>
         <div style={{ flex: 1, minWidth: '260px', position: 'relative' }}>
-          <FaMagnifyingGlass style={{ position: 'absolute', left: '0.85rem', top: '50%', transform: 'translateY(-50%)', color: '#94A3B8', fontSize: '0.85rem' }} />
+          <FaMagnifyingGlass style={{ position: 'absolute', left: '0.85rem', top: '50%', transform: 'translateY(-50%)', color: 'var(--color-text-muted)', fontSize: '0.85rem' }} />
           <input
             type="text"
             placeholder="Filtrar por Socio (Nombre, R.U., Email) o Título..."
@@ -125,7 +125,7 @@ const DocumentoListPage: React.FC = () => {
             onChange={(e) => setSearchQuery(e.target.value)}
             style={{
               width: '100%', padding: '0.55rem 0.85rem 0.55rem 2.25rem', borderRadius: '4px',
-              border: '1px solid #CBD5E1', backgroundColor: '#FFF', fontSize: '0.82rem'
+              border: '1px solid var(--color-border-strong)', backgroundColor: 'var(--color-surface)', fontSize: '0.82rem'
             }}
           />
         </div>
@@ -135,7 +135,7 @@ const DocumentoListPage: React.FC = () => {
             onChange={(e) => setSelectedTipoId(e.target.value)}
             style={{
               width: '100%', padding: '0.55rem 0.75rem', borderRadius: '4px',
-              border: '1px solid #CBD5E1', backgroundColor: '#FFF', fontSize: '0.82rem'
+              border: '1px solid var(--color-border-strong)', backgroundColor: 'var(--color-surface)', fontSize: '0.82rem'
             }}
           >
             <option value="">Todos los Tipos</option>

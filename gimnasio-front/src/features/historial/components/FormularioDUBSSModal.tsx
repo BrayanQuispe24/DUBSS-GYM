@@ -104,7 +104,7 @@ const FormularioDUBSSModal: React.FC<FormularioDUBSSModalProps> = ({
   return (
     <div className="modal-print-overlay" style={{
       position: 'fixed', top: 0, left: 0, right: 0, bottom: 0,
-      backgroundColor: 'rgba(15, 23, 42, 0.8)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 99999
+      backgroundColor: 'rgba(0, 0, 0, 0.8)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 99999
     }}>
       <style>{`
         @media print {
@@ -141,14 +141,14 @@ const FormularioDUBSSModal: React.FC<FormularioDUBSSModalProps> = ({
       `}</style>
 
       <div style={{
-        backgroundColor: '#F8FAFC', borderRadius: '12px', width: '100%', maxWidth: '900px',
+        backgroundColor: 'var(--color-surface-muted)', borderRadius: '12px', width: '100%', maxWidth: '900px',
         maxHeight: '94vh', display: 'flex', flexDirection: 'column', boxShadow: '0 25px 50px -12px rgba(0,0,0,0.3)',
-        border: '1px solid #CBD5E1', overflow: 'hidden'
+        border: '1px solid var(--color-border-strong)', overflow: 'hidden'
       }}>
         {/* MODAL CONTROL BAR */}
         <div className="no-print" style={{
           display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-          padding: '1rem 1.5rem', backgroundColor: '#0F172A', color: '#FFF'
+          padding: '1rem 1.5rem', backgroundColor: '#141419', color: '#FFF'
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
             <FaFilePdf style={{ color: '#F59E0B', fontSize: '1.25rem' }} />
@@ -156,7 +156,7 @@ const FormularioDUBSSModal: React.FC<FormularioDUBSSModalProps> = ({
               <h3 style={{ fontSize: '1rem', fontWeight: 700, margin: 0 }}>
                 Formulario Oficial DUBSS-FR-03
               </h3>
-              <span style={{ fontSize: '0.75rem', color: '#94A3B8' }}>
+              <span style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)' }}>
                 Inscripción Gimnasio Universitario UAGRM
               </span>
             </div>
@@ -188,7 +188,7 @@ const FormularioDUBSSModal: React.FC<FormularioDUBSSModalProps> = ({
               onClick={handlePrintPDF}
               disabled={isGeneratingPdf}
               style={{
-                padding: '0.55rem 1.2rem', borderRadius: '6px', backgroundColor: '#2563EB', color: '#FFF',
+                padding: '0.55rem 1.2rem', borderRadius: '6px', backgroundColor: 'var(--color-primary)', color: '#FFF',
                 border: 'none', fontWeight: 700, fontSize: '0.85rem', cursor: isGeneratingPdf ? 'wait' : 'pointer',
                 display: 'flex', alignItems: 'center', gap: '0.5rem',
                 boxShadow: '0 4px 6px -1px rgba(37, 99, 235, 0.3)', opacity: isGeneratingPdf ? 0.7 : 1
@@ -213,20 +213,20 @@ const FormularioDUBSSModal: React.FC<FormularioDUBSSModalProps> = ({
         {/* PRINTABLE CONTENT BODY */}
         <div style={{ overflowY: 'auto', padding: '1.5rem', flex: 1 }}>
           <div className="dubss-printable-document" style={{
-            backgroundColor: '#FFFFFF', padding: '2rem', border: '1px solid #E2E8F0',
-            fontFamily: "'Segoe UI', Arial, sans-serif", color: '#0F172A', fontSize: '12px', lineHeight: '1.4'
+            backgroundColor: 'var(--color-surface)', padding: '2rem', border: '1px solid var(--color-border)',
+            fontFamily: "'Segoe UI', Arial, sans-serif", color: 'var(--color-text-primary)', fontSize: '12px', lineHeight: '1.4'
           }}>
             {/* INSTITUTIONAL HEADER TABLE */}
             <table style={{ width: '100%', borderCollapse: 'collapse', border: '1.5px solid #000', marginBottom: '1.5rem' }}>
               <tbody>
                 <tr>
                   <td style={{ width: '22%', borderRight: '1.5px solid #000', padding: '8px', textAlign: 'center', verticalAlign: 'middle' }}>
-                    <div style={{ fontWeight: 900, fontSize: '11px', color: '#B91C1C', textTransform: 'uppercase', lineHeight: '1.2' }}>
+                    <div style={{ fontWeight: 900, fontSize: '11px', color: 'var(--color-danger-text)', textTransform: 'uppercase', lineHeight: '1.2' }}>
                       <span style={{ fontSize: '13px', display: 'block', color: '#000' }}>D.U.B.S.S.</span>
                       U.A.G.R.M.
                     </div>
                   </td>
-                  <td style={{ width: '56%', borderRight: '1.5px solid #000', padding: '8px', textAlign: 'center', verticalAlign: 'middle', backgroundColor: '#F1F5F9' }}>
+                  <td style={{ width: '56%', borderRight: '1.5px solid #000', padding: '8px', textAlign: 'center', verticalAlign: 'middle', backgroundColor: 'var(--color-surface-muted)' }}>
                     <div style={{ fontWeight: 800, fontSize: '12px', textTransform: 'uppercase' }}>FORMULARIO</div>
                     <div style={{ fontWeight: 900, fontSize: '13px', textTransform: 'uppercase', marginTop: '4px', letterSpacing: '0.5px' }}>
                       INSCRIPCIÓN GIMNASIO UNIVERSITARIO
@@ -314,7 +314,7 @@ const FormularioDUBSSModal: React.FC<FormularioDUBSSModalProps> = ({
                     <strong>MES DE EMISIÓN:</strong> {new Date().toLocaleDateString('es-BO', { month: 'long', year: 'numeric' }).toUpperCase()}
                   </td>
                   <td style={{ padding: '6px 8px' }}>
-                    <strong>HORARIO:</strong> <span style={{ fontWeight: 700, color: '#003B70' }}>{(activeHistorial as any)?.horario || (rawUsuario as any)?.horario || '07:00 - 09:00 (Mañana)'}</span>
+                    <strong>HORARIO:</strong> <span style={{ fontWeight: 700, color: 'var(--color-primary-text)' }}>{(activeHistorial as any)?.horario || (rawUsuario as any)?.horario || '07:00 - 09:00 (Mañana)'}</span>
                   </td>
                 </tr>
               </tbody>
@@ -426,7 +426,7 @@ const FormularioDUBSSModal: React.FC<FormularioDUBSSModalProps> = ({
                 <div style={{ fontWeight: 800, fontSize: '11px', textAlign: 'center', marginBottom: '8px', textDecoration: 'underline' }}>
                   OBSERVACIONES GENERALES DE LA FICHA MÉDICA
                 </div>
-                <div style={{ borderBottom: '1px dotted #000', minHeight: '20px', fontWeight: 600, padding: '4px 8px', backgroundColor: '#F8FAFC' }}>
+                <div style={{ borderBottom: '1px dotted #000', minHeight: '20px', fontWeight: 600, padding: '4px 8px', backgroundColor: 'var(--color-surface-muted)' }}>
                   {observacionesGen}
                 </div>
               </div>
@@ -455,7 +455,7 @@ const FormularioDUBSSModal: React.FC<FormularioDUBSSModalProps> = ({
                 <div style={{ marginTop: '2px' }}>
                   <strong>Aclaración firma:</strong> {user.name || [user.nombre, user.apellido].filter(Boolean).join(' ') || '___________________________'}
                 </div>
-                <div style={{ fontSize: '9px', color: '#64748B' }}>(Nombre completo)</div>
+                <div style={{ fontSize: '9px', color: 'var(--color-text-muted)' }}>(Nombre completo)</div>
               </div>
             </div>
           </div>

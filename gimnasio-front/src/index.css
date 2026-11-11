@@ -1,13 +1,15 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *, .dark, .dark *));
+
 @theme {
-  --color-primary: #0077D4;         /* Corporate Action Blue */
-  --color-primary-dark: #0840A8;    /* Deep Royal Blue / Hover state */
-  --color-secondary: #00C2E0;       /* Cyan accent for highlights */
-  --color-dark-surface: #002D5E;    /* Dark mode cards & panels */
-  --color-dark-bg: #001C3D;         /* Dark mode page background & table headers */
+  --color-primary: #990000;         /* Crimson UAGRM Institutional */
+  --color-primary-dark: #7A0000;    /* Deep Crimson / Hover state */
+  --color-secondary: #DC2626;       /* Vibrant Crimson accent */
+  --color-dark-surface: #141419;    /* Dark mode cards & panels (Carbon) */
+  --color-dark-bg: #0B0B0D;         /* Dark mode page background (Obsidian) */
   --color-light-surface: #FFFFFF;   /* Light mode card surface */
-  --color-light-bg: #F4F9FF;        /* Light mode page background */
+  --color-light-bg: #F4F4F6;        /* Light mode neutral silver page background */
 
   /* Micro Typography Tokens */
   --text-micro: 0.5625rem;          /* ~9px  */
@@ -21,7 +23,7 @@ html, body, #root {
   max-width: 100%;
   margin: 0;
   padding: 0;
-  overflow-x: hidden;
+  overflow-x: clip;
   box-sizing: border-box;
 }
 
@@ -31,16 +33,17 @@ html, body, #root {
   min-height: 100vh;
 }
 
-/* Enterprise Design System Utilities */
+/* Enterprise Design System Utilities (Portada Obsidian + Crimson) */
 .rounded-enterprise {
   border-radius: 4px !important;
 }
 
 .card-enterprise {
-  background-color: #FFFFFF;
-  border: 1px solid #E2E8F0;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
   border-radius: 4px !important;
-  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.08);
+  color: var(--color-text-primary);
 }
 
 .table-enterprise th {
@@ -48,26 +51,27 @@ html, body, #root {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  color: #475569;
-  background-color: #F8FAFC;
+  color: var(--color-text-muted);
+  background-color: var(--color-surface-muted);
   padding: 0.75rem 1rem;
-  border-bottom: 1px solid #E2E8F0;
+  border-bottom: 1px solid var(--color-border);
 }
 
 .table-enterprise td {
   padding: 0.75rem 1rem;
   font-size: 0.82rem;
-  border-bottom: 1px solid #F1F5F9;
+  color: var(--color-text-secondary);
+  border-bottom: 1px solid var(--color-border);
 }
 
 .btn-enterprise-primary {
   padding: 0.5rem 1rem;
   border-radius: 4px !important;
-  background-color: #0077D4;
+  background-color: var(--color-primary);
   color: #FFFFFF;
   font-weight: 600;
   font-size: 0.82rem;
-  border: none;
+  border: 1px solid rgba(255, 255, 255, 0.08);
   cursor: pointer;
   display: inline-flex;
   align-items: center;
@@ -75,17 +79,17 @@ html, body, #root {
   transition: background-color 0.15s ease-in-out;
 }
 .btn-enterprise-primary:hover {
-  background-color: #0840A8;
+  background-color: var(--color-primary-hover);
 }
 
 .btn-enterprise-secondary {
   padding: 0.5rem 1rem;
   border-radius: 4px !important;
-  background-color: #FFFFFF;
-  color: #334155;
+  background-color: var(--color-surface);
+  color: var(--color-text-secondary);
   font-weight: 600;
   font-size: 0.82rem;
-  border: 1px solid #CBD5E1;
+  border: 1px solid var(--color-border-strong);
   cursor: pointer;
   display: inline-flex;
   align-items: center;
@@ -93,7 +97,7 @@ html, body, #root {
   transition: all 0.15s ease-in-out;
 }
 .btn-enterprise-secondary:hover {
-  background-color: #F8FAFC;
-  border-color: #94A3B8;
+  background-color: var(--color-surface-hover);
+  border-color: var(--color-text-muted);
+  color: var(--color-text-primary);
 }
-

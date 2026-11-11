@@ -1,23 +1,30 @@
-# Plan de Implementación: Incorporación Autónoma de Base de Datos de Ejercicios (Opción A)
+# Plan de Implementación: Resumen Compacto en Tarjeta y Vista Completa en Modal
 
-## 1. Diagnóstico y Decisión
-- **Problema previo**: La carpeta `EJERCICIOS/free-exercise-db` funcionaba como un repositorio Git anidado sin configuración `.gitmodules`. Esto provocaba la advertencia `(modified content)` en Git y dejaba la carpeta vacía en cualquier clonación fresca del proyecto.
-- **Decisión del usuario**: Opción A — Desvincular el `.git` interno e incorporar la base de datos de ejercicios (imágenes y `dist/exercises.json`) directamente al repositorio de control de versiones `DUBSS-GYM`.
-- **Beneficio**: El proyecto se vuelve 100% autosuficiente y portátil para la defensa de grado. Cualquier clonación incluirá de inmediato el dataset y las imágenes necesarias para `EjercicioSeeder`.
+## 1. Causa y Requerimiento
+- **Situación Actual**: Al guardarse la receta completa en `observacion`, la tarjeta en el listado de planes muestra todo el bloque de texto (ingredientes, pasos de cocina, sustitutos), saturando visualmente la tarjeta con un scroll excesivo.
+- **Solicitud del Usuario**: *"En la tarjeta mostrar un resumen, cuando se le dé a abrir se verá la información completa"*.
 
 ---
 
-## 2. Pasos Técnicos de Ejecución
+## 2. Modificaciones Propuestas
 
-1. **Eliminar el `.git` interno del submódulo**:
-   - Eliminar `EJERCICIOS/free-exercise-db/.git` (directorio oculto de control de versiones ajeno).
-   - Eliminar `EJERCICIOS/free-exercise-db/.gitignore` si no es necesario o dejarlo para `.DS_Store`.
-2. **Desindexar el puntero gitlink previo**:
-   - `git rm --cached EJERCICIOS/free-exercise-db` en el repositorio principal para desvincular el modo `160000` (submódulo).
-3. **Indexar los archivos reales**:
-   - Agregar la carpeta completa `EJERCICIOS/free-exercise-db` a Git (`dist/exercises.json`, `exercises/`, etc.).
-4. **Verificación**:
-   - Ejecutar `git status` para confirmar que se agregan como archivos normales y que no existe ningún error de submódulo.
-5. **Commit y Push**:
-   - Crear commit: `feat(ejercicios): incorporar dataset de ejercicios e imagenes al repositorio`
-   - Realizar `git push origin main`.
+### A. Frontend: Simplificar Tarjeta en `PlanAlimentacionPage.tsx`
+- **Archivo**: [PlanAlimentacionPage.tsx](file:///c:/Users/brayan/Documents/Chamba/Taller%20de%20grado/DUBSS-GYM/gimnasio-front/src/features/nutricion/pages/PlanAlimentacionPage.tsx)
+- **Cambios**:
+  1. **Comidas Prescritas en Tarjeta**:
+     - Mantener solo la cabecera compacta: Tiempo de comida (`Desayuno`, `Almuerzo`...) y aporte en calorías (`736 kcal`).
+     - Título del plato en negrita (`Gachas de Avena Energéticas con Huevo y Plátano`).
+     - Si hay macros disponibles, mostrar únicamente una píldora corta: `P: 29g | C: 115g | G: 18g`.
+     - **Ocultar** de la tarjeta la lista de ingredientes, preparación y sustitutos (evitando la saturación visual).
+  2. **Remover el acordeón duplicado de estrategia** de la tarjeta para mantenerla limpia y compacta.
+  3. **Botón de Acción Principal**:
+     - Botón destacado y estilizado: **"Abrir Plan Completo"** con `<FaEye />`.
+     - Al hacer clic, abre `PlanAlimentacionDetailModal.tsx` donde se muestra la ficha técnica completa (estrategia clínica de Gemini, ingredientes con cantidades exactas, pasos de preparación y sustitutos).
+
+---
+
+## 3. Plan de Verificación
+1. Compilar el frontend con `npm run build` para garantizar cero errores.
+2. Refrescar la página en el navegador.
+3. Validar que las tarjetas queden limpias, compactas y legibles con únicamente el resumen del plato, calorías y macros.
+4. Hacer clic en **"Abrir Plan Completo"** y confirmar que el modal muestre toda la receta exhaustiva.

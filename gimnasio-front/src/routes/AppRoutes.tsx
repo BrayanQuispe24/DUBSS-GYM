@@ -24,6 +24,7 @@ import PlanesEntrenamientoPage from '@/features/entrenamiento/pages/PlanesEntren
 import PlanAlimentacionPage from '@/features/nutricion/pages/PlanAlimentacionPage';
 import TramitesPage from '@/features/tramites/pages/TramitesPage';
 import RegistroAccesosPage from '@/features/accesos/pages/RegistroAccesosPage';
+import ConfiguracionSistemaPage from '@/features/configuracion/pages/ConfiguracionSistemaPage';
 import ProtectedRoute from './ProtectedRoute';
 
 const AppRoutes: React.FC = () => {
@@ -112,6 +113,9 @@ const AppRoutes: React.FC = () => {
           <Route element={<ProtectedRoute allowedRoles={['administrador']} />}>
             <Route path="mantenimientos" element={<MantenimientoListPage />} />
           </Route>
+
+          {/* Configuración del Sistema (Preferencias de Apariencia y Accesibilidad) */}
+          <Route path="configuracion" element={<ConfiguracionSistemaPage />} />
         </Route>
       </Route>
     </Routes>

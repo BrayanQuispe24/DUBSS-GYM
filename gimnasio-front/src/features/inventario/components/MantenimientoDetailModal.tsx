@@ -55,21 +55,21 @@ const MantenimientoDetailModal: React.FC<MantenimientoDetailModalProps> = ({
     >
       <div
         style={{
-          backgroundColor: '#FFFFFF',
+          backgroundColor: 'var(--color-surface)',
           borderRadius: '16px',
           width: '100%',
           maxWidth: '560px',
           boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
           overflow: 'hidden',
-          border: '1px solid #E2E8F0',
+          border: '1px solid var(--color-border)',
         }}
       >
         {/* HEADER */}
         <div
           style={{
             padding: '1.25rem 1.5rem',
-            borderBottom: '1px solid #E2E8F0',
-            backgroundColor: '#F8FAFC',
+            borderBottom: '1px solid var(--color-border)',
+            backgroundColor: 'var(--color-surface-muted)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
@@ -81,21 +81,21 @@ const MantenimientoDetailModal: React.FC<MantenimientoDetailModalProps> = ({
                 width: '40px',
                 height: '40px',
                 borderRadius: '10px',
-                backgroundColor: 'rgba(0, 59, 112, 0.1)',
+                backgroundColor: 'rgba(153, 0, 0, 0.1)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                color: '#003B70',
+                color: 'var(--color-primary-text)',
                 fontSize: '1.1rem',
               }}
             >
               <FaWrench />
             </div>
             <div>
-              <h3 style={{ fontSize: '1.1rem', fontWeight: 800, color: '#0B1727', margin: 0 }}>
+              <h3 style={{ fontSize: '1.1rem', fontWeight: 800, color: 'var(--color-text-primary)', margin: 0 }}>
                 Orden de Mantenimiento #{mantenimiento.id}
               </h3>
-              <p style={{ fontSize: '0.8rem', color: '#64748B', margin: 0 }}>
+              <p style={{ fontSize: '0.8rem', color: 'var(--color-text-muted)', margin: 0 }}>
                 Boleta de servicio técnico de equipamiento
               </p>
             </div>
@@ -105,7 +105,7 @@ const MantenimientoDetailModal: React.FC<MantenimientoDetailModalProps> = ({
             style={{
               background: 'none',
               border: 'none',
-              color: '#94A3B8',
+              color: 'var(--color-text-muted)',
               cursor: 'pointer',
               fontSize: '1.2rem',
               display: 'flex',
@@ -123,21 +123,21 @@ const MantenimientoDetailModal: React.FC<MantenimientoDetailModalProps> = ({
             style={{
               padding: '1rem',
               borderRadius: '12px',
-              backgroundColor: isPendiente ? '#FEF3C7' : '#DCFCE7',
-              border: isPendiente ? '1px solid #FCD34D' : '1px solid #86EFAC',
+              backgroundColor: isPendiente ? 'var(--color-warning-bg)' : 'var(--color-success-bg)',
+              border: isPendiente ? '1px solid rgba(217, 119, 6, 0.35)' : '1px solid rgba(22, 163, 74, 0.35)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between',
             }}
           >
             <div>
-              <span style={{ fontSize: '0.72rem', fontWeight: 800, color: isPendiente ? '#B45309' : '#15803D', letterSpacing: '0.5px' }}>
+              <span style={{ fontSize: '0.72rem', fontWeight: 800, color: isPendiente ? 'var(--color-warning-text)' : 'var(--color-success-text)', letterSpacing: '0.5px' }}>
                 ESTADO ACTUAL DE LA BOLETA
               </span>
-              <div style={{ fontSize: '1rem', fontWeight: 800, color: isPendiente ? '#92400E' : '#14532D', marginTop: '0.1rem' }}>
+              <div style={{ fontSize: '1rem', fontWeight: 800, color: isPendiente ? 'var(--color-warning-text)' : '#14532D', marginTop: '0.1rem' }}>
                 {isPendiente ? 'PENDIENTE DE EJECUCIÓN' : 'MANTENIMIENTO COMPLETADO'}
               </div>
-              <div style={{ fontSize: '0.75rem', color: isPendiente ? '#B45309' : '#15803D', marginTop: '0.2rem' }}>
+              <div style={{ fontSize: '0.75rem', color: isPendiente ? 'var(--color-warning-text)' : 'var(--color-success-text)', marginTop: '0.2rem' }}>
                 {isPendiente
                   ? `Al completar, ${mantenimiento.cantidad || 1} unidad(es) retornarán al stock.`
                   : `Las ${mantenimiento.cantidad || 1} unidad(es) fueron devueltas al stock disponible.`}
@@ -167,46 +167,46 @@ const MantenimientoDetailModal: React.FC<MantenimientoDetailModalProps> = ({
 
           {/* Grid Info */}
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
-            <div style={{ padding: '0.85rem', borderRadius: '10px', backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0' }}>
-              <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#64748B', display: 'block' }}>Equipo</span>
-              <strong style={{ fontSize: '0.92rem', color: '#0B1727' }}>
+            <div style={{ padding: '0.85rem', borderRadius: '10px', backgroundColor: 'var(--color-surface-muted)', border: '1px solid var(--color-border)' }}>
+              <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--color-text-muted)', display: 'block' }}>Equipo</span>
+              <strong style={{ fontSize: '0.92rem', color: 'var(--color-text-primary)' }}>
                 {mantenimiento.equipo?.nombre || `Equipo ID: ${mantenimiento.id_equipo}`}
               </strong>
               {mantenimiento.equipo?.codigo && (
-                <div style={{ fontSize: '0.75rem', color: '#64748B', marginTop: '0.15rem' }}>
+                <div style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)', marginTop: '0.15rem' }}>
                   CÓD: {mantenimiento.equipo.codigo}
                 </div>
               )}
             </div>
 
-            <div style={{ padding: '0.85rem', borderRadius: '10px', backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0' }}>
-              <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#64748B', display: 'block' }}>Tipo de Mantenimiento</span>
-              <strong style={{ fontSize: '0.92rem', color: '#0B1727' }}>
+            <div style={{ padding: '0.85rem', borderRadius: '10px', backgroundColor: 'var(--color-surface-muted)', border: '1px solid var(--color-border)' }}>
+              <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--color-text-muted)', display: 'block' }}>Tipo de Mantenimiento</span>
+              <strong style={{ fontSize: '0.92rem', color: 'var(--color-text-primary)' }}>
                 {mantenimiento.tipo || 'Sin especificar'}
               </strong>
             </div>
 
-            <div style={{ padding: '0.85rem', borderRadius: '10px', backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0' }}>
-              <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#64748B', display: 'block' }}>Cantidad en Mantenimiento</span>
-              <strong style={{ fontSize: '0.92rem', color: '#0369A1' }}>
+            <div style={{ padding: '0.85rem', borderRadius: '10px', backgroundColor: 'var(--color-surface-muted)', border: '1px solid var(--color-border)' }}>
+              <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--color-text-muted)', display: 'block' }}>Cantidad en Mantenimiento</span>
+              <strong style={{ fontSize: '0.92rem', color: 'var(--color-primary-text)' }}>
                 {mantenimiento.cantidad || 1} Unidades
               </strong>
             </div>
 
-            <div style={{ padding: '0.85rem', borderRadius: '10px', backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0' }}>
-              <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#64748B', display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
-                <FaCalendarDays style={{ color: '#003B70' }} /> Fecha Inicio
+            <div style={{ padding: '0.85rem', borderRadius: '10px', backgroundColor: 'var(--color-surface-muted)', border: '1px solid var(--color-border)' }}>
+              <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--color-text-muted)', display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
+                <FaCalendarDays style={{ color: 'var(--color-primary-text)' }} /> Fecha Inicio
               </span>
-              <strong style={{ fontSize: '0.92rem', color: '#0B1727' }}>
+              <strong style={{ fontSize: '0.92rem', color: 'var(--color-text-primary)' }}>
                 {mantenimiento.fecha_inicio || 'Sin fecha'}
               </strong>
             </div>
 
-            <div style={{ padding: '0.85rem', borderRadius: '10px', backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0' }}>
-              <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#64748B', display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
-                <FaCoins style={{ color: '#D97706' }} /> Costo Estimado
+            <div style={{ padding: '0.85rem', borderRadius: '10px', backgroundColor: 'var(--color-surface-muted)', border: '1px solid var(--color-border)' }}>
+              <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--color-text-muted)', display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
+                <FaCoins style={{ color: 'var(--color-warning-text)' }} /> Costo Estimado
               </span>
-              <strong style={{ fontSize: '0.92rem', color: '#0B1727' }}>
+              <strong style={{ fontSize: '0.92rem', color: 'var(--color-text-primary)' }}>
                 {mantenimiento.costo ? `Bs. ${mantenimiento.costo}` : 'Sin costo registrado'}
               </strong>
             </div>
@@ -214,17 +214,17 @@ const MantenimientoDetailModal: React.FC<MantenimientoDetailModalProps> = ({
 
           {/* Description */}
           <div>
-            <span style={{ fontSize: '0.8rem', fontWeight: 700, color: '#334155', display: 'block', marginBottom: '0.35rem' }}>
+            <span style={{ fontSize: '0.8rem', fontWeight: 700, color: 'var(--color-text-secondary)', display: 'block', marginBottom: '0.35rem' }}>
               Descripción de Trabajos / Detalles
             </span>
             <div
               style={{
                 padding: '0.85rem',
                 borderRadius: '8px',
-                backgroundColor: '#F8FAFC',
-                border: '1px solid #E2E8F0',
+                backgroundColor: 'var(--color-surface-muted)',
+                border: '1px solid var(--color-border)',
                 fontSize: '0.85rem',
-                color: '#475569',
+                color: 'var(--color-text-secondary)',
                 minHeight: '60px',
               }}
             >
@@ -235,17 +235,17 @@ const MantenimientoDetailModal: React.FC<MantenimientoDetailModalProps> = ({
           {/* Observaciones */}
           {mantenimiento.observacion && (
             <div>
-              <span style={{ fontSize: '0.8rem', fontWeight: 700, color: '#334155', display: 'block', marginBottom: '0.35rem' }}>
+              <span style={{ fontSize: '0.8rem', fontWeight: 700, color: 'var(--color-text-secondary)', display: 'block', marginBottom: '0.35rem' }}>
                 Observaciones Adicionales
               </span>
               <div
                 style={{
                   padding: '0.85rem',
                   borderRadius: '8px',
-                  backgroundColor: '#F8FAFC',
-                  border: '1px solid #E2E8F0',
+                  backgroundColor: 'var(--color-surface-muted)',
+                  border: '1px solid var(--color-border)',
                   fontSize: '0.85rem',
-                  color: '#475569',
+                  color: 'var(--color-text-secondary)',
                 }}
               >
                 {mantenimiento.observacion}
@@ -258,8 +258,8 @@ const MantenimientoDetailModal: React.FC<MantenimientoDetailModalProps> = ({
         <div
           style={{
             padding: '1rem 1.5rem',
-            borderTop: '1px solid #E2E8F0',
-            backgroundColor: '#F8FAFC',
+            borderTop: '1px solid var(--color-border)',
+            backgroundColor: 'var(--color-surface-muted)',
             display: 'flex',
             justifyContent: 'flex-end',
           }}
@@ -269,9 +269,9 @@ const MantenimientoDetailModal: React.FC<MantenimientoDetailModalProps> = ({
             style={{
               padding: '0.55rem 1.3rem',
               borderRadius: '8px',
-              border: '1px solid #CBD5E1',
-              backgroundColor: '#FFFFFF',
-              color: '#475569',
+              border: '1px solid var(--color-border-strong)',
+              backgroundColor: 'var(--color-surface)',
+              color: 'var(--color-text-secondary)',
               fontWeight: 700,
               fontSize: '0.85rem',
               cursor: 'pointer',

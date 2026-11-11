@@ -119,10 +119,10 @@ const RoleListPage: React.FC = () => {
     <section>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.25rem' }}>
         <div>
-          <h2 style={{ fontSize: '1.4rem', fontWeight: 800, color: '#0B1727', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-            <FaShieldHalved style={{ color: '#003B70' }} /> Roles y Matriz de Permisos
+          <h2 style={{ fontSize: '1.4rem', fontWeight: 800, color: 'var(--color-text-primary)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            <FaShieldHalved style={{ color: 'var(--color-primary-text)' }} /> Roles y Matriz de Permisos
           </h2>
-          <p style={{ fontSize: '0.85rem', color: '#64748B' }}>
+          <p style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)' }}>
             Definición de perfiles de acceso y facultades de seguridad en la plataforma UAGRM.
           </p>
         </div>
@@ -132,9 +132,9 @@ const RoleListPage: React.FC = () => {
             style={{
               padding: '0.55rem 1rem',
               borderRadius: '4px',
-              backgroundColor: '#FEF3C7',
-              color: '#B45309',
-              border: '1px solid #FCD34D',
+              backgroundColor: 'var(--color-warning-bg)',
+              color: 'var(--color-warning-text)',
+              border: '1px solid rgba(217, 119, 6, 0.35)',
               fontWeight: 700,
               fontSize: '0.80rem',
               cursor: 'pointer',
@@ -152,9 +152,9 @@ const RoleListPage: React.FC = () => {
             style={{
               padding: '0.55rem 1rem',
               borderRadius: '4px',
-              background: '#0077D4',
+              background: 'var(--color-primary)',
               color: '#FFFFFF',
-              border: '1px solid #005FA8',
+              border: '1px solid var(--color-primary)',
               fontWeight: 700,
               fontSize: '0.80rem',
               cursor: 'pointer',
@@ -171,15 +171,15 @@ const RoleListPage: React.FC = () => {
       </div>
 
       {/* TAB SELECTOR ENTERPRISE */}
-      <div style={{ display: 'flex', gap: '1.5rem', marginBottom: '1.25rem', borderBottom: '1px solid #CBD5E1' }}>
+      <div style={{ display: 'flex', gap: '1.5rem', marginBottom: '1.25rem', borderBottom: '1px solid var(--color-border-strong)' }}>
         <button
           onClick={() => setActiveTab('roles')}
           style={{
             padding: '0.65rem 0.25rem',
             background: 'none',
             border: 'none',
-            borderBottom: activeTab === 'roles' ? '2px solid #0077D4' : '2px solid transparent',
-            color: activeTab === 'roles' ? '#0077D4' : '#64748B',
+            borderBottom: activeTab === 'roles' ? '2px solid var(--color-primary)' : '2px solid transparent',
+            color: activeTab === 'roles' ? 'var(--color-primary-text)' : 'var(--color-text-muted)',
             fontWeight: activeTab === 'roles' ? 700 : 600,
             fontSize: '0.82rem',
             textTransform: 'uppercase',
@@ -198,8 +198,8 @@ const RoleListPage: React.FC = () => {
             padding: '0.65rem 0.25rem',
             background: 'none',
             border: 'none',
-            borderBottom: activeTab === 'permisos' ? '2px solid #0077D4' : '2px solid transparent',
-            color: activeTab === 'permisos' ? '#0077D4' : '#64748B',
+            borderBottom: activeTab === 'permisos' ? '2px solid var(--color-primary)' : '2px solid transparent',
+            color: activeTab === 'permisos' ? 'var(--color-primary-text)' : 'var(--color-text-muted)',
             fontWeight: activeTab === 'permisos' ? 700 : 600,
             fontSize: '0.82rem',
             textTransform: 'uppercase',

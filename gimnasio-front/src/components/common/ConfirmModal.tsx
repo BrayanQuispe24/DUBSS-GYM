@@ -36,7 +36,7 @@ const ConfirmModal: React.FC<ConfirmModalProps> = ({
         left: 0,
         right: 0,
         bottom: 0,
-        backgroundColor: 'rgba(15, 23, 42, 0.75)',
+        backgroundColor: 'rgba(0, 0, 0, 0.72)',
         backdropFilter: 'blur(4px)',
         display: 'flex',
         alignItems: 'center',
@@ -48,14 +48,15 @@ const ConfirmModal: React.FC<ConfirmModalProps> = ({
     >
       <div
         style={{
-          background: '#FFFFFF',
-          borderRadius: '16px',
+          background: 'var(--color-surface)',
+          color: 'var(--color-text-primary)',
+          borderRadius: '6px',
           maxWidth: '440px',
           width: '100%',
           padding: '1.5rem',
-          boxShadow: '0 25px 50px -12px rgba(0,0,0,0.3)',
+          boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.45)',
           position: 'relative',
-          border: '1px solid #E2E8F0',
+          border: '1px solid var(--color-border)',
           animation: 'fadeInScale 0.2s ease-out',
         }}
         onClick={(e) => e.stopPropagation()}
@@ -69,16 +70,16 @@ const ConfirmModal: React.FC<ConfirmModalProps> = ({
             position: 'absolute',
             top: '1rem',
             right: '1rem',
-            background: '#F1F5F9',
-            border: 'none',
+            background: 'var(--color-surface-muted)',
+            border: '1px solid var(--color-border)',
             width: '32px',
             height: '32px',
-            borderRadius: '50%',
+            borderRadius: '4px',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             cursor: 'pointer',
-            color: '#64748B',
+            color: 'var(--color-text-muted)',
           }}
         >
           <FaXmark style={{ fontSize: '1rem' }} />
@@ -90,25 +91,25 @@ const ConfirmModal: React.FC<ConfirmModalProps> = ({
             style={{
               width: '56px',
               height: '56px',
-              borderRadius: '50%',
-              background: isDanger ? '#FEF2F2' : '#FEF3C7',
-              color: isDanger ? '#DC2626' : '#D97706',
+              borderRadius: '6px',
+              background: isDanger ? 'var(--color-danger-bg)' : 'var(--color-warning-bg)',
+              color: isDanger ? 'var(--color-danger-text)' : 'var(--color-warning-text)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               fontSize: '1.6rem',
               marginBottom: '1rem',
-              border: `1px solid ${isDanger ? '#FCA5A5' : '#FDE68A'}`,
+              border: `1px solid ${isDanger ? 'rgba(220, 38, 38, 0.35)' : 'rgba(217, 119, 6, 0.35)'}`,
             }}
           >
             {isDanger ? <FaTrash /> : <FaTriangleExclamation />}
           </div>
 
-          <h3 style={{ fontSize: '1.2rem', fontWeight: 800, color: '#0F172A', margin: '0 0 0.5rem 0' }}>
+          <h3 style={{ fontSize: '1.2rem', fontWeight: 800, color: 'var(--color-text-primary)', margin: '0 0 0.5rem 0' }}>
             {title}
           </h3>
 
-          <p style={{ fontSize: '0.88rem', color: '#475569', margin: '0 0 1.5rem 0', lineHeight: 1.5 }}>
+          <p style={{ fontSize: '0.88rem', color: 'var(--color-text-secondary)', margin: '0 0 1.5rem 0', lineHeight: 1.5 }}>
             {message}
           </p>
 
@@ -121,10 +122,10 @@ const ConfirmModal: React.FC<ConfirmModalProps> = ({
               style={{
                 flex: 1,
                 padding: '0.65rem 1rem',
-                borderRadius: '8px',
-                border: '1px solid #CBD5E1',
-                background: '#F1F5F9',
-                color: '#475569',
+                borderRadius: '4px',
+                border: '1px solid var(--color-border-strong)',
+                background: 'var(--color-surface-muted)',
+                color: 'var(--color-text-secondary)',
                 fontWeight: 700,
                 fontSize: '0.85rem',
                 cursor: 'pointer',

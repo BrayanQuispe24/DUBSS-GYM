@@ -83,9 +83,9 @@ const RegisterForm: React.FC = () => {
           <div style={{
             padding: '0.75rem 1rem',
             borderRadius: '8px',
-            backgroundColor: '#FEE2E2',
-            border: '1px solid #FCA5A5',
-            color: '#991B1B',
+            backgroundColor: 'rgba(153, 0, 0, 0.16)',
+            border: '1px solid rgba(239, 68, 68, 0.4)',
+            color: '#FCA5A5',
             fontSize: '0.85rem',
             display: 'flex',
             alignItems: 'center',
@@ -100,16 +100,16 @@ const RegisterForm: React.FC = () => {
         <div style={{
           padding: '0.65rem 0.85rem',
           borderRadius: '6px',
-          backgroundColor: 'rgba(0, 59, 112, 0.08)',
-          borderLeft: '4px solid #003B70',
+          backgroundColor: 'rgba(153, 0, 0, 0.14)',
+          borderLeft: '4px solid #CC1F1F',
           fontSize: '0.78rem',
-          color: '#003B70',
+          color: '#E2E8F0',
           fontWeight: 600,
           display: 'flex',
           alignItems: 'center',
           gap: '0.4rem',
         }}>
-          <FaCircleInfo />
+          <FaCircleInfo style={{ color: '#F87171', flexShrink: 0 }} />
           <span>El registro público está habilitado exclusivamente para usuarios con rol <strong>Cliente</strong> (Estudiantes, Docentes y Administrativos UAGRM).</span>
         </div>
 
@@ -121,97 +121,107 @@ const RegisterForm: React.FC = () => {
         }}>
           {/* Row 1: Nombres, Apellidos, CI */}
           <div>
-            <label style={{ display: 'block', fontWeight: 600, fontSize: '0.82rem', color: '#1E293B', marginBottom: '0.25rem' }}>
+            <label style={{ display: 'block', fontWeight: 600, fontSize: '0.82rem', color: '#E2E8F0', marginBottom: '0.25rem' }}>
               Nombres *
             </label>
             <input
               type="text"
               placeholder="Ej. María René"
+              className="auth-dark-input"
               {...register('nombre')}
               style={{
                 width: '100%',
                 padding: '0.5rem 0.75rem',
                 borderRadius: '6px',
-                border: errors.nombre ? '1px solid #DC2626' : '1px solid #CBD5E1',
+                border: errors.nombre ? '1px solid #EF4444' : '1px solid rgba(255, 255, 255, 0.14)',
                 fontSize: '0.85rem',
+                outline: 'none',
               }}
             />
-            {errors.nombre && <span style={{ color: '#DC2626', fontSize: '0.75rem' }}>{errors.nombre.message}</span>}
+            {errors.nombre && <span style={{ color: '#F87171', fontSize: '0.75rem' }}>{errors.nombre.message}</span>}
           </div>
 
           <div>
-            <label style={{ display: 'block', fontWeight: 600, fontSize: '0.82rem', color: '#1E293B', marginBottom: '0.25rem' }}>
+            <label style={{ display: 'block', fontWeight: 600, fontSize: '0.82rem', color: '#E2E8F0', marginBottom: '0.25rem' }}>
               Apellidos *
             </label>
             <input
               type="text"
               placeholder="Ej. Vargas Ruiz"
+              className="auth-dark-input"
               {...register('apellido')}
               style={{
                 width: '100%',
                 padding: '0.5rem 0.75rem',
                 borderRadius: '6px',
-                border: errors.apellido ? '1px solid #DC2626' : '1px solid #CBD5E1',
+                border: errors.apellido ? '1px solid #EF4444' : '1px solid rgba(255, 255, 255, 0.14)',
                 fontSize: '0.85rem',
+                outline: 'none',
               }}
             />
-            {errors.apellido && <span style={{ color: '#DC2626', fontSize: '0.75rem' }}>{errors.apellido.message}</span>}
+            {errors.apellido && <span style={{ color: '#F87171', fontSize: '0.75rem' }}>{errors.apellido.message}</span>}
           </div>
 
           <div>
-            <label style={{ display: 'block', fontWeight: 600, fontSize: '0.82rem', color: '#1E293B', marginBottom: '0.25rem' }}>
+            <label style={{ display: 'block', fontWeight: 600, fontSize: '0.82rem', color: '#E2E8F0', marginBottom: '0.25rem' }}>
               Cédula de Identidad (C.I.) *
             </label>
             <input
               type="text"
               placeholder="8392014 SC"
+              className="auth-dark-input"
               {...register('ci')}
               style={{
                 width: '100%',
                 padding: '0.5rem 0.75rem',
                 borderRadius: '6px',
-                border: errors.ci ? '1px solid #DC2626' : '1px solid #CBD5E1',
+                border: errors.ci ? '1px solid #EF4444' : '1px solid rgba(255, 255, 255, 0.14)',
                 fontSize: '0.85rem',
+                outline: 'none',
               }}
             />
-            {errors.ci && <span style={{ color: '#DC2626', fontSize: '0.75rem' }}>{errors.ci.message}</span>}
+            {errors.ci && <span style={{ color: '#F87171', fontSize: '0.75rem' }}>{errors.ci.message}</span>}
           </div>
 
           {/* Row 2: R.U., Tipo de Usuario, Teléfono */}
           <div>
-            <label style={{ display: 'block', fontWeight: 600, fontSize: '0.82rem', color: '#1E293B', marginBottom: '0.25rem' }}>
+            <label style={{ display: 'block', fontWeight: 600, fontSize: '0.82rem', color: '#E2E8F0', marginBottom: '0.25rem' }}>
               Reg. Universitario (R.U.) *
             </label>
             <input
               type="text"
               placeholder="219084721"
+              className="auth-dark-input"
               {...register('registro_universitario')}
               style={{
                 width: '100%',
                 padding: '0.5rem 0.75rem',
                 borderRadius: '6px',
-                border: errors.registro_universitario ? '1px solid #DC2626' : '1px solid #CBD5E1',
+                border: errors.registro_universitario ? '1px solid #EF4444' : '1px solid rgba(255, 255, 255, 0.14)',
                 fontSize: '0.85rem',
+                outline: 'none',
               }}
             />
             {errors.registro_universitario && (
-              <span style={{ color: '#DC2626', fontSize: '0.75rem' }}>{errors.registro_universitario.message}</span>
+              <span style={{ color: '#F87171', fontSize: '0.75rem' }}>{errors.registro_universitario.message}</span>
             )}
           </div>
 
           <div>
-            <label style={{ display: 'block', fontWeight: 600, fontSize: '0.82rem', color: '#1E293B', marginBottom: '0.25rem' }}>
+            <label style={{ display: 'block', fontWeight: 600, fontSize: '0.82rem', color: '#E2E8F0', marginBottom: '0.25rem' }}>
               Tipo de Usuario UAGRM
             </label>
             <select
+              className="auth-dark-input"
               {...register('tipo_usuario')}
               style={{
                 width: '100%',
                 padding: '0.5rem 0.75rem',
                 borderRadius: '6px',
-                border: '1px solid #CBD5E1',
+                border: '1px solid rgba(255, 255, 255, 0.14)',
                 fontSize: '0.85rem',
-                backgroundColor: '#FFFFFF',
+                outline: 'none',
+                colorScheme: 'dark',
               }}
             >
               <option value="estudiante">Estudiante Universitario</option>
@@ -222,80 +232,88 @@ const RegisterForm: React.FC = () => {
           </div>
 
           <div>
-            <label style={{ display: 'block', fontWeight: 600, fontSize: '0.82rem', color: '#1E293B', marginBottom: '0.25rem' }}>
+            <label style={{ display: 'block', fontWeight: 600, fontSize: '0.82rem', color: '#E2E8F0', marginBottom: '0.25rem' }}>
               Teléfono / WhatsApp
             </label>
             <input
               type="text"
               placeholder="71029384"
+              className="auth-dark-input"
               {...register('telefono')}
               style={{
                 width: '100%',
                 padding: '0.5rem 0.75rem',
                 borderRadius: '6px',
-                border: '1px solid #CBD5E1',
+                border: '1px solid rgba(255, 255, 255, 0.14)',
                 fontSize: '0.85rem',
+                outline: 'none',
               }}
             />
           </div>
 
           {/* Row 3: Email, Contraseña, Confirmar Contraseña */}
           <div>
-            <label style={{ display: 'block', fontWeight: 600, fontSize: '0.82rem', color: '#1E293B', marginBottom: '0.25rem' }}>
+            <label style={{ display: 'block', fontWeight: 600, fontSize: '0.82rem', color: '#E2E8F0', marginBottom: '0.25rem' }}>
               Correo Electrónico *
             </label>
             <input
               type="email"
               placeholder="estudiante@uagrm.edu.bo"
+              className="auth-dark-input"
               {...register('email')}
               style={{
                 width: '100%',
                 padding: '0.5rem 0.75rem',
                 borderRadius: '6px',
-                border: errors.email ? '1px solid #DC2626' : '1px solid #CBD5E1',
+                border: errors.email ? '1px solid #EF4444' : '1px solid rgba(255, 255, 255, 0.14)',
                 fontSize: '0.85rem',
+                outline: 'none',
               }}
             />
-            {errors.email && <span style={{ color: '#DC2626', fontSize: '0.75rem' }}>{errors.email.message}</span>}
+            {errors.email && <span style={{ color: '#F87171', fontSize: '0.75rem' }}>{errors.email.message}</span>}
           </div>
 
           <div>
-            <label style={{ display: 'block', fontWeight: 600, fontSize: '0.82rem', color: '#1E293B', marginBottom: '0.25rem' }}>
+            <label style={{ display: 'block', fontWeight: 600, fontSize: '0.82rem', color: '#E2E8F0', marginBottom: '0.25rem' }}>
               Contraseña *
             </label>
             <input
               type="password"
               placeholder="••••••••"
+              className="auth-dark-input"
               {...register('password')}
               style={{
                 width: '100%',
                 padding: '0.5rem 0.75rem',
                 borderRadius: '6px',
-                border: errors.password ? '1px solid #DC2626' : '1px solid #CBD5E1',
+                border: errors.password ? '1px solid #EF4444' : '1px solid rgba(255, 255, 255, 0.14)',
                 fontSize: '0.85rem',
+                outline: 'none',
               }}
             />
-            {errors.password && <span style={{ color: '#DC2626', fontSize: '0.75rem' }}>{errors.password.message}</span>}
+            {errors.password && <span style={{ color: '#F87171', fontSize: '0.75rem' }}>{errors.password.message}</span>}
           </div>
 
           <div>
-            <label style={{ display: 'block', fontWeight: 600, fontSize: '0.82rem', color: '#1E293B', marginBottom: '0.25rem' }}>
+            <label style={{ display: 'block', fontWeight: 600, fontSize: '0.82rem', color: '#E2E8F0', marginBottom: '0.25rem' }}>
               Confirmar Contraseña *
             </label>
             <input
               type="password"
               placeholder="••••••••"
+              className="auth-dark-input"
               {...register('password_confirmation')}
               style={{
                 width: '100%',
                 padding: '0.5rem 0.75rem',
                 borderRadius: '6px',
-                border: errors.password_confirmation ? '1px solid #DC2626' : '1px solid #CBD5E1',
+                border: errors.password_confirmation ? '1px solid #EF4444' : '1px solid rgba(255, 255, 255, 0.14)',
                 fontSize: '0.85rem',
+                outline: 'none',
               }}
             />
             {errors.password_confirmation && (
-              <span style={{ color: '#DC2626', fontSize: '0.75rem' }}>{errors.password_confirmation.message}</span>
+              <span style={{ color: '#F87171', fontSize: '0.75rem' }}>{errors.password_confirmation.message}</span>
             )}
           </div>
         </div>
@@ -304,8 +322,8 @@ const RegisterForm: React.FC = () => {
         <div style={{
           padding: '0.75rem',
           borderRadius: '8px',
-          border: errors.acepta_terminos ? '1px solid #FCA5A5' : '1px solid #E2E8F0',
-          background: errors.acepta_terminos ? '#FEF2F2' : '#F8FAFC',
+          border: errors.acepta_terminos ? '1px solid rgba(239, 68, 68, 0.5)' : '1px solid rgba(255, 255, 255, 0.12)',
+          background: errors.acepta_terminos ? 'rgba(153, 0, 0, 0.14)' : '#1A1A22',
           marginTop: '0.25rem',
         }}>
           <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.55rem' }}>
@@ -313,9 +331,9 @@ const RegisterForm: React.FC = () => {
               type="checkbox"
               id="acepta_terminos"
               {...register('acepta_terminos')}
-              style={{ marginTop: '0.2rem', cursor: 'pointer', width: '16px', height: '16px', accentColor: '#003B70' }}
+              style={{ marginTop: '0.2rem', cursor: 'pointer', width: '16px', height: '16px', accentColor: '#CC1F1F' }}
             />
-            <label htmlFor="acepta_terminos" style={{ fontSize: '0.82rem', color: '#334155', cursor: 'pointer', lineHeight: 1.4 }}>
+            <label htmlFor="acepta_terminos" style={{ fontSize: '0.82rem', color: '#CBD5E1', cursor: 'pointer', lineHeight: 1.4 }}>
               He leído y acepto los{' '}
               <button
                 type="button"
@@ -323,22 +341,25 @@ const RegisterForm: React.FC = () => {
                 style={{
                   background: 'none',
                   border: 'none',
-                  color: '#003B70',
+                  color: '#F87171',
                   fontWeight: 700,
                   textDecoration: 'underline',
                   cursor: 'pointer',
                   padding: 0,
                   fontSize: '0.82rem',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '0.25rem',
                 }}
               >
-                <FaFileContract style={{ marginRight: '0.2rem' }} />
+                <FaFileContract />
                 Términos y Condiciones
               </button>{' '}
               de uso del sistema del Gimnasio D.U.B.S. UAGRM.
             </label>
           </div>
           {errors.acepta_terminos && (
-            <span style={{ color: '#DC2626', fontSize: '0.75rem', marginTop: '0.35rem', display: 'block', fontWeight: 600 }}>
+            <span style={{ color: '#F87171', fontSize: '0.75rem', marginTop: '0.35rem', display: 'block', fontWeight: 600 }}>
               {errors.acepta_terminos.message}
             </span>
           )}
@@ -359,7 +380,7 @@ const RegisterForm: React.FC = () => {
             fontSize: '0.92rem',
             cursor: isPending ? 'not-allowed' : 'pointer',
             opacity: isPending ? 0.7 : 1,
-            boxShadow: '0 4px 12px rgba(153, 0, 0, 0.25)',
+            boxShadow: '0 6px 18px rgba(153, 0, 0, 0.35)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -377,9 +398,9 @@ const RegisterForm: React.FC = () => {
           )}
         </button>
 
-        <div style={{ textAlign: 'center', fontSize: '0.82rem', color: '#64748B', marginTop: '0.25rem' }}>
+        <div style={{ textAlign: 'center', fontSize: '0.82rem', color: '#94A3B8', marginTop: '0.25rem' }}>
           ¿Ya tienes cuenta registrada?{' '}
-          <Link to="/login" style={{ color: '#003B70', fontWeight: 700, textDecoration: 'none' }}>
+          <Link to="/login" style={{ color: '#F87171', fontWeight: 700, textDecoration: 'none' }}>
             Iniciar Sesión
           </Link>
         </div>

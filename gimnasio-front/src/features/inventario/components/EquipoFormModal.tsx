@@ -162,7 +162,7 @@ const EquipoFormModal: React.FC<EquipoFormModalProps> = ({
     >
       <div
         style={{
-          backgroundColor: '#FFFFFF',
+          backgroundColor: 'var(--color-surface)',
           borderRadius: '16px',
           width: '100%',
           maxWidth: '680px',
@@ -171,23 +171,23 @@ const EquipoFormModal: React.FC<EquipoFormModalProps> = ({
           flexDirection: 'column',
           boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
           overflow: 'hidden',
-          border: '1px solid #E2E8F0',
+          border: '1px solid var(--color-border)',
         }}
       >
         {/* HEADER */}
         <div
           style={{
             padding: '1.25rem 1.75rem',
-            borderBottom: '1px solid #E2E8F0',
-            backgroundColor: '#F8FAFC',
+            borderBottom: '1px solid var(--color-border)',
+            backgroundColor: 'var(--color-surface-muted)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
           }}
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
-            <FaBoxesPacking style={{ color: '#003B70', fontSize: '1.1rem' }} />
-            <h3 style={{ fontSize: '1.1rem', fontWeight: 800, color: '#0B1727', margin: 0 }}>
+            <FaBoxesPacking style={{ color: 'var(--color-primary-text)', fontSize: '1.1rem' }} />
+            <h3 style={{ fontSize: '1.1rem', fontWeight: 800, color: 'var(--color-text-primary)', margin: 0 }}>
               {equipoToEdit ? 'Editar Equipo / Máquina' : 'Registrar Nuevo Equipo'}
             </h3>
           </div>
@@ -198,7 +198,7 @@ const EquipoFormModal: React.FC<EquipoFormModalProps> = ({
               background: 'transparent',
               border: 'none',
               fontSize: '1.2rem',
-              color: '#94A3B8',
+              color: 'var(--color-text-muted)',
               cursor: 'pointer',
               display: 'flex',
               alignItems: 'center',
@@ -212,7 +212,7 @@ const EquipoFormModal: React.FC<EquipoFormModalProps> = ({
         <form onSubmit={handleSubmit(handleFormSubmit)} style={{ padding: '1.5rem', overflowY: 'auto' }}>
           {/* Subida de Imagen */}
           <div style={{ marginBottom: '1.2rem' }}>
-            <label style={{ display: 'block', fontWeight: 700, fontSize: '0.85rem', color: '#334155', marginBottom: '0.4rem' }}>
+            <label style={{ display: 'block', fontWeight: 700, fontSize: '0.85rem', color: 'var(--color-text-secondary)', marginBottom: '0.4rem' }}>
               Imagen del Equipo / Máquina
             </label>
             <div
@@ -221,13 +221,13 @@ const EquipoFormModal: React.FC<EquipoFormModalProps> = ({
                 alignItems: 'center',
                 gap: '1rem',
                 padding: '0.85rem',
-                border: '1px dashed #CBD5E1',
+                border: '1px dashed var(--color-border-strong)',
                 borderRadius: '10px',
-                backgroundColor: '#F8FAFC',
+                backgroundColor: 'var(--color-surface-muted)',
               }}
             >
               {imagePreview ? (
-                <div style={{ position: 'relative', width: '80px', height: '80px', borderRadius: '8px', overflow: 'hidden', border: '1px solid #E2E8F0', backgroundColor: '#FFF' }}>
+                <div style={{ position: 'relative', width: '80px', height: '80px', borderRadius: '8px', overflow: 'hidden', border: '1px solid var(--color-border)', backgroundColor: 'var(--color-surface)' }}>
                   <img src={imagePreview} alt="Preview" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                   <button
                     type="button"
@@ -259,11 +259,11 @@ const EquipoFormModal: React.FC<EquipoFormModalProps> = ({
                     width: '80px',
                     height: '80px',
                     borderRadius: '8px',
-                    backgroundColor: '#E2E8F0',
+                    backgroundColor: 'var(--color-surface-hover)',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    color: '#94A3B8',
+                    color: 'var(--color-text-muted)',
                     fontSize: '1.8rem',
                   }}
                 >
@@ -283,7 +283,7 @@ const EquipoFormModal: React.FC<EquipoFormModalProps> = ({
                   style={{
                     display: 'inline-block',
                     padding: '0.45rem 0.9rem',
-                    backgroundColor: '#003B70',
+                    backgroundColor: 'var(--color-primary)',
                     color: '#FFFFFF',
                     borderRadius: '6px',
                     fontSize: '0.82rem',
@@ -293,7 +293,7 @@ const EquipoFormModal: React.FC<EquipoFormModalProps> = ({
                 >
                   {imagePreview ? 'Cambiar Imagen' : 'Seleccionar Imagen'}
                 </label>
-                <p style={{ margin: '0.3rem 0 0 0', fontSize: '0.75rem', color: '#64748B' }}>
+                <p style={{ margin: '0.3rem 0 0 0', fontSize: '0.75rem', color: 'var(--color-text-muted)' }}>
                   Formatos permitidos: JPG, PNG, WEBP (Máx. 5MB)
                 </p>
               </div>
@@ -303,7 +303,7 @@ const EquipoFormModal: React.FC<EquipoFormModalProps> = ({
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '1.2rem' }}>
             {/* Código */}
             <div>
-              <label style={{ display: 'block', fontWeight: 700, fontSize: '0.85rem', color: '#334155', marginBottom: '0.4rem' }}>
+              <label style={{ display: 'block', fontWeight: 700, fontSize: '0.85rem', color: 'var(--color-text-secondary)', marginBottom: '0.4rem' }}>
                 Código Patrimonial <span style={{ color: '#EF4444' }}>*</span>
               </label>
               <input
@@ -314,7 +314,7 @@ const EquipoFormModal: React.FC<EquipoFormModalProps> = ({
                   width: '100%',
                   padding: '0.65rem 0.85rem',
                   borderRadius: '8px',
-                  border: errors.codigo ? '1px solid #EF4444' : '1px solid #CBD5E1',
+                  border: errors.codigo ? '1px solid #EF4444' : '1px solid var(--color-border-strong)',
                   fontSize: '0.88rem',
                   outline: 'none',
                   boxSizing: 'border-box',
@@ -329,7 +329,7 @@ const EquipoFormModal: React.FC<EquipoFormModalProps> = ({
 
             {/* Nombre */}
             <div>
-              <label style={{ display: 'block', fontWeight: 700, fontSize: '0.85rem', color: '#334155', marginBottom: '0.4rem' }}>
+              <label style={{ display: 'block', fontWeight: 700, fontSize: '0.85rem', color: 'var(--color-text-secondary)', marginBottom: '0.4rem' }}>
                 Nombre del Equipo / Máquina <span style={{ color: '#EF4444' }}>*</span>
               </label>
               <input
@@ -340,7 +340,7 @@ const EquipoFormModal: React.FC<EquipoFormModalProps> = ({
                   width: '100%',
                   padding: '0.65rem 0.85rem',
                   borderRadius: '8px',
-                  border: errors.nombre ? '1px solid #EF4444' : '1px solid #CBD5E1',
+                  border: errors.nombre ? '1px solid #EF4444' : '1px solid var(--color-border-strong)',
                   fontSize: '0.88rem',
                   outline: 'none',
                   boxSizing: 'border-box',
@@ -355,7 +355,7 @@ const EquipoFormModal: React.FC<EquipoFormModalProps> = ({
 
             {/* Modelo */}
             <div>
-              <label style={{ display: 'block', fontWeight: 700, fontSize: '0.85rem', color: '#334155', marginBottom: '0.4rem' }}>
+              <label style={{ display: 'block', fontWeight: 700, fontSize: '0.85rem', color: 'var(--color-text-secondary)', marginBottom: '0.4rem' }}>
                 Modelo / Referencia
               </label>
               <input
@@ -366,7 +366,7 @@ const EquipoFormModal: React.FC<EquipoFormModalProps> = ({
                   width: '100%',
                   padding: '0.65rem 0.85rem',
                   borderRadius: '8px',
-                  border: '1px solid #CBD5E1',
+                  border: '1px solid var(--color-border-strong)',
                   fontSize: '0.88rem',
                   outline: 'none',
                   boxSizing: 'border-box',
@@ -376,7 +376,7 @@ const EquipoFormModal: React.FC<EquipoFormModalProps> = ({
 
             {/* Cantidad / Stock */}
             <div>
-              <label style={{ display: 'block', fontWeight: 700, fontSize: '0.85rem', color: '#334155', marginBottom: '0.4rem' }}>
+              <label style={{ display: 'block', fontWeight: 700, fontSize: '0.85rem', color: 'var(--color-text-secondary)', marginBottom: '0.4rem' }}>
                 Cantidad en Stock <span style={{ color: '#EF4444' }}>*</span>
               </label>
               <input
@@ -388,7 +388,7 @@ const EquipoFormModal: React.FC<EquipoFormModalProps> = ({
                   width: '100%',
                   padding: '0.65rem 0.85rem',
                   borderRadius: '8px',
-                  border: errors.cantidad ? '1px solid #EF4444' : '1px solid #CBD5E1',
+                  border: errors.cantidad ? '1px solid #EF4444' : '1px solid var(--color-border-strong)',
                   fontSize: '0.88rem',
                   outline: 'none',
                   boxSizing: 'border-box',
@@ -405,7 +405,7 @@ const EquipoFormModal: React.FC<EquipoFormModalProps> = ({
 
             {/* Ambiente / Sala */}
             <div>
-              <label style={{ display: 'block', fontWeight: 700, fontSize: '0.85rem', color: '#334155', marginBottom: '0.4rem' }}>
+              <label style={{ display: 'block', fontWeight: 700, fontSize: '0.85rem', color: 'var(--color-text-secondary)', marginBottom: '0.4rem' }}>
                 Ambiente / Ubicación
               </label>
               <select
@@ -414,9 +414,9 @@ const EquipoFormModal: React.FC<EquipoFormModalProps> = ({
                   width: '100%',
                   padding: '0.65rem 0.85rem',
                   borderRadius: '8px',
-                  border: '1px solid #CBD5E1',
+                  border: '1px solid var(--color-border-strong)',
                   fontSize: '0.88rem',
-                  backgroundColor: '#FFFFFF',
+                  backgroundColor: 'var(--color-surface)',
                   outline: 'none',
                   boxSizing: 'border-box',
                 }}
@@ -432,7 +432,7 @@ const EquipoFormModal: React.FC<EquipoFormModalProps> = ({
 
             {/* Marca */}
             <div>
-              <label style={{ display: 'block', fontWeight: 700, fontSize: '0.85rem', color: '#334155', marginBottom: '0.4rem' }}>
+              <label style={{ display: 'block', fontWeight: 700, fontSize: '0.85rem', color: 'var(--color-text-secondary)', marginBottom: '0.4rem' }}>
                 Marca
               </label>
               <select
@@ -441,9 +441,9 @@ const EquipoFormModal: React.FC<EquipoFormModalProps> = ({
                   width: '100%',
                   padding: '0.65rem 0.85rem',
                   borderRadius: '8px',
-                  border: '1px solid #CBD5E1',
+                  border: '1px solid var(--color-border-strong)',
                   fontSize: '0.88rem',
-                  backgroundColor: '#FFFFFF',
+                  backgroundColor: 'var(--color-surface)',
                   outline: 'none',
                   boxSizing: 'border-box',
                 }}
@@ -459,7 +459,7 @@ const EquipoFormModal: React.FC<EquipoFormModalProps> = ({
 
             {/* Tipo de Equipo */}
             <div>
-              <label style={{ display: 'block', fontWeight: 700, fontSize: '0.85rem', color: '#334155', marginBottom: '0.4rem' }}>
+              <label style={{ display: 'block', fontWeight: 700, fontSize: '0.85rem', color: 'var(--color-text-secondary)', marginBottom: '0.4rem' }}>
                 Tipo de Equipo / Categoría
               </label>
               <select
@@ -468,9 +468,9 @@ const EquipoFormModal: React.FC<EquipoFormModalProps> = ({
                   width: '100%',
                   padding: '0.65rem 0.85rem',
                   borderRadius: '8px',
-                  border: '1px solid #CBD5E1',
+                  border: '1px solid var(--color-border-strong)',
                   fontSize: '0.88rem',
-                  backgroundColor: '#FFFFFF',
+                  backgroundColor: 'var(--color-surface)',
                   outline: 'none',
                   boxSizing: 'border-box',
                 }}
@@ -486,7 +486,7 @@ const EquipoFormModal: React.FC<EquipoFormModalProps> = ({
 
             {/* Fecha Adquisición */}
             <div>
-              <label style={{ display: 'block', fontWeight: 700, fontSize: '0.85rem', color: '#334155', marginBottom: '0.4rem' }}>
+              <label style={{ display: 'block', fontWeight: 700, fontSize: '0.85rem', color: 'var(--color-text-secondary)', marginBottom: '0.4rem' }}>
                 Fecha de Adquisición
               </label>
               <input
@@ -496,7 +496,7 @@ const EquipoFormModal: React.FC<EquipoFormModalProps> = ({
                   width: '100%',
                   padding: '0.65rem 0.85rem',
                   borderRadius: '8px',
-                  border: '1px solid #CBD5E1',
+                  border: '1px solid var(--color-border-strong)',
                   fontSize: '0.88rem',
                   outline: 'none',
                   boxSizing: 'border-box',
@@ -506,7 +506,7 @@ const EquipoFormModal: React.FC<EquipoFormModalProps> = ({
 
             {/* Precio de Compra */}
             <div>
-              <label style={{ display: 'block', fontWeight: 700, fontSize: '0.85rem', color: '#334155', marginBottom: '0.4rem' }}>
+              <label style={{ display: 'block', fontWeight: 700, fontSize: '0.85rem', color: 'var(--color-text-secondary)', marginBottom: '0.4rem' }}>
                 Precio de Compra (Bs.)
               </label>
               <input
@@ -518,7 +518,7 @@ const EquipoFormModal: React.FC<EquipoFormModalProps> = ({
                   width: '100%',
                   padding: '0.65rem 0.85rem',
                   borderRadius: '8px',
-                  border: '1px solid #CBD5E1',
+                  border: '1px solid var(--color-border-strong)',
                   fontSize: '0.88rem',
                   outline: 'none',
                   boxSizing: 'border-box',
@@ -535,9 +535,9 @@ const EquipoFormModal: React.FC<EquipoFormModalProps> = ({
               style={{
                 padding: '0.6rem 1.2rem',
                 borderRadius: '8px',
-                border: '1px solid #CBD5E1',
-                backgroundColor: '#FFFFFF',
-                color: '#475569',
+                border: '1px solid var(--color-border-strong)',
+                backgroundColor: 'var(--color-surface)',
+                color: 'var(--color-text-secondary)',
                 fontWeight: 600,
                 fontSize: '0.85rem',
                 cursor: 'pointer',
@@ -552,12 +552,12 @@ const EquipoFormModal: React.FC<EquipoFormModalProps> = ({
                 padding: '0.6rem 1.5rem',
                 borderRadius: '8px',
                 border: 'none',
-                backgroundColor: '#003B70',
+                backgroundColor: 'var(--color-primary)',
                 color: '#FFFFFF',
                 fontWeight: 700,
                 fontSize: '0.85rem',
                 cursor: 'pointer',
-                boxShadow: '0 2px 6px rgba(0,59,112,0.2)',
+                boxShadow: '0 2px 6px rgba(153, 0, 0,0.2)',
               }}
             >
               {isPending ? 'Guardando...' : equipoToEdit ? 'Actualizar Equipo' : 'Registrar Equipo'}

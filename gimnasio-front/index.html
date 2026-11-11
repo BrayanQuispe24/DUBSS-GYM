@@ -1,9 +1,23 @@
 <!doctype html>
-<html lang="es" data-theme="light">
+<html lang="es" data-theme="dark" class="dark">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem('fitgo_theme');
+          var theme = t === 'light' || t === 'dark' ? t : 'dark';
+          var f = localStorage.getItem('fitgo_font_scale');
+          var pxMap = { sm: 14.5, md: 16, lg: 18, xl: 20 };
+          var root = document.documentElement;
+          root.setAttribute('data-theme', theme);
+          root.classList.toggle('dark', theme === 'dark');
+          root.style.fontSize = (pxMap[f] || 16) + 'px';
+        } catch (e) {}
+      })();
+    </script>
     <title>FitGo! - Sistema de Gestión, Reserva y Pases de Gimnasios en Santa Cruz</title>
     <meta name="description" content="Plataforma de gestión de gimnasios, pases diarios, clases de fitness y entrenamiento libre en Santa Cruz de la Sierra, Bolivia." />
 

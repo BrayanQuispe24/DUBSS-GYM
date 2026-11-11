@@ -160,7 +160,7 @@ const PlanesEntrenamientoPage: React.FC = () => {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
-        borderBottom: '1px solid #E2E8F0',
+        borderBottom: '1px solid var(--color-border)',
         marginBottom: '1.25rem',
         flexWrap: 'wrap',
         gap: '0.5rem',
@@ -175,8 +175,8 @@ const PlanesEntrenamientoPage: React.FC = () => {
               cursor: 'pointer',
               border: 'none',
               background: 'none',
-              borderBottom: activeTab === 'list' ? '2px solid #0077D4' : '2px solid transparent',
-              color: activeTab === 'list' ? '#0077D4' : '#64748B',
+              borderBottom: activeTab === 'list' ? '2px solid var(--color-primary)' : '2px solid transparent',
+              color: activeTab === 'list' ? 'var(--color-primary-text)' : 'var(--color-text-muted)',
               marginBottom: '-1px',
               display: 'inline-flex',
               alignItems: 'center',
@@ -197,8 +197,8 @@ const PlanesEntrenamientoPage: React.FC = () => {
                 cursor: 'pointer',
                 border: 'none',
                 background: 'none',
-                borderBottom: activeTab === 'form' ? '2px solid #0077D4' : '2px solid transparent',
-                color: activeTab === 'form' ? '#0077D4' : '#64748B',
+                borderBottom: activeTab === 'form' ? '2px solid var(--color-primary)' : '2px solid transparent',
+                color: activeTab === 'form' ? 'var(--color-primary-text)' : 'var(--color-text-muted)',
                 marginBottom: '-1px',
                 display: 'inline-flex',
                 alignItems: 'center',
@@ -220,7 +220,7 @@ const PlanesEntrenamientoPage: React.FC = () => {
               border: 'none',
               background: 'none',
               borderBottom: '2px solid transparent',
-              color: '#0077D4',
+              color: 'var(--color-primary-text)',
               marginBottom: '-1px',
               display: 'inline-flex',
               alignItems: 'center',
@@ -243,9 +243,9 @@ const PlanesEntrenamientoPage: React.FC = () => {
               fontWeight: 700,
               cursor: 'pointer',
               borderRadius: '4px',
-              border: '1px solid #CBD5E1',
-              background: '#FFFFFF',
-              color: '#0F172A',
+              border: '1px solid var(--color-border-strong)',
+              background: 'var(--color-surface)',
+              color: 'var(--color-text-primary)',
               display: 'inline-flex',
               alignItems: 'center',
               gap: '0.4rem',
@@ -253,7 +253,7 @@ const PlanesEntrenamientoPage: React.FC = () => {
             }}
             title="Evaluación corporal y alineación articular con MediaPipe Pose"
           >
-            <FaCamera size={13} style={{ color: '#0077D4' }} /> Análisis Postural (MediaPipe)
+            <FaCamera size={13} style={{ color: 'var(--color-primary-text)' }} /> Análisis Postural (MediaPipe)
           </button>
         </div>
       </div>
@@ -261,9 +261,9 @@ const PlanesEntrenamientoPage: React.FC = () => {
       {/* TAB 1: LISTADO DE PLANES */}
       {activeTab === 'list' && (
         <div style={{
-          background: '#FFFFFF',
+          background: 'var(--color-surface)',
           borderRadius: '4px',
-          border: '1px solid #E2E8F0',
+          border: '1px solid var(--color-border)',
           boxShadow: '0 1px 2px rgba(0,0,0,0.03)',
           overflow: 'hidden',
           marginBottom: '1.5rem',
@@ -271,8 +271,8 @@ const PlanesEntrenamientoPage: React.FC = () => {
           {/* TOOLBAR */}
           <div style={{
             padding: '0.75rem 1rem',
-            borderBottom: '1px solid #E2E8F0',
-            background: '#F8FAFC',
+            borderBottom: '1px solid var(--color-border)',
+            background: 'var(--color-surface-muted)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
@@ -291,16 +291,16 @@ const PlanesEntrenamientoPage: React.FC = () => {
                   fontSize: '0.80rem',
                   fontWeight: 500,
                   borderRadius: '4px',
-                  border: '1px solid #CBD5E1',
-                  background: '#FFFFFF',
+                  border: '1px solid var(--color-border-strong)',
+                  background: 'var(--color-surface)',
                   outline: 'none',
                 }}
               />
-              <FaMagnifyingGlass style={{ position: 'absolute', left: '0.65rem', top: '50%', transform: 'translateY(-50%)', color: '#94A3B8', fontSize: '0.75rem' }} />
+              <FaMagnifyingGlass style={{ position: 'absolute', left: '0.65rem', top: '50%', transform: 'translateY(-50%)', color: 'var(--color-text-muted)', fontSize: '0.75rem' }} />
               {searchTerm && (
                 <button
                   onClick={() => setSearchTerm('')}
-                  style={{ position: 'absolute', right: '0.65rem', top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', color: '#94A3B8', cursor: 'pointer', fontSize: '0.75rem' }}
+                  style={{ position: 'absolute', right: '0.65rem', top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', color: 'var(--color-text-muted)', cursor: 'pointer', fontSize: '0.75rem' }}
                 >
                   <FaXmark />
                 </button>
@@ -308,7 +308,7 @@ const PlanesEntrenamientoPage: React.FC = () => {
             </div>
 
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              <span style={{ fontSize: '0.70rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: '#64748B' }}>
+              <span style={{ fontSize: '0.70rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--color-text-muted)' }}>
                 Atleta:
               </span>
               <select
@@ -317,11 +317,11 @@ const PlanesEntrenamientoPage: React.FC = () => {
                 style={{
                   padding: '0.45rem 0.65rem',
                   borderRadius: '4px',
-                  border: '1px solid #CBD5E1',
+                  border: '1px solid var(--color-border-strong)',
                   fontSize: '0.80rem',
                   fontWeight: 600,
-                  background: '#FFFFFF',
-                  color: '#0F172A',
+                  background: 'var(--color-surface)',
+                  color: 'var(--color-text-primary)',
                   cursor: 'pointer',
                   minWidth: '180px',
                 }}
@@ -336,13 +336,13 @@ const PlanesEntrenamientoPage: React.FC = () => {
 
           {/* TABLA DESKTOP */}
           {isLoading ? (
-            <div style={{ padding: '2.5rem', textAlign: 'center', color: '#64748B', fontSize: '0.85rem' }}>
+            <div style={{ padding: '2.5rem', textAlign: 'center', color: 'var(--color-text-muted)', fontSize: '0.85rem' }}>
               Cargando planes de entrenamiento UAGRM...
             </div>
           ) : (
             <div style={{ overflowX: 'auto' }}>
               <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.82rem' }}>
-                <thead style={{ background: '#F8FAFC', borderBottom: '1px solid #E2E8F0', color: '#475569', fontWeight: 700, fontSize: '0.72rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                <thead style={{ background: 'var(--color-surface-muted)', borderBottom: '1px solid var(--color-border)', color: 'var(--color-text-secondary)', fontWeight: 700, fontSize: '0.72rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                   <tr>
                     <th style={{ padding: '0.65rem 1rem' }}>IDENTIFICADOR DEL PLAN</th>
                     <th style={{ padding: '0.65rem 1rem' }}>ATLETA / SOCIO</th>
@@ -372,15 +372,15 @@ const PlanesEntrenamientoPage: React.FC = () => {
                     const totalRutinas = groupedList.length;
 
                     return (
-                      <tr key={p.id} style={{ borderBottom: '1px solid #F1F5F9' }}>
-                        <td style={{ padding: '0.65rem 1rem', fontWeight: 700, color: '#0F172A' }}>
+                      <tr key={p.id} style={{ borderBottom: '1px solid var(--color-border)' }}>
+                        <td style={{ padding: '0.65rem 1rem', fontWeight: 700, color: 'var(--color-text-primary)' }}>
                           <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-                            <FaCalendarDays style={{ color: '#0077D4' }} /> {p.nombre}
+                            <FaCalendarDays style={{ color: 'var(--color-primary-text)' }} /> {p.nombre}
                           </div>
                         </td>
 
                         <td style={{ padding: '0.65rem 1rem' }}>
-                          <span style={{ fontSize: '0.72rem', background: '#E0F2FE', color: '#0077D4', padding: '0.15rem 0.45rem', borderRadius: '2px', fontWeight: 700, display: 'inline-flex', alignItems: 'center', gap: '0.3rem' }}>
+                          <span style={{ fontSize: '0.72rem', background: 'var(--color-primary-soft)', color: 'var(--color-primary-text)', padding: '0.15rem 0.45rem', borderRadius: '2px', fontWeight: 700, display: 'inline-flex', alignItems: 'center', gap: '0.3rem' }}>
                             <FaUserCheck /> {p.usuario?.nombre || 'Usuario'} {p.usuario?.apellido || ''}
                           </span>
                         </td>
@@ -388,17 +388,17 @@ const PlanesEntrenamientoPage: React.FC = () => {
                         <td style={{ padding: '0.65rem 1rem' }}>
                           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.3rem', alignItems: 'center' }}>
                             {groupedList.slice(0, 3).map((gr, idx) => (
-                              <span key={idx} style={{ fontSize: '0.70rem', background: '#F1F5F9', color: '#334155', padding: '0.12rem 0.4rem', borderRadius: '2px', fontWeight: 600 }}>
+                              <span key={idx} style={{ fontSize: '0.70rem', background: 'var(--color-surface-muted)', color: 'var(--color-text-secondary)', padding: '0.12rem 0.4rem', borderRadius: '2px', fontWeight: 600 }}>
                                 {gr.nombre} {gr.dias.length > 0 ? `(${gr.dias.join(', ')})` : ''}
                               </span>
                             ))}
                             {groupedList.length > 3 && (
-                              <span style={{ fontSize: '0.70rem', color: '#64748B', fontWeight: 600 }}>
+                              <span style={{ fontSize: '0.70rem', color: 'var(--color-text-muted)', fontWeight: 600 }}>
                                 +{groupedList.length - 3} más
                               </span>
                             )}
                             {groupedList.length === 0 && (
-                              <span style={{ fontSize: '0.72rem', color: '#94A3B8' }}>Sin rutinas asignadas</span>
+                              <span style={{ fontSize: '0.72rem', color: 'var(--color-text-muted)' }}>Sin rutinas asignadas</span>
                             )}
                           </div>
                         </td>
@@ -408,15 +408,15 @@ const PlanesEntrenamientoPage: React.FC = () => {
                             onClick={() => setViewPlanId(p.id)}
                             title="Ver detalle completo de rutinas, ejercicios, videos e imágenes"
                             style={{
-                              background: '#F8FAFC', border: '1px solid #CBD5E1', padding: '0.35rem 0.65rem', borderRadius: '4px',
-                              cursor: 'pointer', color: '#0F172A', display: 'inline-flex', alignItems: 'center', gap: '0.35rem', fontSize: '0.75rem', fontWeight: 700
+                              background: 'var(--color-surface-muted)', border: '1px solid var(--color-border-strong)', padding: '0.35rem 0.65rem', borderRadius: '4px',
+                              cursor: 'pointer', color: 'var(--color-text-primary)', display: 'inline-flex', alignItems: 'center', gap: '0.35rem', fontSize: '0.75rem', fontWeight: 700
                             }}
                           >
-                            <FaEye style={{ color: '#0077D4' }} /> Ver Plan ({totalRutinas})
+                            <FaEye style={{ color: 'var(--color-primary-text)' }} /> Ver Plan ({totalRutinas})
                           </button>
                         </td>
 
-                        <td style={{ padding: '0.65rem 1rem', color: '#64748B', fontSize: '0.80rem' }}>
+                        <td style={{ padding: '0.65rem 1rem', color: 'var(--color-text-muted)', fontSize: '0.80rem' }}>
                           {p.objetivo || 'Sin objetivo especificado'}
                         </td>
 
@@ -426,14 +426,14 @@ const PlanesEntrenamientoPage: React.FC = () => {
                               <button
                                 onClick={() => setEditPlan(p)}
                                 title="Editar Plan de Entrenamiento"
-                                style={{ background: '#F8FAFC', border: '1px solid #CBD5E1', color: '#0077D4', cursor: 'pointer', fontSize: '0.80rem', padding: '0.35rem 0.55rem', borderRadius: '4px' }}
+                                style={{ background: 'var(--color-surface-muted)', border: '1px solid var(--color-border-strong)', color: 'var(--color-primary-text)', cursor: 'pointer', fontSize: '0.80rem', padding: '0.35rem 0.55rem', borderRadius: '4px' }}
                               >
                                 <FaPenToSquare />
                               </button>
                               <button
                                 onClick={() => setDeletingPlanId(p.id)}
                                 title="Eliminar Plan"
-                                style={{ background: '#FEE2E2', border: '1px solid #FECACA', color: '#DC2626', cursor: 'pointer', fontSize: '0.80rem', padding: '0.35rem 0.55rem', borderRadius: '4px' }}
+                                style={{ background: 'var(--color-danger-bg)', border: '1px solid rgba(220, 38, 38, 0.35)', color: 'var(--color-danger-text)', cursor: 'pointer', fontSize: '0.80rem', padding: '0.35rem 0.55rem', borderRadius: '4px' }}
                               >
                                 <FaTrash />
                               </button>
@@ -446,7 +446,7 @@ const PlanesEntrenamientoPage: React.FC = () => {
 
                   {filteredPlanes.length === 0 && (
                     <tr>
-                      <td colSpan={canManage ? 6 : 5} style={{ padding: '2.5rem', textAlign: 'center', color: '#64748B' }}>
+                      <td colSpan={canManage ? 6 : 5} style={{ padding: '2.5rem', textAlign: 'center', color: 'var(--color-text-muted)' }}>
                         No hay planes de entrenamiento que coincidan con la búsqueda.
                       </td>
                     </tr>
@@ -459,13 +459,13 @@ const PlanesEntrenamientoPage: React.FC = () => {
           {/* PAGINATION FOOTER */}
           <div style={{
             padding: '0.65rem 1rem',
-            borderTop: '1px solid #E2E8F0',
-            background: '#F8FAFC',
+            borderTop: '1px solid var(--color-border)',
+            background: 'var(--color-surface-muted)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
             fontSize: '0.75rem',
-            color: '#64748B',
+            color: 'var(--color-text-muted)',
             flexWrap: 'wrap',
             gap: '0.5rem',
           }}>
@@ -473,7 +473,7 @@ const PlanesEntrenamientoPage: React.FC = () => {
               Mostrando <strong>{filteredPlanes.length}</strong> {filteredPlanes.length === 1 ? 'plan registrado' : 'planes registrados'} en plataforma
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
-              <span style={{ padding: '0.2rem 0.6rem', borderRadius: '4px', background: '#0077D4', color: '#FFF', fontWeight: 700, fontSize: '0.72rem' }}>
+              <span style={{ padding: '0.2rem 0.6rem', borderRadius: '4px', background: 'var(--color-primary)', color: '#FFF', fontWeight: 700, fontSize: '0.72rem' }}>
                 Página 1
               </span>
             </div>
@@ -484,24 +484,24 @@ const PlanesEntrenamientoPage: React.FC = () => {
       {/* TAB 2: PANEL DE FORMULARIO CENTRADO ENTERPRISE */}
       {canManage && activeTab === 'form' && (
         <div style={{ maxWidth: '850px', margin: '0 auto 2rem' }}>
-          <div style={{ background: '#FFFFFF', borderRadius: '4px', border: '1px solid #CBD5E1', boxShadow: '0 1px 3px rgba(0,0,0,0.05)', overflow: 'hidden' }}>
+          <div style={{ background: 'var(--color-surface)', borderRadius: '4px', border: '1px solid var(--color-border-strong)', boxShadow: '0 1px 3px rgba(0,0,0,0.05)', overflow: 'hidden' }}>
             {/* Header del Panel */}
             <div style={{
               padding: '0.85rem 1.25rem',
-              borderBottom: '1px solid #E2E8F0',
-              background: '#F8FAFC',
+              borderBottom: '1px solid var(--color-border)',
+              background: 'var(--color-surface-muted)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between',
             }}>
-              <h3 style={{ fontSize: '0.88rem', fontWeight: 700, color: '#0F172A', display: 'flex', alignItems: 'center', gap: '0.5rem', margin: 0, textTransform: 'uppercase', letterSpacing: '0.04em' }}>
-                <FaCalendarDays style={{ color: '#0077D4' }} /> Confeccionar Nuevo Plan de Entrenamiento
+              <h3 style={{ fontSize: '0.88rem', fontWeight: 700, color: 'var(--color-text-primary)', display: 'flex', alignItems: 'center', gap: '0.5rem', margin: 0, textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+                <FaCalendarDays style={{ color: 'var(--color-primary-text)' }} /> Confeccionar Nuevo Plan de Entrenamiento
               </h3>
               <button
                 type="button"
                 onClick={() => setActiveTab('list')}
                 style={{
-                  background: 'none', border: 'none', color: '#64748B', cursor: 'pointer',
+                  background: 'none', border: 'none', color: 'var(--color-text-muted)', cursor: 'pointer',
                   fontSize: '0.80rem', fontWeight: 600, padding: '0.2rem 0.5rem', borderRadius: '4px',
                 }}
               >
@@ -513,8 +513,8 @@ const PlanesEntrenamientoPage: React.FC = () => {
             <div style={{
               margin: '1.25rem 1.25rem 0',
               padding: '0.75rem 1rem',
-              background: '#F4F9FF',
-              border: '1px solid #BAE6FD',
+              background: 'var(--color-surface-muted)',
+              border: '1px solid rgba(220, 38, 38, 0.30)',
               borderRadius: '4px',
               display: 'flex',
               alignItems: 'center',
@@ -523,12 +523,12 @@ const PlanesEntrenamientoPage: React.FC = () => {
               flexWrap: 'wrap',
             }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
-                <FaWandMagicSparkles style={{ color: '#0077D4', fontSize: '1.1rem' }} />
+                <FaWandMagicSparkles style={{ color: 'var(--color-primary-text)', fontSize: '1.1rem' }} />
                 <div>
-                  <div style={{ fontSize: '0.80rem', fontWeight: 700, color: '#003B70' }}>
+                  <div style={{ fontSize: '0.80rem', fontWeight: 700, color: 'var(--color-primary-text)' }}>
                     ¿Prefieres que el Sistema Experto elabore este plan automáticamente?
                   </div>
-                  <div style={{ fontSize: '0.72rem', color: '#0284C7' }}>
+                  <div style={{ fontSize: '0.72rem', color: 'var(--color-primary-text)' }}>
                     Aplica reglas biomecánicas deterministas ACSM/NSCA según objetivo, material y restricciones.
                   </div>
                 </div>
@@ -537,7 +537,7 @@ const PlanesEntrenamientoPage: React.FC = () => {
                 type="button"
                 onClick={() => setIsIAModalOpen(true)}
                 style={{
-                  background: '#0077D4',
+                  background: 'var(--color-primary)',
                   color: '#FFFFFF',
                   border: 'none',
                   padding: '0.4rem 0.85rem',
@@ -558,11 +558,11 @@ const PlanesEntrenamientoPage: React.FC = () => {
             <form onSubmit={handleCreatePlan} style={{ padding: '1.25rem', display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1rem' }}>
                 <div>
-                  <label style={{ display: 'block', fontSize: '0.72rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: '#475569', marginBottom: '0.35rem' }}>Atleta / Usuario *</label>
+                  <label style={{ display: 'block', fontSize: '0.72rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--color-text-secondary)', marginBottom: '0.35rem' }}>Atleta / Usuario *</label>
                   <select
                     value={idUsuario}
                     onChange={(e) => setIdUsuario(e.target.value ? Number(e.target.value) : '')}
-                    style={{ width: '100%', padding: '0.5rem 0.65rem', borderRadius: '4px', border: '1px solid #CBD5E1', fontSize: '0.82rem', backgroundColor: '#FFF' }}
+                    style={{ width: '100%', padding: '0.5rem 0.65rem', borderRadius: '4px', border: '1px solid var(--color-border-strong)', fontSize: '0.82rem', backgroundColor: 'var(--color-surface)' }}
                   >
                     <option value="">-- Seleccionar Usuario --</option>
                     {usuarios.map((u) => (
@@ -572,29 +572,29 @@ const PlanesEntrenamientoPage: React.FC = () => {
                 </div>
 
                 <div>
-                  <label style={{ display: 'block', fontSize: '0.72rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: '#475569', marginBottom: '0.35rem' }}>Nombre del Plan *</label>
+                  <label style={{ display: 'block', fontSize: '0.72rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--color-text-secondary)', marginBottom: '0.35rem' }}>Nombre del Plan *</label>
                   <input
                     value={nombre}
                     onChange={(e) => setNombre(e.target.value)}
                     placeholder="Ej: Plan Hipertrofia 4 Días"
-                    style={{ width: '100%', padding: '0.5rem 0.65rem', borderRadius: '4px', border: '1px solid #CBD5E1', fontSize: '0.82rem' }}
+                    style={{ width: '100%', padding: '0.5rem 0.65rem', borderRadius: '4px', border: '1px solid var(--color-border-strong)', fontSize: '0.82rem' }}
                   />
                 </div>
 
                 <div>
-                  <label style={{ display: 'block', fontSize: '0.72rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: '#475569', marginBottom: '0.35rem' }}>Objetivo Deportivo</label>
+                  <label style={{ display: 'block', fontSize: '0.72rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--color-text-secondary)', marginBottom: '0.35rem' }}>Objetivo Deportivo</label>
                   <input
                     value={objetivo}
                     onChange={(e) => setObjetivo(e.target.value)}
                     placeholder="Ej: Aumento de masa muscular"
-                    style={{ width: '100%', padding: '0.5rem 0.65rem', borderRadius: '4px', border: '1px solid #CBD5E1', fontSize: '0.82rem' }}
+                    style={{ width: '100%', padding: '0.5rem 0.65rem', borderRadius: '4px', border: '1px solid var(--color-border-strong)', fontSize: '0.82rem' }}
                   />
                 </div>
               </div>
 
               {/* SELECCIONAR RUTINA DEL CATÁLOGO */}
               <div>
-                <label style={{ display: 'block', fontSize: '0.72rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: '#475569', marginBottom: '0.35rem' }}>Vincular Rutina al Plan</label>
+                <label style={{ display: 'block', fontSize: '0.72rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--color-text-secondary)', marginBottom: '0.35rem' }}>Vincular Rutina al Plan</label>
                 <select
                   onChange={(e) => {
                     if (e.target.value) {
@@ -602,7 +602,7 @@ const PlanesEntrenamientoPage: React.FC = () => {
                       e.target.value = '';
                     }
                   }}
-                  style={{ width: '100%', padding: '0.5rem 0.65rem', borderRadius: '4px', border: '1px solid #0077D4', fontSize: '0.82rem', backgroundColor: '#FFF', fontWeight: 600, cursor: 'pointer', color: '#0077D4' }}
+                  style={{ width: '100%', padding: '0.5rem 0.65rem', borderRadius: '4px', border: '1px solid var(--color-primary)', fontSize: '0.82rem', backgroundColor: 'var(--color-surface)', fontWeight: 600, cursor: 'pointer', color: 'var(--color-primary-text)' }}
                 >
                   <option value="">Seleccionar Rutina del Catálogo ({rutinas.length} disponibles)...</option>
                   {rutinas.map((r) => (
@@ -612,8 +612,8 @@ const PlanesEntrenamientoPage: React.FC = () => {
               </div>
 
               {/* LISTADO DE RUTINAS CON DÍAS Y CHECKBOXES */}
-              <div style={{ border: '1px solid #E2E8F0', borderRadius: '4px', padding: '0.85rem', background: '#F8FAFC' }}>
-                <span style={{ fontSize: '0.72rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: '#0F172A', display: 'block', marginBottom: '0.65rem' }}>
+              <div style={{ border: '1px solid var(--color-border)', borderRadius: '4px', padding: '0.85rem', background: 'var(--color-surface-muted)' }}>
+                <span style={{ fontSize: '0.72rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--color-text-primary)', display: 'block', marginBottom: '0.65rem' }}>
                   Rutinas Asignadas ({selectedRutinaAssignments.length})
                 </span>
 
@@ -623,22 +623,22 @@ const PlanesEntrenamientoPage: React.FC = () => {
                     <div
                       key={item.id_rutina}
                       style={{
-                        background: '#FFFFFF',
-                        border: '1px solid #E2E8F0',
+                        background: 'var(--color-surface)',
+                        border: '1px solid var(--color-border)',
                         borderRadius: '4px',
                         padding: '0.65rem 0.85rem',
                         marginBottom: '0.5rem',
                       }}
                     >
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.4rem' }}>
-                        <span style={{ fontSize: '0.82rem', fontWeight: 700, color: '#0F172A', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-                          <FaDumbbell style={{ color: '#0077D4' }} /> {rObj?.nombre || 'Rutina'} ({rObj?.nivel || 'General'})
+                        <span style={{ fontSize: '0.82rem', fontWeight: 700, color: 'var(--color-text-primary)', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                          <FaDumbbell style={{ color: 'var(--color-primary-text)' }} /> {rObj?.nombre || 'Rutina'} ({rObj?.nivel || 'General'})
                         </span>
                         <button
                           type="button"
                           onClick={() => handleRemoveRutinaAssignment(item.id_rutina)}
                           style={{
-                            background: '#FEE2E2', border: '1px solid #FECACA', color: '#DC2626',
+                            background: 'var(--color-danger-bg)', border: '1px solid rgba(220, 38, 38, 0.35)', color: 'var(--color-danger-text)',
                             padding: '0.25rem 0.5rem', borderRadius: '4px', cursor: 'pointer', fontSize: '0.72rem', fontWeight: 700,
                             display: 'flex', alignItems: 'center', gap: '0.25rem',
                           }}
@@ -648,7 +648,7 @@ const PlanesEntrenamientoPage: React.FC = () => {
                         </button>
                       </div>
 
-                      <span style={{ fontSize: '0.68rem', fontWeight: 700, color: '#475569', display: 'block', marginBottom: '0.3rem', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+                      <span style={{ fontSize: '0.68rem', fontWeight: 700, color: 'var(--color-text-secondary)', display: 'block', marginBottom: '0.3rem', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
                         Seleccionar Días de la Semana:
                       </span>
 
@@ -664,21 +664,21 @@ const PlanesEntrenamientoPage: React.FC = () => {
                                 gap: '0.3rem',
                                 fontSize: '0.72rem',
                                 fontWeight: 700,
-                                background: isChecked ? '#0077D4' : '#F1F5F9',
-                                color: isChecked ? '#FFFFFF' : '#475569',
+                                background: isChecked ? 'var(--color-primary)' : 'var(--color-surface-muted)',
+                                color: isChecked ? '#FFFFFF' : 'var(--color-text-secondary)',
                                 padding: '0.2rem 0.5rem',
                                 borderRadius: '2px',
                                 cursor: 'pointer',
                                 userSelect: 'none',
                                 transition: 'all 0.15s ease',
-                                border: isChecked ? '1px solid #0077D4' : '1px solid #E2E8F0',
+                                border: isChecked ? '1px solid var(--color-primary)' : '1px solid var(--color-border)',
                               }}
                             >
                               <input
                                 type="checkbox"
                                 checked={isChecked}
                                 onChange={() => handleToggleDayForRutina(item.id_rutina, dia)}
-                                style={{ cursor: 'pointer', accentColor: '#0077D4', width: '13px', height: '13px' }}
+                                style={{ cursor: 'pointer', accentColor: 'var(--color-primary)', width: '13px', height: '13px' }}
                               />
                               {dia}
                             </label>
@@ -690,7 +690,7 @@ const PlanesEntrenamientoPage: React.FC = () => {
                 })}
 
                 {selectedRutinaAssignments.length === 0 && (
-                  <div style={{ textAlign: 'center', padding: '1rem', color: '#94A3B8', fontSize: '0.80rem', background: '#FFF', borderRadius: '4px', border: '1px dashed #CBD5E1' }}>
+                  <div style={{ textAlign: 'center', padding: '1rem', color: 'var(--color-text-muted)', fontSize: '0.80rem', background: 'var(--color-surface)', borderRadius: '4px', border: '1px dashed var(--color-border-strong)' }}>
                     No hay rutinas vinculadas a este plan. Selecciona una rutina arriba.
                   </div>
                 )}
@@ -699,7 +699,7 @@ const PlanesEntrenamientoPage: React.FC = () => {
               {/* FOOTER DE ACCIONES */}
               <div style={{
                 paddingTop: '1rem',
-                borderTop: '1px solid #E2E8F0',
+                borderTop: '1px solid var(--color-border)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'space-between',
@@ -712,9 +712,9 @@ const PlanesEntrenamientoPage: React.FC = () => {
                   style={{
                     padding: '0.55rem 1.15rem',
                     borderRadius: '4px',
-                    border: '1px solid #CBD5E1',
-                    background: '#FFFFFF',
-                    color: '#475569',
+                    border: '1px solid var(--color-border-strong)',
+                    background: 'var(--color-surface)',
+                    color: 'var(--color-text-secondary)',
                     fontWeight: 700,
                     fontSize: '0.80rem',
                     cursor: 'pointer',
@@ -729,7 +729,7 @@ const PlanesEntrenamientoPage: React.FC = () => {
                     padding: '0.55rem 1.35rem',
                     borderRadius: '4px',
                     border: 'none',
-                    background: '#0077D4',
+                    background: 'var(--color-primary)',
                     color: '#FFFFFF',
                     fontWeight: 700,
                     fontSize: '0.82rem',

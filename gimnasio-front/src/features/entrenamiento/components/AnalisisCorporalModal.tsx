@@ -64,16 +64,16 @@ export const AnalisisCorporalModal: React.FC<AnalisisCorporalModalProps> = ({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: 'rgba(15, 23, 42, 0.65)',
+        backgroundColor: 'rgba(0, 0, 0, 0.65)',
         backdropFilter: 'blur(3px)',
         padding: '1rem',
       }}
     >
       <div
         style={{
-          backgroundColor: '#FFFFFF',
+          backgroundColor: 'var(--color-surface)',
           borderRadius: '4px',
-          border: '1px solid #CBD5E1',
+          border: '1px solid var(--color-border-strong)',
           width: '100%',
           maxWidth: '880px',
           maxHeight: '90vh',
@@ -87,19 +87,19 @@ export const AnalisisCorporalModal: React.FC<AnalisisCorporalModalProps> = ({
         <div
           style={{
             padding: '0.85rem 1.25rem',
-            borderBottom: '1px solid #E2E8F0',
+            borderBottom: '1px solid var(--color-border)',
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
-            backgroundColor: '#F8FAFC',
+            backgroundColor: 'var(--color-surface-muted)',
           }}
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
             <div
               style={{
                 padding: '0.45rem',
-                backgroundColor: '#E0F2FE',
-                color: '#0077D4',
+                backgroundColor: 'var(--color-primary-soft)',
+                color: 'var(--color-primary-text)',
                 borderRadius: '4px',
                 display: 'flex',
                 alignItems: 'center',
@@ -109,10 +109,10 @@ export const AnalisisCorporalModal: React.FC<AnalisisCorporalModalProps> = ({
               <Camera size={18} />
             </div>
             <div>
-              <h2 style={{ fontSize: '0.92rem', fontWeight: 800, color: '#0B1727', margin: 0, textTransform: 'uppercase', letterSpacing: '0.03em' }}>
+              <h2 style={{ fontSize: '0.92rem', fontWeight: 800, color: 'var(--color-text-primary)', margin: 0, textTransform: 'uppercase', letterSpacing: '0.03em' }}>
                 Evaluación Postural con MediaPipe Pose
               </h2>
-              <p style={{ fontSize: '0.75rem', color: '#64748B', margin: '0.15rem 0 0 0' }}>
+              <p style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)', margin: '0.15rem 0 0 0' }}>
                 Inspección biométrica y alineación anatómica a partir de 3 capturas fotográficas
               </p>
             </div>
@@ -122,7 +122,7 @@ export const AnalisisCorporalModal: React.FC<AnalisisCorporalModalProps> = ({
             style={{
               background: 'none',
               border: 'none',
-              color: '#64748B',
+              color: 'var(--color-text-muted)',
               cursor: 'pointer',
               padding: '0.35rem',
               borderRadius: '4px',
@@ -144,7 +144,7 @@ export const AnalisisCorporalModal: React.FC<AnalisisCorporalModalProps> = ({
             flexDirection: 'column',
             gap: '1.25rem',
             flex: 1,
-            backgroundColor: '#FFFFFF',
+            backgroundColor: 'var(--color-surface)',
           }}
         >
           {/* Warning Banner */}
@@ -158,13 +158,13 @@ export const AnalisisCorporalModal: React.FC<AnalisisCorporalModalProps> = ({
               alignItems: 'flex-start',
               gap: '0.65rem',
               fontSize: '0.78rem',
-              color: '#92400E',
+              color: 'var(--color-warning-text)',
               lineHeight: '1.4',
             }}
           >
-            <Info size={18} style={{ color: '#D97706', flexShrink: 0, marginTop: '2px' }} />
+            <Info size={18} style={{ color: 'var(--color-warning-text)', flexShrink: 0, marginTop: '2px' }} />
             <div>
-              <strong style={{ fontWeight: 700, color: '#78350F' }}>Aviso técnico y de privacidad:</strong> MediaPipe evalúa únicamente la alineación geométrica de puntos óseos y articulares. No calcula porcentaje graso, peso ni constituye diagnóstico médico clínico.
+              <strong style={{ fontWeight: 700, color: 'var(--color-warning-text)' }}>Aviso técnico y de privacidad:</strong> MediaPipe evalúa únicamente la alineación geométrica de puntos óseos y articulares. No calcula porcentaje graso, peso ni constituye diagnóstico médico clínico.
             </div>
           </div>
 
@@ -173,8 +173,8 @@ export const AnalisisCorporalModal: React.FC<AnalisisCorporalModalProps> = ({
               {/* 1. Vista Frontal */}
               <div
                 style={{
-                  border: '1px solid #E2E8F0',
-                  backgroundColor: '#F8FAFC',
+                  border: '1px solid var(--color-border)',
+                  backgroundColor: 'var(--color-surface-muted)',
                   borderRadius: '4px',
                   padding: '1rem',
                   display: 'flex',
@@ -183,15 +183,15 @@ export const AnalisisCorporalModal: React.FC<AnalisisCorporalModalProps> = ({
                   textAlign: 'center',
                 }}
               >
-                <span style={{ fontSize: '0.72rem', fontWeight: 700, color: '#475569', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.5rem' }}>
+                <span style={{ fontSize: '0.72rem', fontWeight: 700, color: 'var(--color-text-secondary)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.5rem' }}>
                   1. Vista Frontal
                 </span>
                 <label
                   style={{
                     width: '100%',
                     height: '190px',
-                    border: '1px dashed #CBD5E1',
-                    backgroundColor: '#FFFFFF',
+                    border: '1px dashed var(--color-border-strong)',
+                    backgroundColor: 'var(--color-surface)',
                     borderRadius: '4px',
                     display: 'flex',
                     flexDirection: 'column',
@@ -206,8 +206,8 @@ export const AnalisisCorporalModal: React.FC<AnalisisCorporalModalProps> = ({
                     <img src={previewFrontal} alt="Frontal" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                   ) : (
                     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.4rem', padding: '1rem' }}>
-                      <Upload size={26} style={{ color: '#94A3B8' }} />
-                      <span style={{ fontSize: '0.78rem', fontWeight: 600, color: '#0077D4' }}>Cargar captura frontal</span>
+                      <Upload size={26} style={{ color: 'var(--color-text-muted)' }} />
+                      <span style={{ fontSize: '0.78rem', fontWeight: 600, color: 'var(--color-primary-text)' }}>Cargar captura frontal</span>
                     </div>
                   )}
                   <input
@@ -222,8 +222,8 @@ export const AnalisisCorporalModal: React.FC<AnalisisCorporalModalProps> = ({
               {/* 2. Vista Perfil */}
               <div
                 style={{
-                  border: '1px solid #E2E8F0',
-                  backgroundColor: '#F8FAFC',
+                  border: '1px solid var(--color-border)',
+                  backgroundColor: 'var(--color-surface-muted)',
                   borderRadius: '4px',
                   padding: '1rem',
                   display: 'flex',
@@ -232,15 +232,15 @@ export const AnalisisCorporalModal: React.FC<AnalisisCorporalModalProps> = ({
                   textAlign: 'center',
                 }}
               >
-                <span style={{ fontSize: '0.72rem', fontWeight: 700, color: '#475569', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.5rem' }}>
+                <span style={{ fontSize: '0.72rem', fontWeight: 700, color: 'var(--color-text-secondary)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.5rem' }}>
                   2. Vista Perfil (Sagital)
                 </span>
                 <label
                   style={{
                     width: '100%',
                     height: '190px',
-                    border: '1px dashed #CBD5E1',
-                    backgroundColor: '#FFFFFF',
+                    border: '1px dashed var(--color-border-strong)',
+                    backgroundColor: 'var(--color-surface)',
                     borderRadius: '4px',
                     display: 'flex',
                     flexDirection: 'column',
@@ -255,8 +255,8 @@ export const AnalisisCorporalModal: React.FC<AnalisisCorporalModalProps> = ({
                     <img src={previewPerfil} alt="Perfil" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                   ) : (
                     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.4rem', padding: '1rem' }}>
-                      <Upload size={26} style={{ color: '#94A3B8' }} />
-                      <span style={{ fontSize: '0.78rem', fontWeight: 600, color: '#0077D4' }}>Cargar captura de perfil</span>
+                      <Upload size={26} style={{ color: 'var(--color-text-muted)' }} />
+                      <span style={{ fontSize: '0.78rem', fontWeight: 600, color: 'var(--color-primary-text)' }}>Cargar captura de perfil</span>
                     </div>
                   )}
                   <input
@@ -271,8 +271,8 @@ export const AnalisisCorporalModal: React.FC<AnalisisCorporalModalProps> = ({
               {/* 3. Vista Espalda */}
               <div
                 style={{
-                  border: '1px solid #E2E8F0',
-                  backgroundColor: '#F8FAFC',
+                  border: '1px solid var(--color-border)',
+                  backgroundColor: 'var(--color-surface-muted)',
                   borderRadius: '4px',
                   padding: '1rem',
                   display: 'flex',
@@ -281,15 +281,15 @@ export const AnalisisCorporalModal: React.FC<AnalisisCorporalModalProps> = ({
                   textAlign: 'center',
                 }}
               >
-                <span style={{ fontSize: '0.72rem', fontWeight: 700, color: '#475569', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.5rem' }}>
+                <span style={{ fontSize: '0.72rem', fontWeight: 700, color: 'var(--color-text-secondary)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.5rem' }}>
                   3. Vista Posterior (Dorsal)
                 </span>
                 <label
                   style={{
                     width: '100%',
                     height: '190px',
-                    border: '1px dashed #CBD5E1',
-                    backgroundColor: '#FFFFFF',
+                    border: '1px dashed var(--color-border-strong)',
+                    backgroundColor: 'var(--color-surface)',
                     borderRadius: '4px',
                     display: 'flex',
                     flexDirection: 'column',
@@ -304,8 +304,8 @@ export const AnalisisCorporalModal: React.FC<AnalisisCorporalModalProps> = ({
                     <img src={previewEspalda} alt="Espalda" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                   ) : (
                     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.4rem', padding: '1rem' }}>
-                      <Upload size={26} style={{ color: '#94A3B8' }} />
-                      <span style={{ fontSize: '0.78rem', fontWeight: 600, color: '#0077D4' }}>Cargar captura posterior</span>
+                      <Upload size={26} style={{ color: 'var(--color-text-muted)' }} />
+                      <span style={{ fontSize: '0.78rem', fontWeight: 600, color: 'var(--color-primary-text)' }}>Cargar captura posterior</span>
                     </div>
                   )}
                   <input
@@ -323,8 +323,8 @@ export const AnalisisCorporalModal: React.FC<AnalisisCorporalModalProps> = ({
           {resultadoActual && (
             <div
               style={{
-                border: '1px solid #BAE6FD',
-                backgroundColor: '#F4F9FF',
+                border: '1px solid rgba(220, 38, 38, 0.30)',
+                backgroundColor: 'var(--color-surface-muted)',
                 borderRadius: '4px',
                 padding: '1rem 1.25rem',
                 display: 'flex',
@@ -333,38 +333,38 @@ export const AnalisisCorporalModal: React.FC<AnalisisCorporalModalProps> = ({
               }}
             >
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <h3 style={{ fontSize: '0.88rem', fontWeight: 800, color: '#003B70', display: 'flex', alignItems: 'center', gap: '0.45rem', margin: 0, textTransform: 'uppercase', letterSpacing: '0.03em' }}>
-                  <CheckCircle2 size={18} style={{ color: '#059669' }} />
+                <h3 style={{ fontSize: '0.88rem', fontWeight: 800, color: 'var(--color-primary-text)', display: 'flex', alignItems: 'center', gap: '0.45rem', margin: 0, textTransform: 'uppercase', letterSpacing: '0.03em' }}>
+                  <CheckCircle2 size={18} style={{ color: 'var(--color-success-text)' }} />
                   Resultados del Análisis Geométrico
                 </h3>
-                <span style={{ padding: '0.2rem 0.6rem', backgroundColor: '#D1FAE5', color: '#065F46', border: '1px solid #A7F3D0', borderRadius: '2px', fontSize: '0.72rem', fontWeight: 700 }}>
+                <span style={{ padding: '0.2rem 0.6rem', backgroundColor: '#D1FAE5', color: '#065F46', border: '1px solid rgba(22, 163, 74, 0.35)', borderRadius: '2px', fontSize: '0.72rem', fontWeight: 700 }}>
                   Calidad: {resultadoActual.calidad_analisis}
                 </span>
               </div>
 
               {resultadoActual.metricas_calculadas && (
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '0.75rem' }}>
-                  <div style={{ padding: '0.75rem', backgroundColor: '#FFFFFF', borderRadius: '4px', border: '1px solid #E2E8F0' }}>
-                    <span style={{ fontSize: '0.70rem', fontWeight: 700, color: '#64748B', display: 'block', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.2rem' }}>Inclinación Hombros</span>
-                    <span style={{ fontSize: '1.25rem', fontWeight: 800, color: '#0F172A' }}>
+                  <div style={{ padding: '0.75rem', backgroundColor: 'var(--color-surface)', borderRadius: '4px', border: '1px solid var(--color-border)' }}>
+                    <span style={{ fontSize: '0.70rem', fontWeight: 700, color: 'var(--color-text-muted)', display: 'block', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.2rem' }}>Inclinación Hombros</span>
+                    <span style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--color-text-primary)' }}>
                       {resultadoActual.metricas_calculadas.inclinacion_hombros_grados ?? 0}°
                     </span>
                   </div>
-                  <div style={{ padding: '0.75rem', backgroundColor: '#FFFFFF', borderRadius: '4px', border: '1px solid #E2E8F0' }}>
-                    <span style={{ fontSize: '0.70rem', fontWeight: 700, color: '#64748B', display: 'block', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.2rem' }}>Inclinación Cadera</span>
-                    <span style={{ fontSize: '1.25rem', fontWeight: 800, color: '#0F172A' }}>
+                  <div style={{ padding: '0.75rem', backgroundColor: 'var(--color-surface)', borderRadius: '4px', border: '1px solid var(--color-border)' }}>
+                    <span style={{ fontSize: '0.70rem', fontWeight: 700, color: 'var(--color-text-muted)', display: 'block', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.2rem' }}>Inclinación Cadera</span>
+                    <span style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--color-text-primary)' }}>
                       {resultadoActual.metricas_calculadas.inclinacion_cadera_grados ?? 0}°
                     </span>
                   </div>
-                  <div style={{ padding: '0.75rem', backgroundColor: '#FFFFFF', borderRadius: '4px', border: '1px solid #E2E8F0' }}>
-                    <span style={{ fontSize: '0.70rem', fontWeight: 700, color: '#64748B', display: 'block', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.2rem' }}>Alineación Sagital</span>
-                    <span style={{ fontSize: '1.25rem', fontWeight: 800, color: '#0F172A' }}>
+                  <div style={{ padding: '0.75rem', backgroundColor: 'var(--color-surface)', borderRadius: '4px', border: '1px solid var(--color-border)' }}>
+                    <span style={{ fontSize: '0.70rem', fontWeight: 700, color: 'var(--color-text-muted)', display: 'block', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.2rem' }}>Alineación Sagital</span>
+                    <span style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--color-text-primary)' }}>
                       {resultadoActual.metricas_calculadas.alineacion_sagital_oreja_hombro_cadera ?? 0}°
                     </span>
                   </div>
-                  <div style={{ padding: '0.75rem', backgroundColor: '#FFFFFF', borderRadius: '4px', border: '1px solid #E2E8F0' }}>
-                    <span style={{ fontSize: '0.70rem', fontWeight: 700, color: '#64748B', display: 'block', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.2rem' }}>Simetría Escapular</span>
-                    <span style={{ fontSize: '1.25rem', fontWeight: 800, color: '#0077D4' }}>
+                  <div style={{ padding: '0.75rem', backgroundColor: 'var(--color-surface)', borderRadius: '4px', border: '1px solid var(--color-border)' }}>
+                    <span style={{ fontSize: '0.70rem', fontWeight: 700, color: 'var(--color-text-muted)', display: 'block', textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.2rem' }}>Simetría Escapular</span>
+                    <span style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--color-primary-text)' }}>
                       {resultadoActual.metricas_calculadas.simetria_espalda_score ?? 100} pts
                     </span>
                   </div>
@@ -372,7 +372,7 @@ export const AnalisisCorporalModal: React.FC<AnalisisCorporalModalProps> = ({
               )}
 
               {resultadoActual.observaciones && (
-                <p style={{ fontSize: '0.78rem', color: '#334155', backgroundColor: '#FFFFFF', padding: '0.75rem', borderRadius: '4px', border: '1px solid #E2E8F0', margin: 0, lineHeight: '1.4' }}>
+                <p style={{ fontSize: '0.78rem', color: 'var(--color-text-secondary)', backgroundColor: 'var(--color-surface)', padding: '0.75rem', borderRadius: '4px', border: '1px solid var(--color-border)', margin: 0, lineHeight: '1.4' }}>
                   {resultadoActual.observaciones}
                 </p>
               )}
@@ -381,8 +381,8 @@ export const AnalisisCorporalModal: React.FC<AnalisisCorporalModalProps> = ({
 
           {/* Historial previo */}
           {!loadingHistorial && historialAnalisis && historialAnalisis.length > 0 && (
-            <div style={{ paddingTop: '1rem', borderTop: '1px solid #E2E8F0', display: 'flex', flexDirection: 'column', gap: '0.65rem' }}>
-              <h4 style={{ fontSize: '0.72rem', fontWeight: 700, color: '#475569', textTransform: 'uppercase', letterSpacing: '0.05em', margin: 0 }}>
+            <div style={{ paddingTop: '1rem', borderTop: '1px solid var(--color-border)', display: 'flex', flexDirection: 'column', gap: '0.65rem' }}>
+              <h4 style={{ fontSize: '0.72rem', fontWeight: 700, color: 'var(--color-text-secondary)', textTransform: 'uppercase', letterSpacing: '0.05em', margin: 0 }}>
                 Historial de Evaluaciones Posturales
               </h4>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '0.65rem', maxHeight: '140px', overflowY: 'auto' }}>
@@ -396,8 +396,8 @@ export const AnalisisCorporalModal: React.FC<AnalisisCorporalModalProps> = ({
                     style={{
                       padding: '0.65rem 0.85rem',
                       borderRadius: '4px',
-                      border: resultadoActual?.id === item.id ? '1px solid #0077D4' : '1px solid #CBD5E1',
-                      backgroundColor: resultadoActual?.id === item.id ? '#E0F2FE' : '#F8FAFC',
+                      border: resultadoActual?.id === item.id ? '1px solid var(--color-primary)' : '1px solid var(--color-border-strong)',
+                      backgroundColor: resultadoActual?.id === item.id ? 'var(--color-primary-soft)' : 'var(--color-surface-muted)',
                       cursor: 'pointer',
                       display: 'flex',
                       justifyContent: 'space-between',
@@ -405,14 +405,14 @@ export const AnalisisCorporalModal: React.FC<AnalisisCorporalModalProps> = ({
                       fontSize: '0.78rem',
                     }}
                   >
-                    <span style={{ fontWeight: 700, color: '#0F172A' }}>
+                    <span style={{ fontWeight: 700, color: 'var(--color-text-primary)' }}>
                       {new Date(item.fecha_analisis).toLocaleDateString('es-ES', {
                         day: '2-digit',
                         month: 'short',
                         year: 'numeric',
                       })}
                     </span>
-                    <span style={{ fontWeight: 700, color: '#0077D4', backgroundColor: '#FFFFFF', padding: '0.15rem 0.45rem', borderRadius: '2px', border: '1px solid #CBD5E1', fontSize: '0.70rem' }}>
+                    <span style={{ fontWeight: 700, color: 'var(--color-primary-text)', backgroundColor: 'var(--color-surface)', padding: '0.15rem 0.45rem', borderRadius: '2px', border: '1px solid var(--color-border-strong)', fontSize: '0.70rem' }}>
                       {item.calidad_analisis}
                     </span>
                   </div>
@@ -426,8 +426,8 @@ export const AnalisisCorporalModal: React.FC<AnalisisCorporalModalProps> = ({
         <div
           style={{
             padding: '0.75rem 1.25rem',
-            borderTop: '1px solid #E2E8F0',
-            backgroundColor: '#F8FAFC',
+            borderTop: '1px solid var(--color-border)',
+            backgroundColor: 'var(--color-surface-muted)',
             display: 'flex',
             justifyContent: 'flex-end',
             alignItems: 'center',
@@ -440,9 +440,9 @@ export const AnalisisCorporalModal: React.FC<AnalisisCorporalModalProps> = ({
             style={{
               padding: '0.45rem 1rem',
               borderRadius: '4px',
-              border: '1px solid #CBD5E1',
-              backgroundColor: '#FFFFFF',
-              color: '#475569',
+              border: '1px solid var(--color-border-strong)',
+              backgroundColor: 'var(--color-surface)',
+              color: 'var(--color-text-secondary)',
               fontSize: '0.80rem',
               fontWeight: 700,
               cursor: 'pointer',
@@ -456,7 +456,7 @@ export const AnalisisCorporalModal: React.FC<AnalisisCorporalModalProps> = ({
             disabled={!fotoFrontal || !fotoPerfil || !fotoEspalda || analizarMutation.isPending}
             style={{
               padding: '0.45rem 1.25rem',
-              backgroundColor: !fotoFrontal || !fotoPerfil || !fotoEspalda || analizarMutation.isPending ? '#94A3B8' : '#0077D4',
+              backgroundColor: !fotoFrontal || !fotoPerfil || !fotoEspalda || analizarMutation.isPending ? '#94A3B8' : 'var(--color-primary)',
               color: '#FFFFFF',
               border: 'none',
               borderRadius: '4px',

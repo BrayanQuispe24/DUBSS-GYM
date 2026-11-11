@@ -31,7 +31,10 @@ class PlanAlimentacionPolicy
 
     public function create(Usuario $user): bool
     {
-        return $this->canManage($user);
+        $user->loadMissing('rol');
+        $rol = mb_strtolower($user->rol ? $user->rol->nombre : ($user->tipo_usuario ?? ''));
+
+        return in_array($rol, ['administrador', 'instructor', 'cliente']);
     }
 
     public function update(Usuario $user): bool

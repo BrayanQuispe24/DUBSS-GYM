@@ -1,6 +1,13 @@
 // src/features/gyms/services/gymService.ts
 import api from '@/services/api';
 import type { GymServiceItem, CroquisSpot } from '@/types';
+import { getPublicLandingData } from '@/features/landing/services/landingService';
+import {
+  formatScheduleSummary,
+  getDisciplinaVisualMeta,
+  getPlanPriceSummary,
+} from '@/features/landing/utils/disciplinaVisuals';
+import type { PublicDisciplina, PublicPlan } from '@/features/landing/types/landing.types';
 
 const MOCK_SERVICES: GymServiceItem[] = [
   {
@@ -16,62 +23,6 @@ const MOCK_SERVICES: GymServiceItem[] = [
     tags: ['Aparatos Selectorizados', 'Racks Olímpico', 'Cardio', 'Supervisión'],
     studentPrice: 'Bs. 50 / mes',
     docentPrice: 'Bs. 80 / mes',
-  },
-  {
-    id: '2',
-    title: 'Boxeo Universitario',
-    category: 'boxeo',
-    categoryLabel: 'Boxeo',
-    description: 'Entrenamiento de técnica de puño, trabajo de sacos, manoplas, sparring supervisado y acondicionamiento.',
-    schedule: 'Lun, Mié, Vie: 16:00 - 18:00 / 18:00 - 20:00',
-    instructor: 'Entrenador Lic. Roberto Siles',
-    capacity: '25 cupos por turno',
-    image: 'https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?auto=format&fit=crop&w=800&q=80',
-    tags: ['Ring Oficial', 'Sacos de Cuero', 'Pera Loca', 'Técnica'],
-    studentPrice: 'Bs. 60 / mes',
-    docentPrice: 'Bs. 90 / mes',
-  },
-  {
-    id: '3',
-    title: 'Kick Boxing',
-    category: 'kickboxing',
-    categoryLabel: 'Kick Boxing',
-    description: 'Disciplina de combate que combina técnicas de boxeo y patadas. Alta quema calórica y defensa personal.',
-    schedule: 'Mar, Jue, Sáb: 17:00 - 19:00',
-    instructor: 'Coach Prof. Marco Aguilera',
-    capacity: '20 cupos por turno',
-    image: 'https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=800&q=80',
-    tags: ['Pats & Escudos', 'Resistencia', 'Combate', 'Coordinación'],
-    studentPrice: 'Bs. 60 / mes',
-    docentPrice: 'Bs. 90 / mes',
-  },
-  {
-    id: '4',
-    title: 'Baile & Ritmo Universitario',
-    category: 'baile',
-    categoryLabel: 'Baile & Zumba',
-    description: 'Clases dinámicas de ritmoterapia, zumba, ritmos latinos y cardio dance para todas las edades.',
-    schedule: 'Lun a Vie: 19:00 - 20:30',
-    instructor: 'Inst. Valeria Vargas',
-    capacity: '40 personas por sesión',
-    image: 'https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&w=800&q=80',
-    tags: ['Zumba Fitness', 'Ritmos Latinos', 'Salón Espejado', 'Audio Pro'],
-    studentPrice: 'Bs. 45 / mes',
-    docentPrice: 'Bs. 75 / mes',
-  },
-  {
-    id: '5',
-    title: 'Entrenamiento Funcional',
-    category: 'funcional',
-    categoryLabel: 'Funcional & TRX',
-    description: 'Rutinas de alta intensidad en circuitos con kettlebells, cuerdas de batalla, balones y TRX.',
-    schedule: 'Lun a Sáb: 07:00 - 09:00 / 18:30 - 20:00',
-    instructor: 'Lic. Fernando Gutiérrez',
-    capacity: '30 cupos por turno',
-    image: 'https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=800&q=80',
-    tags: ['Circuito HIIT', 'TRX Suspension', 'Kettlebells', 'Cuerdas'],
-    studentPrice: 'Bs. 55 / mes',
-    docentPrice: 'Bs. 85 / mes',
   },
 ];
 
@@ -90,13 +41,51 @@ const MOCK_CROQUIS_SPOTS: CroquisSpot[] = [
   { id: 'B-06', type: 'Estación Kicking Pads', status: 'out-of-service', rate: 'Mantenimiento' },
 ];
 
+export const mapDisciplinaToGymService = (
+  disciplina: PublicDisciplina,
+  planes: PublicPlan[]
+): GymServiceItem => {
+  const meta = getDisciplinaVisualMeta(disciplina.nombre);
+  const priceSummary = getPlanPriceSummary(planes);
+  const cuposTotal = disciplina.cantidad_cupos || 0;
+  const cuposDisp = disciplina.total_cupos_disponibles ?? cuposTotal;
+
+  return {
+    id: String(disciplina.id),
+    disciplinaId: disciplina.id,
+    title: disciplina.nombre,
+    category: meta.slug,
+    categoryLabel: meta.categoryLabel,
+    description: meta.description,
+    schedule: formatScheduleSummary(disciplina),
+    horarios: disciplina.horarios,
+    instructor: meta.instructorLabel,
+    capacity: `${cuposDisp} disponibles / ${cuposTotal} cupos`,
+    cuposDisponibles: cuposDisp,
+    cuposTotal,
+    image: meta.image,
+    tags: meta.tags,
+    studentPrice: priceSummary.primaryPriceLabel,
+    docentPrice: priceSummary.secondaryPriceLabel,
+    defaultPlanId: priceSummary.defaultPlan?.id,
+  };
+};
+
 export const getGymServices = async (categoryFilter?: string): Promise<GymServiceItem[]> => {
   try {
-    const response = await api.get<GymServiceItem[]>('/services', { params: { category: categoryFilter } });
-    return response.data;
+    const landingData = await getPublicLandingData();
+    const mapped = landingData.disciplinas.map((d) =>
+      mapDisciplinaToGymService(d, landingData.planes)
+    );
+
+    if (!categoryFilter || categoryFilter === 'all') {
+      return mapped;
+    }
+
+    return mapped.filter((item) => item.category === categoryFilter);
   } catch {
     if (!categoryFilter || categoryFilter === 'all') return MOCK_SERVICES;
-    return MOCK_SERVICES.filter(s => s.category === categoryFilter);
+    return MOCK_SERVICES.filter((s) => s.category === categoryFilter);
   }
 };
 

@@ -28,16 +28,16 @@ const GymCard: React.FC<GymCardProps> = ({ service }) => {
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.45rem', fontSize: '0.86rem', color: 'var(--color-text-secondary)', marginBottom: '1.2rem' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
-              <Clock size={15} style={{ color: 'var(--color-primary)', flexShrink: 0 }} />
+              <Clock size={15} style={{ color: '#F87171', flexShrink: 0 }} />
               <span><strong>Horario:</strong> {service.schedule}</span>
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
-              <UserCheck size={15} style={{ color: 'var(--color-secondary)', flexShrink: 0 }} />
-              <span><strong>Instructor:</strong> {service.instructor}</span>
+              <UserCheck size={15} style={{ color: '#E4E4E7', flexShrink: 0 }} />
+              <span><strong>Supervisión:</strong> {service.instructor}</span>
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
-              <Users size={15} style={{ color: 'var(--color-success)', flexShrink: 0 }} />
-              <span><strong>Capacidad:</strong> {service.capacity}</span>
+              <Users size={15} style={{ color: 'var(--color-success-text)', flexShrink: 0 }} />
+              <span><strong>Cupos:</strong> {service.capacity}</span>
             </div>
           </div>
 
@@ -52,18 +52,26 @@ const GymCard: React.FC<GymCardProps> = ({ service }) => {
 
         <div className="gym-card-footer" style={{ marginTop: 'auto', paddingTop: '1rem', borderTop: '1px solid var(--color-border)' }}>
           <div>
-            <div style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)', fontWeight: 700 }}>Tarifa Universitaria:</div>
-            <div className="gym-card-price" style={{ fontSize: '1.25rem' }}>
-              {service.studentPrice} <span style={{ fontSize: '0.75rem' }}>(Estudiantes)</span>
+            <div style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)', fontWeight: 700 }}>Planes Disponibles:</div>
+            <div className="gym-card-price" style={{ fontSize: '1.2rem' }}>
+              {service.studentPrice}
             </div>
-            <div style={{ fontSize: '0.82rem', color: 'var(--color-secondary)', fontWeight: 700 }}>
-              {service.docentPrice} <span style={{ fontSize: '0.72rem', color: 'var(--color-text-muted)' }}>(Docentes/Admin)</span>
+            <div style={{ fontSize: '0.78rem', color: 'var(--color-secondary)', fontWeight: 700 }}>
+              {service.docentPrice}
             </div>
           </div>
 
           <button
             className="btn-step-action-orange"
-            onClick={() => openModal(service.title, `${service.studentPrice} (Estudiantes) / ${service.docentPrice} (Admin/Docentes)`, 'Gimnasio UAGRM DUBS')}
+            onClick={() =>
+              openModal({
+                spotName: service.title,
+                price: `${service.studentPrice} • ${service.docentPrice}`,
+                gymTitle: 'Gimnasio UAGRM D.U.B.S.',
+                disciplinaId: service.disciplinaId,
+                planId: service.defaultPlanId,
+              })
+            }
             style={{ padding: '0.6rem 1.1rem', fontSize: '0.86rem', cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: '0.4rem', borderRadius: '999px' }}
           >
             <Calendar size={15} /> Inscribirse

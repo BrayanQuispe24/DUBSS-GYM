@@ -221,10 +221,10 @@ const EquipoListPage: React.FC = () => {
       {/* PAGE HEADER */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.25rem' }}>
         <div>
-          <h2 style={{ fontSize: '1.4rem', fontWeight: 800, color: '#0B1727', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-            <FaBoxesPacking style={{ color: '#003B70' }} /> Inventario de Equipos y Máquinas
+          <h2 style={{ fontSize: '1.4rem', fontWeight: 800, color: 'var(--color-text-primary)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            <FaBoxesPacking style={{ color: 'var(--color-primary-text)' }} /> Inventario de Equipos y Máquinas
           </h2>
-          <p style={{ fontSize: '0.85rem', color: '#64748B' }}>
+          <p style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)' }}>
             Control de activos fijos, categorización por tipo, fabricantes y disponibilidad en salas.
           </p>
         </div>
@@ -235,7 +235,7 @@ const EquipoListPage: React.FC = () => {
               style={{
                 padding: '0.55rem 1.15rem',
                 borderRadius: '4px',
-                backgroundColor: '#0077D4',
+                backgroundColor: 'var(--color-primary)',
                 color: '#FFFFFF',
                 border: 'none',
                 fontWeight: 700,
@@ -257,7 +257,7 @@ const EquipoListPage: React.FC = () => {
               style={{
                 padding: '0.55rem 1.15rem',
                 borderRadius: '4px',
-                backgroundColor: '#0077D4',
+                backgroundColor: 'var(--color-primary)',
                 color: '#FFFFFF',
                 border: 'none',
                 fontWeight: 700,
@@ -279,7 +279,7 @@ const EquipoListPage: React.FC = () => {
               style={{
                 padding: '0.55rem 1.15rem',
                 borderRadius: '4px',
-                backgroundColor: '#0077D4',
+                backgroundColor: 'var(--color-primary)',
                 color: '#FFFFFF',
                 border: 'none',
                 fontWeight: 700,
@@ -298,15 +298,15 @@ const EquipoListPage: React.FC = () => {
       </div>
 
       {/* ENTERPRISE TABS SELECTOR */}
-      <div style={{ display: 'flex', gap: '0.25rem', marginBottom: '1.25rem', borderBottom: '1px solid #E2E8F0' }}>
+      <div style={{ display: 'flex', gap: '0.25rem', marginBottom: '1.25rem', borderBottom: '1px solid var(--color-border)' }}>
         <button
           onClick={() => setActiveTab('equipos')}
           style={{
             padding: '0.65rem 1.25rem',
             border: 'none',
             background: 'none',
-            borderBottom: activeTab === 'equipos' ? '2px solid #0077D4' : '2px solid transparent',
-            color: activeTab === 'equipos' ? '#0077D4' : '#64748B',
+            borderBottom: activeTab === 'equipos' ? '2px solid var(--color-primary)' : '2px solid transparent',
+            color: activeTab === 'equipos' ? 'var(--color-primary-text)' : 'var(--color-text-muted)',
             fontWeight: 700,
             fontSize: '0.82rem',
             cursor: 'pointer',
@@ -325,8 +325,8 @@ const EquipoListPage: React.FC = () => {
             padding: '0.65rem 1.25rem',
             border: 'none',
             background: 'none',
-            borderBottom: activeTab === 'tipos' ? '2px solid #0077D4' : '2px solid transparent',
-            color: activeTab === 'tipos' ? '#0077D4' : '#64748B',
+            borderBottom: activeTab === 'tipos' ? '2px solid var(--color-primary)' : '2px solid transparent',
+            color: activeTab === 'tipos' ? 'var(--color-primary-text)' : 'var(--color-text-muted)',
             fontWeight: 700,
             fontSize: '0.82rem',
             cursor: 'pointer',
@@ -345,8 +345,8 @@ const EquipoListPage: React.FC = () => {
             padding: '0.65rem 1.25rem',
             border: 'none',
             background: 'none',
-            borderBottom: activeTab === 'marcas' ? '2px solid #0077D4' : '2px solid transparent',
-            color: activeTab === 'marcas' ? '#0077D4' : '#64748B',
+            borderBottom: activeTab === 'marcas' ? '2px solid var(--color-primary)' : '2px solid transparent',
+            color: activeTab === 'marcas' ? 'var(--color-primary-text)' : 'var(--color-text-muted)',
             fontWeight: 700,
             fontSize: '0.82rem',
             cursor: 'pointer',
@@ -371,10 +371,10 @@ const EquipoListPage: React.FC = () => {
               justifyContent: 'space-between',
               gap: '1rem',
               marginBottom: '1.25rem',
-              backgroundColor: '#FFFFFF',
+              backgroundColor: 'var(--color-surface)',
               padding: '0.75rem 1rem',
               borderRadius: '4px',
-              border: '1px solid #E2E8F0',
+              border: '1px solid var(--color-border)',
               flexWrap: 'wrap',
             }}
           >
@@ -384,14 +384,14 @@ const EquipoListPage: React.FC = () => {
                   display: 'flex',
                   alignItems: 'center',
                   gap: '0.5rem',
-                  backgroundColor: '#F8FAFC',
-                  border: '1px solid #CBD5E1',
+                  backgroundColor: 'var(--color-surface-muted)',
+                  border: '1px solid var(--color-border-strong)',
                   borderRadius: '4px',
                   padding: '0.45rem 0.75rem',
                   flex: 1,
                 }}
               >
-                <FaMagnifyingGlass style={{ color: '#94A3B8', fontSize: '0.8rem' }} />
+                <FaMagnifyingGlass style={{ color: 'var(--color-text-muted)', fontSize: '0.8rem' }} />
                 <input
                   type="text"
                   placeholder="Buscar por código, nombre, modelo o marca..."
@@ -403,7 +403,7 @@ const EquipoListPage: React.FC = () => {
                     fontSize: '0.82rem',
                     width: '100%',
                     backgroundColor: 'transparent',
-                    color: '#0B1727',
+                    color: 'var(--color-text-primary)',
                   }}
                 />
               </div>
@@ -411,19 +411,19 @@ const EquipoListPage: React.FC = () => {
 
             <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', flexWrap: 'wrap' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-                <FaBuildingFlag style={{ color: '#64748B', fontSize: '0.82rem' }} />
-                <span style={{ fontSize: '0.8rem', fontWeight: 600, color: '#475569' }}>Ambiente:</span>
+                <FaBuildingFlag style={{ color: 'var(--color-text-muted)', fontSize: '0.82rem' }} />
+                <span style={{ fontSize: '0.8rem', fontWeight: 600, color: 'var(--color-text-secondary)' }}>Ambiente:</span>
                 <select
                   value={filterAmbiente}
                   onChange={(e) => setFilterAmbiente(e.target.value)}
                   style={{
                     padding: '0.45rem 0.75rem',
                     borderRadius: '4px',
-                    border: '1px solid #CBD5E1',
+                    border: '1px solid var(--color-border-strong)',
                     fontSize: '0.82rem',
                     fontWeight: 600,
-                    backgroundColor: '#FFFFFF',
-                    color: '#0B1727',
+                    backgroundColor: 'var(--color-surface)',
+                    color: 'var(--color-text-primary)',
                     outline: 'none',
                     cursor: 'pointer',
                   }}

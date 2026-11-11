@@ -18,9 +18,9 @@ const EquipoDetailModal: React.FC<EquipoDetailModalProps> = ({
   const getStatusBadge = (estadoRaw: any) => {
     const isVigente = estadoRaw === true || estadoRaw === 1 || ['1', 'true', 'bueno', 'operativo', 'vigente'].includes(String(estadoRaw ?? '').toLowerCase());
     if (isVigente) {
-      return { label: 'VIGENTE EN SISTEMA', bg: '#DCFCE7', color: '#15803D' };
+      return { label: 'VIGENTE EN SISTEMA', bg: 'var(--color-success-bg)', color: 'var(--color-success-text)' };
     }
-    return { label: 'ELIMINADO / DADO DE BAJA', bg: '#FEE2E2', color: '#B91C1C' };
+    return { label: 'ELIMINADO / DADO DE BAJA', bg: 'var(--color-danger-bg)', color: 'var(--color-danger-text)' };
   };
 
   const status = getStatusBadge(equipo.estado);
@@ -44,21 +44,21 @@ const EquipoDetailModal: React.FC<EquipoDetailModalProps> = ({
     >
       <div
         style={{
-          backgroundColor: '#FFFFFF',
+          backgroundColor: 'var(--color-surface)',
           borderRadius: '16px',
           width: '100%',
           maxWidth: '640px',
           boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
           overflow: 'hidden',
-          border: '1px solid #E2E8F0',
+          border: '1px solid var(--color-border)',
         }}
       >
         {/* HEADER */}
         <div
           style={{
             padding: '1.25rem 1.5rem',
-            borderBottom: '1px solid #E2E8F0',
-            backgroundColor: '#F8FAFC',
+            borderBottom: '1px solid var(--color-border)',
+            backgroundColor: 'var(--color-surface-muted)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
@@ -73,7 +73,7 @@ const EquipoDetailModal: React.FC<EquipoDetailModalProps> = ({
                 width: '36px',
                 height: '36px',
                 borderRadius: '10px',
-                backgroundColor: '#003B70',
+                backgroundColor: 'var(--color-primary)',
                 color: '#FFF',
                 fontSize: '1rem',
               }}
@@ -81,10 +81,10 @@ const EquipoDetailModal: React.FC<EquipoDetailModalProps> = ({
               <FaBoxesPacking />
             </span>
             <div>
-              <h3 style={{ fontSize: '1.15rem', fontWeight: 800, color: '#0B1727', margin: 0 }}>
+              <h3 style={{ fontSize: '1.15rem', fontWeight: 800, color: 'var(--color-text-primary)', margin: 0 }}>
                 Ficha Técnica de Equipo
               </h3>
-              <p style={{ fontSize: '0.78rem', color: '#64748B', margin: 0 }}>
+              <p style={{ fontSize: '0.78rem', color: 'var(--color-text-muted)', margin: 0 }}>
                 Información del activo fijo en la plataforma UAGRM.
               </p>
             </div>
@@ -96,7 +96,7 @@ const EquipoDetailModal: React.FC<EquipoDetailModalProps> = ({
               background: 'transparent',
               border: 'none',
               fontSize: '1.2rem',
-              color: '#94A3B8',
+              color: 'var(--color-text-muted)',
               cursor: 'pointer',
               display: 'flex',
               alignItems: 'center',
@@ -111,7 +111,7 @@ const EquipoDetailModal: React.FC<EquipoDetailModalProps> = ({
         <div style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
           {/* Image banner */}
           {equipo.imagen_url && (
-            <div style={{ width: '100%', height: '180px', borderRadius: '12px', overflow: 'hidden', border: '1px solid #E2E8F0', backgroundColor: '#F8FAFC' }}>
+            <div style={{ width: '100%', height: '180px', borderRadius: '12px', overflow: 'hidden', border: '1px solid var(--color-border)', backgroundColor: 'var(--color-surface-muted)' }}>
               <img src={getEquipoImageUrl(equipo.imagen_url)} alt={equipo.nombre} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
             </div>
           )}
@@ -119,53 +119,53 @@ const EquipoDetailModal: React.FC<EquipoDetailModalProps> = ({
           {/* Main Specs Grid */}
           <div
             style={{
-              backgroundColor: '#F8FAFC',
+              backgroundColor: 'var(--color-surface-muted)',
               borderRadius: '12px',
               padding: '1.25rem',
-              border: '1px solid #E2E8F0',
+              border: '1px solid var(--color-border)',
               display: 'grid',
               gridTemplateColumns: 'repeat(2, 1fr)',
               gap: '1rem',
             }}
           >
             <div>
-              <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#64748B', textTransform: 'uppercase', display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
+              <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--color-text-muted)', textTransform: 'uppercase', display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
                 <FaBarcode /> Código Patrimonial
               </span>
-              <div style={{ fontSize: '1.1rem', fontWeight: 800, color: '#003B70', marginTop: '0.2rem' }}>
+              <div style={{ fontSize: '1.1rem', fontWeight: 800, color: 'var(--color-primary-text)', marginTop: '0.2rem' }}>
                 {equipo.codigo}
               </div>
             </div>
 
             <div>
-              <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#64748B', textTransform: 'uppercase' }}>
+              <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--color-text-muted)', textTransform: 'uppercase' }}>
                 Nombre del Equipo
               </span>
-              <div style={{ fontSize: '1.05rem', fontWeight: 800, color: '#0B1727', marginTop: '0.2rem' }}>
+              <div style={{ fontSize: '1.05rem', fontWeight: 800, color: 'var(--color-text-primary)', marginTop: '0.2rem' }}>
                 {equipo.nombre}
               </div>
             </div>
 
             <div>
-              <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#64748B', textTransform: 'uppercase', display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
+              <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--color-text-muted)', textTransform: 'uppercase', display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
                 <FaTag /> Marca y Modelo
               </span>
-              <div style={{ fontSize: '0.88rem', fontWeight: 600, color: '#334155', marginTop: '0.2rem' }}>
+              <div style={{ fontSize: '0.88rem', fontWeight: 600, color: 'var(--color-text-secondary)', marginTop: '0.2rem' }}>
                 {equipo.marca?.nombre || 'Marca No Especificada'} {equipo.modelo ? `(${equipo.modelo})` : ''}
               </div>
             </div>
 
             <div>
-              <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#64748B', textTransform: 'uppercase', display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
+              <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--color-text-muted)', textTransform: 'uppercase', display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
                 <FaBuildingFlag /> Ambiente / Ubicación
               </span>
-              <div style={{ fontSize: '0.88rem', fontWeight: 600, color: '#0369A1', marginTop: '0.2rem' }}>
+              <div style={{ fontSize: '0.88rem', fontWeight: 600, color: 'var(--color-primary-text)', marginTop: '0.2rem' }}>
                 {equipo.ambiente?.nombre || 'General / Sin asignación'}
               </div>
             </div>
 
             <div>
-              <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#64748B', textTransform: 'uppercase' }}>
+              <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--color-text-muted)', textTransform: 'uppercase' }}>
                 Stock e Inventario
               </span>
               <div style={{ marginTop: '0.2rem', display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
@@ -175,8 +175,8 @@ const EquipoDetailModal: React.FC<EquipoDetailModalProps> = ({
                     borderRadius: '6px',
                     fontSize: '0.82rem',
                     fontWeight: 800,
-                    backgroundColor: equipo.cantidad > 0 ? '#DCFCE7' : '#FEE2E2',
-                    color: equipo.cantidad > 0 ? '#15803D' : '#DC2626',
+                    backgroundColor: equipo.cantidad > 0 ? 'var(--color-success-bg)' : 'var(--color-danger-bg)',
+                    color: equipo.cantidad > 0 ? 'var(--color-success-text)' : 'var(--color-danger-text)',
                     width: 'fit-content',
                   }}
                 >
@@ -193,8 +193,8 @@ const EquipoDetailModal: React.FC<EquipoDetailModalProps> = ({
                       style={{
                         fontSize: '0.75rem',
                         fontWeight: 700,
-                        color: '#B45309',
-                        backgroundColor: '#FEF3C7',
+                        color: 'var(--color-warning-text)',
+                        backgroundColor: 'var(--color-warning-bg)',
                         padding: '0.2rem 0.5rem',
                         borderRadius: '6px',
                         width: 'fit-content',
@@ -211,7 +211,7 @@ const EquipoDetailModal: React.FC<EquipoDetailModalProps> = ({
             </div>
 
             <div>
-              <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#64748B', textTransform: 'uppercase' }}>
+              <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--color-text-muted)', textTransform: 'uppercase' }}>
                 Estado Técnico
               </span>
               <div style={{ marginTop: '0.2rem' }}>
@@ -232,10 +232,10 @@ const EquipoDetailModal: React.FC<EquipoDetailModalProps> = ({
 
             {equipo.tipoEquipo && (
               <div>
-                <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#64748B', textTransform: 'uppercase', display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
+                <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--color-text-muted)', textTransform: 'uppercase', display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
                   <FaLayerGroup /> Categoría
                 </span>
-                <div style={{ fontSize: '0.88rem', fontWeight: 600, color: '#334155', marginTop: '0.2rem' }}>
+                <div style={{ fontSize: '0.88rem', fontWeight: 600, color: 'var(--color-text-secondary)', marginTop: '0.2rem' }}>
                   {equipo.tipoEquipo.nombre}
                 </div>
               </div>
@@ -243,10 +243,10 @@ const EquipoDetailModal: React.FC<EquipoDetailModalProps> = ({
 
             {equipo.fecha_adquisicion && (
               <div>
-                <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#64748B', textTransform: 'uppercase' }}>
+                <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--color-text-muted)', textTransform: 'uppercase' }}>
                   Fecha Adquisición
                 </span>
-                <div style={{ fontSize: '0.88rem', fontWeight: 600, color: '#334155', marginTop: '0.2rem' }}>
+                <div style={{ fontSize: '0.88rem', fontWeight: 600, color: 'var(--color-text-secondary)', marginTop: '0.2rem' }}>
                   {equipo.fecha_adquisicion}
                 </div>
               </div>
@@ -254,10 +254,10 @@ const EquipoDetailModal: React.FC<EquipoDetailModalProps> = ({
 
             {equipo.precio_compra !== undefined && equipo.precio_compra !== null && (
               <div>
-                <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#64748B', textTransform: 'uppercase' }}>
+                <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--color-text-muted)', textTransform: 'uppercase' }}>
                   Precio de Compra
                 </span>
-                <div style={{ fontSize: '0.88rem', fontWeight: 700, color: '#059669', marginTop: '0.2rem' }}>
+                <div style={{ fontSize: '0.88rem', fontWeight: 700, color: 'var(--color-success-text)', marginTop: '0.2rem' }}>
                   Bs. {Number(equipo.precio_compra).toFixed(2)}
                 </div>
               </div>
@@ -269,15 +269,15 @@ const EquipoDetailModal: React.FC<EquipoDetailModalProps> = ({
             style={{
               padding: '0.85rem 1rem',
               borderRadius: '10px',
-              backgroundColor: '#F0F7FF',
-              border: '1px solid #BAE6FD',
+              backgroundColor: 'var(--color-primary-soft)',
+              border: '1px solid rgba(220, 38, 38, 0.30)',
               display: 'flex',
               alignItems: 'center',
               gap: '0.75rem',
             }}
           >
-            <FaCircleInfo style={{ color: '#0284C7', fontSize: '1.2rem', flexShrink: 0 }} />
-            <div style={{ fontSize: '0.82rem', color: '#0369A1' }}>
+            <FaCircleInfo style={{ color: 'var(--color-primary-text)', fontSize: '1.2rem', flexShrink: 0 }} />
+            <div style={{ fontSize: '0.82rem', color: 'var(--color-primary-text)' }}>
               <strong>ID de Registro:</strong> #{equipo.id} — Registro activo de patrimonio universitario UAGRM.
             </div>
           </div>
@@ -287,8 +287,8 @@ const EquipoDetailModal: React.FC<EquipoDetailModalProps> = ({
         <div
           style={{
             padding: '1rem 1.5rem',
-            borderTop: '1px solid #E2E8F0',
-            backgroundColor: '#F8FAFC',
+            borderTop: '1px solid var(--color-border)',
+            backgroundColor: 'var(--color-surface-muted)',
             display: 'flex',
             justifyContent: 'flex-end',
           }}
@@ -300,12 +300,12 @@ const EquipoDetailModal: React.FC<EquipoDetailModalProps> = ({
               padding: '0.6rem 1.4rem',
               borderRadius: '8px',
               border: 'none',
-              backgroundColor: '#003B70',
+              backgroundColor: 'var(--color-primary)',
               color: '#FFFFFF',
               fontWeight: 700,
               fontSize: '0.85rem',
               cursor: 'pointer',
-              boxShadow: '0 2px 6px rgba(0,59,112,0.2)',
+              boxShadow: '0 2px 6px rgba(153, 0, 0,0.2)',
             }}
           >
             Cerrar

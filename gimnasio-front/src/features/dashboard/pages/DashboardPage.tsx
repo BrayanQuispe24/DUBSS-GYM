@@ -1,32 +1,89 @@
 // src/features/dashboard/pages/DashboardPage.tsx
 import React, { useState } from 'react';
+import { Navigate } from 'react-router-dom';
+import { BarChart3, QrCode, TableProperties } from 'lucide-react';
 import { useAuthStore } from '@/store/authStore';
-import { Link, Navigate } from 'react-router-dom';
 import { useBoletasInscripcion } from '@/features/tramites/hooks/useTramites';
 import CodigoQRInscripcionModal from '@/features/tramites/components/CodigoQRInscripcionModal';
 import EscanerQRModal from '@/features/accesos/components/EscanerQRModal';
 import showToast from '@/utils/toast';
+import AforoDisciplinaChart from '../charts/AforoDisciplinaChart';
+import IngresosDisciplinaDonut from '../charts/IngresosDisciplinaDonut';
+import IngresosEvolucionChart from '../charts/IngresosEvolucionChart';
+import InscripcionesDisciplinaChart from '../charts/InscripcionesDisciplinaChart';
+import SolicitudesEstadoDonut from '../charts/SolicitudesEstadoDonut';
+import BiMovementsTable from '../components/BiMovementsTable';
+import ChartCard from '../components/ChartCard';
+import ExportButtons from '../components/ExportButtons';
+import GlobalFiltersBar from '../components/GlobalFiltersBar';
+import HeroIngresosCard from '../components/HeroIngresosCard';
+import KpiSummaryGrid from '../components/KpiSummaryGrid';
+import SolicitudesStatusSummary from '../components/SolicitudesStatusSummary';
+import {
+  useBiAforoTiempoReal,
+  useBiDistribucion,
+  useBiResumen,
+  useBiSeries,
+} from '../hooks/useBiDashboard';
+import { useDashboardFiltersStore } from '../store/dashboardFiltersStore';
+import { formatDateTimeShort } from '../utils/biFormatters';
+
+type DashboardTab = 'overview' | 'detail';
 
 const DashboardPage: React.FC = () => {
   const { user } = useAuthStore();
+  const rol = user?.rol || '';
+  const canViewBi = rol === 'administrador' || rol === 'recepcionista';
 
-  if (user?.rol === 'cliente') {
-    return <Navigate to="/dashboard/planes" replace />;
-  }
-
-  if (user?.rol === 'instructor') {
-    return <Navigate to="/dashboard/ejercicios" replace />;
-  }
-  const { data: rawInscData } = useBoletasInscripcion();
+  const [activeTab, setActiveTab] = useState<DashboardTab>('overview');
   const [isQRModalOpen, setIsQRModalOpen] = useState(false);
   const [isScannerModalOpen, setIsScannerModalOpen] = useState(false);
 
-  const isStaff = user?.rol === 'administrador' || user?.rol === 'recepcionista' || user?.rol === 'instructor';
+  const {
+    desde,
+    hasta,
+    id_disciplina,
+    metodo_pago,
+    estado_solicitud,
+    granularidad,
+  } = useDashboardFiltersStore();
 
-  const inscripciones = Array.isArray(rawInscData) ? rawInscData : Array.isArray((rawInscData as any)?.data) ? (rawInscData as any).data : [];
-  
-  // Find latest active membership boleta for the current user or first available
-  const userBoleta = inscripciones.find((b: any) => String(b.id_usuario) === String(user?.id)) || inscripciones[0] || null;
+  const globalFilters = {
+    desde,
+    hasta,
+    id_disciplina,
+    metodo_pago,
+    estado_solicitud,
+    granularidad,
+  };
+
+  const resumenQuery = useBiResumen(globalFilters, canViewBi);
+  const seriesQuery = useBiSeries(globalFilters, canViewBi);
+  const distribucionQuery = useBiDistribucion(globalFilters, canViewBi);
+  const aforoLiveQuery = useBiAforoTiempoReal(id_disciplina, canViewBi);
+
+  const { data: rawInscData } = useBoletasInscripcion();
+
+  if (rol === 'cliente') {
+    return <Navigate to="/dashboard/planes" replace />;
+  }
+
+  if (rol === 'instructor') {
+    return <Navigate to="/dashboard/ejercicios" replace />;
+  }
+
+  const inscripciones = Array.isArray(rawInscData)
+    ? rawInscData
+    : Array.isArray((rawInscData as { data?: unknown[] } | undefined)?.data)
+      ? ((rawInscData as unknown as { data: unknown[] }).data)
+      : [];
+
+  const userBoleta =
+    (inscripciones as Array<Record<string, unknown>>).find(
+      (b) => String(b.id_usuario) === String(user?.id)
+    ) ||
+    (inscripciones[0] as Record<string, unknown> | undefined) ||
+    null;
 
   const handleOpenQR = () => {
     if (!userBoleta) {
@@ -36,243 +93,202 @@ const DashboardPage: React.FC = () => {
     setIsQRModalOpen(true);
   };
 
+  const resumen = resumenQuery.data;
+  const series = seriesQuery.data;
+  const distribucion = distribucionQuery.data;
+  const aforoPorDisciplina =
+    aforoLiveQuery.data?.por_disciplina ?? series?.aforo_por_disciplina ?? [];
+
   return (
-    <section>
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.25rem' }}>
-        <div>
-          <h2 style={{ fontSize: '1.4rem', fontWeight: 800, color: '#0B1727' }}>Visión General Analítica</h2>
-          <p style={{ fontSize: '0.85rem', color: '#64748B' }}>
-            Métricas consolidadas de aforo, ingresos por membresías y actividad de gimnasio D.U.B.S. UAGRM.
-          </p>
-        </div>
-        <div style={{ display: 'flex', gap: '0.75rem' }}>
-          {isStaff && (
-            <>
-              <button
-                onClick={() => setIsScannerModalOpen(true)}
-                style={{
-                  padding: '0.55rem 1rem',
-                  borderRadius: '4px',
-                  background: '#0077D4',
-                  color: '#FFFFFF',
-                  border: '1px solid #005FA8',
-                  fontWeight: 700,
-                  fontSize: '0.80rem',
-                  cursor: 'pointer',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '0.4rem',
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.03em'
-                }}
-              >
-                <i className="fa-solid fa-qrcode"></i> Validar QR de Ingreso
-              </button>
-              <Link
-                to="/dashboard/usuarios"
-                style={{
-                  padding: '0.55rem 1rem',
-                  borderRadius: '4px',
-                  background: '#FFFFFF',
-                  color: '#0077D4',
-                  border: '1px solid #CBD5E1',
-                  textDecoration: 'none',
-                  fontWeight: 700,
-                  fontSize: '0.80rem',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '0.4rem',
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.03em'
-                }}
-              >
-                <i className="fa-solid fa-users-gear"></i> Gestionar Usuarios
-              </Link>
-            </>
-          )}
-        </div>
-      </div>
-
-      {/* KPI Cards Grid */}
-      <div className="kpi-grid">
-        <div className="kpi-card" style={{ borderLeftColor: '#003B70' }}>
-          <div className="kpi-header">
-            <span>Usuarios Registrados</span>
-            <div className="kpi-icon" style={{ background: 'rgba(0, 59, 112, 0.1)', color: '#003B70' }}>
-              <i className="fa-solid fa-users"></i>
-            </div>
-          </div>
-          <div className="kpi-body">
-            <div className="kpi-value">1,420</div>
-            <div className="kpi-subtext">Estudiantes, Docentes y Admins</div>
-          </div>
-        </div>
-
-        <div className="kpi-card" style={{ borderLeftColor: '#990000' }}>
-          <div className="kpi-header">
-            <span>Socios Activos</span>
-            <div className="kpi-icon" style={{ background: 'rgba(153, 0, 0, 0.1)', color: '#990000' }}>
-              <i className="fa-solid fa-id-card"></i>
-            </div>
-          </div>
-          <div className="kpi-body">
-            <div className="kpi-value">985</div>
-            <div className="kpi-subtext">Con membresía mensual vigente</div>
-          </div>
-        </div>
-
-        <div className="kpi-card" style={{ borderLeftColor: '#16A34A' }}>
-          <div className="kpi-header">
-            <span>Aforo Campus DUBS</span>
-            <div className="kpi-icon" style={{ background: 'rgba(22, 163, 74, 0.1)', color: '#16A34A' }}>
-              <i className="fa-solid fa-door-open"></i>
-            </div>
-          </div>
-          <div className="kpi-body">
-            <div className="kpi-value">78.4%</div>
-            <div className="kpi-subtext">Ocupación sala musculación</div>
-          </div>
-        </div>
-
-        <div className="kpi-card" style={{ borderLeftColor: '#D97706' }}>
-          <div className="kpi-header">
-            <span>Recaudación del Mes</span>
-            <div className="kpi-icon" style={{ background: 'rgba(217, 119, 6, 0.1)', color: '#D97706' }}>
-              <i className="fa-solid fa-wallet"></i>
-            </div>
-          </div>
-          <div className="kpi-body">
-            <div className="kpi-value">Bs. 34,850.00</div>
-            <div className="kpi-subtext">Ingresos por pases mensuales</div>
-          </div>
-        </div>
-      </div>
-
-      {/* Role specific quick panel */}
-      <div style={{
-        background: '#FFFFFF',
-        border: '1px solid #CBD5E1',
-        borderRadius: '4px',
-        padding: '1.25rem',
-        marginTop: '1.25rem',
-      }}>
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1rem' }}>
-          <div>
-            <h3 style={{ fontSize: '1.1rem', fontWeight: 800, color: '#0B1727' }}>
-              Bienvenido, {user?.name || 'Usuario'}
-            </h3>
-            <p style={{ fontSize: '0.85rem', color: '#64748B' }}>
-              Has iniciado sesión como <strong style={{ textTransform: 'capitalize' }}>{user?.rol || 'cliente'}</strong> en el Gimnasio UAGRM D.U.B.S.
-            </p>
-          </div>
-          <span className={`badge-role ${user?.rol || 'cliente'}`}>
-            <i className="fa-solid fa-shield-halved"></i> {user?.rol || 'cliente'}
-          </span>
-        </div>
-
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
-          gap: '0.85rem',
-          marginTop: '1rem',
-        }}>
-          {(user?.rol === 'administrador' || user?.rol === 'recepcionista' || user?.rol === 'instructor') && (
-            <Link
-              to="/dashboard/usuarios"
-              style={{
-                padding: '0.85rem 1rem',
-                borderRadius: '4px',
-                border: '1px solid #CBD5E1',
-                background: '#F8FAFC',
-                textDecoration: 'none',
-                color: '#0B1727',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '0.75rem',
-              }}
-            >
-              <div style={{ width: '36px', height: '36px', borderRadius: '4px', background: '#0077D4', color: '#FFF', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1rem' }}>
-                <i className="fa-solid fa-users"></i>
-              </div>
-              <div>
-                <div style={{ fontWeight: 700, fontSize: '0.88rem' }}>Gestionar Usuarios</div>
-                <div style={{ fontSize: '0.72rem', color: '#64748B' }}>Crear, editar o suspender cuentas</div>
-              </div>
-            </Link>
-          )}
-
-          {isStaff && (
-            <div
-              onClick={() => setIsScannerModalOpen(true)}
-              style={{
-                padding: '0.85rem 1rem',
-                borderRadius: '4px',
-                border: '1px solid #059669',
-                background: '#ECFDF5',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '0.75rem',
-                cursor: 'pointer',
-              }}
-            >
-              <div style={{ width: '36px', height: '36px', borderRadius: '4px', background: '#059669', color: '#FFF', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1rem' }}>
-                <i className="fa-solid fa-expand"></i>
-              </div>
-              <div>
-                <div style={{ fontWeight: 800, fontSize: '0.88rem', color: '#065F46' }}>Escanear & Validar QR</div>
-                <div style={{ fontSize: '0.72rem', color: '#047857', fontWeight: 600 }}>Comprobar pase e ingresar socio</div>
-              </div>
-            </div>
-          )}
-
-          <div
-            onClick={handleOpenQR}
-            style={{
-              padding: '0.85rem 1rem',
-              borderRadius: '4px',
-              border: '1px solid #7C3AED',
-              background: '#F5F3FF',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '0.75rem',
-              cursor: 'pointer',
-            }}
+    <section className="space-y-4">
+      {/* Top Action Bar & Enterprise Tabs */}
+      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3 border-b border-zinc-200 dark:border-[#272732] pb-3">
+        <div className="flex items-center gap-1">
+          <button
+            type="button"
+            onClick={() => setActiveTab('overview')}
+            className={`px-4 py-2 text-xs font-bold uppercase tracking-wider border-b-2 transition-all cursor-pointer inline-flex items-center gap-2 ${
+              activeTab === 'overview'
+                ? 'border-[#990000] dark:border-red-500 text-[#990000] dark:text-red-400'
+                : 'border-transparent text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100'
+            }`}
           >
-            <div style={{ width: '36px', height: '36px', borderRadius: '4px', background: '#7C3AED', color: '#FFF', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1rem' }}>
-              <i className="fa-solid fa-qrcode"></i>
+            <BarChart3 size={15} />
+            Resumen Ejecutivo BI
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setActiveTab('detail')}
+            className={`px-4 py-2 text-xs font-bold uppercase tracking-wider border-b-2 transition-all cursor-pointer inline-flex items-center gap-2 ${
+              activeTab === 'detail'
+                ? 'border-[#990000] dark:border-red-500 text-[#990000] dark:text-red-400'
+                : 'border-transparent text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100'
+            }`}
+          >
+            <TableProperties size={15} />
+            Detalle de Registros
+          </button>
+        </div>
+
+        <div className="flex flex-wrap items-center gap-2">
+          <ExportButtons />
+
+          <button
+            type="button"
+            onClick={() => setIsScannerModalOpen(true)}
+            className="px-3 py-1.5 rounded-sm bg-[#990000] hover:bg-[#B91C1C] text-white text-xs font-bold inline-flex items-center gap-1.5 cursor-pointer transition-colors"
+          >
+            <QrCode size={14} />
+            <span>Validar QR</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={handleOpenQR}
+            className="px-3 py-1.5 rounded-sm border border-zinc-300 dark:border-[#383846] bg-white dark:bg-[#1A1A22] hover:bg-zinc-50 dark:hover:bg-[#21212B] text-zinc-700 dark:text-zinc-200 text-xs font-bold inline-flex items-center gap-1.5 cursor-pointer transition-colors"
+          >
+            <QrCode size={14} />
+            <span>Mi Pase QR</span>
+          </button>
+        </div>
+      </div>
+
+      {/* Global Shared Filters */}
+      <GlobalFiltersBar
+        disciplinas={resumen?.catalogos.disciplinas ?? []}
+        metodosPago={resumen?.catalogos.metodos_pago ?? []}
+      />
+
+      {resumenQuery.isError && (
+        <div className="p-3 rounded-sm border border-red-200 dark:border-red-900/60 bg-red-50 dark:bg-red-950/35 text-red-800 dark:text-red-300 text-xs font-semibold">
+          No se pudieron cargar los indicadores BI desde el servidor. Verifica tu conexión o sesión.
+        </div>
+      )}
+
+      {activeTab === 'overview' ? (
+        <div className="space-y-4">
+          {/* Fila 1: Hero Ingresos + 3 KPIs (8 cols) & Boletas por Disciplina (4 cols) */}
+          <div className="grid grid-cols-1 xl:grid-cols-12 gap-4">
+            <div className="xl:col-span-8 space-y-4">
+              <HeroIngresosCard
+                ingresos={resumen?.ingresos}
+                filtros={resumen?.filtros_aplicados}
+                isLoading={resumenQuery.isLoading}
+              />
+
+              <KpiSummaryGrid
+                resumen={resumen}
+                aforoLive={aforoLiveQuery.data}
+                isLoading={resumenQuery.isLoading}
+              />
             </div>
-            <div>
-              <div style={{ fontWeight: 800, fontSize: '0.88rem', color: '#5B21B6' }}>Pase QR de Acceso Digital</div>
-              <div style={{ fontSize: '0.72rem', color: '#6D28D9', fontWeight: 600 }}>Ver / Imprimir Código QR para torniquete</div>
+
+            <div className="xl:col-span-4">
+              <ChartCard
+                title="Boletas de Inscripción por Disciplina"
+                subtitle="Cantidad de inscripciones emitidas en el periodo"
+                isLoading={seriesQuery.isLoading}
+                isEmpty={(series?.boletas_por_disciplina.length ?? 0) === 0}
+                className="h-full"
+              >
+                <InscripcionesDisciplinaChart
+                  data={series?.boletas_por_disciplina ?? []}
+                />
+              </ChartCard>
             </div>
           </div>
 
-          <div style={{
-            padding: '0.85rem 1rem',
-            borderRadius: '4px',
-            border: '1px solid #CBD5E1',
-            background: '#F8FAFC',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '0.75rem',
-          }}>
-            <div style={{ width: '36px', height: '36px', borderRadius: '4px', background: '#16A34A', color: '#FFF', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1rem' }}>
-              <i className="fa-solid fa-calendar-check"></i>
+          {/* Fila 2: Evolución de Ingresos (6 cols) & Aforo en Tiempo Real por Disciplina (6 cols) */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
+            <div className="lg:col-span-6">
+              <ChartCard
+                title="Evolución de Ingresos"
+                subtitle={`Serie ${granularidad === 'month' ? 'mensual' : 'diaria'} de pagos completados`}
+                isLoading={seriesQuery.isLoading}
+                isEmpty={(series?.ingresos_evolucion.length ?? 0) === 0}
+              >
+                <IngresosEvolucionChart data={series?.ingresos_evolucion ?? []} />
+              </ChartCard>
             </div>
-            <div>
-              <div style={{ fontWeight: 700, fontSize: '0.88rem' }}>Vigencia Membresía</div>
-              <div style={{ fontSize: '0.72rem', color: '#16A34A', fontWeight: 600 }}>
-                {userBoleta?.fecha_fin ? `Válido hasta: ${userBoleta.fecha_fin}` : 'Válido hasta: 30 días post-pago'}
-              </div>
+
+            <div className="lg:col-span-6">
+              <ChartCard
+                title="Aforo en Tiempo Real por Disciplina"
+                subtitle={`Actualizado: ${formatDateTimeShort(aforoLiveQuery.data?.actualizado_en)}`}
+                badge={
+                  <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-sm bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800/50 text-tiny font-bold uppercase">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                    Auto 30s
+                  </span>
+                }
+                isLoading={aforoLiveQuery.isLoading && seriesQuery.isLoading}
+                isEmpty={aforoPorDisciplina.length === 0}
+              >
+                <AforoDisciplinaChart data={aforoPorDisciplina} />
+              </ChartCard>
+            </div>
+          </div>
+
+          {/* Fila 3: Ingresos por Disciplina (4 cols) + Solicitudes por Estado (4 cols) + Pendientes (4 cols) */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
+            <div className="lg:col-span-4">
+              <ChartCard
+                title="Ingresos por Disciplina"
+                subtitle="Participación de recaudación por disciplina"
+                isLoading={distribucionQuery.isLoading}
+                isEmpty={(distribucion?.ingresos_por_disciplina.length ?? 0) === 0}
+              >
+                <IngresosDisciplinaDonut
+                  data={distribucion?.ingresos_por_disciplina ?? []}
+                />
+              </ChartCard>
+            </div>
+
+            <div className="lg:col-span-4">
+              <ChartCard
+                title="Solicitudes por Estado"
+                subtitle="Aceptadas, pendientes y rechazadas del periodo"
+                isLoading={distribucionQuery.isLoading}
+                isEmpty={
+                  (distribucion?.solicitudes_por_estado ?? []).every(
+                    (s) => s.cantidad === 0
+                  )
+                }
+              >
+                <SolicitudesEstadoDonut
+                  data={distribucion?.solicitudes_por_estado ?? []}
+                />
+              </ChartCard>
+            </div>
+
+            <div className="lg:col-span-4">
+              <ChartCard
+                title="Solicitudes Pendientes Recientes"
+                subtitle="Formularios en espera de aprobación"
+                isLoading={distribucionQuery.isLoading}
+                isEmpty={
+                  (distribucion?.solicitudes_pendientes_recientes.length ?? 0) === 0
+                }
+                emptyMessage="No hay solicitudes pendientes en el periodo seleccionado"
+              >
+                <SolicitudesStatusSummary
+                  solicitudes={distribucion?.solicitudes_pendientes_recientes ?? []}
+                />
+              </ChartCard>
             </div>
           </div>
         </div>
-      </div>
+      ) : (
+        <BiMovementsTable />
+      )}
 
       <CodigoQRInscripcionModal
         isOpen={isQRModalOpen}
-        inscripcionId={userBoleta?.id || null}
-        inscripcionFallback={userBoleta}
+        inscripcionId={
+          userBoleta?.id !== undefined ? (userBoleta.id as number) : null
+        }
+        inscripcionFallback={userBoleta as never}
         onClose={() => setIsQRModalOpen(false)}
       />
 

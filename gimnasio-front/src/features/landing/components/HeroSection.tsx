@@ -1,28 +1,77 @@
 // src/features/landing/components/HeroSection.tsx
-import React from 'react';
-import { Compass, Users, LogIn, HelpCircle, User, Zap, Sparkles } from 'lucide-react';
+import React, { useRef } from 'react';
+import { Compass, Users, LogIn, HelpCircle, User, Zap } from 'lucide-react';
 import { useBookingStore } from '@/features/booking/store/bookingStore';
+import { usePublicLanding } from '../hooks/usePublicLanding';
 import { Link } from 'react-router-dom';
+import fondoImg from '@/assets/fondo.webp';
+import elementoIzquierdoImg from '@/assets/elementoIzquierdo.webp';
+import elementoDerechoImg from '@/assets/elementoDerecho.webp';
+import { useHeroScrollParallax } from '../hooks/useHeroScrollParallax';
 
 const HeroSection: React.FC = () => {
   const { openModal } = useBookingStore();
+  const { data } = usePublicLanding();
+  const defaultPlan = data?.planes?.[0];
+
+  const sectionRef = useRef<HTMLElement>(null);
+  const bgLayerRef = useRef<HTMLDivElement>(null);
+  const leftLayerRef = useRef<HTMLDivElement>(null);
+  const rightLayerRef = useRef<HTMLDivElement>(null);
+
+  useHeroScrollParallax({
+    sectionRef,
+    bgLayerRef,
+    leftLayerRef,
+    rightLayerRef,
+  });
 
   return (
-    <section className="hero-classgo" id="inicio">
+    <section className="hero-classgo" id="inicio" ref={sectionRef}>
+      <div className="hero-parallax-stage" aria-hidden="true">
+        <div className="hero-parallax-layer hero-parallax-layer--bg" ref={bgLayerRef}>
+          <img
+            src={fondoImg}
+            alt=""
+            className="hero-parallax-img"
+            loading="eager"
+            decoding="async"
+            draggable={false}
+          />
+        </div>
+
+        <div className="hero-parallax-layer hero-parallax-layer--left" ref={leftLayerRef}>
+          {/* elementoDerecho.png contiene los elementos visuales del lado izquierdo (mancuerna, botella y pesa rusa) */}
+          <img
+            src={elementoDerechoImg}
+            alt=""
+            className="hero-parallax-img"
+            loading="eager"
+            decoding="async"
+            draggable={false}
+          />
+        </div>
+
+        <div className="hero-parallax-layer hero-parallax-layer--right" ref={rightLayerRef}>
+          {/* elementoIzquierdo.png contiene los elementos visuales del lado derecho (shaker, discos y mancuerna) */}
+          <img
+            src={elementoIzquierdoImg}
+            alt=""
+            className="hero-parallax-img"
+            loading="eager"
+            decoding="async"
+            draggable={false}
+          />
+        </div>
+
+        <div className="hero-parallax-scrim" />
+      </div>
+
       <div className="container hero-classgo-grid">
-        <div className="hero-classgo-text reveal-up">
-          <div className="dubs-badge-banner">
-            <Sparkles size={16} /> DIRECCIÓN UNIVERSITARIA DE BIENESTAR SOCIAL (D.U.B.S.)
-          </div>
-
-          <h1 className="classgo-hero-h1">
-            Gimnasio Universitario <span className="glow-cyan-text">UAGRM</span><br />
-            Salud, Deporte & Rendimiento
+        <div className="hero-classgo-text">
+          <h1 className="sr-only">
+            Gimnasio Universitario UAGRM - Salud, Deporte & Rendimiento
           </h1>
-
-          <p className="classgo-hero-p">
-            Espacio deportivo universitario diseñado exclusivamente para <strong>Estudiantes, Administrativos y Docentes de la UAGRM</strong>. Disfruta de nuestras disciplinas: <strong>Boxeo, Kick Boxing, Baile, Funcional y Musculación con Aparatos</strong>.
-          </p>
 
           <div className="classgo-pill-btn-group">
             <a href="#servicios" className="btn-classgo-outline" id="btn-hero-cta-search">
@@ -36,30 +85,28 @@ const HeroSection: React.FC = () => {
             </Link>
           </div>
         </div>
-
-        {/* Right Mascot / DUBS Showcase */}
-        <div className="hero-classgo-mascot reveal-up delay-1">
-          <img
-            src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=800&q=80"
-            alt="Gimnasio Universitario UAGRM DUBS"
-            className="mascot-img"
-          />
-        </div>
       </div>
 
       {/* Floating Corner Widgets */}
       <div className="floating-corner-widgets">
-        <button className="widget-btn help-btn" title="Centro de Ayuda DUBS">
+        <a href="#como-funciona" className="widget-btn help-btn" title="Cómo Funciona DUBS">
           <HelpCircle size={22} />
-        </button>
-        <button className="widget-btn user-btn" title="Portal UAGRM">
+        </a>
+        <Link to="/login" className="widget-btn user-btn" title="Portal UAGRM">
           <User size={22} />
           <span className="red-badge"></span>
-        </button>
+        </Link>
         <button
           className="widget-btn action-btn"
           title="Inscripción de Membresía"
-          onClick={() => openModal('Membresía Estudiantes UAGRM', 'Bs. 50 / mes', 'Gimnasio Universitario DUBS')}
+          onClick={() =>
+            openModal({
+              spotName: defaultPlan ? defaultPlan.nombre : 'Inscripción Gimnasio D.U.B.S.',
+              price: defaultPlan ? `Bs. ${Number(defaultPlan.tarifa.precio).toFixed(0)} / ${defaultPlan.duracion_dias} días` : 'Tarifa Universitaria UAGRM',
+              gymTitle: 'Gimnasio Universitario D.U.B.S.',
+              planId: defaultPlan?.id,
+            })
+          }
         >
           <Zap size={22} />
         </button>

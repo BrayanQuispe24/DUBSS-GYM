@@ -19,12 +19,12 @@ const AmbienteDetailModal: React.FC<AmbienteDetailModalProps> = ({
   const getStatusBadge = (estadoRaw: string | boolean) => {
     const est = String(estadoRaw ?? 'disponible').toLowerCase();
     if (['disponible', '1', 'true', 'activo'].includes(est)) {
-      return { label: 'DISPONIBLE', bg: '#DCFCE7', color: '#15803D' };
+      return { label: 'DISPONIBLE', bg: 'var(--color-success-bg)', color: 'var(--color-success-text)' };
     }
     if (['mantenimiento', 'en mantenimiento'].includes(est)) {
-      return { label: 'MANTENIMIENTO', bg: '#FEF3C7', color: '#B45309' };
+      return { label: 'MANTENIMIENTO', bg: 'var(--color-warning-bg)', color: 'var(--color-warning-text)' };
     }
-    return { label: 'INACTIVO', bg: '#FEE2E2', color: '#B91C1C' };
+    return { label: 'INACTIVO', bg: 'var(--color-danger-bg)', color: 'var(--color-danger-text)' };
   };
 
   const status = getStatusBadge(ambiente.estado);
@@ -48,21 +48,21 @@ const AmbienteDetailModal: React.FC<AmbienteDetailModalProps> = ({
     >
       <div
         style={{
-          backgroundColor: '#FFFFFF',
+          backgroundColor: 'var(--color-surface)',
           borderRadius: '16px',
           width: '100%',
           maxWidth: '600px',
           boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
           overflow: 'hidden',
-          border: '1px solid #E2E8F0',
+          border: '1px solid var(--color-border)',
         }}
       >
         {/* HEADER */}
         <div
           style={{
             padding: '1.25rem 1.5rem',
-            borderBottom: '1px solid #E2E8F0',
-            backgroundColor: '#F8FAFC',
+            borderBottom: '1px solid var(--color-border)',
+            backgroundColor: 'var(--color-surface-muted)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
@@ -77,7 +77,7 @@ const AmbienteDetailModal: React.FC<AmbienteDetailModalProps> = ({
                 width: '36px',
                 height: '36px',
                 borderRadius: '10px',
-                backgroundColor: '#003B70',
+                backgroundColor: 'var(--color-primary)',
                 color: '#FFF',
                 fontSize: '1rem',
               }}
@@ -85,10 +85,10 @@ const AmbienteDetailModal: React.FC<AmbienteDetailModalProps> = ({
               <FaBuildingFlag />
             </span>
             <div>
-              <h3 style={{ fontSize: '1.15rem', fontWeight: 800, color: '#0B1727', margin: 0 }}>
+              <h3 style={{ fontSize: '1.15rem', fontWeight: 800, color: 'var(--color-text-primary)', margin: 0 }}>
                 Detalles del Ambiente
               </h3>
-              <p style={{ fontSize: '0.78rem', color: '#64748B', margin: 0 }}>
+              <p style={{ fontSize: '0.78rem', color: 'var(--color-text-muted)', margin: 0 }}>
                 Información técnica y estado del espacio en la plataforma UAGRM.
               </p>
             </div>
@@ -100,7 +100,7 @@ const AmbienteDetailModal: React.FC<AmbienteDetailModalProps> = ({
               background: 'transparent',
               border: 'none',
               fontSize: '1.2rem',
-              color: '#94A3B8',
+              color: 'var(--color-text-muted)',
               cursor: 'pointer',
               display: 'flex',
               alignItems: 'center',
@@ -116,26 +116,26 @@ const AmbienteDetailModal: React.FC<AmbienteDetailModalProps> = ({
           {/* Main Info Card */}
           <div
             style={{
-              backgroundColor: '#F8FAFC',
+              backgroundColor: 'var(--color-surface-muted)',
               borderRadius: '12px',
               padding: '1.25rem',
-              border: '1px solid #E2E8F0',
+              border: '1px solid var(--color-border)',
               display: 'grid',
               gridTemplateColumns: 'repeat(2, 1fr)',
               gap: '1rem',
             }}
           >
             <div>
-              <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#64748B', textTransform: 'uppercase' }}>
+              <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--color-text-muted)', textTransform: 'uppercase' }}>
                 Nombre de la Sala
               </span>
-              <div style={{ fontSize: '1.1rem', fontWeight: 800, color: '#0B1727', marginTop: '0.2rem' }}>
+              <div style={{ fontSize: '1.1rem', fontWeight: 800, color: 'var(--color-text-primary)', marginTop: '0.2rem' }}>
                 {ambiente.nombre}
               </div>
             </div>
 
             <div>
-              <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#64748B', textTransform: 'uppercase' }}>
+              <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--color-text-muted)', textTransform: 'uppercase' }}>
                 Estado Operativo
               </span>
               <div style={{ marginTop: '0.3rem' }}>
@@ -156,19 +156,19 @@ const AmbienteDetailModal: React.FC<AmbienteDetailModalProps> = ({
             </div>
 
             <div style={{ gridColumn: 'span 2' }}>
-              <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#64748B', textTransform: 'uppercase' }}>
+              <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--color-text-muted)', textTransform: 'uppercase' }}>
                 Descripción / Ubicación Especificada
               </span>
               <div
                 style={{
                   fontSize: '0.88rem',
-                  color: '#334155',
+                  color: 'var(--color-text-secondary)',
                   marginTop: '0.25rem',
                   lineHeight: '1.5',
-                  backgroundColor: '#FFFFFF',
+                  backgroundColor: 'var(--color-surface)',
                   padding: '0.75rem',
                   borderRadius: '8px',
-                  border: '1px solid #E2E8F0',
+                  border: '1px solid var(--color-border)',
                 }}
               >
                 {ambiente.descripcion || 'Sin descripción registrada para este ambiente.'}
@@ -181,15 +181,15 @@ const AmbienteDetailModal: React.FC<AmbienteDetailModalProps> = ({
             style={{
               padding: '1rem',
               borderRadius: '10px',
-              backgroundColor: '#F0F7FF',
-              border: '1px solid #BAE6FD',
+              backgroundColor: 'var(--color-primary-soft)',
+              border: '1px solid rgba(220, 38, 38, 0.30)',
               display: 'flex',
               alignItems: 'center',
               gap: '0.75rem',
             }}
           >
-            <FaCircleInfo style={{ color: '#0284C7', fontSize: '1.2rem', flexShrink: 0 }} />
-            <div style={{ fontSize: '0.82rem', color: '#0369A1' }}>
+            <FaCircleInfo style={{ color: 'var(--color-primary-text)', fontSize: '1.2rem', flexShrink: 0 }} />
+            <div style={{ fontSize: '0.82rem', color: 'var(--color-primary-text)' }}>
               <strong>Identificador del Ambiente:</strong> #{ambiente.id} — Espacio registrado en la infraestructura del gimnasio universitario.
             </div>
           </div>
@@ -199,8 +199,8 @@ const AmbienteDetailModal: React.FC<AmbienteDetailModalProps> = ({
         <div
           style={{
             padding: '1rem 1.5rem',
-            borderTop: '1px solid #E2E8F0',
-            backgroundColor: '#F8FAFC',
+            borderTop: '1px solid var(--color-border)',
+            backgroundColor: 'var(--color-surface-muted)',
             display: 'flex',
             justifyContent: 'flex-end',
           }}
@@ -212,12 +212,12 @@ const AmbienteDetailModal: React.FC<AmbienteDetailModalProps> = ({
               padding: '0.6rem 1.4rem',
               borderRadius: '8px',
               border: 'none',
-              backgroundColor: '#003B70',
+              backgroundColor: 'var(--color-primary)',
               color: '#FFFFFF',
               fontWeight: 700,
               fontSize: '0.85rem',
               cursor: 'pointer',
-              boxShadow: '0 2px 6px rgba(0,59,112,0.2)',
+              boxShadow: '0 2px 6px rgba(153, 0, 0,0.2)',
             }}
           >
             Cerrar

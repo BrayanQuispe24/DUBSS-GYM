@@ -88,23 +88,23 @@ const RutinaEditModal: React.FC<Props> = ({ rutina, onClose }) => {
   return (
     <div style={{
       position: 'fixed', top: 0, left: 0, right: 0, bottom: 0,
-      backgroundColor: 'rgba(15, 23, 42, 0.75)', backdropFilter: 'blur(4px)',
+      backgroundColor: 'rgba(0, 0, 0, 0.75)', backdropFilter: 'blur(4px)',
       display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 9999, padding: '1.5rem'
     }}>
       <div style={{
-        background: '#FFFFFF', borderRadius: '16px', maxWidth: '800px', width: '100%',
+        background: 'var(--color-surface)', borderRadius: '16px', maxWidth: '800px', width: '100%',
         maxHeight: '90vh', overflowY: 'auto', padding: '1.5rem', boxShadow: '0 25px 50px -12px rgba(0,0,0,0.25)',
         position: 'relative'
       }}>
         {/* HEADER */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem', borderBottom: '1px solid #E2E8F0', paddingBottom: '0.75rem' }}>
-          <h3 style={{ fontSize: '1.2rem', fontWeight: 800, color: '#0F172A', display: 'flex', alignItems: 'center', gap: '0.5rem', margin: 0 }}>
-            <FaPenToSquare style={{ color: '#003B70' }} /> Editar Rutina: {rutina.nombre}
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem', borderBottom: '1px solid var(--color-border)', paddingBottom: '0.75rem' }}>
+          <h3 style={{ fontSize: '1.2rem', fontWeight: 800, color: 'var(--color-text-primary)', display: 'flex', alignItems: 'center', gap: '0.5rem', margin: 0 }}>
+            <FaPenToSquare style={{ color: 'var(--color-primary-text)' }} /> Editar Rutina: {rutina.nombre}
           </h3>
           <button
             type="button"
             onClick={onClose}
-            style={{ background: '#F1F5F9', border: 'none', width: '34px', height: '34px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', color: '#64748B' }}
+            style={{ background: 'var(--color-surface-muted)', border: 'none', width: '34px', height: '34px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', color: 'var(--color-text-muted)' }}
           >
             <FaXmark style={{ fontSize: '1.1rem' }} />
           </button>
@@ -114,20 +114,20 @@ const RutinaEditModal: React.FC<Props> = ({ rutina, onClose }) => {
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
           <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '1rem' }}>
             <div>
-              <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, color: '#475569', marginBottom: '0.3rem' }}>Nombre de la Rutina *</label>
+              <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, color: 'var(--color-text-secondary)', marginBottom: '0.3rem' }}>Nombre de la Rutina *</label>
               <input
                 value={nombre}
                 onChange={(e) => setNombre(e.target.value)}
                 placeholder="Ej: Rutina Pectoral & Tríceps"
-                style={{ width: '100%', padding: '0.55rem', borderRadius: '6px', border: '1px solid #CBD5E1', fontSize: '0.88rem' }}
+                style={{ width: '100%', padding: '0.55rem', borderRadius: '6px', border: '1px solid var(--color-border-strong)', fontSize: '0.88rem' }}
               />
             </div>
             <div>
-              <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, color: '#475569', marginBottom: '0.3rem' }}>Nivel de Dificultad</label>
+              <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, color: 'var(--color-text-secondary)', marginBottom: '0.3rem' }}>Nivel de Dificultad</label>
               <select
                 value={nivel}
                 onChange={(e) => setNivel(e.target.value)}
-                style={{ width: '100%', padding: '0.55rem', borderRadius: '6px', border: '1px solid #CBD5E1', fontSize: '0.88rem', backgroundColor: '#FFF' }}
+                style={{ width: '100%', padding: '0.55rem', borderRadius: '6px', border: '1px solid var(--color-border-strong)', fontSize: '0.88rem', backgroundColor: 'var(--color-surface)' }}
               >
                 <option value="Principiante">Principiante</option>
                 <option value="Intermedio">Intermedio</option>
@@ -137,28 +137,28 @@ const RutinaEditModal: React.FC<Props> = ({ rutina, onClose }) => {
           </div>
 
           <div>
-            <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, color: '#475569', marginBottom: '0.3rem' }}>Descripción / Recomendaciones</label>
+            <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 600, color: 'var(--color-text-secondary)', marginBottom: '0.3rem' }}>Descripción / Recomendaciones</label>
             <input
               value={descripcion}
               onChange={(e) => setDescripcion(e.target.value)}
               placeholder="Descripción opcional..."
-              style={{ width: '100%', padding: '0.55rem', borderRadius: '6px', border: '1px solid #CBD5E1', fontSize: '0.88rem' }}
+              style={{ width: '100%', padding: '0.55rem', borderRadius: '6px', border: '1px solid var(--color-border-strong)', fontSize: '0.88rem' }}
             />
           </div>
 
           {/* FILTROS Y BÚSQUEDA DE EJERCICIOS */}
-          <div style={{ background: '#F8FAFC', padding: '1rem', borderRadius: '10px', border: '1px solid #E2E8F0' }}>
-            <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, color: '#0F172A', marginBottom: '0.6rem' }}>
-              <FaFilter style={{ color: '#003B70' }} /> Agregar Nuevos Ejercicios a la Rutina
+          <div style={{ background: 'var(--color-surface-muted)', padding: '1rem', borderRadius: '10px', border: '1px solid var(--color-border)' }}>
+            <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, color: 'var(--color-text-primary)', marginBottom: '0.6rem' }}>
+              <FaFilter style={{ color: 'var(--color-primary-text)' }} /> Agregar Nuevos Ejercicios a la Rutina
             </label>
 
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '0.6rem', marginBottom: '0.75rem' }}>
               <div>
-                <label style={{ display: 'block', fontSize: '0.72rem', fontWeight: 600, color: '#64748B', marginBottom: '0.2rem' }}>Por Categoría</label>
+                <label style={{ display: 'block', fontSize: '0.72rem', fontWeight: 600, color: 'var(--color-text-muted)', marginBottom: '0.2rem' }}>Por Categoría</label>
                 <select
                   value={filterTipoId}
                   onChange={(e) => setFilterTipoId(e.target.value ? Number(e.target.value) : '')}
-                  style={{ width: '100%', padding: '0.45rem', borderRadius: '6px', border: '1px solid #CBD5E1', fontSize: '0.8rem', background: '#FFF' }}
+                  style={{ width: '100%', padding: '0.45rem', borderRadius: '6px', border: '1px solid var(--color-border-strong)', fontSize: '0.8rem', background: 'var(--color-surface)' }}
                 >
                   <option value="">-- Todos los Tipos --</option>
                   {tipos.map((t: any) => (
@@ -168,11 +168,11 @@ const RutinaEditModal: React.FC<Props> = ({ rutina, onClose }) => {
               </div>
 
               <div>
-                <label style={{ display: 'block', fontSize: '0.72rem', fontWeight: 600, color: '#64748B', marginBottom: '0.2rem' }}>Por Grupo Muscular</label>
+                <label style={{ display: 'block', fontSize: '0.72rem', fontWeight: 600, color: 'var(--color-text-muted)', marginBottom: '0.2rem' }}>Por Grupo Muscular</label>
                 <select
                   value={filterGrupoId}
                   onChange={(e) => setFilterGrupoId(e.target.value ? Number(e.target.value) : '')}
-                  style={{ width: '100%', padding: '0.45rem', borderRadius: '6px', border: '1px solid #CBD5E1', fontSize: '0.8rem', background: '#FFF' }}
+                  style={{ width: '100%', padding: '0.45rem', borderRadius: '6px', border: '1px solid var(--color-border-strong)', fontSize: '0.8rem', background: 'var(--color-surface)' }}
                 >
                   <option value="">-- Todos los Grupos --</option>
                   {grupos.map((g: any) => (
@@ -182,16 +182,16 @@ const RutinaEditModal: React.FC<Props> = ({ rutina, onClose }) => {
               </div>
 
               <div>
-                <label style={{ display: 'block', fontSize: '0.72rem', fontWeight: 600, color: '#64748B', marginBottom: '0.2rem' }}>Buscar por Nombre</label>
+                <label style={{ display: 'block', fontSize: '0.72rem', fontWeight: 600, color: 'var(--color-text-muted)', marginBottom: '0.2rem' }}>Buscar por Nombre</label>
                 <div style={{ position: 'relative' }}>
                   <input
                     type="text"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     placeholder="Ej: Press, Biceps..."
-                    style={{ width: '100%', padding: '0.45rem 0.45rem 0.45rem 1.8rem', borderRadius: '6px', border: '1px solid #CBD5E1', fontSize: '0.8rem', background: '#FFF' }}
+                    style={{ width: '100%', padding: '0.45rem 0.45rem 0.45rem 1.8rem', borderRadius: '6px', border: '1px solid var(--color-border-strong)', fontSize: '0.8rem', background: 'var(--color-surface)' }}
                   />
-                  <FaMagnifyingGlass style={{ position: 'absolute', left: '0.55rem', top: '50%', transform: 'translateY(-50%)', color: '#94A3B8', fontSize: '0.75rem' }} />
+                  <FaMagnifyingGlass style={{ position: 'absolute', left: '0.55rem', top: '50%', transform: 'translateY(-50%)', color: 'var(--color-text-muted)', fontSize: '0.75rem' }} />
                 </div>
               </div>
             </div>
@@ -203,7 +203,7 @@ const RutinaEditModal: React.FC<Props> = ({ rutina, onClose }) => {
                   e.target.value = '';
                 }
               }}
-              style={{ width: '100%', padding: '0.55rem', borderRadius: '6px', border: '1px solid #003B70', fontSize: '0.85rem', backgroundColor: '#FFF', fontWeight: 600, cursor: 'pointer' }}
+              style={{ width: '100%', padding: '0.55rem', borderRadius: '6px', border: '1px solid var(--color-primary)', fontSize: '0.85rem', backgroundColor: 'var(--color-surface)', fontWeight: 600, cursor: 'pointer' }}
             >
               <option value="">
                 Seleccionar Ejercicio ({filteredCatalogEjercicios.length} de {ejercicios.length} disponibles)...
@@ -217,8 +217,8 @@ const RutinaEditModal: React.FC<Props> = ({ rutina, onClose }) => {
           </div>
 
           {/* LISTA DE EJERCICIOS CONFIGURADOS */}
-          <div style={{ border: '1px solid #E2E8F0', borderRadius: '10px', padding: '1rem', background: '#FFFFFF' }}>
-            <span style={{ fontSize: '0.85rem', fontWeight: 700, color: '#0F172A', display: 'block', marginBottom: '0.75rem' }}>
+          <div style={{ border: '1px solid var(--color-border)', borderRadius: '10px', padding: '1rem', background: 'var(--color-surface)' }}>
+            <span style={{ fontSize: '0.85rem', fontWeight: 700, color: 'var(--color-text-primary)', display: 'block', marginBottom: '0.75rem' }}>
               Ejercicios Configurados ({selectedEjercicios.length})
             </span>
 
@@ -229,24 +229,24 @@ const RutinaEditModal: React.FC<Props> = ({ rutina, onClose }) => {
                   gridTemplateColumns: '2fr 1fr 1fr 1.2fr auto',
                   gap: '0.5rem',
                   padding: '0.4rem 0.5rem',
-                  background: '#F1F5F9',
+                  background: 'var(--color-surface-muted)',
                   borderRadius: '6px',
                   marginBottom: '0.5rem',
                   fontSize: '0.75rem',
                   fontWeight: 700,
-                  color: '#475569',
+                  color: 'var(--color-text-secondary)',
                   alignItems: 'center',
                 }}
               >
                 <div>Nombre del Ejercicio</div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.2rem' }}>
-                  <FaRepeat style={{ color: '#003B70' }} /> Series
+                  <FaRepeat style={{ color: 'var(--color-primary-text)' }} /> Series
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.2rem' }}>
-                  <FaDumbbell style={{ color: '#003B70' }} /> Repeticiones
+                  <FaDumbbell style={{ color: 'var(--color-primary-text)' }} /> Repeticiones
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.2rem' }}>
-                  <FaClock style={{ color: '#003B70' }} /> Descanso (seg)
+                  <FaClock style={{ color: 'var(--color-primary-text)' }} /> Descanso (seg)
                 </div>
                 <div style={{ textAlign: 'center' }}>Acción</div>
               </div>
@@ -263,13 +263,13 @@ const RutinaEditModal: React.FC<Props> = ({ rutina, onClose }) => {
                     gap: '0.5rem',
                     alignItems: 'center',
                     marginBottom: '0.5rem',
-                    background: '#F8FAFC',
+                    background: 'var(--color-surface-muted)',
                     padding: '0.5rem',
                     borderRadius: '6px',
-                    border: '1px solid #E2E8F0',
+                    border: '1px solid var(--color-border)',
                   }}
                 >
-                  <span style={{ fontSize: '0.82rem', fontWeight: 700, color: '#0F172A' }}>{ejObj?.nombre}</span>
+                  <span style={{ fontSize: '0.82rem', fontWeight: 700, color: 'var(--color-text-primary)' }}>{ejObj?.nombre}</span>
 
                   <div>
                     <input
@@ -283,7 +283,7 @@ const RutinaEditModal: React.FC<Props> = ({ rutina, onClose }) => {
                         setSelectedEjercicios(newArr);
                       }}
                       placeholder="Series"
-                      style={{ width: '100%', padding: '0.35rem 0.5rem', fontSize: '0.82rem', borderRadius: '4px', border: '1px solid #CBD5E1' }}
+                      style={{ width: '100%', padding: '0.35rem 0.5rem', fontSize: '0.82rem', borderRadius: '4px', border: '1px solid var(--color-border-strong)' }}
                     />
                   </div>
 
@@ -299,7 +299,7 @@ const RutinaEditModal: React.FC<Props> = ({ rutina, onClose }) => {
                         setSelectedEjercicios(newArr);
                       }}
                       placeholder="Reps"
-                      style={{ width: '100%', padding: '0.35rem 0.5rem', fontSize: '0.82rem', borderRadius: '4px', border: '1px solid #CBD5E1' }}
+                      style={{ width: '100%', padding: '0.35rem 0.5rem', fontSize: '0.82rem', borderRadius: '4px', border: '1px solid var(--color-border-strong)' }}
                     />
                   </div>
 
@@ -316,9 +316,9 @@ const RutinaEditModal: React.FC<Props> = ({ rutina, onClose }) => {
                         setSelectedEjercicios(newArr);
                       }}
                       placeholder="Segundos"
-                      style={{ width: '100%', padding: '0.35rem 0.5rem', fontSize: '0.82rem', borderRadius: '4px', border: '1px solid #CBD5E1' }}
+                      style={{ width: '100%', padding: '0.35rem 0.5rem', fontSize: '0.82rem', borderRadius: '4px', border: '1px solid var(--color-border-strong)' }}
                     />
-                    <span style={{ fontSize: '0.75rem', color: '#64748B', fontWeight: 600 }}>seg</span>
+                    <span style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)', fontWeight: 600 }}>seg</span>
                   </div>
 
                   <button
@@ -339,7 +339,7 @@ const RutinaEditModal: React.FC<Props> = ({ rutina, onClose }) => {
             <button
               type="button"
               onClick={onClose}
-              style={{ padding: '0.6rem 1.2rem', borderRadius: '6px', border: '1px solid #CBD5E1', background: '#F1F5F9', color: '#475569', fontWeight: 600, fontSize: '0.85rem', cursor: 'pointer' }}
+              style={{ padding: '0.6rem 1.2rem', borderRadius: '6px', border: '1px solid var(--color-border-strong)', background: 'var(--color-surface-muted)', color: 'var(--color-text-secondary)', fontWeight: 600, fontSize: '0.85rem', cursor: 'pointer' }}
             >
               Cancelar
             </button>
@@ -348,7 +348,7 @@ const RutinaEditModal: React.FC<Props> = ({ rutina, onClose }) => {
               disabled={updateRutinaMutation.isPending}
               style={{
                 padding: '0.6rem 1.25rem', borderRadius: '6px', border: 'none',
-                background: 'linear-gradient(135deg, #003B70 0%, #002A52 100%)', color: '#FFF', fontWeight: 700, fontSize: '0.85rem', cursor: 'pointer',
+                background: 'linear-gradient(135deg, #990000 0%, #570000 100%)', color: '#FFF', fontWeight: 700, fontSize: '0.85rem', cursor: 'pointer',
                 display: 'flex', alignItems: 'center', gap: '0.4rem'
               }}
             >

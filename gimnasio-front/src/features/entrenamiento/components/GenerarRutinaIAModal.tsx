@@ -113,16 +113,16 @@ export const GenerarRutinaIAModal: React.FC<GenerarRutinaIAModalProps> = ({ isOp
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          backgroundColor: 'rgba(15, 23, 42, 0.65)',
+          backgroundColor: 'rgba(0, 0, 0, 0.65)',
           backdropFilter: 'blur(3px)',
           padding: '1rem',
         }}
       >
         <div
           style={{
-            backgroundColor: '#FFFFFF',
+            backgroundColor: 'var(--color-surface)',
             borderRadius: '4px',
-            border: '1px solid #CBD5E1',
+            border: '1px solid var(--color-border-strong)',
             width: '100%',
             maxWidth: '880px',
             maxHeight: '90vh',
@@ -136,19 +136,19 @@ export const GenerarRutinaIAModal: React.FC<GenerarRutinaIAModalProps> = ({ isOp
           <div
             style={{
               padding: '0.85rem 1.25rem',
-              borderBottom: '1px solid #E2E8F0',
+              borderBottom: '1px solid var(--color-border)',
               display: 'flex',
               justifyContent: 'space-between',
               alignItems: 'center',
-              backgroundColor: '#F8FAFC',
+              backgroundColor: 'var(--color-surface-muted)',
             }}
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
               <div
                 style={{
                   padding: '0.45rem',
-                  backgroundColor: '#E0F2FE',
-                  color: '#0077D4',
+                  backgroundColor: 'var(--color-primary-soft)',
+                  color: 'var(--color-primary-text)',
                   borderRadius: '4px',
                   display: 'flex',
                   alignItems: 'center',
@@ -158,10 +158,10 @@ export const GenerarRutinaIAModal: React.FC<GenerarRutinaIAModalProps> = ({ isOp
                 <Sparkles size={18} />
               </div>
               <div>
-                <h2 style={{ fontSize: '0.92rem', fontWeight: 800, color: '#0B1727', margin: 0, textTransform: 'uppercase', letterSpacing: '0.03em' }}>
+                <h2 style={{ fontSize: '0.92rem', fontWeight: 800, color: 'var(--color-text-primary)', margin: 0, textTransform: 'uppercase', letterSpacing: '0.03em' }}>
                   Recomendador de Rutinas por Sistema Experto IA
                 </h2>
-                <p style={{ fontSize: '0.75rem', color: '#64748B', margin: '0.15rem 0 0 0' }}>
+                <p style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)', margin: '0.15rem 0 0 0' }}>
                   Motor determinista basado en reglas ACSM/NSCA & Alineación Articular MediaPipe
                 </p>
               </div>
@@ -171,7 +171,7 @@ export const GenerarRutinaIAModal: React.FC<GenerarRutinaIAModalProps> = ({ isOp
               style={{
                 background: 'none',
                 border: 'none',
-                color: '#64748B',
+                color: 'var(--color-text-muted)',
                 cursor: 'pointer',
                 padding: '0.35rem',
                 borderRadius: '4px',
@@ -193,7 +193,7 @@ export const GenerarRutinaIAModal: React.FC<GenerarRutinaIAModalProps> = ({ isOp
               flexDirection: 'column',
               gap: '1.25rem',
               flex: 1,
-              backgroundColor: '#FFFFFF',
+              backgroundColor: 'var(--color-surface)',
             }}
           >
             {!resultadoGenerado ? (
@@ -201,7 +201,7 @@ export const GenerarRutinaIAModal: React.FC<GenerarRutinaIAModalProps> = ({ isOp
                 {/* 1. Objetivo & Nivel */}
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '1rem' }}>
                   <div>
-                    <label style={{ display: 'block', fontSize: '0.72rem', fontWeight: 700, color: '#475569', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.35rem' }}>
+                    <label style={{ display: 'block', fontSize: '0.72rem', fontWeight: 700, color: 'var(--color-text-secondary)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.35rem' }}>
                       Objetivo Principal
                     </label>
                     <select
@@ -211,11 +211,11 @@ export const GenerarRutinaIAModal: React.FC<GenerarRutinaIAModalProps> = ({ isOp
                         width: '100%',
                         padding: '0.45rem 0.65rem',
                         borderRadius: '4px',
-                        border: '1px solid #CBD5E1',
-                        backgroundColor: '#FFFFFF',
+                        border: '1px solid var(--color-border-strong)',
+                        backgroundColor: 'var(--color-surface)',
                         fontSize: '0.82rem',
                         fontWeight: 600,
-                        color: '#0F172A',
+                        color: 'var(--color-text-primary)',
                         outline: 'none',
                       }}
                     >
@@ -227,7 +227,7 @@ export const GenerarRutinaIAModal: React.FC<GenerarRutinaIAModalProps> = ({ isOp
                   </div>
 
                   <div>
-                    <label style={{ display: 'block', fontSize: '0.72rem', fontWeight: 700, color: '#475569', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.35rem' }}>
+                    <label style={{ display: 'block', fontSize: '0.72rem', fontWeight: 700, color: 'var(--color-text-secondary)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.35rem' }}>
                       Nivel de Experiencia
                     </label>
                     <select
@@ -237,11 +237,11 @@ export const GenerarRutinaIAModal: React.FC<GenerarRutinaIAModalProps> = ({ isOp
                         width: '100%',
                         padding: '0.45rem 0.65rem',
                         borderRadius: '4px',
-                        border: '1px solid #CBD5E1',
-                        backgroundColor: '#FFFFFF',
+                        border: '1px solid var(--color-border-strong)',
+                        backgroundColor: 'var(--color-surface)',
                         fontSize: '0.82rem',
                         fontWeight: 600,
-                        color: '#0F172A',
+                        color: 'var(--color-text-primary)',
                         outline: 'none',
                       }}
                     >
@@ -255,7 +255,7 @@ export const GenerarRutinaIAModal: React.FC<GenerarRutinaIAModalProps> = ({ isOp
                 {/* 2. Días, Edad & Duración */}
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: '1rem' }}>
                   <div>
-                    <label style={{ display: 'block', fontSize: '0.72rem', fontWeight: 700, color: '#475569', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.35rem' }}>
+                    <label style={{ display: 'block', fontSize: '0.72rem', fontWeight: 700, color: 'var(--color-text-secondary)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.35rem' }}>
                       Edad del Atleta
                     </label>
                     <input
@@ -266,16 +266,16 @@ export const GenerarRutinaIAModal: React.FC<GenerarRutinaIAModalProps> = ({ isOp
                         width: '100%',
                         padding: '0.45rem 0.65rem',
                         borderRadius: '4px',
-                        border: '1px solid #CBD5E1',
-                        backgroundColor: '#FFFFFF',
+                        border: '1px solid var(--color-border-strong)',
+                        backgroundColor: 'var(--color-surface)',
                         fontSize: '0.82rem',
                         fontWeight: 600,
-                        color: '#0F172A',
+                        color: 'var(--color-text-primary)',
                       }}
                     />
                   </div>
                   <div>
-                    <label style={{ display: 'block', fontSize: '0.72rem', fontWeight: 700, color: '#475569', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.35rem' }}>
+                    <label style={{ display: 'block', fontSize: '0.72rem', fontWeight: 700, color: 'var(--color-text-secondary)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.35rem' }}>
                       Frecuencia Semanal
                     </label>
                     <select
@@ -285,11 +285,11 @@ export const GenerarRutinaIAModal: React.FC<GenerarRutinaIAModalProps> = ({ isOp
                         width: '100%',
                         padding: '0.45rem 0.65rem',
                         borderRadius: '4px',
-                        border: '1px solid #CBD5E1',
-                        backgroundColor: '#FFFFFF',
+                        border: '1px solid var(--color-border-strong)',
+                        backgroundColor: 'var(--color-surface)',
                         fontSize: '0.82rem',
                         fontWeight: 600,
-                        color: '#0F172A',
+                        color: 'var(--color-text-primary)',
                       }}
                     >
                       {[1, 2, 3, 4, 5, 6].map((d) => (
@@ -300,7 +300,7 @@ export const GenerarRutinaIAModal: React.FC<GenerarRutinaIAModalProps> = ({ isOp
                     </select>
                   </div>
                   <div>
-                    <label style={{ display: 'block', fontSize: '0.72rem', fontWeight: 700, color: '#475569', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.35rem' }}>
+                    <label style={{ display: 'block', fontSize: '0.72rem', fontWeight: 700, color: 'var(--color-text-secondary)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.35rem' }}>
                       Minutos por Sesión
                     </label>
                     <input
@@ -311,11 +311,11 @@ export const GenerarRutinaIAModal: React.FC<GenerarRutinaIAModalProps> = ({ isOp
                         width: '100%',
                         padding: '0.45rem 0.65rem',
                         borderRadius: '4px',
-                        border: '1px solid #CBD5E1',
-                        backgroundColor: '#FFFFFF',
+                        border: '1px solid var(--color-border-strong)',
+                        backgroundColor: 'var(--color-surface)',
                         fontSize: '0.82rem',
                         fontWeight: 600,
-                        color: '#0F172A',
+                        color: 'var(--color-text-primary)',
                       }}
                     />
                   </div>
@@ -323,7 +323,7 @@ export const GenerarRutinaIAModal: React.FC<GenerarRutinaIAModalProps> = ({ isOp
 
                 {/* 3. Equipamiento Disponible */}
                 <div>
-                  <label style={{ display: 'block', fontSize: '0.72rem', fontWeight: 700, color: '#475569', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.5rem' }}>
+                  <label style={{ display: 'block', fontSize: '0.72rem', fontWeight: 700, color: 'var(--color-text-secondary)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.5rem' }}>
                     Equipamiento Disponible en Gimnasio / Domicilio
                   </label>
                   <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '0.5rem' }}>
@@ -337,9 +337,9 @@ export const GenerarRutinaIAModal: React.FC<GenerarRutinaIAModalProps> = ({ isOp
                           style={{
                             padding: '0.5rem 0.75rem',
                             borderRadius: '4px',
-                            border: selected ? '1px solid #0077D4' : '1px solid #CBD5E1',
-                            backgroundColor: selected ? '#E0F2FE' : '#F8FAFC',
-                            color: selected ? '#0077D4' : '#334155',
+                            border: selected ? '1px solid var(--color-primary)' : '1px solid var(--color-border-strong)',
+                            backgroundColor: selected ? 'var(--color-primary-soft)' : 'var(--color-surface-muted)',
+                            color: selected ? 'var(--color-primary-text)' : 'var(--color-text-secondary)',
                             fontWeight: selected ? 700 : 500,
                             fontSize: '0.78rem',
                             cursor: 'pointer',
@@ -350,7 +350,7 @@ export const GenerarRutinaIAModal: React.FC<GenerarRutinaIAModalProps> = ({ isOp
                           }}
                         >
                           <span>{item}</span>
-                          {selected && <CheckCircle2 size={15} style={{ color: '#0077D4' }} />}
+                          {selected && <CheckCircle2 size={15} style={{ color: 'var(--color-primary-text)' }} />}
                         </button>
                       );
                     })}
@@ -359,7 +359,7 @@ export const GenerarRutinaIAModal: React.FC<GenerarRutinaIAModalProps> = ({ isOp
 
                 {/* 4. Restricciones Físicas */}
                 <div>
-                  <label style={{ display: 'block', fontSize: '0.72rem', fontWeight: 700, color: '#475569', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.5rem' }}>
+                  <label style={{ display: 'block', fontSize: '0.72rem', fontWeight: 700, color: 'var(--color-text-secondary)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.5rem' }}>
                     Restricciones o Molestias Físicas Declaradas
                   </label>
                   <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(190px, 1fr))', gap: '0.5rem' }}>
@@ -373,9 +373,9 @@ export const GenerarRutinaIAModal: React.FC<GenerarRutinaIAModalProps> = ({ isOp
                           style={{
                             padding: '0.5rem 0.75rem',
                             borderRadius: '4px',
-                            border: selected ? '1px solid #0077D4' : '1px solid #CBD5E1',
-                            backgroundColor: selected ? '#E0F2FE' : '#F8FAFC',
-                            color: selected ? '#0077D4' : '#334155',
+                            border: selected ? '1px solid var(--color-primary)' : '1px solid var(--color-border-strong)',
+                            backgroundColor: selected ? 'var(--color-primary-soft)' : 'var(--color-surface-muted)',
+                            color: selected ? 'var(--color-primary-text)' : 'var(--color-text-secondary)',
                             fontWeight: selected ? 700 : 500,
                             fontSize: '0.78rem',
                             cursor: 'pointer',
@@ -386,7 +386,7 @@ export const GenerarRutinaIAModal: React.FC<GenerarRutinaIAModalProps> = ({ isOp
                           }}
                         >
                           <span>{item}</span>
-                          {selected && <CheckCircle2 size={15} style={{ color: '#0077D4' }} />}
+                          {selected && <CheckCircle2 size={15} style={{ color: 'var(--color-primary-text)' }} />}
                         </button>
                       );
                     })}
@@ -397,8 +397,8 @@ export const GenerarRutinaIAModal: React.FC<GenerarRutinaIAModalProps> = ({ isOp
                 <div
                   style={{
                     padding: '0.85rem 1rem',
-                    backgroundColor: '#F8FAFC',
-                    border: '1px solid #E2E8F0',
+                    backgroundColor: 'var(--color-surface-muted)',
+                    border: '1px solid var(--color-border)',
                     borderRadius: '4px',
                     display: 'flex',
                     alignItems: 'center',
@@ -408,12 +408,12 @@ export const GenerarRutinaIAModal: React.FC<GenerarRutinaIAModalProps> = ({ isOp
                   }}
                 >
                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                    <Brain size={22} style={{ color: '#0077D4' }} />
+                    <Brain size={22} style={{ color: 'var(--color-primary-text)' }} />
                     <div>
-                      <span style={{ fontSize: '0.82rem', fontWeight: 700, color: '#0F172A', display: 'block' }}>
+                      <span style={{ fontSize: '0.82rem', fontWeight: 700, color: 'var(--color-text-primary)', display: 'block' }}>
                         Evaluación Corporal Articular (MediaPipe Pose)
                       </span>
-                      <span style={{ fontSize: '0.75rem', color: '#64748B' }}>
+                      <span style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)' }}>
                         {analisisSeleccionado
                           ? `Análisis biomecánico activo (${analisisSeleccionado.calidad_analisis})`
                           : 'No se ha seleccionado ningún análisis fotográfico.'}
@@ -425,9 +425,9 @@ export const GenerarRutinaIAModal: React.FC<GenerarRutinaIAModalProps> = ({ isOp
                     onClick={() => setModalFotoOpen(true)}
                     style={{
                       padding: '0.4rem 0.85rem',
-                      backgroundColor: '#FFFFFF',
-                      color: '#0F172A',
-                      border: '1px solid #CBD5E1',
+                      backgroundColor: 'var(--color-surface)',
+                      color: 'var(--color-text-primary)',
+                      border: '1px solid var(--color-border-strong)',
                       borderRadius: '4px',
                       fontSize: '0.78rem',
                       fontWeight: 700,
@@ -445,8 +445,8 @@ export const GenerarRutinaIAModal: React.FC<GenerarRutinaIAModalProps> = ({ isOp
                 <div
                   style={{
                     padding: '1rem 1.25rem',
-                    background: '#F4F9FF',
-                    border: '1px solid #BAE6FD',
+                    background: 'var(--color-surface-muted)',
+                    border: '1px solid rgba(220, 38, 38, 0.30)',
                     borderRadius: '4px',
                     display: 'flex',
                     alignItems: 'center',
@@ -456,10 +456,10 @@ export const GenerarRutinaIAModal: React.FC<GenerarRutinaIAModalProps> = ({ isOp
                   }}
                 >
                   <div>
-                    <h3 style={{ fontSize: '0.95rem', fontWeight: 800, color: '#003B70', margin: 0 }}>
+                    <h3 style={{ fontSize: '0.95rem', fontWeight: 800, color: 'var(--color-primary-text)', margin: 0 }}>
                       {resultadoGenerado.plan.nombre}
                     </h3>
-                    <p style={{ fontSize: '0.78rem', color: '#475569', margin: '0.2rem 0 0 0' }}>
+                    <p style={{ fontSize: '0.78rem', color: 'var(--color-text-secondary)', margin: '0.2rem 0 0 0' }}>
                       Objetivo: <strong>{resultadoGenerado.plan.objetivo}</strong> | Distribución: <strong>{resultadoGenerado.rutinas.length} días semanales</strong>
                     </p>
                   </div>
@@ -467,9 +467,9 @@ export const GenerarRutinaIAModal: React.FC<GenerarRutinaIAModalProps> = ({ isOp
                     onClick={() => setResultadoGenerado(null)}
                     style={{
                       padding: '0.4rem 0.85rem',
-                      backgroundColor: '#FFFFFF',
-                      color: '#0F172A',
-                      border: '1px solid #CBD5E1',
+                      backgroundColor: 'var(--color-surface)',
+                      color: 'var(--color-text-primary)',
+                      border: '1px solid var(--color-border-strong)',
                       borderRadius: '4px',
                       fontSize: '0.78rem',
                       fontWeight: 700,
@@ -481,13 +481,13 @@ export const GenerarRutinaIAModal: React.FC<GenerarRutinaIAModalProps> = ({ isOp
                 </div>
 
                 {/* Justificación de Reglas */}
-                <div style={{ padding: '0.85rem 1rem', backgroundColor: '#F8FAFC', border: '1px solid #E2E8F0', borderRadius: '4px', display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
-                  <h4 style={{ fontSize: '0.72rem', fontWeight: 700, color: '#0077D4', textTransform: 'uppercase', letterSpacing: '0.05em', margin: 0 }}>
+                <div style={{ padding: '0.85rem 1rem', backgroundColor: 'var(--color-surface-muted)', border: '1px solid var(--color-border)', borderRadius: '4px', display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
+                  <h4 style={{ fontSize: '0.72rem', fontWeight: 700, color: 'var(--color-primary-text)', textTransform: 'uppercase', letterSpacing: '0.05em', margin: 0 }}>
                     Reglas Biomecánicas Aplicadas por el Motor:
                   </h4>
-                  <ul style={{ margin: 0, paddingLeft: '1.25rem', fontSize: '0.78rem', color: '#334155', display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
+                  <ul style={{ margin: 0, paddingLeft: '1.25rem', fontSize: '0.78rem', color: 'var(--color-text-secondary)', display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
                     {resultadoGenerado.reglas_aplicadas.map((r: string, idx: number) => (
-                      <li key={idx}><code style={{ fontFamily: 'monospace', color: '#003B70' }}>{r}</code></li>
+                      <li key={idx}><code style={{ fontFamily: 'monospace', color: 'var(--color-primary-text)' }}>{r}</code></li>
                     ))}
                   </ul>
                 </div>
@@ -495,25 +495,25 @@ export const GenerarRutinaIAModal: React.FC<GenerarRutinaIAModalProps> = ({ isOp
                 {/* Rutinas por Día */}
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
                   {resultadoGenerado.rutinas.map((r: any, idx: number) => (
-                    <div key={r.id || idx} style={{ border: '1px solid #E2E8F0', backgroundColor: '#FFFFFF', borderRadius: '4px', padding: '1rem', display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-                      <h4 style={{ fontSize: '0.85rem', fontWeight: 700, color: '#0F172A', margin: 0, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <div key={r.id || idx} style={{ border: '1px solid var(--color-border)', backgroundColor: 'var(--color-surface)', borderRadius: '4px', padding: '1rem', display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+                      <h4 style={{ fontSize: '0.85rem', fontWeight: 700, color: 'var(--color-text-primary)', margin: 0, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                         <span>{r.nombre}</span>
-                        <span style={{ fontSize: '0.70rem', fontWeight: 700, color: '#0077D4', backgroundColor: '#E0F2FE', padding: '0.15rem 0.5rem', borderRadius: '2px', border: '1px solid #BAE6FD' }}>
+                        <span style={{ fontSize: '0.70rem', fontWeight: 700, color: 'var(--color-primary-text)', backgroundColor: 'var(--color-primary-soft)', padding: '0.15rem 0.5rem', borderRadius: '2px', border: '1px solid rgba(220, 38, 38, 0.30)' }}>
                           {r.descripcion}
                         </span>
                       </h4>
 
                       <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
                         {r.rutina_ejercicios?.map((re: any) => (
-                          <div key={re.id} style={{ padding: '0.5rem 0.75rem', backgroundColor: '#F8FAFC', borderRadius: '4px', border: '1px solid #E2E8F0', display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '0.78rem' }}>
+                          <div key={re.id} style={{ padding: '0.5rem 0.75rem', backgroundColor: 'var(--color-surface-muted)', borderRadius: '4px', border: '1px solid var(--color-border)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '0.78rem' }}>
                             <div>
-                              <span style={{ fontWeight: 700, color: '#0F172A', display: 'block' }}>{re.ejercicio?.nombre}</span>
-                              <span style={{ fontSize: '0.72rem', color: '#64748B' }}>{re.observacion}</span>
+                              <span style={{ fontWeight: 700, color: 'var(--color-text-primary)', display: 'block' }}>{re.ejercicio?.nombre}</span>
+                              <span style={{ fontSize: '0.72rem', color: 'var(--color-text-muted)' }}>{re.observacion}</span>
                             </div>
                             <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-                              <span style={{ backgroundColor: '#FFFFFF', border: '1px solid #CBD5E1', padding: '0.2rem 0.5rem', borderRadius: '2px', fontWeight: 700, fontSize: '0.72rem', color: '#334155' }}>{re.series} series</span>
-                              <span style={{ backgroundColor: '#FFFFFF', border: '1px solid #CBD5E1', padding: '0.2rem 0.5rem', borderRadius: '2px', fontWeight: 700, fontSize: '0.72rem', color: '#334155' }}>{re.repeticiones} reps</span>
-                              <span style={{ backgroundColor: '#FFFFFF', border: '1px solid #CBD5E1', padding: '0.2rem 0.5rem', borderRadius: '2px', fontWeight: 700, fontSize: '0.72rem', color: '#334155' }}>{re.descanso_segundos}s desc.</span>
+                              <span style={{ backgroundColor: 'var(--color-surface)', border: '1px solid var(--color-border-strong)', padding: '0.2rem 0.5rem', borderRadius: '2px', fontWeight: 700, fontSize: '0.72rem', color: 'var(--color-text-secondary)' }}>{re.series} series</span>
+                              <span style={{ backgroundColor: 'var(--color-surface)', border: '1px solid var(--color-border-strong)', padding: '0.2rem 0.5rem', borderRadius: '2px', fontWeight: 700, fontSize: '0.72rem', color: 'var(--color-text-secondary)' }}>{re.repeticiones} reps</span>
+                              <span style={{ backgroundColor: 'var(--color-surface)', border: '1px solid var(--color-border-strong)', padding: '0.2rem 0.5rem', borderRadius: '2px', fontWeight: 700, fontSize: '0.72rem', color: 'var(--color-text-secondary)' }}>{re.descanso_segundos}s desc.</span>
                             </div>
                           </div>
                         ))}
@@ -529,8 +529,8 @@ export const GenerarRutinaIAModal: React.FC<GenerarRutinaIAModalProps> = ({ isOp
           <div
             style={{
               padding: '0.75rem 1.25rem',
-              borderTop: '1px solid #E2E8F0',
-              backgroundColor: '#F8FAFC',
+              borderTop: '1px solid var(--color-border)',
+              backgroundColor: 'var(--color-surface-muted)',
               display: 'flex',
               justifyContent: 'flex-end',
               alignItems: 'center',
@@ -543,9 +543,9 @@ export const GenerarRutinaIAModal: React.FC<GenerarRutinaIAModalProps> = ({ isOp
               style={{
                 padding: '0.45rem 1rem',
                 borderRadius: '4px',
-                border: '1px solid #CBD5E1',
-                backgroundColor: '#FFFFFF',
-                color: '#475569',
+                border: '1px solid var(--color-border-strong)',
+                backgroundColor: 'var(--color-surface)',
+                color: 'var(--color-text-secondary)',
                 fontSize: '0.80rem',
                 fontWeight: 700,
                 cursor: 'pointer',
@@ -560,7 +560,7 @@ export const GenerarRutinaIAModal: React.FC<GenerarRutinaIAModalProps> = ({ isOp
                 disabled={generarRutinaMutation.isPending || savePerfilMutation.isPending}
                 style={{
                   padding: '0.45rem 1.25rem',
-                  backgroundColor: '#0077D4',
+                  backgroundColor: 'var(--color-primary)',
                   color: '#FFFFFF',
                   border: 'none',
                   borderRadius: '4px',

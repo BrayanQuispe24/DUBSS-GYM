@@ -108,7 +108,7 @@ const PermissionMatrixModal: React.FC<PermissionMatrixModalProps> = ({
     >
       <div
         style={{
-          backgroundColor: '#FFFFFF',
+          backgroundColor: 'var(--color-surface)',
           borderRadius: '4px',
           width: '100%',
           maxWidth: '920px',
@@ -117,15 +117,15 @@ const PermissionMatrixModal: React.FC<PermissionMatrixModalProps> = ({
           flexDirection: 'column',
           boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)',
           overflow: 'hidden',
-          border: '1px solid #CBD5E1',
+          border: '1px solid var(--color-border-strong)',
         }}
       >
         {/* HEADER */}
         <div
           style={{
             padding: '1rem 1.5rem',
-            borderBottom: '1px solid #CBD5E1',
-            backgroundColor: '#F8FAFC',
+            borderBottom: '1px solid var(--color-border-strong)',
+            backgroundColor: 'var(--color-surface-muted)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
@@ -141,18 +141,18 @@ const PermissionMatrixModal: React.FC<PermissionMatrixModalProps> = ({
                   width: '28px',
                   height: '28px',
                   borderRadius: '4px',
-                  backgroundColor: '#0077D4',
+                  backgroundColor: 'var(--color-primary)',
                   color: '#FFF',
                   fontSize: '0.85rem',
                 }}
               >
                 <FaShieldHalved />
               </span>
-              <h3 style={{ fontSize: '1rem', fontWeight: 800, color: '#0F172A', textTransform: 'uppercase', letterSpacing: '0.02em', margin: 0 }}>
-                Asignación de Facultades — Rol: <span style={{ color: '#0077D4' }}>{rol.nombre}</span>
+              <h3 style={{ fontSize: '1rem', fontWeight: 800, color: 'var(--color-text-primary)', textTransform: 'uppercase', letterSpacing: '0.02em', margin: 0 }}>
+                Asignación de Facultades — Rol: <span style={{ color: 'var(--color-primary-text)' }}>{rol.nombre}</span>
               </h3>
             </div>
-            <p style={{ fontSize: '0.78rem', color: '#64748B', marginTop: '0.25rem', marginBottom: 0 }}>
+            <p style={{ fontSize: '0.78rem', color: 'var(--color-text-muted)', marginTop: '0.25rem', marginBottom: 0 }}>
               Gestione las facultades del sistema. Asigne o desasigne permisos corporativos desde los paneles de control.
             </p>
           </div>
@@ -163,7 +163,7 @@ const PermissionMatrixModal: React.FC<PermissionMatrixModalProps> = ({
               background: 'transparent',
               border: 'none',
               fontSize: '1.1rem',
-              color: '#64748B',
+              color: 'var(--color-text-muted)',
               cursor: 'pointer',
               padding: '0.35rem',
               borderRadius: '4px',
@@ -191,9 +191,9 @@ const PermissionMatrixModal: React.FC<PermissionMatrixModalProps> = ({
           {/* PANEL IZQUIERDO: PERMISOS ASIGNADOS */}
           <div
             style={{
-              border: '1px solid #CBD5E1',
+              border: '1px solid var(--color-border-strong)',
               borderRadius: '4px',
-              backgroundColor: '#FFFFFF',
+              backgroundColor: 'var(--color-surface)',
               display: 'flex',
               flexDirection: 'column',
               overflow: 'hidden',
@@ -203,20 +203,20 @@ const PermissionMatrixModal: React.FC<PermissionMatrixModalProps> = ({
             <div
               style={{
                 padding: '0.75rem 1rem',
-                backgroundColor: '#F8FAFC',
-                borderBottom: '1px solid #CBD5E1',
+                backgroundColor: 'var(--color-surface-muted)',
+                borderBottom: '1px solid var(--color-border-strong)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'space-between',
               }}
             >
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                <span style={{ fontWeight: 800, fontSize: '0.75rem', color: '#0F172A', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+                <span style={{ fontWeight: 800, fontSize: '0.75rem', color: 'var(--color-text-primary)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
                   Facultades Asignadas
                 </span>
                 <span
                   style={{
-                    backgroundColor: '#0077D4',
+                    backgroundColor: 'var(--color-primary)',
                     color: '#FFF',
                     fontSize: '0.70rem',
                     fontWeight: 800,
@@ -234,7 +234,7 @@ const PermissionMatrixModal: React.FC<PermissionMatrixModalProps> = ({
                   style={{
                     fontSize: '0.72rem',
                     fontWeight: 700,
-                    color: '#DC2626',
+                    color: 'var(--color-danger-text)',
                     background: 'transparent',
                     border: 'none',
                     cursor: 'pointer',
@@ -248,19 +248,19 @@ const PermissionMatrixModal: React.FC<PermissionMatrixModalProps> = ({
             </div>
 
             {/* Search input */}
-            <div style={{ padding: '0.65rem 0.85rem', borderBottom: '1px solid #E2E8F0', backgroundColor: '#FAFAFA' }}>
+            <div style={{ padding: '0.65rem 0.85rem', borderBottom: '1px solid var(--color-border)', backgroundColor: 'var(--color-surface-muted)' }}>
               <div
                 style={{
                   display: 'flex',
                   alignItems: 'center',
                   gap: '0.5rem',
-                  backgroundColor: '#FFFFFF',
-                  border: '1px solid #CBD5E1',
+                  backgroundColor: 'var(--color-surface)',
+                  border: '1px solid var(--color-border-strong)',
                   borderRadius: '4px',
                   padding: '0.4rem 0.65rem',
                 }}
               >
-                <FaMagnifyingGlass style={{ color: '#94A3B8', fontSize: '0.75rem' }} />
+                <FaMagnifyingGlass style={{ color: 'var(--color-text-muted)', fontSize: '0.75rem' }} />
                 <input
                   type="text"
                   placeholder="Buscar facultad asignada..."
@@ -272,7 +272,7 @@ const PermissionMatrixModal: React.FC<PermissionMatrixModalProps> = ({
                     fontSize: '0.80rem',
                     width: '100%',
                     backgroundColor: 'transparent',
-                    color: '#0F172A',
+                    color: 'var(--color-text-primary)',
                   }}
                 />
               </div>
@@ -281,7 +281,7 @@ const PermissionMatrixModal: React.FC<PermissionMatrixModalProps> = ({
             {/* List */}
             <div style={{ flex: 1, maxHeight: '350px', overflowY: 'auto', padding: '0.75rem' }}>
               {filteredAssigned.length === 0 ? (
-                <div style={{ textAlign: 'center', padding: '2rem 1rem', color: '#64748B', fontSize: '0.80rem' }}>
+                <div style={{ textAlign: 'center', padding: '2rem 1rem', color: 'var(--color-text-muted)', fontSize: '0.80rem' }}>
                   {searchAssigned ? 'Sin coincidencias' : 'Este rol no tiene facultades asignadas aún.'}
                 </div>
               ) : (
@@ -292,8 +292,8 @@ const PermissionMatrixModal: React.FC<PermissionMatrixModalProps> = ({
                       style={{
                         padding: '0.55rem 0.75rem',
                         borderRadius: '4px',
-                        backgroundColor: '#FFFFFF',
-                        border: '1px solid #E2E8F0',
+                        backgroundColor: 'var(--color-surface)',
+                        border: '1px solid var(--color-border)',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'space-between',
@@ -301,12 +301,12 @@ const PermissionMatrixModal: React.FC<PermissionMatrixModalProps> = ({
                       }}
                     >
                       <div style={{ flex: 1 }}>
-                        <div style={{ fontWeight: 700, fontSize: '0.82rem', color: '#0F172A', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-                          <FaCheck style={{ color: '#0077D4', fontSize: '0.72rem' }} />
+                        <div style={{ fontWeight: 700, fontSize: '0.82rem', color: 'var(--color-text-primary)', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                          <FaCheck style={{ color: 'var(--color-primary-text)', fontSize: '0.72rem' }} />
                           {permiso.nombre}
                         </div>
                         {permiso.descripcion && (
-                          <div style={{ fontSize: '0.74rem', color: '#64748B', marginTop: '0.15rem' }}>
+                          <div style={{ fontSize: '0.74rem', color: 'var(--color-text-muted)', marginTop: '0.15rem' }}>
                             {permiso.descripcion}
                           </div>
                         )}
@@ -317,9 +317,9 @@ const PermissionMatrixModal: React.FC<PermissionMatrixModalProps> = ({
                         style={{
                           padding: '0.3rem 0.55rem',
                           borderRadius: '4px',
-                          border: '1px solid #FCA5A5',
-                          backgroundColor: '#FEF2F2',
-                          color: '#DC2626',
+                          border: '1px solid rgba(220, 38, 38, 0.35)',
+                          backgroundColor: 'var(--color-danger-bg)',
+                          color: 'var(--color-danger-text)',
                           fontSize: '0.72rem',
                           fontWeight: 700,
                           cursor: 'pointer',
@@ -343,9 +343,9 @@ const PermissionMatrixModal: React.FC<PermissionMatrixModalProps> = ({
           {/* PANEL DERECHO: PERMISOS DISPONIBLES */}
           <div
             style={{
-              border: '1px solid #CBD5E1',
+              border: '1px solid var(--color-border-strong)',
               borderRadius: '4px',
-              backgroundColor: '#FFFFFF',
+              backgroundColor: 'var(--color-surface)',
               display: 'flex',
               flexDirection: 'column',
               overflow: 'hidden',
@@ -355,15 +355,15 @@ const PermissionMatrixModal: React.FC<PermissionMatrixModalProps> = ({
             <div
               style={{
                 padding: '0.75rem 1rem',
-                backgroundColor: '#F8FAFC',
-                borderBottom: '1px solid #CBD5E1',
+                backgroundColor: 'var(--color-surface-muted)',
+                borderBottom: '1px solid var(--color-border-strong)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'space-between',
               }}
             >
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                <span style={{ fontWeight: 800, fontSize: '0.75rem', color: '#0F172A', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+                <span style={{ fontWeight: 800, fontSize: '0.75rem', color: 'var(--color-text-primary)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
                   Facultades Disponibles
                 </span>
                 <span
@@ -386,7 +386,7 @@ const PermissionMatrixModal: React.FC<PermissionMatrixModalProps> = ({
                   style={{
                     fontSize: '0.72rem',
                     fontWeight: 700,
-                    color: '#0077D4',
+                    color: 'var(--color-primary-text)',
                     background: 'transparent',
                     border: 'none',
                     cursor: 'pointer',
@@ -400,19 +400,19 @@ const PermissionMatrixModal: React.FC<PermissionMatrixModalProps> = ({
             </div>
 
             {/* Search input */}
-            <div style={{ padding: '0.65rem 0.85rem', borderBottom: '1px solid #E2E8F0', backgroundColor: '#FAFAFA' }}>
+            <div style={{ padding: '0.65rem 0.85rem', borderBottom: '1px solid var(--color-border)', backgroundColor: 'var(--color-surface-muted)' }}>
               <div
                 style={{
                   display: 'flex',
                   alignItems: 'center',
                   gap: '0.5rem',
-                  backgroundColor: '#FFFFFF',
-                  border: '1px solid #CBD5E1',
+                  backgroundColor: 'var(--color-surface)',
+                  border: '1px solid var(--color-border-strong)',
                   borderRadius: '4px',
                   padding: '0.4rem 0.65rem',
                 }}
               >
-                <FaMagnifyingGlass style={{ color: '#94A3B8', fontSize: '0.75rem' }} />
+                <FaMagnifyingGlass style={{ color: 'var(--color-text-muted)', fontSize: '0.75rem' }} />
                 <input
                   type="text"
                   placeholder="Buscar en facultades disponibles..."
@@ -424,7 +424,7 @@ const PermissionMatrixModal: React.FC<PermissionMatrixModalProps> = ({
                     fontSize: '0.80rem',
                     width: '100%',
                     backgroundColor: 'transparent',
-                    color: '#0F172A',
+                    color: 'var(--color-text-primary)',
                   }}
                 />
               </div>
@@ -433,7 +433,7 @@ const PermissionMatrixModal: React.FC<PermissionMatrixModalProps> = ({
             {/* List */}
             <div style={{ flex: 1, maxHeight: '350px', overflowY: 'auto', padding: '0.75rem' }}>
               {filteredAvailable.length === 0 ? (
-                <div style={{ textAlign: 'center', padding: '2rem 1rem', color: '#64748B', fontSize: '0.80rem' }}>
+                <div style={{ textAlign: 'center', padding: '2rem 1rem', color: 'var(--color-text-muted)', fontSize: '0.80rem' }}>
                   {searchAvailable ? 'Sin coincidencias' : 'Todas las facultades ya están asignadas a este rol.'}
                 </div>
               ) : (
@@ -444,8 +444,8 @@ const PermissionMatrixModal: React.FC<PermissionMatrixModalProps> = ({
                       style={{
                         padding: '0.55rem 0.75rem',
                         borderRadius: '4px',
-                        backgroundColor: '#FFFFFF',
-                        border: '1px solid #E2E8F0',
+                        backgroundColor: 'var(--color-surface)',
+                        border: '1px solid var(--color-border)',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'space-between',
@@ -453,11 +453,11 @@ const PermissionMatrixModal: React.FC<PermissionMatrixModalProps> = ({
                       }}
                     >
                       <div style={{ flex: 1 }}>
-                        <div style={{ fontWeight: 700, fontSize: '0.82rem', color: '#0F172A' }}>
+                        <div style={{ fontWeight: 700, fontSize: '0.82rem', color: 'var(--color-text-primary)' }}>
                           {permiso.nombre}
                         </div>
                         {permiso.descripcion && (
-                          <div style={{ fontSize: '0.74rem', color: '#64748B', marginTop: '0.15rem' }}>
+                          <div style={{ fontSize: '0.74rem', color: 'var(--color-text-muted)', marginTop: '0.15rem' }}>
                             {permiso.descripcion}
                           </div>
                         )}
@@ -468,8 +468,8 @@ const PermissionMatrixModal: React.FC<PermissionMatrixModalProps> = ({
                         style={{
                           padding: '0.3rem 0.6rem',
                           borderRadius: '4px',
-                          border: '1px solid #005FA8',
-                          backgroundColor: '#0077D4',
+                          border: '1px solid var(--color-primary)',
+                          backgroundColor: 'var(--color-primary)',
                           color: '#FFFFFF',
                           fontSize: '0.72rem',
                           fontWeight: 700,
@@ -497,15 +497,15 @@ const PermissionMatrixModal: React.FC<PermissionMatrixModalProps> = ({
           <div
             style={{
               padding: '0.85rem 1.5rem',
-              borderTop: '1px solid #CBD5E1',
-              backgroundColor: '#F8FAFC',
+              borderTop: '1px solid var(--color-border-strong)',
+              backgroundColor: 'var(--color-surface-muted)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between',
             }}
           >
-            <div style={{ fontSize: '0.78rem', color: '#64748B' }}>
-              Facultades totales asignadas: <strong style={{ color: '#0F172A' }}>{selectedIds.length}</strong>
+            <div style={{ fontSize: '0.78rem', color: 'var(--color-text-muted)' }}>
+              Facultades totales asignadas: <strong style={{ color: 'var(--color-text-primary)' }}>{selectedIds.length}</strong>
             </div>
             <div style={{ display: 'flex', gap: '0.75rem' }}>
               <button
@@ -514,9 +514,9 @@ const PermissionMatrixModal: React.FC<PermissionMatrixModalProps> = ({
                 style={{
                   padding: '0.5rem 1rem',
                   borderRadius: '4px',
-                  border: '1px solid #CBD5E1',
-                  backgroundColor: '#FFFFFF',
-                  color: '#475569',
+                  border: '1px solid var(--color-border-strong)',
+                  backgroundColor: 'var(--color-surface)',
+                  color: 'var(--color-text-secondary)',
                   fontWeight: 700,
                   fontSize: '0.80rem',
                   textTransform: 'uppercase',
@@ -532,8 +532,8 @@ const PermissionMatrixModal: React.FC<PermissionMatrixModalProps> = ({
                 style={{
                   padding: '0.5rem 1.25rem',
                   borderRadius: '4px',
-                  border: '1px solid #005FA8',
-                  backgroundColor: '#0077D4',
+                  border: '1px solid var(--color-primary)',
+                  backgroundColor: 'var(--color-primary)',
                   color: '#FFFFFF',
                   fontWeight: 700,
                   fontSize: '0.80rem',

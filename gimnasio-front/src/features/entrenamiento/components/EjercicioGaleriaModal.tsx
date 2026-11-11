@@ -69,27 +69,27 @@ const EjercicioGaleriaModal: React.FC<Props> = ({ ejercicio, onClose }) => {
     <>
       <div style={{
         position: 'fixed', top: 0, left: 0, right: 0, bottom: 0,
-        backgroundColor: 'rgba(15, 23, 42, 0.75)', backdropFilter: 'blur(4px)',
+        backgroundColor: 'rgba(0, 0, 0, 0.75)', backdropFilter: 'blur(4px)',
         display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 9999, padding: '1.5rem'
       }}>
         <div style={{
-          background: '#FFFFFF', borderRadius: '16px', maxWidth: '850px', width: '100%',
+          background: 'var(--color-surface)', borderRadius: '16px', maxWidth: '850px', width: '100%',
           maxHeight: '90vh', overflowY: 'auto', padding: '1.5rem', boxShadow: '0 20px 25px -5px rgba(0,0,0,0.3)',
           position: 'relative'
         }}>
           {/* HEADER */}
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem', borderBottom: '1px solid #E2E8F0', paddingBottom: '0.75rem' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem', borderBottom: '1px solid var(--color-border)', paddingBottom: '0.75rem' }}>
             <div>
-              <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#0F172A', display: 'flex', alignItems: 'center', gap: '0.5rem', margin: 0 }}>
-                <FaImages style={{ color: '#003B70' }} /> Galería Técnica: {ejercicio.nombre}
+              <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--color-text-primary)', display: 'flex', alignItems: 'center', gap: '0.5rem', margin: 0 }}>
+                <FaImages style={{ color: 'var(--color-primary-text)' }} /> Galería Técnica: {ejercicio.nombre}
               </h3>
-              <p style={{ fontSize: '0.8rem', color: '#64748B', margin: '0.2rem 0 0 0' }}>
+              <p style={{ fontSize: '0.8rem', color: 'var(--color-text-muted)', margin: '0.2rem 0 0 0' }}>
                 Imágenes del paso a paso, ángulos de ejecución y posturas guardadas en el sistema.
               </p>
             </div>
             <button
               onClick={onClose}
-              style={{ background: '#F1F5F9', border: 'none', width: '34px', height: '34px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', color: '#64748B' }}
+              style={{ background: 'var(--color-surface-muted)', border: 'none', width: '34px', height: '34px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', color: 'var(--color-text-muted)' }}
             >
               <FaXmark style={{ fontSize: '1.1rem' }} />
             </button>
@@ -97,45 +97,45 @@ const EjercicioGaleriaModal: React.FC<Props> = ({ ejercicio, onClose }) => {
 
           {/* FORMULARIO DE CARGA LOCAL (SOLO PARA ADMINISTRADORES/INSTRUCTORES) */}
           {canManage && (
-            <div style={{ background: '#F8FAFC', padding: '1rem', borderRadius: '10px', border: '1px dashed #CBD5E1', marginBottom: '1.5rem' }}>
-              <h4 style={{ fontSize: '0.9rem', fontWeight: 700, color: '#0F172A', marginBottom: '0.75rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-                <FaUpload style={{ color: '#003B70' }} /> Subir Nueva Imagen Local con Título y Descripción
+            <div style={{ background: 'var(--color-surface-muted)', padding: '1rem', borderRadius: '10px', border: '1px dashed var(--color-border-strong)', marginBottom: '1.5rem' }}>
+              <h4 style={{ fontSize: '0.9rem', fontWeight: 700, color: 'var(--color-text-primary)', marginBottom: '0.75rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                <FaUpload style={{ color: 'var(--color-primary-text)' }} /> Subir Nueva Imagen Local con Título y Descripción
               </h4>
               <form onSubmit={handleUpload} style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.85rem' }}>
                 <div>
-                  <label style={{ display: 'block', fontSize: '0.78rem', fontWeight: 600, color: '#475569', marginBottom: '0.25rem' }}>Título de la Imagen *</label>
+                  <label style={{ display: 'block', fontSize: '0.78rem', fontWeight: 600, color: 'var(--color-text-secondary)', marginBottom: '0.25rem' }}>Título de la Imagen *</label>
                   <input
                     value={titulo}
                     onChange={(e) => setTitulo(e.target.value)}
                     placeholder="Ej: Posición Inicial / Agarre Neutro"
-                    style={{ width: '100%', padding: '0.5rem', borderRadius: '6px', border: '1px solid #CBD5E1', fontSize: '0.85rem' }}
+                    style={{ width: '100%', padding: '0.5rem', borderRadius: '6px', border: '1px solid var(--color-border-strong)', fontSize: '0.85rem' }}
                   />
                 </div>
 
                 <div>
-                  <label style={{ display: 'block', fontSize: '0.78rem', fontWeight: 600, color: '#475569', marginBottom: '0.25rem' }}>Seleccionar Archivo de Imagen *</label>
+                  <label style={{ display: 'block', fontSize: '0.78rem', fontWeight: 600, color: 'var(--color-text-secondary)', marginBottom: '0.25rem' }}>Seleccionar Archivo de Imagen *</label>
                   <input
                     type="file"
                     accept="image/*"
                     onChange={handleFileChange}
-                    style={{ width: '100%', padding: '0.35rem', borderRadius: '6px', border: '1px solid #CBD5E1', fontSize: '0.82rem', background: '#FFF' }}
+                    style={{ width: '100%', padding: '0.35rem', borderRadius: '6px', border: '1px solid var(--color-border-strong)', fontSize: '0.82rem', background: 'var(--color-surface)' }}
                   />
                 </div>
 
                 <div style={{ gridColumn: '1 / -1' }}>
-                  <label style={{ display: 'block', fontSize: '0.78rem', fontWeight: 600, color: '#475569', marginBottom: '0.25rem' }}>Descripción / Explicación Técnica</label>
+                  <label style={{ display: 'block', fontSize: '0.78rem', fontWeight: 600, color: 'var(--color-text-secondary)', marginBottom: '0.25rem' }}>Descripción / Explicación Técnica</label>
                   <input
                     value={descripcion}
                     onChange={(e) => setDescripcion(e.target.value)}
                     placeholder="Ej: Mantener retracción escapular durante toda la fase concéntrica."
-                    style={{ width: '100%', padding: '0.5rem', borderRadius: '6px', border: '1px solid #CBD5E1', fontSize: '0.85rem' }}
+                    style={{ width: '100%', padding: '0.5rem', borderRadius: '6px', border: '1px solid var(--color-border-strong)', fontSize: '0.85rem' }}
                   />
                 </div>
 
                 {previewUrl && (
-                  <div style={{ gridColumn: '1 / -1', display: 'flex', alignItems: 'center', gap: '1rem', background: '#FFF', padding: '0.5rem', borderRadius: '6px', border: '1px solid #E2E8F0' }}>
+                  <div style={{ gridColumn: '1 / -1', display: 'flex', alignItems: 'center', gap: '1rem', background: 'var(--color-surface)', padding: '0.5rem', borderRadius: '6px', border: '1px solid var(--color-border)' }}>
                     <img src={previewUrl} alt="Vista previa" style={{ width: '60px', height: '60px', objectFit: 'cover', borderRadius: '6px' }} />
-                    <span style={{ fontSize: '0.8rem', color: '#0369A1', fontWeight: 600 }}>Vista previa del archivo seleccionado ({selectedFile?.name})</span>
+                    <span style={{ fontSize: '0.8rem', color: 'var(--color-primary-text)', fontWeight: 600 }}>Vista previa del archivo seleccionado ({selectedFile?.name})</span>
                   </div>
                 )}
 
@@ -145,7 +145,7 @@ const EjercicioGaleriaModal: React.FC<Props> = ({ ejercicio, onClose }) => {
                     disabled={uploadMutation.isPending || !selectedFile || !titulo}
                     style={{
                       padding: '0.55rem 1.2rem', borderRadius: '6px', border: 'none',
-                      background: selectedFile && titulo ? 'linear-gradient(135deg, #003B70 0%, #002A52 100%)' : '#94A3B8',
+                      background: selectedFile && titulo ? 'linear-gradient(135deg, #990000 0%, #570000 100%)' : '#94A3B8',
                       color: '#FFF', fontWeight: 700, fontSize: '0.82rem', cursor: selectedFile && titulo ? 'pointer' : 'not-allowed',
                     }}
                   >
@@ -157,23 +157,23 @@ const EjercicioGaleriaModal: React.FC<Props> = ({ ejercicio, onClose }) => {
           )}
 
           {/* LISTADO / GRILLA DE IMÁGENES */}
-          <h4 style={{ fontSize: '0.95rem', fontWeight: 700, color: '#1E293B', marginBottom: '1rem' }}>
+          <h4 style={{ fontSize: '0.95rem', fontWeight: 700, color: 'var(--color-text-primary)', marginBottom: '1rem' }}>
             Imágenes Registradas ({imagenes.length})
           </h4>
 
           {isLoading ? (
-            <div style={{ padding: '2rem', textAlign: 'center', color: '#64748B' }}>Cargando galería de imágenes...</div>
+            <div style={{ padding: '2rem', textAlign: 'center', color: 'var(--color-text-muted)' }}>Cargando galería de imágenes...</div>
           ) : (
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: '1rem' }}>
               {imagenes.map((img: EjercicioImagen) => (
                 <div
                   key={img.id}
                   style={{
-                    background: '#FFFFFF', borderRadius: '10px', border: '1px solid #E2E8F0',
+                    background: 'var(--color-surface)', borderRadius: '10px', border: '1px solid var(--color-border)',
                     overflow: 'hidden', display: 'flex', flexDirection: 'column', boxShadow: '0 2px 4px rgba(0,0,0,0.03)'
                   }}
                 >
-                  <div style={{ position: 'relative', height: '140px', background: '#F8FAFC', overflow: 'hidden' }}>
+                  <div style={{ position: 'relative', height: '140px', background: 'var(--color-surface-muted)', overflow: 'hidden' }}>
                     <img
                       src={img.path_imagen}
                       alt={img.titulo}
@@ -182,7 +182,7 @@ const EjercicioGaleriaModal: React.FC<Props> = ({ ejercicio, onClose }) => {
                     <button
                       onClick={() => setActiveZoomImage(img)}
                       style={{
-                        position: 'absolute', top: '8px', right: '8px', background: 'rgba(15,23,42,0.6)',
+                        position: 'absolute', top: '8px', right: '8px', background: 'rgba(0, 0, 0,0.6)',
                         border: 'none', color: '#FFF', width: '28px', height: '28px', borderRadius: '50%',
                         display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer'
                       }}
@@ -194,16 +194,16 @@ const EjercicioGaleriaModal: React.FC<Props> = ({ ejercicio, onClose }) => {
 
                   <div style={{ padding: '0.85rem', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                     <div>
-                      <h5 style={{ fontSize: '0.88rem', fontWeight: 700, color: '#0F172A', margin: '0 0 0.3rem 0' }}>
+                      <h5 style={{ fontSize: '0.88rem', fontWeight: 700, color: 'var(--color-text-primary)', margin: '0 0 0.3rem 0' }}>
                         {img.titulo}
                       </h5>
-                      <p style={{ fontSize: '0.78rem', color: '#64748B', margin: 0, lineHeight: '1.3' }}>
+                      <p style={{ fontSize: '0.78rem', color: 'var(--color-text-muted)', margin: 0, lineHeight: '1.3' }}>
                         {img.descripcion || 'Sin descripción adicional.'}
                       </p>
                     </div>
 
                     {canManage && (
-                      <div style={{ marginTop: '0.75rem', textAlign: 'right', borderTop: '1px solid #F1F5F9', paddingTop: '0.5rem' }}>
+                      <div style={{ marginTop: '0.75rem', textAlign: 'right', borderTop: '1px solid var(--color-border)', paddingTop: '0.5rem' }}>
                         <button
                           onClick={() => setDeletingImageId(img.id)}
                           style={{ background: 'none', border: 'none', color: '#EF4444', cursor: 'pointer', fontSize: '0.8rem', fontWeight: 600, display: 'inline-flex', alignItems: 'center', gap: '0.2rem' }}
@@ -217,7 +217,7 @@ const EjercicioGaleriaModal: React.FC<Props> = ({ ejercicio, onClose }) => {
               ))}
 
               {imagenes.length === 0 && (
-                <div style={{ gridColumn: '1 / -1', padding: '2rem', textAlign: 'center', color: '#94A3B8', background: '#F8FAFC', borderRadius: '8px' }}>
+                <div style={{ gridColumn: '1 / -1', padding: '2rem', textAlign: 'center', color: 'var(--color-text-muted)', background: 'var(--color-surface-muted)', borderRadius: '8px' }}>
                   No hay imágenes registradas en la galería de este ejercicio.
                 </div>
               )}
@@ -233,7 +233,7 @@ const EjercicioGaleriaModal: React.FC<Props> = ({ ejercicio, onClose }) => {
               <div style={{ maxWidth: '90vw', maxHeight: '90vh', position: 'relative', textAlign: 'center' }}>
                 <button
                   onClick={() => setActiveZoomImage(null)}
-                  style={{ position: 'absolute', top: '-40px', right: '0', background: '#FFF', border: 'none', borderRadius: '50%', width: '32px', height: '32px', cursor: 'pointer' }}
+                  style={{ position: 'absolute', top: '-40px', right: '0', background: 'var(--color-surface)', border: 'none', borderRadius: '50%', width: '32px', height: '32px', cursor: 'pointer' }}
                 >
                   <FaXmark />
                 </button>

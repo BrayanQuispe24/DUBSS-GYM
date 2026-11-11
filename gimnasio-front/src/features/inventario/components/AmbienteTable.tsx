@@ -22,7 +22,7 @@ const AmbienteTable: React.FC<AmbienteTableProps> = ({
 }) => {
   if (isLoading) {
     return (
-      <div style={{ textAlign: 'center', padding: '3rem', color: '#64748B' }}>
+      <div style={{ textAlign: 'center', padding: '3rem', color: 'var(--color-text-muted)' }}>
         Cargando listado de ambientes y espacios...
       </div>
     );
@@ -34,14 +34,14 @@ const AmbienteTable: React.FC<AmbienteTableProps> = ({
         style={{
           textAlign: 'center',
           padding: '3rem',
-          color: '#64748B',
-          backgroundColor: '#FFFFFF',
+          color: 'var(--color-text-muted)',
+          backgroundColor: 'var(--color-surface)',
           borderRadius: '12px',
-          border: '1px solid #E2E8F0',
+          border: '1px solid var(--color-border)',
         }}
       >
         <FaBuildingFlag style={{ fontSize: '2.5rem', color: '#CBD5E1', marginBottom: '0.75rem' }} />
-        <p style={{ fontWeight: 700, fontSize: '1rem', color: '#334155', margin: 0 }}>
+        <p style={{ fontWeight: 700, fontSize: '1rem', color: 'var(--color-text-secondary)', margin: 0 }}>
           No se encontraron ambientes registrados.
         </p>
       </div>
@@ -51,16 +51,16 @@ const AmbienteTable: React.FC<AmbienteTableProps> = ({
   const getStatusBadge = (estadoRaw: string | boolean) => {
     const isAvailable = estadoRaw === true || ['disponible', '1', 'true', 'activo'].includes(String(estadoRaw ?? '').toLowerCase());
     if (isAvailable) {
-      return { label: 'DISPONIBLE', bg: '#DCFCE7', color: '#15803D' };
+      return { label: 'DISPONIBLE', bg: 'var(--color-success-bg)', color: 'var(--color-success-text)' };
     }
-    return { label: 'ELIMINADO', bg: '#FEE2E2', color: '#B91C1C' };
+    return { label: 'ELIMINADO', bg: 'var(--color-danger-bg)', color: 'var(--color-danger-text)' };
   };
 
   return (
-    <div style={{ backgroundColor: '#FFFFFF', borderRadius: '4px', border: '1px solid #E2E8F0', overflow: 'hidden', boxShadow: '0 1px 2px rgba(0,0,0,0.04)' }}>
+    <div style={{ backgroundColor: 'var(--color-surface)', borderRadius: '4px', border: '1px solid var(--color-border)', overflow: 'hidden', boxShadow: '0 1px 2px rgba(0,0,0,0.04)' }}>
       <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.82rem' }}>
         <thead>
-          <tr style={{ backgroundColor: '#F8FAFC', borderBottom: '1px solid #E2E8F0', color: '#475569', fontSize: '0.72rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+          <tr style={{ backgroundColor: 'var(--color-surface-muted)', borderBottom: '1px solid var(--color-border)', color: 'var(--color-text-secondary)', fontSize: '0.72rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.06em' }}>
             <th style={{ padding: '0.75rem 1rem' }}>Ambiente / Sala</th>
             <th style={{ padding: '0.75rem 1rem' }}>Descripción / Ubicación</th>
             <th style={{ padding: '0.75rem 1rem' }}>Estado</th>
@@ -71,8 +71,8 @@ const AmbienteTable: React.FC<AmbienteTableProps> = ({
           {ambientes.map((amb) => {
             const status = getStatusBadge(amb.estado);
             return (
-              <tr key={amb.id} style={{ borderBottom: '1px solid #F1F5F9' }}>
-                <td style={{ padding: '0.7rem 1rem', fontWeight: 700, color: '#0B1727' }}>
+              <tr key={amb.id} style={{ borderBottom: '1px solid var(--color-border)' }}>
+                <td style={{ padding: '0.7rem 1rem', fontWeight: 700, color: 'var(--color-text-primary)' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                     <span
                       style={{
@@ -86,7 +86,7 @@ const AmbienteTable: React.FC<AmbienteTableProps> = ({
                     {amb.nombre}
                   </div>
                 </td>
-                <td style={{ padding: '0.7rem 1rem', color: '#64748B' }}>
+                <td style={{ padding: '0.7rem 1rem', color: 'var(--color-text-muted)' }}>
                   {amb.descripcion || 'Sin descripción'}
                 </td>
                 <td style={{ padding: '0.7rem 1rem' }}>
@@ -113,9 +113,9 @@ const AmbienteTable: React.FC<AmbienteTableProps> = ({
                         style={{
                           padding: '0.35rem 0.55rem',
                           borderRadius: '4px',
-                          backgroundColor: '#E0F2FE',
-                          color: '#0369A1',
-                          border: '1px solid #BAE6FD',
+                          backgroundColor: 'var(--color-primary-soft)',
+                          color: 'var(--color-primary-text)',
+                          border: '1px solid rgba(220, 38, 38, 0.30)',
                           cursor: 'pointer',
                           fontSize: '0.75rem',
                         }}
@@ -131,9 +131,9 @@ const AmbienteTable: React.FC<AmbienteTableProps> = ({
                           style={{
                             padding: '0.35rem 0.55rem',
                             borderRadius: '4px',
-                            backgroundColor: '#F8FAFC',
-                            color: '#475569',
-                            border: '1px solid #CBD5E1',
+                            backgroundColor: 'var(--color-surface-muted)',
+                            color: 'var(--color-text-secondary)',
+                            border: '1px solid var(--color-border-strong)',
                             cursor: 'pointer',
                             fontSize: '0.75rem',
                           }}
@@ -146,9 +146,9 @@ const AmbienteTable: React.FC<AmbienteTableProps> = ({
                           style={{
                             padding: '0.35rem 0.55rem',
                             borderRadius: '4px',
-                            backgroundColor: '#FEE2E2',
-                            color: '#DC2626',
-                            border: '1px solid #FCA5A5',
+                            backgroundColor: 'var(--color-danger-bg)',
+                            color: 'var(--color-danger-text)',
+                            border: '1px solid rgba(220, 38, 38, 0.35)',
                             cursor: 'pointer',
                             fontSize: '0.75rem',
                           }}

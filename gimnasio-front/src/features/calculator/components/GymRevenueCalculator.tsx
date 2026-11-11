@@ -80,7 +80,7 @@ const GymRevenueCalculator: React.FC = () => {
           </div>
 
           {/* Result Card */}
-          <div className="calc-result-card surface-card reveal-right" style={{ background: 'linear-gradient(145deg, #001C38 0%, #003B70 50%, #990000 100%)' }}>
+          <div className="calc-result-card surface-card reveal-right" style={{ background: 'linear-gradient(145deg, #0B0B0D 0%, #260608 50%, #990000 100%)' }}>
             <span className="calc-result-title">Recaudación Proyectada por Membresías</span>
             <div className="calc-amount-primary">
               <span className="currency" style={{ fontSize: '1.8rem', marginRight: '0.3rem' }}>Bs.</span>

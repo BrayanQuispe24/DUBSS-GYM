@@ -167,7 +167,7 @@ const EscanerQRModal: React.FC<EscanerQRModalProps> = ({ isOpen, onClose }) => {
         left: 0,
         right: 0,
         bottom: 0,
-        backgroundColor: 'rgba(15, 23, 42, 0.85)',
+        backgroundColor: 'rgba(0, 0, 0, 0.85)',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -177,13 +177,13 @@ const EscanerQRModal: React.FC<EscanerQRModalProps> = ({ isOpen, onClose }) => {
     >
       <div
         style={{
-          backgroundColor: '#FFFFFF',
+          backgroundColor: 'var(--color-surface)',
           borderRadius: '16px',
           width: '100%',
           maxWidth: '560px',
           overflow: 'hidden',
           boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.4)',
-          border: '1px solid #CBD5E1',
+          border: '1px solid var(--color-border-strong)',
           display: 'flex',
           flexDirection: 'column',
           maxHeight: '94vh',
@@ -192,7 +192,7 @@ const EscanerQRModal: React.FC<EscanerQRModalProps> = ({ isOpen, onClose }) => {
         {/* HEADER BAR */}
         <div
           style={{
-            background: 'linear-gradient(135deg, #003B70 0%, #002347 100%)',
+            background: 'linear-gradient(135deg, #990000 0%, #570000 100%)',
             color: '#FFFFFF',
             padding: '1.1rem 1.5rem',
             display: 'flex',
@@ -211,14 +211,14 @@ const EscanerQRModal: React.FC<EscanerQRModalProps> = ({ isOpen, onClose }) => {
                 alignItems: 'center',
                 justifyContent: 'center',
                 fontSize: '1.25rem',
-                color: '#60A5FA',
+                color: '#FCA5A5',
               }}
             >
               <FaQrcode />
             </div>
             <div>
               <h3 style={{ margin: 0, fontSize: '1.1rem', fontWeight: 800 }}>Validador de Ingreso & Salida QR</h3>
-              <div style={{ fontSize: '0.78rem', color: '#93C5FD' }}>
+              <div style={{ fontSize: '0.78rem', color: '#FCA5A5' }}>
                 Recepción & Control de Accesos DUBSS UAGRM
               </div>
             </div>
@@ -245,9 +245,9 @@ const EscanerQRModal: React.FC<EscanerQRModalProps> = ({ isOpen, onClose }) => {
         </div>
 
         {/* MODE SELECTOR BAR (AUTO vs ENTRADA vs SALIDA) */}
-        <div style={{ backgroundColor: '#F1F5F9', padding: '0.65rem 1.25rem', borderBottom: '1px solid #E2E8F0', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '0.5rem' }}>
-          <span style={{ fontSize: '0.78rem', fontWeight: 700, color: '#475569' }}>Modo de Marcación:</span>
-          <div style={{ display: 'flex', gap: '0.35rem', backgroundColor: '#E2E8F0', padding: '3px', borderRadius: '8px' }}>
+        <div style={{ backgroundColor: 'var(--color-surface-muted)', padding: '0.65rem 1.25rem', borderBottom: '1px solid var(--color-border)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '0.5rem' }}>
+          <span style={{ fontSize: '0.78rem', fontWeight: 700, color: 'var(--color-text-secondary)' }}>Modo de Marcación:</span>
+          <div style={{ display: 'flex', gap: '0.35rem', backgroundColor: 'var(--color-surface-hover)', padding: '3px', borderRadius: '8px' }}>
             <button
               type="button"
               onClick={() => setScanMode('auto')}
@@ -255,8 +255,8 @@ const EscanerQRModal: React.FC<EscanerQRModalProps> = ({ isOpen, onClose }) => {
                 padding: '0.35rem 0.65rem',
                 borderRadius: '6px',
                 border: 'none',
-                background: scanMode === 'auto' ? '#003B70' : 'transparent',
-                color: scanMode === 'auto' ? '#FFFFFF' : '#475569',
+                background: scanMode === 'auto' ? 'var(--color-primary)' : 'transparent',
+                color: scanMode === 'auto' ? '#FFFFFF' : 'var(--color-text-secondary)',
                 fontWeight: 800,
                 fontSize: '0.78rem',
                 cursor: 'pointer',
@@ -277,7 +277,7 @@ const EscanerQRModal: React.FC<EscanerQRModalProps> = ({ isOpen, onClose }) => {
                 borderRadius: '6px',
                 border: 'none',
                 background: scanMode === 'entrada' ? '#166534' : 'transparent',
-                color: scanMode === 'entrada' ? '#FFFFFF' : '#475569',
+                color: scanMode === 'entrada' ? '#FFFFFF' : 'var(--color-text-secondary)',
                 fontWeight: 800,
                 fontSize: '0.78rem',
                 cursor: 'pointer',
@@ -297,8 +297,8 @@ const EscanerQRModal: React.FC<EscanerQRModalProps> = ({ isOpen, onClose }) => {
                 padding: '0.35rem 0.65rem',
                 borderRadius: '6px',
                 border: 'none',
-                background: scanMode === 'salida' ? '#0369A1' : 'transparent',
-                color: scanMode === 'salida' ? '#FFFFFF' : '#475569',
+                background: scanMode === 'salida' ? 'var(--color-primary)' : 'transparent',
+                color: scanMode === 'salida' ? '#FFFFFF' : 'var(--color-text-secondary)',
                 fontWeight: 800,
                 fontSize: '0.78rem',
                 cursor: 'pointer',
@@ -314,7 +314,7 @@ const EscanerQRModal: React.FC<EscanerQRModalProps> = ({ isOpen, onClose }) => {
         </div>
 
         {/* TAB NAVIGATION */}
-        <div style={{ display: 'flex', borderBottom: '1px solid #E2E8F0', background: '#F8FAFC' }}>
+        <div style={{ display: 'flex', borderBottom: '1px solid var(--color-border)', background: 'var(--color-surface-muted)' }}>
           <button
             onClick={() => {
               setActiveTab('camera');
@@ -324,9 +324,9 @@ const EscanerQRModal: React.FC<EscanerQRModalProps> = ({ isOpen, onClose }) => {
               flex: 1,
               padding: '0.7rem',
               border: 'none',
-              background: activeTab === 'camera' ? '#FFFFFF' : 'transparent',
-              borderBottom: activeTab === 'camera' ? '3px solid #003B70' : 'none',
-              color: activeTab === 'camera' ? '#003B70' : '#64748B',
+              background: activeTab === 'camera' ? 'var(--color-surface)' : 'transparent',
+              borderBottom: activeTab === 'camera' ? '3px solid var(--color-primary)' : 'none',
+              color: activeTab === 'camera' ? 'var(--color-primary-text)' : 'var(--color-text-muted)',
               fontWeight: 800,
               fontSize: '0.88rem',
               cursor: 'pointer',
@@ -349,9 +349,9 @@ const EscanerQRModal: React.FC<EscanerQRModalProps> = ({ isOpen, onClose }) => {
               flex: 1,
               padding: '0.7rem',
               border: 'none',
-              background: activeTab === 'manual' ? '#FFFFFF' : 'transparent',
-              borderBottom: activeTab === 'manual' ? '3px solid #003B70' : 'none',
-              color: activeTab === 'manual' ? '#003B70' : '#64748B',
+              background: activeTab === 'manual' ? 'var(--color-surface)' : 'transparent',
+              borderBottom: activeTab === 'manual' ? '3px solid var(--color-primary)' : 'none',
+              color: activeTab === 'manual' ? 'var(--color-primary-text)' : 'var(--color-text-muted)',
               fontWeight: 800,
               fontSize: '0.88rem',
               cursor: 'pointer',
@@ -371,7 +371,7 @@ const EscanerQRModal: React.FC<EscanerQRModalProps> = ({ isOpen, onClose }) => {
           {resultStatus === 'success' && !isSalidaResult && (
             <div
               style={{
-                backgroundColor: '#DCFCE7',
+                backgroundColor: 'var(--color-success-bg)',
                 border: '2px solid #16A34A',
                 borderRadius: '12px',
                 padding: '1.25rem',
@@ -381,10 +381,10 @@ const EscanerQRModal: React.FC<EscanerQRModalProps> = ({ isOpen, onClose }) => {
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.75rem' }}>
                 <FaCircleCheck style={{ fontSize: '2rem', color: '#16A34A', flexShrink: 0 }} />
                 <div>
-                  <h4 style={{ margin: 0, fontSize: '1.2rem', fontWeight: 900, color: '#15803D' }}>
+                  <h4 style={{ margin: 0, fontSize: '1.2rem', fontWeight: 900, color: 'var(--color-success-text)' }}>
                     ¡ENTRADA PERMITIDA!
                   </h4>
-                  <div style={{ fontSize: '0.82rem', fontWeight: 700, color: '#166534' }}>
+                  <div style={{ fontSize: '0.82rem', fontWeight: 700, color: 'var(--color-success-text)' }}>
                     {resultData?.mensaje || 'Acceso registrado correctamente.'}
                   </div>
                 </div>
@@ -393,7 +393,7 @@ const EscanerQRModal: React.FC<EscanerQRModalProps> = ({ isOpen, onClose }) => {
               {resultData?.data && (
                 <div
                   style={{
-                    backgroundColor: '#FFFFFF',
+                    backgroundColor: 'var(--color-surface)',
                     borderRadius: '8px',
                     padding: '0.85rem 1rem',
                     fontSize: '0.85rem',
@@ -403,16 +403,16 @@ const EscanerQRModal: React.FC<EscanerQRModalProps> = ({ isOpen, onClose }) => {
                     gap: '0.4rem',
                   }}
                 >
-                  <div style={{ fontWeight: 800, color: '#0F172A', fontSize: '1rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                  <div style={{ fontWeight: 800, color: 'var(--color-text-primary)', fontSize: '1rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
                     <FaUserCheck style={{ color: '#16A34A' }} /> {resultData.data.socio}
                   </div>
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.4rem', color: '#334155', fontSize: '0.8rem' }}>
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.4rem', color: 'var(--color-text-secondary)', fontSize: '0.8rem' }}>
                     <div><strong>C.I.:</strong> {resultData.data.ci}</div>
-                    <div><strong>Nº Boleta:</strong> <span style={{ color: '#003B70', fontWeight: 800 }}>{resultData.data.numero_boleta}</span></div>
+                    <div><strong>Nº Boleta:</strong> <span style={{ color: 'var(--color-primary-text)', fontWeight: 800 }}>{resultData.data.numero_boleta}</span></div>
                     <div><strong>Disciplina:</strong> {resultData.data.disciplina}</div>
-                    <div><strong>Turno:</strong> <span style={{ fontWeight: 800, color: '#B45309' }}>{resultData.data.horario}</span></div>
+                    <div><strong>Turno:</strong> <span style={{ fontWeight: 800, color: 'var(--color-warning-text)' }}>{resultData.data.horario}</span></div>
                   </div>
-                  <div style={{ fontSize: '0.75rem', color: '#15803D', fontWeight: 700, marginTop: '2px' }}>
+                  <div style={{ fontSize: '0.75rem', color: 'var(--color-success-text)', fontWeight: 700, marginTop: '2px' }}>
                     Hora de marcado: {resultData.data.fecha_hora_ingreso}
                   </div>
                 </div>
@@ -424,17 +424,17 @@ const EscanerQRModal: React.FC<EscanerQRModalProps> = ({ isOpen, onClose }) => {
           {resultStatus === 'success' && isSalidaResult && (
             <div
               style={{
-                backgroundColor: '#E0F2FE',
-                border: '2px solid #0284C7',
+                backgroundColor: 'var(--color-primary-soft)',
+                border: '2px solid var(--color-primary)',
                 borderRadius: '12px',
                 padding: '1.25rem',
                 color: '#075985',
               }}
             >
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.75rem' }}>
-                <FaRightFromBracket style={{ fontSize: '2rem', color: '#0284C7', flexShrink: 0 }} />
+                <FaRightFromBracket style={{ fontSize: '2rem', color: 'var(--color-primary-text)', flexShrink: 0 }} />
                 <div>
-                  <h4 style={{ margin: 0, fontSize: '1.2rem', fontWeight: 900, color: '#0369A1' }}>
+                  <h4 style={{ margin: 0, fontSize: '1.2rem', fontWeight: 900, color: 'var(--color-primary-text)' }}>
                     ¡SALIDA REGISTRADA!
                   </h4>
                   <div style={{ fontSize: '0.82rem', fontWeight: 700, color: '#075985' }}>
@@ -446,28 +446,28 @@ const EscanerQRModal: React.FC<EscanerQRModalProps> = ({ isOpen, onClose }) => {
               {resultData?.data && (
                 <div
                   style={{
-                    backgroundColor: '#FFFFFF',
+                    backgroundColor: 'var(--color-surface)',
                     borderRadius: '8px',
                     padding: '0.85rem 1rem',
                     fontSize: '0.85rem',
-                    border: '1px solid #BAE6FD',
+                    border: '1px solid rgba(220, 38, 38, 0.30)',
                     display: 'flex',
                     flexDirection: 'column',
                     gap: '0.4rem',
                   }}
                 >
-                  <div style={{ fontWeight: 800, color: '#0F172A', fontSize: '1rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-                    <FaUserCheck style={{ color: '#0284C7' }} /> {resultData.data.socio}
+                  <div style={{ fontWeight: 800, color: 'var(--color-text-primary)', fontSize: '1rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                    <FaUserCheck style={{ color: 'var(--color-primary-text)' }} /> {resultData.data.socio}
                   </div>
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.4rem', color: '#334155', fontSize: '0.8rem' }}>
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.4rem', color: 'var(--color-text-secondary)', fontSize: '0.8rem' }}>
                     <div><strong>C.I.:</strong> {resultData.data.ci}</div>
-                    <div><strong>Nº Boleta:</strong> <span style={{ color: '#003B70', fontWeight: 800 }}>{resultData.data.numero_boleta}</span></div>
+                    <div><strong>Nº Boleta:</strong> <span style={{ color: 'var(--color-primary-text)', fontWeight: 800 }}>{resultData.data.numero_boleta}</span></div>
                     <div><strong>Disciplina:</strong> {resultData.data.disciplina}</div>
-                    <div style={{ color: '#0369A1', fontWeight: 800, display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
+                    <div style={{ color: 'var(--color-primary-text)', fontWeight: 800, display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
                       <FaHourglassHalf /> Permanencia: {resultData.data.duracion || resultData.duracion || '1h'}
                     </div>
                   </div>
-                  <div style={{ fontSize: '0.75rem', color: '#0369A1', fontWeight: 700, marginTop: '2px' }}>
+                  <div style={{ fontSize: '0.75rem', color: 'var(--color-primary-text)', fontWeight: 700, marginTop: '2px' }}>
                     Hora de salida: {resultData.data.fecha_hora_salida}
                   </div>
                 </div>
@@ -478,20 +478,20 @@ const EscanerQRModal: React.FC<EscanerQRModalProps> = ({ isOpen, onClose }) => {
           {resultStatus === 'denied' && (
             <div
               style={{
-                backgroundColor: '#FEE2E2',
+                backgroundColor: 'var(--color-danger-bg)',
                 border: '2px solid #DC2626',
                 borderRadius: '12px',
                 padding: '1.25rem',
-                color: '#7F1D1D',
+                color: 'var(--color-danger-text)',
               }}
             >
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                <FaCircleXmark style={{ fontSize: '2.2rem', color: '#DC2626', flexShrink: 0 }} />
+                <FaCircleXmark style={{ fontSize: '2.2rem', color: 'var(--color-danger-text)', flexShrink: 0 }} />
                 <div>
-                  <h4 style={{ margin: 0, fontSize: '1.2rem', fontWeight: 900, color: '#B91C1C' }}>
+                  <h4 style={{ margin: 0, fontSize: '1.2rem', fontWeight: 900, color: 'var(--color-danger-text)' }}>
                     ¡ACCESO DENEGADO!
                   </h4>
-                  <div style={{ fontSize: '0.88rem', fontWeight: 800, color: '#991B1B', marginTop: '2px' }}>
+                  <div style={{ fontSize: '0.88rem', fontWeight: 800, color: 'var(--color-danger-text)', marginTop: '2px' }}>
                     {resultData?.mensaje || 'El pase QR no cumple con los requisitos de ingreso.'}
                   </div>
                 </div>
@@ -506,7 +506,7 @@ const EscanerQRModal: React.FC<EscanerQRModalProps> = ({ isOpen, onClose }) => {
                 style={{
                   width: '100%',
                   minHeight: '260px',
-                  backgroundColor: '#0F172A',
+                  backgroundColor: '#141419',
                   borderRadius: '12px',
                   overflow: 'hidden',
                   position: 'relative',
@@ -526,7 +526,7 @@ const EscanerQRModal: React.FC<EscanerQRModalProps> = ({ isOpen, onClose }) => {
                       left: 0,
                       right: 0,
                       bottom: 0,
-                      background: 'rgba(15, 23, 42, 0.85)',
+                      background: 'rgba(0, 0, 0, 0.85)',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
@@ -541,7 +541,7 @@ const EscanerQRModal: React.FC<EscanerQRModalProps> = ({ isOpen, onClose }) => {
               </div>
 
               {cameraError && (
-                <div style={{ fontSize: '0.8rem', color: '#B91C1C', backgroundColor: '#FEE2E2', padding: '0.75rem', borderRadius: '8px', textAlign: 'center', width: '100%' }}>
+                <div style={{ fontSize: '0.8rem', color: 'var(--color-danger-text)', backgroundColor: 'var(--color-danger-bg)', padding: '0.75rem', borderRadius: '8px', textAlign: 'center', width: '100%' }}>
                   {cameraError}
                 </div>
               )}
@@ -575,7 +575,7 @@ const EscanerQRModal: React.FC<EscanerQRModalProps> = ({ isOpen, onClose }) => {
                       flex: 1,
                       padding: '0.65rem',
                       borderRadius: '8px',
-                      backgroundColor: '#003B70',
+                      backgroundColor: 'var(--color-primary)',
                       color: '#FFF',
                       border: 'none',
                       fontWeight: 700,
@@ -597,7 +597,7 @@ const EscanerQRModal: React.FC<EscanerQRModalProps> = ({ isOpen, onClose }) => {
           {/* TAB 2: MANUAL TEXTAREA / USB SCANNER */}
           {activeTab === 'manual' && (
             <form onSubmit={handleManualSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
-              <label style={{ fontSize: '0.85rem', fontWeight: 700, color: '#334155' }}>
+              <label style={{ fontSize: '0.85rem', fontWeight: 700, color: 'var(--color-text-secondary)' }}>
                 Ingresar o Pegar Payload JSON del QR:
               </label>
 
@@ -610,12 +610,12 @@ const EscanerQRModal: React.FC<EscanerQRModalProps> = ({ isOpen, onClose }) => {
                   width: '100%',
                   padding: '0.75rem',
                   borderRadius: '8px',
-                  border: '1.5px solid #CBD5E1',
+                  border: '1.5px solid var(--color-border-strong)',
                   fontFamily: 'monospace',
                   fontSize: '0.82rem',
                   resize: 'none',
-                  backgroundColor: '#F8FAFC',
-                  color: '#0F172A',
+                  backgroundColor: 'var(--color-surface-muted)',
+                  color: 'var(--color-text-primary)',
                   boxSizing: 'border-box',
                 }}
                 autoFocus
@@ -629,7 +629,7 @@ const EscanerQRModal: React.FC<EscanerQRModalProps> = ({ isOpen, onClose }) => {
                     flex: 1,
                     padding: '0.75rem',
                     borderRadius: '8px',
-                    backgroundColor: '#003B70',
+                    backgroundColor: 'var(--color-primary)',
                     color: '#FFFFFF',
                     border: 'none',
                     fontWeight: 800,
@@ -640,7 +640,7 @@ const EscanerQRModal: React.FC<EscanerQRModalProps> = ({ isOpen, onClose }) => {
                     justifyContent: 'center',
                     gap: '0.5rem',
                     opacity: loading || !qrInput.trim() ? 0.7 : 1,
-                    boxShadow: '0 4px 6px -1px rgba(0, 59, 112, 0.3)',
+                    boxShadow: '0 4px 6px -1px rgba(153, 0, 0, 0.3)',
                   }}
                 >
                   {loading ? 'Validando Pase...' : 'Validar e Ingresar'}
@@ -653,9 +653,9 @@ const EscanerQRModal: React.FC<EscanerQRModalProps> = ({ isOpen, onClose }) => {
                     style={{
                       padding: '0.75rem 1.25rem',
                       borderRadius: '8px',
-                      backgroundColor: '#F1F5F9',
-                      color: '#475569',
-                      border: '1px solid #CBD5E1',
+                      backgroundColor: 'var(--color-surface-muted)',
+                      color: 'var(--color-text-secondary)',
+                      border: '1px solid var(--color-border-strong)',
                       fontWeight: 700,
                       fontSize: '0.85rem',
                       cursor: 'pointer',
@@ -672,11 +672,11 @@ const EscanerQRModal: React.FC<EscanerQRModalProps> = ({ isOpen, onClose }) => {
           <div
             style={{
               fontSize: '0.75rem',
-              color: '#64748B',
-              backgroundColor: '#F1F5F9',
+              color: 'var(--color-text-muted)',
+              backgroundColor: 'var(--color-surface-muted)',
               padding: '0.75rem 1rem',
               borderRadius: '8px',
-              border: '1px solid #E2E8F0',
+              border: '1px solid var(--color-border)',
               lineHeight: '1.4',
             }}
           >

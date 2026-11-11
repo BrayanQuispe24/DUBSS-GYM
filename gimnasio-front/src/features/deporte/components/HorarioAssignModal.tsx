@@ -135,36 +135,36 @@ const HorarioAssignModal: React.FC<HorarioAssignModalProps> = ({
       backgroundColor: 'rgba(11, 23, 39, 0.75)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 99999
     }}>
       <div style={{
-        backgroundColor: '#FFFFFF', borderRadius: '12px', padding: '1.75rem', width: '95%', maxWidth: '620px',
+        backgroundColor: 'var(--color-surface)', borderRadius: '12px', padding: '1.75rem', width: '95%', maxWidth: '620px',
         boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)', maxHeight: '90vh', overflowY: 'auto'
       }}>
         {/* HEADER */}
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid #E2E8F0', paddingBottom: '0.85rem', marginBottom: '1.25rem' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: '1px solid var(--color-border)', paddingBottom: '0.85rem', marginBottom: '1.25rem' }}>
           <div>
-            <h3 style={{ fontSize: '1.15rem', fontWeight: 800, color: '#0B1727', display: 'flex', alignItems: 'center', gap: '0.5rem', margin: 0 }}>
-              <FaClock style={{ color: '#003B70' }} />
+            <h3 style={{ fontSize: '1.15rem', fontWeight: 800, color: 'var(--color-text-primary)', display: 'flex', alignItems: 'center', gap: '0.5rem', margin: 0 }}>
+              <FaClock style={{ color: 'var(--color-primary-text)' }} />
               Gestión de Horarios — {disciplina.nombre}
             </h3>
-            <p style={{ fontSize: '0.78rem', color: '#64748B', margin: '0.2rem 0 0 0' }}>
+            <p style={{ fontSize: '0.78rem', color: 'var(--color-text-muted)', margin: '0.2rem 0 0 0' }}>
               Asignación de franjas horarias y control de cupos por turno.
             </p>
           </div>
           <button
             onClick={onClose}
-            style={{ padding: '0.45rem', borderRadius: '6px', backgroundColor: '#F1F5F9', color: '#475569', border: 'none', cursor: 'pointer', fontSize: '1rem', display: 'flex', alignItems: 'center' }}
+            style={{ padding: '0.45rem', borderRadius: '6px', backgroundColor: 'var(--color-surface-muted)', color: 'var(--color-text-secondary)', border: 'none', cursor: 'pointer', fontSize: '1rem', display: 'flex', alignItems: 'center' }}
           >
             <FaXmark />
           </button>
         </div>
 
         {/* SECTION 1: HORARIOS ASIGNADOS */}
-        <div style={{ marginBottom: '1.5rem', backgroundColor: '#F8FAFC', padding: '1rem', borderRadius: '8px', border: '1px solid #E2E8F0' }}>
-          <h4 style={{ fontSize: '0.9rem', fontWeight: 800, color: '#003B70', marginBottom: '0.75rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-            <FaCalendarDays style={{ color: '#D97706' }} /> Horarios Asignados Actualmente ({assignedItems.length})
+        <div style={{ marginBottom: '1.5rem', backgroundColor: 'var(--color-surface-muted)', padding: '1rem', borderRadius: '8px', border: '1px solid var(--color-border)' }}>
+          <h4 style={{ fontSize: '0.9rem', fontWeight: 800, color: 'var(--color-primary-text)', marginBottom: '0.75rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+            <FaCalendarDays style={{ color: 'var(--color-warning-text)' }} /> Horarios Asignados Actualmente ({assignedItems.length})
           </h4>
 
           {assignedItems.length === 0 ? (
-            <p style={{ fontSize: '0.82rem', color: '#64748B', fontStyle: 'italic', margin: 0, textAlign: 'center', padding: '1rem' }}>
+            <p style={{ fontSize: '0.82rem', color: 'var(--color-text-muted)', fontStyle: 'italic', margin: 0, textAlign: 'center', padding: '1rem' }}>
               No existen franjas horarias asignadas a esta disciplina deportiva.
             </p>
           ) : (
@@ -182,17 +182,17 @@ const HorarioAssignModal: React.FC<HorarioAssignModalProps> = ({
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'space-between',
-                      backgroundColor: '#FFFFFF',
+                      backgroundColor: 'var(--color-surface)',
                       padding: '0.6rem 0.85rem',
                       borderRadius: '6px',
-                      border: '1px solid #CBD5E1',
+                      border: '1px solid var(--color-border-strong)',
                       fontSize: '0.84rem',
                     }}
                   >
                     <div>
-                      <strong style={{ color: '#0B1727' }}>{dia}: </strong>
-                      <span style={{ color: '#003B70', fontWeight: 700 }}>{inicio} - {fin}</span>
-                      <span style={{ marginLeft: '0.75rem', fontSize: '0.75rem', padding: '0.15rem 0.5rem', borderRadius: '4px', backgroundColor: '#FEF3C7', color: '#B45309', fontWeight: 700 }}>
+                      <strong style={{ color: 'var(--color-text-primary)' }}>{dia}: </strong>
+                      <span style={{ color: 'var(--color-primary-text)', fontWeight: 700 }}>{inicio} - {fin}</span>
+                      <span style={{ marginLeft: '0.75rem', fontSize: '0.75rem', padding: '0.15rem 0.5rem', borderRadius: '4px', backgroundColor: 'var(--color-warning-bg)', color: 'var(--color-warning-text)', fontWeight: 700 }}>
                         {cupos} cupos max.
                       </span>
                     </div>
@@ -201,7 +201,7 @@ const HorarioAssignModal: React.FC<HorarioAssignModalProps> = ({
                       onClick={() => handleRemove(item.id)}
                       title="Desvincular Horario"
                       disabled={removeMutation.isPending}
-                      style={{ padding: '0.35rem 0.55rem', borderRadius: '4px', backgroundColor: '#FEE2E2', color: '#DC2626', border: 'none', cursor: 'pointer', fontSize: '0.8rem' }}
+                      style={{ padding: '0.35rem 0.55rem', borderRadius: '4px', backgroundColor: 'var(--color-danger-bg)', color: 'var(--color-danger-text)', border: 'none', cursor: 'pointer', fontSize: '0.8rem' }}
                     >
                       <FaTrashCan />
                     </button>
@@ -213,9 +213,9 @@ const HorarioAssignModal: React.FC<HorarioAssignModalProps> = ({
         </div>
 
         {/* SECTION 2: ASIGNAR NUEVO HORARIO */}
-        <div style={{ backgroundColor: '#FFFFFF', padding: '1rem', borderRadius: '8px', border: '1px solid #E2E8F0' }}>
+        <div style={{ backgroundColor: 'var(--color-surface)', padding: '1rem', borderRadius: '8px', border: '1px solid var(--color-border)' }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1rem' }}>
-            <h4 style={{ fontSize: '0.9rem', fontWeight: 800, color: '#0B1727', margin: 0 }}>
+            <h4 style={{ fontSize: '0.9rem', fontWeight: 800, color: 'var(--color-text-primary)', margin: 0 }}>
               Asignar Franja Horaria
             </h4>
             <div style={{ display: 'flex', gap: '0.35rem' }}>
@@ -223,9 +223,9 @@ const HorarioAssignModal: React.FC<HorarioAssignModalProps> = ({
                 type="button"
                 onClick={() => setAssignMode('select')}
                 style={{
-                  padding: '0.35rem 0.75rem', borderRadius: '4px', border: '1px solid #CBD5E1',
-                  backgroundColor: assignMode === 'select' ? '#003B70' : '#F1F5F9',
-                  color: assignMode === 'select' ? '#FFF' : '#475569',
+                  padding: '0.35rem 0.75rem', borderRadius: '4px', border: '1px solid var(--color-border-strong)',
+                  backgroundColor: assignMode === 'select' ? 'var(--color-primary)' : 'var(--color-surface-muted)',
+                  color: assignMode === 'select' ? '#FFF' : 'var(--color-text-secondary)',
                   fontWeight: 700, fontSize: '0.78rem', cursor: 'pointer'
                 }}
               >
@@ -235,9 +235,9 @@ const HorarioAssignModal: React.FC<HorarioAssignModalProps> = ({
                 type="button"
                 onClick={() => setAssignMode('create')}
                 style={{
-                  padding: '0.35rem 0.75rem', borderRadius: '4px', border: '1px solid #CBD5E1',
-                  backgroundColor: assignMode === 'create' ? '#003B70' : '#F1F5F9',
-                  color: assignMode === 'create' ? '#FFF' : '#475569',
+                  padding: '0.35rem 0.75rem', borderRadius: '4px', border: '1px solid var(--color-border-strong)',
+                  backgroundColor: assignMode === 'create' ? 'var(--color-primary)' : 'var(--color-surface-muted)',
+                  color: assignMode === 'create' ? '#FFF' : 'var(--color-text-secondary)',
                   fontWeight: 700, fontSize: '0.78rem', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.3rem'
                 }}
               >
@@ -249,17 +249,17 @@ const HorarioAssignModal: React.FC<HorarioAssignModalProps> = ({
           {assignMode === 'select' ? (
             <form onSubmit={handleAssignExisting} style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
               <div>
-                <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 700, color: '#334155', marginBottom: '0.3rem' }}>
+                <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 700, color: 'var(--color-text-secondary)', marginBottom: '0.3rem' }}>
                   Seleccionar Franja Horaria Existente *
                 </label>
                 {isLoadingHorarios ? (
-                  <div style={{ fontSize: '0.8rem', color: '#64748B' }}>Cargando franjas...</div>
+                  <div style={{ fontSize: '0.8rem', color: 'var(--color-text-muted)' }}>Cargando franjas...</div>
                 ) : (
                   <select
                     value={selectedHorarioId}
                     onChange={(e) => setSelectedHorarioId(Number(e.target.value))}
                     required
-                    style={{ width: '100%', padding: '0.55rem 0.75rem', borderRadius: '6px', border: '1px solid #CBD5E1', fontSize: '0.85rem' }}
+                    style={{ width: '100%', padding: '0.55rem 0.75rem', borderRadius: '6px', border: '1px solid var(--color-border-strong)', fontSize: '0.85rem' }}
                   >
                     <option value="">-- Seleccionar horario del catálogo --</option>
                     {horariosList.map((h) => (
@@ -272,7 +272,7 @@ const HorarioAssignModal: React.FC<HorarioAssignModalProps> = ({
               </div>
 
               <div>
-                <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 700, color: '#334155', marginBottom: '0.3rem' }}>
+                <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 700, color: 'var(--color-text-secondary)', marginBottom: '0.3rem' }}>
                   Cupo Máximo para este Turno *
                 </label>
                 <input
@@ -281,7 +281,7 @@ const HorarioAssignModal: React.FC<HorarioAssignModalProps> = ({
                   value={cupoMaximo}
                   onChange={(e) => setCupoMaximo(Number(e.target.value))}
                   required
-                  style={{ width: '100%', padding: '0.55rem 0.75rem', borderRadius: '6px', border: '1px solid #CBD5E1', fontSize: '0.85rem' }}
+                  style={{ width: '100%', padding: '0.55rem 0.75rem', borderRadius: '6px', border: '1px solid var(--color-border-strong)', fontSize: '0.85rem' }}
                 />
               </div>
 
@@ -291,7 +291,7 @@ const HorarioAssignModal: React.FC<HorarioAssignModalProps> = ({
                   disabled={assignMutation.isPending || !selectedHorarioId}
                   style={{
                     padding: '0.55rem 1.25rem', borderRadius: '6px', border: 'none',
-                    backgroundColor: '#003B70', color: '#FFF', fontWeight: 700, fontSize: '0.85rem', cursor: 'pointer',
+                    backgroundColor: 'var(--color-primary)', color: '#FFF', fontWeight: 700, fontSize: '0.85rem', cursor: 'pointer',
                     display: 'flex', alignItems: 'center', gap: '0.4rem'
                   }}
                 >
@@ -304,10 +304,10 @@ const HorarioAssignModal: React.FC<HorarioAssignModalProps> = ({
               {/* SELECTOR DE DÍAS */}
               <div>
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.35rem' }}>
-                  <label style={{ fontSize: '0.82rem', fontWeight: 700, color: '#334155' }}>
+                  <label style={{ fontSize: '0.82rem', fontWeight: 700, color: 'var(--color-text-secondary)' }}>
                     Día(s) de la Semana / Frecuencia *
                   </label>
-                  <span style={{ fontSize: '0.72rem', color: '#64748B' }}>
+                  <span style={{ fontSize: '0.72rem', color: 'var(--color-text-muted)' }}>
                     Presets rápidos o combinación libre
                   </span>
                 </div>
@@ -325,9 +325,9 @@ const HorarioAssignModal: React.FC<HorarioAssignModalProps> = ({
                         style={{
                           padding: '0.25rem 0.55rem',
                           borderRadius: '4px',
-                          border: isSelected ? '1px solid #003B70' : '1px solid #CBD5E1',
-                          backgroundColor: isSelected ? '#E0F2FE' : '#F8FAFC',
-                          color: isSelected ? '#003B70' : '#475569',
+                          border: isSelected ? '1px solid var(--color-primary)' : '1px solid var(--color-border-strong)',
+                          backgroundColor: isSelected ? 'var(--color-primary-soft)' : 'var(--color-surface-muted)',
+                          color: isSelected ? 'var(--color-primary-text)' : 'var(--color-text-secondary)',
                           fontWeight: 700,
                           fontSize: '0.72rem',
                           cursor: 'pointer',
@@ -352,9 +352,9 @@ const HorarioAssignModal: React.FC<HorarioAssignModalProps> = ({
                         style={{
                           padding: '0.45rem 0.2rem',
                           borderRadius: '6px',
-                          border: active ? '1px solid #003B70' : '1px solid #E2E8F0',
-                          backgroundColor: active ? '#003B70' : '#FFFFFF',
-                          color: active ? '#FFFFFF' : '#334155',
+                          border: active ? '1px solid var(--color-primary)' : '1px solid var(--color-border)',
+                          backgroundColor: active ? 'var(--color-primary)' : 'var(--color-surface)',
+                          color: active ? '#FFFFFF' : 'var(--color-text-secondary)',
                           fontWeight: 800,
                           fontSize: '0.75rem',
                           cursor: 'pointer',
@@ -373,16 +373,16 @@ const HorarioAssignModal: React.FC<HorarioAssignModalProps> = ({
                 <div style={{
                   padding: '0.45rem 0.75rem',
                   borderRadius: '6px',
-                  backgroundColor: '#F8FAFC',
-                  border: '1px solid #E2E8F0',
+                  backgroundColor: 'var(--color-surface-muted)',
+                  border: '1px solid var(--color-border)',
                   display: 'flex',
                   alignItems: 'center',
                   gap: '0.5rem',
                   fontSize: '0.78rem'
                 }}>
-                  <FaCalendarDays style={{ color: '#003B70' }} />
-                  <span style={{ color: '#64748B' }}>Frecuencia asignada:</span>
-                  <strong style={{ color: '#0B1727' }}>
+                  <FaCalendarDays style={{ color: 'var(--color-primary-text)' }} />
+                  <span style={{ color: 'var(--color-text-muted)' }}>Frecuencia asignada:</span>
+                  <strong style={{ color: 'var(--color-text-primary)' }}>
                     {customDiaString || 'Ningún día seleccionado'}
                   </strong>
                 </div>
@@ -391,7 +391,7 @@ const HorarioAssignModal: React.FC<HorarioAssignModalProps> = ({
               {/* HORAS Y CUPO */}
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '0.75rem' }}>
                 <div>
-                  <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 700, color: '#334155', marginBottom: '0.3rem' }}>
+                  <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 700, color: 'var(--color-text-secondary)', marginBottom: '0.3rem' }}>
                     Hora Inicio *
                   </label>
                   <input
@@ -399,12 +399,12 @@ const HorarioAssignModal: React.FC<HorarioAssignModalProps> = ({
                     value={newHoraInicio}
                     onChange={(e) => setNewHoraInicio(e.target.value)}
                     required
-                    style={{ width: '100%', padding: '0.55rem 0.65rem', borderRadius: '6px', border: '1px solid #CBD5E1', fontSize: '0.85rem' }}
+                    style={{ width: '100%', padding: '0.55rem 0.65rem', borderRadius: '6px', border: '1px solid var(--color-border-strong)', fontSize: '0.85rem' }}
                   />
                 </div>
 
                 <div>
-                  <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 700, color: '#334155', marginBottom: '0.3rem' }}>
+                  <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 700, color: 'var(--color-text-secondary)', marginBottom: '0.3rem' }}>
                     Hora Fin *
                   </label>
                   <input
@@ -412,12 +412,12 @@ const HorarioAssignModal: React.FC<HorarioAssignModalProps> = ({
                     value={newHoraFin}
                     onChange={(e) => setNewHoraFin(e.target.value)}
                     required
-                    style={{ width: '100%', padding: '0.55rem 0.65rem', borderRadius: '6px', border: '1px solid #CBD5E1', fontSize: '0.85rem' }}
+                    style={{ width: '100%', padding: '0.55rem 0.65rem', borderRadius: '6px', border: '1px solid var(--color-border-strong)', fontSize: '0.85rem' }}
                   />
                 </div>
 
                 <div>
-                  <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 700, color: '#334155', marginBottom: '0.3rem' }}>
+                  <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 700, color: 'var(--color-text-secondary)', marginBottom: '0.3rem' }}>
                     Cupos Máximos *
                   </label>
                   <input
@@ -426,7 +426,7 @@ const HorarioAssignModal: React.FC<HorarioAssignModalProps> = ({
                     value={cupoMaximo}
                     onChange={(e) => setCupoMaximo(Number(e.target.value))}
                     required
-                    style={{ width: '100%', padding: '0.55rem 0.65rem', borderRadius: '6px', border: '1px solid #CBD5E1', fontSize: '0.85rem' }}
+                    style={{ width: '100%', padding: '0.55rem 0.65rem', borderRadius: '6px', border: '1px solid var(--color-border-strong)', fontSize: '0.85rem' }}
                   />
                 </div>
               </div>
@@ -435,20 +435,20 @@ const HorarioAssignModal: React.FC<HorarioAssignModalProps> = ({
               <div style={{
                 padding: '0.65rem 0.85rem',
                 borderRadius: '6px',
-                backgroundColor: '#EFF6FF',
-                border: '1px solid #BFDBFE',
+                backgroundColor: 'var(--color-primary-soft)',
+                border: '1px solid rgba(220, 38, 38, 0.30)',
                 fontSize: '0.78rem',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'space-between'
               }}>
                 <div>
-                  <span style={{ color: '#1E40AF', fontWeight: 700 }}>Resumen del nuevo turno: </span>
-                  <strong style={{ color: '#1E3A8A' }}>
+                  <span style={{ color: 'var(--color-primary-text)', fontWeight: 700 }}>Resumen del nuevo turno: </span>
+                  <strong style={{ color: 'var(--color-primary-text)' }}>
                     {customDiaString || 'Días'}: {newHoraInicio} - {newHoraFin}
                   </strong>
                 </div>
-                <span style={{ padding: '0.15rem 0.5rem', borderRadius: '4px', backgroundColor: '#DBEAFE', color: '#1E40AF', fontWeight: 700, fontSize: '0.72rem' }}>
+                <span style={{ padding: '0.15rem 0.5rem', borderRadius: '4px', backgroundColor: '#DBEAFE', color: 'var(--color-primary-text)', fontWeight: 700, fontSize: '0.72rem' }}>
                   {cupoMaximo} cupos
                 </span>
               </div>
@@ -459,7 +459,7 @@ const HorarioAssignModal: React.FC<HorarioAssignModalProps> = ({
                   disabled={createHorarioMutation.isPending || assignMutation.isPending || selectedDias.length === 0}
                   style={{
                     padding: '0.55rem 1.25rem', borderRadius: '6px', border: 'none',
-                    backgroundColor: '#003B70', color: '#FFF', fontWeight: 700, fontSize: '0.85rem', cursor: 'pointer',
+                    backgroundColor: 'var(--color-primary)', color: '#FFF', fontWeight: 700, fontSize: '0.85rem', cursor: 'pointer',
                     display: 'flex', alignItems: 'center', gap: '0.4rem'
                   }}
                 >

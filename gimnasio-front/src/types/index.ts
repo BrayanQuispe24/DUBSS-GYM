@@ -1,19 +1,26 @@
 // src/types/index.ts
-export type GymServiceCategory = 'boxeo' | 'kickboxing' | 'baile' | 'funcional' | 'aparatos';
+import type { PublicDisciplinaHorario } from '@/features/landing/types/landing.types';
+
+export type GymServiceCategory = string;
 
 export interface GymServiceItem {
   id: string;
+  disciplinaId?: number;
   title: string;
   category: GymServiceCategory;
   categoryLabel: string;
   description: string;
   schedule: string;
+  horarios?: PublicDisciplinaHorario[];
   instructor: string;
   capacity: string;
+  cuposDisponibles?: number;
+  cuposTotal?: number;
   image: string;
   tags: string[];
   studentPrice: string;
   docentPrice: string;
+  defaultPlanId?: number;
 }
 
 export interface CroquisSpot {

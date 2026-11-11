@@ -111,14 +111,14 @@ const AntecedenteModal: React.FC<AntecedenteModalProps> = ({ isOpen, historial, 
       backgroundColor: 'rgba(11, 23, 39, 0.6)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 9999
     }}>
       <div style={{
-        backgroundColor: '#FFFFFF', borderRadius: '12px', padding: '1.75rem', width: '100%', maxWidth: '600px',
+        backgroundColor: 'var(--color-surface)', borderRadius: '12px', padding: '1.75rem', width: '100%', maxWidth: '600px',
         boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1)', maxHeight: '90vh', overflowY: 'auto'
       }}>
-        <div style={{ borderBottom: '1px solid #E2E8F0', paddingBottom: '0.75rem', marginBottom: '1rem' }}>
-          <h3 style={{ fontSize: '1.15rem', fontWeight: 800, color: '#0B1727', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-            <FaHeartPulse style={{ color: '#DC2626' }} /> Registrar Antecedentes Médicos & Patologías
+        <div style={{ borderBottom: '1px solid var(--color-border)', paddingBottom: '0.75rem', marginBottom: '1rem' }}>
+          <h3 style={{ fontSize: '1.15rem', fontWeight: 800, color: 'var(--color-text-primary)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            <FaHeartPulse style={{ color: 'var(--color-danger-text)' }} /> Registrar Antecedentes Médicos & Patologías
           </h3>
-          <p style={{ fontSize: '0.8rem', color: '#64748B' }}>
+          <p style={{ fontSize: '0.8rem', color: 'var(--color-text-muted)' }}>
             Socio: <strong>{historial.usuario?.name || `ID: ${historial.id_usuario}`}</strong>
           </p>
         </div>
@@ -126,9 +126,9 @@ const AntecedenteModal: React.FC<AntecedenteModalProps> = ({ isOpen, historial, 
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
             {/* Cardiovascular */}
-            <div style={{ padding: '0.75rem', borderRadius: '8px', border: '1px solid #E2E8F0', backgroundColor: '#F8FAFC' }}>
-              <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 700, fontSize: '0.88rem', color: '#0B1727', cursor: 'pointer' }}>
-                <input type="checkbox" checked={tieneCardio} onChange={(e) => setTieneCardio(e.target.checked)} style={{ width: '16px', height: '16px', accentColor: '#003B70' }} />
+            <div style={{ padding: '0.75rem', borderRadius: '8px', border: '1px solid var(--color-border)', backgroundColor: 'var(--color-surface-muted)' }}>
+              <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 700, fontSize: '0.88rem', color: 'var(--color-text-primary)', cursor: 'pointer' }}>
+                <input type="checkbox" checked={tieneCardio} onChange={(e) => setTieneCardio(e.target.checked)} style={{ width: '16px', height: '16px', accentColor: 'var(--color-primary)' }} />
                 Enfermedades Cardiovasculares
               </label>
               {tieneCardio && (
@@ -137,15 +137,15 @@ const AntecedenteModal: React.FC<AntecedenteModalProps> = ({ isOpen, historial, 
                   placeholder="Especifique detalles o diagnóstico..."
                   value={detCardio}
                   onChange={(e) => setDetCardio(e.target.value)}
-                  style={{ width: '100%', marginTop: '0.5rem', padding: '0.5rem', borderRadius: '6px', border: '1px solid #CBD5E1', fontSize: '0.82rem' }}
+                  style={{ width: '100%', marginTop: '0.5rem', padding: '0.5rem', borderRadius: '6px', border: '1px solid var(--color-border-strong)', fontSize: '0.82rem' }}
                 />
               )}
             </div>
 
             {/* Hipertensión */}
-            <div style={{ padding: '0.75rem', borderRadius: '8px', border: '1px solid #E2E8F0', backgroundColor: '#F8FAFC' }}>
-              <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 700, fontSize: '0.88rem', color: '#0B1727', cursor: 'pointer' }}>
-                <input type="checkbox" checked={tieneHipertension} onChange={(e) => setTieneHipertension(e.target.checked)} style={{ width: '16px', height: '16px', accentColor: '#003B70' }} />
+            <div style={{ padding: '0.75rem', borderRadius: '8px', border: '1px solid var(--color-border)', backgroundColor: 'var(--color-surface-muted)' }}>
+              <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 700, fontSize: '0.88rem', color: 'var(--color-text-primary)', cursor: 'pointer' }}>
+                <input type="checkbox" checked={tieneHipertension} onChange={(e) => setTieneHipertension(e.target.checked)} style={{ width: '16px', height: '16px', accentColor: 'var(--color-primary)' }} />
                 Hipertensión Arterial
               </label>
               {tieneHipertension && (
@@ -154,15 +154,15 @@ const AntecedenteModal: React.FC<AntecedenteModalProps> = ({ isOpen, historial, 
                   placeholder="Detalle medicamento o presión habitual..."
                   value={detHipertension}
                   onChange={(e) => setDetHipertension(e.target.value)}
-                  style={{ width: '100%', marginTop: '0.5rem', padding: '0.5rem', borderRadius: '6px', border: '1px solid #CBD5E1', fontSize: '0.82rem' }}
+                  style={{ width: '100%', marginTop: '0.5rem', padding: '0.5rem', borderRadius: '6px', border: '1px solid var(--color-border-strong)', fontSize: '0.82rem' }}
                 />
               )}
             </div>
 
             {/* Pulmonar / Asma */}
-            <div style={{ padding: '0.75rem', borderRadius: '8px', border: '1px solid #E2E8F0', backgroundColor: '#F8FAFC' }}>
-              <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 700, fontSize: '0.88rem', color: '#0B1727', cursor: 'pointer' }}>
-                <input type="checkbox" checked={tienePulmonar} onChange={(e) => setTienePulmonar(e.target.checked)} style={{ width: '16px', height: '16px', accentColor: '#003B70' }} />
+            <div style={{ padding: '0.75rem', borderRadius: '8px', border: '1px solid var(--color-border)', backgroundColor: 'var(--color-surface-muted)' }}>
+              <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 700, fontSize: '0.88rem', color: 'var(--color-text-primary)', cursor: 'pointer' }}>
+                <input type="checkbox" checked={tienePulmonar} onChange={(e) => setTienePulmonar(e.target.checked)} style={{ width: '16px', height: '16px', accentColor: 'var(--color-primary)' }} />
                 Enfermedades Pulmonares / Asma
               </label>
               {tienePulmonar && (
@@ -171,15 +171,15 @@ const AntecedenteModal: React.FC<AntecedenteModalProps> = ({ isOpen, historial, 
                   placeholder="Especifique si usa inhalador o frecuencia..."
                   value={detPulmonar}
                   onChange={(e) => setDetPulmonar(e.target.value)}
-                  style={{ width: '100%', marginTop: '0.5rem', padding: '0.5rem', borderRadius: '6px', border: '1px solid #CBD5E1', fontSize: '0.82rem' }}
+                  style={{ width: '100%', marginTop: '0.5rem', padding: '0.5rem', borderRadius: '6px', border: '1px solid var(--color-border-strong)', fontSize: '0.82rem' }}
                 />
               )}
             </div>
 
             {/* Diabetes */}
-            <div style={{ padding: '0.75rem', borderRadius: '8px', border: '1px solid #E2E8F0', backgroundColor: '#F8FAFC' }}>
-              <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 700, fontSize: '0.88rem', color: '#0B1727', cursor: 'pointer' }}>
-                <input type="checkbox" checked={tieneDiabetes} onChange={(e) => setTieneDiabetes(e.target.checked)} style={{ width: '16px', height: '16px', accentColor: '#003B70' }} />
+            <div style={{ padding: '0.75rem', borderRadius: '8px', border: '1px solid var(--color-border)', backgroundColor: 'var(--color-surface-muted)' }}>
+              <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 700, fontSize: '0.88rem', color: 'var(--color-text-primary)', cursor: 'pointer' }}>
+                <input type="checkbox" checked={tieneDiabetes} onChange={(e) => setTieneDiabetes(e.target.checked)} style={{ width: '16px', height: '16px', accentColor: 'var(--color-primary)' }} />
                 Diabetes Mellitus
               </label>
               {tieneDiabetes && (
@@ -188,15 +188,15 @@ const AntecedenteModal: React.FC<AntecedenteModalProps> = ({ isOpen, historial, 
                   placeholder="Tipo 1 o Tipo 2, uso de insulina..."
                   value={detDiabetes}
                   onChange={(e) => setDetDiabetes(e.target.value)}
-                  style={{ width: '100%', marginTop: '0.5rem', padding: '0.5rem', borderRadius: '6px', border: '1px solid #CBD5E1', fontSize: '0.82rem' }}
+                  style={{ width: '100%', marginTop: '0.5rem', padding: '0.5rem', borderRadius: '6px', border: '1px solid var(--color-border-strong)', fontSize: '0.82rem' }}
                 />
               )}
             </div>
 
             {/* Lesiones */}
-            <div style={{ padding: '0.75rem', borderRadius: '8px', border: '1px solid #E2E8F0', backgroundColor: '#F8FAFC' }}>
-              <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 700, fontSize: '0.88rem', color: '#0B1727', cursor: 'pointer' }}>
-                <input type="checkbox" checked={tieneLesiones} onChange={(e) => setTieneLesiones(e.target.checked)} style={{ width: '16px', height: '16px', accentColor: '#003B70' }} />
+            <div style={{ padding: '0.75rem', borderRadius: '8px', border: '1px solid var(--color-border)', backgroundColor: 'var(--color-surface-muted)' }}>
+              <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 700, fontSize: '0.88rem', color: 'var(--color-text-primary)', cursor: 'pointer' }}>
+                <input type="checkbox" checked={tieneLesiones} onChange={(e) => setTieneLesiones(e.target.checked)} style={{ width: '16px', height: '16px', accentColor: 'var(--color-primary)' }} />
                 Lesiones Osteoarticulares o Musculares
               </label>
               {tieneLesiones && (
@@ -205,15 +205,15 @@ const AntecedenteModal: React.FC<AntecedenteModalProps> = ({ isOpen, historial, 
                   placeholder="Ej: Hernia discal, esguince de tobillo, cirugía de rodilla..."
                   value={detLesiones}
                   onChange={(e) => setDetLesiones(e.target.value)}
-                  style={{ width: '100%', marginTop: '0.5rem', padding: '0.5rem', borderRadius: '6px', border: '1px solid #CBD5E1', fontSize: '0.82rem' }}
+                  style={{ width: '100%', marginTop: '0.5rem', padding: '0.5rem', borderRadius: '6px', border: '1px solid var(--color-border-strong)', fontSize: '0.82rem' }}
                 />
               )}
             </div>
 
             {/* Alergias */}
-            <div style={{ padding: '0.75rem', borderRadius: '8px', border: '1px solid #E2E8F0', backgroundColor: '#F8FAFC' }}>
-              <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 700, fontSize: '0.88rem', color: '#0B1727', cursor: 'pointer' }}>
-                <input type="checkbox" checked={tieneAlergias} onChange={(e) => setTieneAlergias(e.target.checked)} style={{ width: '16px', height: '16px', accentColor: '#003B70' }} />
+            <div style={{ padding: '0.75rem', borderRadius: '8px', border: '1px solid var(--color-border)', backgroundColor: 'var(--color-surface-muted)' }}>
+              <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 700, fontSize: '0.88rem', color: 'var(--color-text-primary)', cursor: 'pointer' }}>
+                <input type="checkbox" checked={tieneAlergias} onChange={(e) => setTieneAlergias(e.target.checked)} style={{ width: '16px', height: '16px', accentColor: 'var(--color-primary)' }} />
                 Alergias Conocidas
               </label>
               {tieneAlergias && (
@@ -222,13 +222,13 @@ const AntecedenteModal: React.FC<AntecedenteModalProps> = ({ isOpen, historial, 
                   placeholder="Medicamentos, alimentos, látex..."
                   value={detAlergias}
                   onChange={(e) => setDetAlergias(e.target.value)}
-                  style={{ width: '100%', marginTop: '0.5rem', padding: '0.5rem', borderRadius: '6px', border: '1px solid #CBD5E1', fontSize: '0.82rem' }}
+                  style={{ width: '100%', marginTop: '0.5rem', padding: '0.5rem', borderRadius: '6px', border: '1px solid var(--color-border-strong)', fontSize: '0.82rem' }}
                 />
               )}
             </div>
 
             <div>
-              <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 700, color: '#334155', marginBottom: '0.35rem' }}>
+              <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 700, color: 'var(--color-text-secondary)', marginBottom: '0.35rem' }}>
                 Observaciones Adicionales / Indicaciones
               </label>
               <textarea
@@ -236,7 +236,7 @@ const AntecedenteModal: React.FC<AntecedenteModalProps> = ({ isOpen, historial, 
                 value={observaciones}
                 onChange={(e) => setObservaciones(e.target.value)}
                 placeholder="Cualquier indicación adicional para los entrenadores..."
-                style={{ width: '100%', padding: '0.6rem 0.8rem', borderRadius: '6px', border: '1px solid #CBD5E1', fontSize: '0.88rem' }}
+                style={{ width: '100%', padding: '0.6rem 0.8rem', borderRadius: '6px', border: '1px solid var(--color-border-strong)', fontSize: '0.88rem' }}
               />
             </div>
           </div>
@@ -245,14 +245,14 @@ const AntecedenteModal: React.FC<AntecedenteModalProps> = ({ isOpen, historial, 
             <button
               type="button"
               onClick={onClose}
-              style={{ padding: '0.55rem 1.1rem', borderRadius: '6px', border: '1px solid #CBD5E1', backgroundColor: '#FFF', color: '#475569', fontWeight: 600, cursor: 'pointer' }}
+              style={{ padding: '0.55rem 1.1rem', borderRadius: '6px', border: '1px solid var(--color-border-strong)', backgroundColor: 'var(--color-surface)', color: 'var(--color-text-secondary)', fontWeight: 600, cursor: 'pointer' }}
             >
               Cancelar
             </button>
             <button
               type="submit"
               disabled={createAntecedenteMutation.isPending}
-              style={{ padding: '0.55rem 1.25rem', borderRadius: '6px', border: 'none', backgroundColor: '#003B70', color: '#FFF', fontWeight: 700, cursor: 'pointer' }}
+              style={{ padding: '0.55rem 1.25rem', borderRadius: '6px', border: 'none', backgroundColor: 'var(--color-primary)', color: '#FFF', fontWeight: 700, cursor: 'pointer' }}
             >
               {createAntecedenteMutation.isPending ? 'Guardando...' : 'Guardar Antecedentes'}
             </button>
