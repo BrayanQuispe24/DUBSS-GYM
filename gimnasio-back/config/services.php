@@ -39,4 +39,12 @@ return [
         'url' => env('IA_SERVICE_URL', 'http://127.0.0.1:8001/api/v1'),
     ],
 
+    'n8n' => [
+        'api_key' => env('N8N_API_KEY'),
+    ],
+
+    'telegram' => [
+        'bot_username' => env('TELEGRAM_BOT_USERNAME', 'MiGymAvisosBot'),
+    ],
+
 ];

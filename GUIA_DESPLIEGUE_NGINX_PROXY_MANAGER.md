@@ -1,0 +1,240 @@
+# Guía Paso a Paso: Despliegue en Producción con Docker y Nginx Proxy Manager (NPM)
+
+Esta guía documenta el procedimiento completo para desplegar la plataforma **DUBSS-GYM (FitGo!)** en un servidor de producción y exponerla mediante **Nginx Proxy Manager (NPM)** con certificados SSL automáticos (Let's Encrypt).
+
+---
+
+## Diagrama de Flujo del Tráfico
+
+```
+[ Internet / Clientes ]
+          │ (HTTPS :443 / SSL Let's Encrypt)
+          ▼
+┌───────────────────────────────────────────────┐
+│          Nginx Proxy Manager (NPM)            │
+│  - Terminación SSL                            │
+│  - Redirección HTTP -> HTTPS                  │
+│  - Reenvía el tráfico a: 172.17.0.1:8080      │
+└───────────────────────┬───────────────────────┘
+                        │ (HTTP :8080)
+                        ▼
+┌───────────────────────────────────────────────┐
+│        Gateway Nginx (dubss-gateway)          │
+│  - /           ──► Frontend React 19          │
+│  - /api/       ──► Backend Laravel 11         │
+│  - /storage/   ──► Laravel Storage            │
+│  - /api/v1/ia/ ──► Microservicio IA FastAPI   │
+└───────────────────────┬───────────────────────┘
+                        │ (Red dubss_network)
+         ┌──────────────┼──────────────┐
+         ▼              ▼              ▼
+  ┌────────────┐ ┌────────────┐ ┌────────────┐
+  │  Frontend  │ │  Backend   │ │ Micro-IA   │
+  │  React 19  │ │ Laravel 11 │ │  FastAPI   │
+  └────────────┘ └─────┬──────┘ └─────┬──────┘
+                       │              │
+               ┌───────┴──────┐       │
+               ▼              ▼       ▼
+         ┌───────────┐  ┌───────────┐
+         │PostgreSQL │  │  Redis 7  │
+         │    16     │  │ (Caché &  │
+         │ (Persist) │  │  Colas)   │
+         └───────────┘  └───────────┘
+```
+
+---
+
+## Paso 1: Configurar el archivo `.env`
+
+En la raíz del proyecto (`DUBSS-GYM`), copia el archivo de ejemplo para generar tu `.env` de producción:
+
+```bash
+cp .env.production.example .env
+```
+
+Edita `.env` con tus parámetros de producción:
+
+```env
+# ==============================================================================
+# 1. Puerto del Gateway Docker
+# ==============================================================================
+# Se usa 8080 para evitar conflictos con el puerto 80 que ya ocupa NPM en el host
+PORT=8080
+
+# ==============================================================================
+# 2. Base de Datos PostgreSQL 16
+# ==============================================================================
+DB_DATABASE=gimnasio_db
+DB_USERNAME=postgres
+DB_PASSWORD=TuPasswordSuperSeguro123!
+
+# ==============================================================================
+# 3. Backend Core Laravel 11
+# ==============================================================================
+APP_NAME="DUBSS-GYM"
+APP_ENV=production
+APP_DEBUG=false
+APP_URL=https://gym.tudominio.com
+APP_KEY=base64:IrirHFvkswKRJSZ+YC5kM8cUs5qqFjlaqwf2i7HXhBs=
+RUN_MIGRATIONS=true
+
+# Notificaciones por Telegram Bot (opcional)
+TELEGRAM_BOT_TOKEN=
+TELEGRAM_BOT_USERNAME=FitGoNotificacionesBot
+
+# ==============================================================================
+# 4. Microservicio de Inteligencia Artificial (FastAPI)
+# ==============================================================================
+GEMINI_API_KEY=tu_api_key_de_google_gemini_aqui
+GEMINI_MODEL=gemini-2.5-flash
+
+# ==============================================================================
+# 5. Frontend SPA (React 19)
+# ==============================================================================
+# El Gateway interno enruta "/api" directamente hacia el backend Laravel
+VITE_API_URL=/api
+```
+
+> [!IMPORTANT]
+> En `APP_URL`, debes especificar la URL pública con `https://` que configuraste en tu dominio de NPM (por ejemplo: `https://gym.tudominio.com`).
+
+---
+
+## Paso 2: Construir y Levantar los Contenedores
+
+Ejecuta el comando de compilación multi-etapa y arranque en segundo plano:
+
+```bash
+docker compose up -d --build
+```
+
+Comprueba el estado de salud (*Healthchecks*) de todos los servicios:
+
+```bash
+docker compose ps
+```
+
+Todos los servicios deben mostrar el estado `running (healthy)`:
+- `dubss-gateway` (escuchando en `0.0.0.0:8080->80/tcp`)
+- `dubss-frontend`
+- `dubss-backend`
+- `dubss-ia`
+- `dubss-postgres`
+- `dubss-redis`
+
+---
+
+## Paso 3: Carga Inicial de Datos (Seeders)
+
+Las migraciones de tablas se aplican automáticamente en el arranque. Para poblar los roles, permisos, usuarios administradores y el catálogo de más de 800 ejercicios con esquemas biomecánicos, corre:
+
+```bash
+docker compose exec backend php artisan db:seed --force
+```
+
+---
+
+## Paso 4: Obtener la IP para Nginx Proxy Manager
+
+Nginx Proxy Manager necesita saber a qué dirección IP reenviar el tráfico en el puerto `8080`:
+
+* **Opción A (NPM en el mismo servidor / VPS):**
+  Usa la IP del gateway del puente de Docker:
+  ```text
+  172.17.0.1
+  ```
+  *(O la dirección IP local de tu servidor en la red privada).*
+
+* **Opción B (NPM comparte la red Docker `dubss_network`):**
+  Usa directamente el nombre del contenedor:
+  ```text
+  dubss-gateway
+  ```
+
+---
+
+## Paso 5: Configuración en Nginx Proxy Manager (NPM)
+
+Ingresa a la interfaz de administración de NPM (usualmente `http://TU_IP:81`), dirígete a:
+**Hosts** ➔ **Proxy Hosts** ➔ **Add Proxy Host**
+
+### 1. Pestaña: **Details**
+* **Domain Names**: Escribe tu dominio (ej: `gym.tudominio.com`) y presiona la tecla **Enter** para fijarlo.
+* **Scheme**: `http`
+* **Forward Hostname / IP**: `172.17.0.1` (o la IP de tu servidor)
+* **Forward Port**: `8080`
+* **Access List**: `Publicly Accessible`
+* Activa las siguientes casillas:
+  * [x] **Block Common Exploits**
+  * [x] **Websockets Support**
+  * [ ] *Cache Assets (Déjalo desactivado, Nginx del frontend ya lo gestiona)*
+
+### 2. Pestaña: **SSL**
+* **SSL Certificate**: Selecciona **"Request a new SSL Certificate"** (Let's Encrypt).
+* Activa las siguientes opciones:
+  * [x] **Force SSL** (Garantiza redirección automática de HTTP a HTTPS).
+  * [x] **HTTP/2 Support** (Acelera la entrega de recursos concurrentes).
+  * [x] **HSTS Enabled** (Protocolo de transporte estricto contra intermediarios).
+* Ingresa tu correo electrónico y marca la casilla:
+  * [x] **I Agree to the Let's Encrypt Terms and Conditions**
+
+### 3. Pestaña: **Custom Locations**
+* **Dejar vacía.** No agregues ninguna regla. El contenedor `dubss-gateway` ya se encarga del enrutamiento granular de `/`, `/api/`, `/storage/` y `/api/v1/ia/`.
+
+Presiona **Save**.
+
+---
+
+## Paso 6: Verificación de Funcionamiento
+
+Abre tu navegador e ingresa a tu dominio:
+
+```text
+https://gym.tudominio.com
+```
+
+### Lista de comprobaciones:
+1. **Certificado SSL válido:** El navegador debe mostrar el candado de seguridad activo (`https://`).
+2. **Carga del Frontend:** Debe renderizarse la aplicación web React 19 sin errores de consola.
+3. **Autenticación (API Laravel):** Intenta iniciar sesión con un usuario; la petición a `/api/login` debe procesarse correctamente sin bloqueos de CORS.
+4. **Almacenamiento de archivos:** Comprueba que las imágenes subidas o comprobantes en `/storage/...` sean accesibles.
+5. **Microservicio de IA:** Verifica la respuesta del estado de salud del motor de IA en:
+   ```text
+   https://gym.tudominio.com/api/v1/ia/health
+   ```
+   Debe devolver:
+   ```json
+   {
+     "status": "ok",
+     "service": "DUBSS-GYM IA Microservice",
+     "version": "1.0.0"
+   }
+   ```
+
+---
+
+## Comandos Útiles de Mantenimiento
+
+### Inspeccionar registros en tiempo real:
+```bash
+# Todos los servicios
+docker compose logs -f
+
+# Solo Backend Laravel
+docker compose logs -f backend
+
+# Solo Microservicio IA
+docker compose logs -f ia-service
+```
+
+### Limpiar y recargar optimizaciones de Laravel:
+```bash
+docker compose exec backend php artisan optimize:clear
+docker compose exec backend php artisan optimize
+```
+
+### Respaldo de Base de Datos PostgreSQL:
+```bash
+docker compose exec postgres pg_dump -U postgres gimnasio_db > backup_$(date +%F).sql
+```
+

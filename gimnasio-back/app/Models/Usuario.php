@@ -30,6 +30,7 @@ class Usuario extends Authenticatable
         'password',
         'id_rol',
         'id_disciplina',
+        'telegram_chat_id',
     ];
 
     protected $hidden = [
@@ -131,5 +132,10 @@ class Usuario extends Authenticatable
     public function movimientosInventario(): HasMany
     {
         return $this->hasMany(MovimientoInventario::class, 'id_usuario');
+    }
+
+    public function telegramTokens(): HasMany
+    {
+        return $this->hasMany(TelegramVinculacionToken::class, 'id_usuario');
     }
 }

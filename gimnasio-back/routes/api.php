@@ -21,6 +21,7 @@ use App\Http\Controllers\FormularioSolicitudController;
 use App\Http\Controllers\GrupoMuscularController;
 use App\Http\Controllers\HistorialController;
 use App\Http\Controllers\HorarioController;
+use App\Http\Controllers\IntegracionNotificacionController;
 use App\Http\Controllers\MantenimientoController;
 use App\Http\Controllers\MarcaController;
 use App\Http\Controllers\MovimientoInventarioController;
@@ -36,6 +37,8 @@ use App\Http\Controllers\RutinaController;
 use App\Http\Controllers\TarifaController;
 use App\Http\Controllers\TipoDocumentoController;
 use App\Http\Controllers\TipoEjercicioController;
+use App\Http\Controllers\ClienteTelegramController;
+use App\Http\Controllers\TelegramIntegracionController;
 use App\Http\Controllers\TipoEquipoController;
 use App\Http\Controllers\TipoMovimientoController;
 use App\Http\Controllers\UsuarioController;
@@ -44,13 +47,26 @@ use Illuminate\Support\Facades\Route;
 // Rutas Públicas de Autenticación y Catálogo Landing
 Route::get('/public/landing', [PublicLandingController::class, 'index']);
 Route::post('/register', [AuthController::class, 'register']);
-Route::post('/login', [AuthController::class, 'login']);
+Route::post('/login', [AuthController::class, 'login'])->name('login');
+
+// Endpoints de integración para n8n / Bot de Notificaciones (Soportan X-API-KEY o Sanctum)
+Route::get('/boletas-inscripcion/vencimientos', [BoletaInscripcionController::class, 'vencimientos']);
+Route::post('/integraciones/notificaciones/registrar', [IntegracionNotificacionController::class, 'registrar']);
+Route::post('/integraciones/telegram/vincular', [TelegramIntegracionController::class, 'vincular']);
+Route::post('/', [TelegramIntegracionController::class, 'vincular']); // Soporta llamada directa a /api
 
 // Rutas Protegidas por Sanctum
 Route::middleware('auth:sanctum')->group(function () {
     // Autenticación & Perfil
     Route::get('/profile', [AuthController::class, 'profile']);
     Route::post('/logout', [AuthController::class, 'logout']);
+
+    // Integración con Telegram para Clientes
+    Route::prefix('cliente/telegram')->group(function () {
+        Route::get('/estado', [ClienteTelegramController::class, 'estado']);
+        Route::post('/solicitar-token', [ClienteTelegramController::class, 'generarToken']);
+        Route::delete('/desvincular', [ClienteTelegramController::class, 'desvincular']);
+    });
 
     // Gestión de Usuarios
     Route::get('/usuarios', [UsuarioController::class, 'index']);

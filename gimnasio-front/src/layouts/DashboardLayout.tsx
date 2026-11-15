@@ -22,18 +22,23 @@ import {
   FaCalendarDays,
   FaAppleWhole,
   FaFileInvoiceDollar,
-  FaQrcode
+  FaQrcode,
+  FaTelegram
 } from 'react-icons/fa6';
 import { Sun, Moon, Minus, Plus, Type } from 'lucide-react';
 import { useAuthStore } from '@/store/authStore';
 import { useUIStore, FONT_SCALES, FONT_SCALE_ORDER } from '@/store/uiStore';
 import { useLogout } from '@/features/auth/hooks/useAuth';
 import showToast from '@/utils/toast';
+import { useTelegramEstado } from '@/features/telegram/hooks/useTelegram';
+import VincularTelegramModal from '@/features/telegram/components/VincularTelegramModal';
 
 const DashboardLayout: React.FC = () => {
   const [collapsed, setCollapsed] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [isTelegramModalOpen, setIsTelegramModalOpen] = useState(false);
   const { user } = useAuthStore();
+  const { data: telegramEstado } = useTelegramEstado(user?.rol === 'cliente');
   const {
     theme,
     toggleTheme,
@@ -354,6 +359,32 @@ const DashboardLayout: React.FC = () => {
           </div>
 
           <div className="topbar-right">
+            {/* Botón de Vinculación con Telegram para Clientes */}
+            {user?.rol === 'cliente' && (
+              <button
+                type="button"
+                onClick={() => setIsTelegramModalOpen(true)}
+                title={telegramEstado?.vinculado ? 'Telegram vinculado - Recibiendo avisos automáticos' : 'Vincular cuenta con Telegram para avisos'}
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '0.4rem',
+                  padding: '0.4rem 0.8rem',
+                  borderRadius: '4px',
+                  backgroundColor: telegramEstado?.vinculado ? 'rgba(34, 197, 94, 0.12)' : 'rgba(34, 158, 217, 0.15)',
+                  border: telegramEstado?.vinculado ? '1px solid rgba(34, 197, 94, 0.4)' : '1px solid rgba(34, 158, 217, 0.45)',
+                  color: telegramEstado?.vinculado ? '#4ADE80' : '#229ED9',
+                  fontSize: '0.8rem',
+                  fontWeight: 700,
+                  cursor: 'pointer',
+                  transition: 'all 0.15s ease',
+                }}
+              >
+                <FaTelegram style={{ fontSize: '1rem' }} />
+                <span>{telegramEstado?.vinculado ? 'Telegram Activo' : 'Vincular Telegram'}</span>
+              </button>
+            )}
+
             {/* Control global de tamaño de fuente */}
             <div className="topbar-font-group" role="group" aria-label="Tamaño de fuente">
               <span className="topbar-font-icon" title="Tamaño de texto">
@@ -420,6 +451,12 @@ const DashboardLayout: React.FC = () => {
           <Outlet />
         </main>
       </div>
+
+      {/* MODAL VINCULACIÓN TELEGRAM PARA CLIENTES */}
+      <VincularTelegramModal
+        isOpen={isTelegramModalOpen}
+        onClose={() => setIsTelegramModalOpen(false)}
+      />
     </div>
   );
 };

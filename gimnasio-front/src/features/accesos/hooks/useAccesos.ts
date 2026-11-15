@@ -7,7 +7,7 @@ export const useRegistrosAcceso = () => {
   return useQuery({
     queryKey: ['registro-accesos'],
     queryFn: getRegistrosAcceso,
-    refetchInterval: 10000, // Actualización automática en vivo cada 10s
+    refetchOnWindowFocus: false,
   });
 };
 

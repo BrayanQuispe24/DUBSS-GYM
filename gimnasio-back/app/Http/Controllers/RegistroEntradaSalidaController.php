@@ -36,7 +36,7 @@ class RegistroEntradaSalidaController extends Controller
         ]);
     }
 
-    public function validarQR(Request $request, ValidarAccesoQRAction $action): JsonResponse
+    public function validarQR(Request $request, ValidarAccesoQRAction $action): \Symfony\Component\HttpFoundation\Response
     {
         Gate::authorize('create', RegistroEntradaSalida::class);
 
@@ -48,9 +48,13 @@ class RegistroEntradaSalidaController extends Controller
         $tipo = $request->input('tipo', 'auto');
         $result = $action->execute($request->input('qr_payload'), $tipo);
 
-        $status = $result['permitido'] ? 200 : 422;
+        $payload = json_encode($result, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
 
-        return response()->json($result, $status);
+        return response($payload, 200, [
+            'Content-Type' => 'application/json',
+            'Content-Length' => (string) strlen($payload),
+            'Connection' => 'close',
+        ]);
     }
 
     public function store(CreateRegistroEntradaSalidaRequest $request, CreateRegistroEntradaSalidaAction $action): JsonResponse

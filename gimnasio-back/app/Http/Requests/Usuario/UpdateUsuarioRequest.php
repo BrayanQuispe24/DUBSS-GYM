@@ -42,6 +42,7 @@ class UpdateUsuarioRequest extends FormRequest
             'tipo_usuario' => 'nullable|string|in:estudiante,docente,administrativo,particular',
             'estado' => 'nullable|in:activo,suspendido,1,0',
             'id_disciplina' => 'nullable|exists:disciplinas,id',
+            'telegram_chat_id' => 'nullable|string|max:50',
         ];
     }
 

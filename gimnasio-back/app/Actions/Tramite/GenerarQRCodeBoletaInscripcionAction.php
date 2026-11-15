@@ -24,22 +24,11 @@ class GenerarQRCodeBoletaInscripcionAction
         $payloadData = [
             'boleta_id' => $boleta->id,
             'numero_boleta' => $boleta->numero_boleta,
-            'id_usuario' => $boleta->id_usuario,
-            'usuario_nombre' => $nombreUsuario,
-            'ci' => $usuario->ci ?? null,
-            'registro_universitario' => $usuario->registro_universitario ?? null,
-            'disciplina' => $boleta->disciplina ?? 'Gimnasio Musculación',
-            'dias' => $dias,
-            'hora_inicio' => $horaInicio,
-            'hora_salida' => $horaSalida,
-            'fecha_inicio' => $boleta->fecha_inicio,
-            'fecha_fin' => $boleta->fecha_fin,
-            'estado' => strtolower($boleta->estado ?? 'activo'),
         ];
 
         $payloadJson = json_encode($payloadData, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
         $appKey = config('app.key') ?? 'DUBSS_GYM_SECRET_KEY';
-        $signature = hash_hmac('sha256', $payloadJson, $appKey);
+        $signature = substr(hash_hmac('sha256', $payloadJson, $appKey), 0, 16);
 
         $qrData = array_merge($payloadData, [
             'signature' => $signature,

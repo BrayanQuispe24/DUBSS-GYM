@@ -29,6 +29,7 @@ class CreateUsuarioAction
             'tipo_usuario' => $dto->tipo_usuario,
             'estado' => $dto->estado ?? true,
             'id_disciplina' => $dto->id_disciplina,
+            'telegram_chat_id' => $dto->telegram_chat_id,
             'acepta_terminos' => true,
             'fecha_acepta_terminos' => now(),
         ]);

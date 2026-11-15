@@ -13,6 +13,9 @@ import FormularioDUBSSCreateModal from '../components/FormularioDUBSSCreateModal
 import BoletaPagoModal from '../components/BoletaPagoModal';
 import BoletaInscripcionModal from '../components/BoletaInscripcionModal';
 import CodigoQRInscripcionModal from '../components/CodigoQRInscripcionModal';
+import { FaTelegram } from 'react-icons/fa6';
+import { useTelegramEstado } from '@/features/telegram/hooks/useTelegram';
+import VincularTelegramModal from '@/features/telegram/components/VincularTelegramModal';
 
 import showToast from '@/utils/toast';
 
@@ -22,6 +25,8 @@ const TramitesPage: React.FC = () => {
   const isCliente = user?.rol === 'cliente';
 
   const [tab, setTab] = useState<'solicitudes' | 'pagos' | 'inscripciones'>('solicitudes');
+  const [isTelegramModalOpen, setIsTelegramModalOpen] = useState(false);
+  const { data: telegramEstado } = useTelegramEstado(isCliente);
 
   const { data: rawSolData, isLoading: loadSol } = useFormulariosSolicitud();
   const { data: rawPagosData, isLoading: loadPagos } = useBoletasPago();
@@ -227,6 +232,64 @@ const TramitesPage: React.FC = () => {
           </p>
         </div>
       </div>
+
+      {/* BANNER TELEGRAM PARA CLIENTES */}
+      {isCliente && (
+        <div style={{
+          backgroundColor: telegramEstado?.vinculado ? 'rgba(34, 197, 94, 0.08)' : 'rgba(34, 158, 217, 0.08)',
+          border: telegramEstado?.vinculado ? '1px solid rgba(34, 197, 94, 0.3)' : '1px solid rgba(34, 158, 217, 0.35)',
+          borderRadius: '4px',
+          padding: '0.85rem 1.1rem',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          marginBottom: '1.25rem',
+          flexWrap: 'wrap',
+          gap: '0.75rem',
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+            <span style={{
+              width: '34px', height: '34px', borderRadius: '4px',
+              backgroundColor: telegramEstado?.vinculado ? '#22C55E' : '#229ED9',
+              color: '#FFF', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.15rem', flexShrink: 0,
+            }}>
+              <FaTelegram />
+            </span>
+            <div>
+              <div style={{ fontSize: '0.88rem', fontWeight: 700, color: 'var(--color-text-primary, #F4F4F5)' }}>
+                {telegramEstado?.vinculado ? 'Alertas de Membresía activas en Telegram' : 'Recibe avisos de vencimiento de tu membresía en Telegram'}
+              </div>
+              <div style={{ fontSize: '0.76rem', color: 'var(--color-text-muted, #A1A1AA)' }}>
+                {telegramEstado?.vinculado
+                  ? `Cuenta vinculada. Te notificaremos automáticamente antes de que caduque tu boleta de inscripción.`
+                  : 'Conecta tu cuenta con nuestro bot oficial para recibir recordatorios automáticos en tu celular.'}
+              </div>
+            </div>
+          </div>
+
+          <button
+            type="button"
+            onClick={() => setIsTelegramModalOpen(true)}
+            style={{
+              padding: '0.45rem 0.95rem',
+              borderRadius: '4px',
+              border: telegramEstado?.vinculado ? '1px solid rgba(34, 197, 94, 0.4)' : 'none',
+              backgroundColor: telegramEstado?.vinculado ? 'rgba(34, 197, 94, 0.12)' : '#229ED9',
+              color: telegramEstado?.vinculado ? '#4ADE80' : '#FFFFFF',
+              fontWeight: 700,
+              fontSize: '0.8rem',
+              cursor: 'pointer',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '0.45rem',
+              transition: 'all 0.15s ease',
+            }}
+          >
+            <FaTelegram />
+            {telegramEstado?.vinculado ? 'Gestionar Telegram' : 'Vincular mi Telegram'}
+          </button>
+        </div>
+      )}
 
       {/* TABS NAVEGACIÓN */}
       <div style={{ display: 'flex', gap: '0.5rem', borderBottom: '1px solid var(--color-border)', marginBottom: '1.25rem' }}>
@@ -1088,6 +1151,12 @@ const TramitesPage: React.FC = () => {
         inscripcionId={selectedInscripcionForQR?.id || null}
         inscripcionFallback={selectedInscripcionForQR}
         onClose={() => setIsQRModalOpen(false)}
+      />
+
+      {/* MODAL VINCULACIÓN TELEGRAM */}
+      <VincularTelegramModal
+        isOpen={isTelegramModalOpen}
+        onClose={() => setIsTelegramModalOpen(false)}
       />
     </section>
   );

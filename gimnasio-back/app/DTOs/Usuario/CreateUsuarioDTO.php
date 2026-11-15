@@ -17,7 +17,8 @@ readonly class CreateUsuarioDTO
         public ?string $ci = null,
         public ?string $tipo_usuario = 'estudiante',
         public ?bool $estado = true,
-        public ?int $id_disciplina = null
+        public ?int $id_disciplina = null,
+        public ?string $telegram_chat_id = null
     ) {}
 
     public static function fromRequest(CreateUserRequest $request): self
@@ -41,7 +42,8 @@ readonly class CreateUsuarioDTO
             ci: $request->validated('ci'),
             tipo_usuario: $request->validated('tipo_usuario') ?? 'estudiante',
             estado: $estadoBool,
-            id_disciplina: $idDisc !== null ? (int) $idDisc : null
+            id_disciplina: $idDisc !== null ? (int) $idDisc : null,
+            telegram_chat_id: $request->validated('telegram_chat_id')
         );
     }
 }

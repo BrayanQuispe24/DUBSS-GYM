@@ -26,15 +26,16 @@ class ValidarAccesoQRAction
         }
 
         // 2. Validate Security Signature
-        $signature = $data['signature'] ?? '';
+        $signature = (string) ($data['signature'] ?? '');
         $dataCopy = $data;
         unset($dataCopy['signature']);
 
         $payloadJson = json_encode($dataCopy, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
         $appKey = config('app.key') ?? 'DUBSS_GYM_SECRET_KEY';
-        $computedSignature = hash_hmac('sha256', $payloadJson, $appKey);
+        $computedFull = hash_hmac('sha256', $payloadJson, $appKey);
+        $computedShort = substr($computedFull, 0, 16);
 
-        if (! hash_equals($computedSignature, $signature)) {
+        if (! hash_equals($computedFull, $signature) && ! hash_equals($computedShort, $signature)) {
             return [
                 'permitido' => false,
                 'motivo' => 'FIRMA_INVALIDA',

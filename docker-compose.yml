@@ -1,0 +1,5 @@
+# Archivo por defecto que redirige a la configuración de producción docker-compose.prod.yml
+# Puedes ejecutar: docker compose up -d --build
+include:
+  - path: docker-compose.prod.yml
+

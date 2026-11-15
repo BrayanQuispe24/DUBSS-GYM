@@ -1,7 +1,8 @@
 // src/features/accesos/components/EscanerQRModal.tsx
 import React, { useEffect, useRef, useState } from 'react';
+import { useQueryClient } from '@tanstack/react-query';
 import { FaXmark, FaQrcode, FaCircleCheck, FaCircleXmark, FaUserCheck, FaCamera, FaKeyboard, FaRotateRight, FaRightToBracket, FaRightFromBracket, FaRepeat, FaHourglassHalf } from 'react-icons/fa6';
-import { Html5Qrcode } from 'html5-qrcode';
+import { Html5Qrcode, Html5QrcodeSupportedFormats } from 'html5-qrcode';
 import { validarQRAcceso } from '@/features/tramites/services/tramiteService';
 
 interface EscanerQRModalProps {
@@ -10,6 +11,7 @@ interface EscanerQRModalProps {
 }
 
 const EscanerQRModal: React.FC<EscanerQRModalProps> = ({ isOpen, onClose }) => {
+  const queryClient = useQueryClient();
   const [activeTab, setActiveTab] = useState<'camera' | 'manual'>('camera');
   const [scanMode, setScanMode] = useState<'auto' | 'entrada' | 'salida'>('auto');
   const [qrInput, setQrInput] = useState('');
@@ -21,33 +23,54 @@ const EscanerQRModal: React.FC<EscanerQRModalProps> = ({ isOpen, onClose }) => {
   const [isCameraActive, setIsCameraActive] = useState(false);
   const [cameraError, setCameraError] = useState<string | null>(null);
   const html5QrcodeRef = useRef<Html5Qrcode | null>(null);
+  const isProcessingRef = useRef(false);
+  const isModalActiveRef = useRef(false);
+
+  // Stop Camera safely even if start() was in flight
+  const stopCamera = async (instance?: Html5Qrcode | null) => {
+    const target = instance || html5QrcodeRef.current;
+    if (target) {
+      try {
+        if (target.isScanning) {
+          await target.stop();
+        }
+      } catch (err) {
+        console.error('Error al detener cámara:', err);
+      }
+      try {
+        target.clear();
+      } catch (_) {}
+    }
+    if (!instance || instance === html5QrcodeRef.current) {
+      html5QrcodeRef.current = null;
+      setIsCameraActive(false);
+    }
+  };
 
   // Function to process payload validation
   const processValidation = async (payload: string) => {
+    if (isProcessingRef.current) return;
+    isProcessingRef.current = true;
     setLoading(true);
     setResultStatus('idle');
     setResultData(null);
 
     try {
-      console.log('----------------------------------------------------');
-      console.log(`ENVIANDO QR PAYLOAD (MODO: ${scanMode.toUpperCase()}) AL BACKEND:`);
-      console.log(payload);
-      console.log('----------------------------------------------------');
-
       const response = await validarQRAcceso(payload, scanMode);
 
-      console.log('RESPUESTA DE VALIDACIÓN DEL BACKEND:', response);
-      console.log('----------------------------------------------------');
+      if (!isModalActiveRef.current) return;
 
       if (response?.permitido) {
         setResultStatus('success');
         setResultData(response);
+        queryClient.invalidateQueries({ queryKey: ['registro-accesos'] });
+        queryClient.invalidateQueries({ queryKey: ['bi', 'aforo-tiempo-real'] });
       } else {
         setResultStatus('denied');
         setResultData(response);
       }
     } catch (err: any) {
-      console.error('ERROR O RESPUESTA DE RECHAZO DEL BACKEND:', err?.response?.data || err);
+      if (!isModalActiveRef.current) return;
       const errorData = err?.response?.data || {};
       setResultStatus('denied');
       setResultData({
@@ -56,36 +79,58 @@ const EscanerQRModal: React.FC<EscanerQRModalProps> = ({ isOpen, onClose }) => {
         mensaje: errorData.mensaje || 'Error al procesar la validación del pase QR en el servidor.',
       });
     } finally {
-      setLoading(false);
+      if (isModalActiveRef.current) {
+        setLoading(false);
+      }
+      isProcessingRef.current = false;
     }
   };
 
   // Start Camera
   const startCamera = async () => {
+    if (!isModalActiveRef.current) return;
     setCameraError(null);
-    try {
-      if (html5QrcodeRef.current) {
-        try {
-          await html5QrcodeRef.current.stop();
-        } catch (_) {}
-      }
+    isProcessingRef.current = false;
 
-      const scanner = new Html5Qrcode('reader-canvas');
+    try {
+      await stopCamera();
+
+      if (!isModalActiveRef.current) return;
+
+      const scanner = new Html5Qrcode('reader-canvas', {
+        formatsToSupport: [Html5QrcodeSupportedFormats.QR_CODE],
+        useBarCodeDetectorIfSupported: true,
+        verbose: false,
+      });
       html5QrcodeRef.current = scanner;
 
+      let cameraSource: string | { facingMode: string } = { facingMode: 'environment' };
+      try {
+        const cameras = await Html5Qrcode.getCameras();
+        if (!isModalActiveRef.current) {
+          await stopCamera(scanner);
+          return;
+        }
+        if (cameras && cameras.length > 0) {
+          const backCamera = cameras.find((c) => /back|rear|environment|trasera/i.test(c.label));
+          cameraSource = backCamera ? backCamera.id : cameras[0].id;
+        }
+      } catch (_) {}
+
+      if (!isModalActiveRef.current) {
+        await stopCamera(scanner);
+        return;
+      }
+
       await scanner.start(
-        { facingMode: 'environment' },
+        cameraSource,
         {
           fps: 10,
-          qrbox: { width: 220, height: 220 },
+          qrbox: { width: 260, height: 260 },
         },
         async (decodedText) => {
-          // Pause camera on successful scan
-          try {
-            await scanner.pause(true);
-          } catch (_) {}
-
-          setIsCameraActive(false);
+          if (isProcessingRef.current || !isModalActiveRef.current) return;
+          await stopCamera(scanner);
           await processValidation(decodedText);
         },
         () => {
@@ -93,8 +138,14 @@ const EscanerQRModal: React.FC<EscanerQRModalProps> = ({ isOpen, onClose }) => {
         }
       );
 
+      if (!isModalActiveRef.current || html5QrcodeRef.current !== scanner) {
+        await stopCamera(scanner);
+        return;
+      }
+
       setIsCameraActive(true);
     } catch (err: any) {
+      if (!isModalActiveRef.current) return;
       console.error('Error al iniciar cámara web:', err);
       setIsCameraActive(false);
       setCameraError(
@@ -103,36 +154,29 @@ const EscanerQRModal: React.FC<EscanerQRModalProps> = ({ isOpen, onClose }) => {
     }
   };
 
-  // Stop Camera
-  const stopCamera = async () => {
-    if (html5QrcodeRef.current) {
-      try {
-        if (html5QrcodeRef.current.isScanning) {
-          await html5QrcodeRef.current.stop();
-        }
-      } catch (err) {
-        console.error('Error al detener cámara:', err);
-      } finally {
-        html5QrcodeRef.current = null;
-        setIsCameraActive(false);
-      }
-    }
-  };
-
   // Effect to manage camera lifecycle
   useEffect(() => {
+    isModalActiveRef.current = isOpen;
+
     if (isOpen && activeTab === 'camera') {
       const timer = setTimeout(() => {
         startCamera();
       }, 300);
 
       return () => {
+        isModalActiveRef.current = false;
         clearTimeout(timer);
         stopCamera();
       };
     } else {
       stopCamera();
     }
+
+    return () => {
+      if (!isOpen) {
+        isModalActiveRef.current = false;
+      }
+    };
   }, [isOpen, activeTab]);
 
   if (!isOpen) return null;
@@ -153,6 +197,7 @@ const EscanerQRModal: React.FC<EscanerQRModalProps> = ({ isOpen, onClose }) => {
   };
 
   const handleCloseModal = () => {
+    isModalActiveRef.current = false;
     stopCamera();
     onClose();
   };

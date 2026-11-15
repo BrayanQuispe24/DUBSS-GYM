@@ -1,5 +1,5 @@
 // src/features/tramites/components/CodigoQRInscripcionModal.tsx
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { QRCodeSVG } from 'qrcode.react';
 import { FaXmark, FaQrcode, FaShieldHalved, FaPrint, FaClock, FaUser, FaCircleCheck } from 'react-icons/fa6';
 import { getBoletaInscripcionQR } from '../services/tramiteService';
@@ -20,6 +20,8 @@ const CodigoQRInscripcionModal: React.FC<CodigoQRInscripcionModalProps> = ({
   const [loading, setLoading] = useState(false);
   const [qrData, setQrData] = useState<any | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const fallbackRef = useRef(inscripcionFallback);
+  fallbackRef.current = inscripcionFallback;
 
   useEffect(() => {
     if (!isOpen || !inscripcionId) {
@@ -35,45 +37,42 @@ const CodigoQRInscripcionModal: React.FC<CodigoQRInscripcionModalProps> = ({
     getBoletaInscripcionQR(inscripcionId)
       .then((data) => {
         if (isMounted) {
-          console.log('----------------------------------------------------');
-          console.log('JSON PAYLOAD DEL CÓDIGO QR GENERADO (COPIAR PARA PROBAR EN VALIDADOR):');
-          console.log(data?.qr_payload || JSON.stringify(data));
-          console.log('----------------------------------------------------');
           setQrData(data);
         }
       })
       .catch((err) => {
         if (isMounted) {
           console.error('Error obteniendo código QR:', err);
+          const fallback = fallbackRef.current;
           // Fallback if backend call fails
-          if (inscripcionFallback) {
-            const user = inscripcionFallback.usuario || {};
+          if (fallback) {
+            const user = fallback.usuario || {};
             const fallbackPayload = JSON.stringify({
-              boleta_id: inscripcionFallback.id,
-              numero_boleta: inscripcionFallback.numero_boleta,
-              id_usuario: inscripcionFallback.id_usuario,
+              boleta_id: fallback.id,
+              numero_boleta: fallback.numero_boleta,
+              id_usuario: fallback.id_usuario,
               usuario_nombre: `${user.nombre || ''} ${user.apellido || ''}`.trim(),
-              disciplina: inscripcionFallback.disciplina || 'Gimnasio Musculación',
-              hora_inicio: inscripcionFallback.hora_inicio || '07:00',
-              hora_salida: inscripcionFallback.hora_salida || '09:00',
-              fecha_inicio: inscripcionFallback.fecha_inicio,
-              fecha_fin: inscripcionFallback.fecha_fin,
-              estado: strToLower(inscripcionFallback.estado || 'activo'),
+              disciplina: fallback.disciplina || 'Gimnasio Musculación',
+              hora_inicio: fallback.hora_inicio || '07:00',
+              hora_salida: fallback.hora_salida || '09:00',
+              fecha_inicio: fallback.fecha_inicio,
+              fecha_fin: fallback.fecha_fin,
+              estado: strToLower(fallback.estado || 'activo'),
             });
             setQrData({
-              boleta_id: inscripcionFallback.id,
-              numero_boleta: inscripcionFallback.numero_boleta,
+              boleta_id: fallback.id,
+              numero_boleta: fallback.numero_boleta,
               usuario: {
                 nombre: `${user.nombre || ''} ${user.apellido || ''}`.trim() || user.email || 'Socio',
                 ci: user.ci,
                 registro_universitario: user.registro_universitario,
               },
               membresia: {
-                disciplina: inscripcionFallback.disciplina || 'Gimnasio Musculación',
-                horario_texto: `${inscripcionFallback.hora_inicio || '07:00'} - ${inscripcionFallback.hora_salida || '09:00'}`,
-                fecha_inicio: inscripcionFallback.fecha_inicio,
-                fecha_fin: inscripcionFallback.fecha_fin,
-                estado: strToLower(inscripcionFallback.estado || 'activo'),
+                disciplina: fallback.disciplina || 'Gimnasio Musculación',
+                horario_texto: `${fallback.hora_inicio || '07:00'} - ${fallback.hora_salida || '09:00'}`,
+                fecha_inicio: fallback.fecha_inicio,
+                fecha_fin: fallback.fecha_fin,
+                estado: strToLower(fallback.estado || 'activo'),
               },
               qr_payload: fallbackPayload,
             });
@@ -89,7 +88,7 @@ const CodigoQRInscripcionModal: React.FC<CodigoQRInscripcionModalProps> = ({
     return () => {
       isMounted = false;
     };
-  }, [isOpen, inscripcionId, inscripcionFallback]);
+  }, [isOpen, inscripcionId]);
 
   if (!isOpen) return null;
 
@@ -342,7 +341,7 @@ const CodigoQRInscripcionModal: React.FC<CodigoQRInscripcionModalProps> = ({
               {/* QR CODE BOX */}
               <div
                 style={{
-                  background: 'var(--color-surface)',
+                  background: '#FFFFFF',
                   padding: '1rem',
                   borderRadius: '12px',
                   border: '2px dashed var(--color-primary)',
@@ -355,20 +354,14 @@ const CodigoQRInscripcionModal: React.FC<CodigoQRInscripcionModalProps> = ({
               >
                 <QRCodeSVG
                   value={payloadString}
-                  size={200}
-                  level="H"
+                  size={230}
+                  level="M"
+                  bgColor="#FFFFFF"
+                  fgColor="#000000"
                   includeMargin={true}
-                  imageSettings={{
-                    src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/UAGRM_Logo.png/220px-UAGRM_Logo.png',
-                    x: undefined,
-                    y: undefined,
-                    height: 32,
-                    width: 32,
-                    excavate: true,
-                  }}
                 />
-                <div style={{ marginTop: '0.5rem', fontSize: '0.72rem', color: 'var(--color-text-muted)', display: 'flex', alignItems: 'center', gap: '0.3rem', fontWeight: 700 }}>
-                  <FaShieldHalved style={{ color: 'var(--color-success-text)' }} /> Pase Firmado Digitalmente (HMAC-SHA256)
+                <div style={{ marginTop: '0.5rem', fontSize: '0.72rem', color: '#374151', display: 'flex', alignItems: 'center', gap: '0.3rem', fontWeight: 700 }}>
+                  <FaShieldHalved style={{ color: '#16A34A' }} /> Pase Firmado Digitalmente (HMAC-SHA256)
                 </div>
               </div>
 

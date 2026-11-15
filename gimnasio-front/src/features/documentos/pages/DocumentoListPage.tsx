@@ -125,7 +125,8 @@ const DocumentoListPage: React.FC = () => {
             onChange={(e) => setSearchQuery(e.target.value)}
             style={{
               width: '100%', padding: '0.55rem 0.85rem 0.55rem 2.25rem', borderRadius: '4px',
-              border: '1px solid var(--color-border-strong)', backgroundColor: 'var(--color-surface)', fontSize: '0.82rem'
+              border: '1px solid var(--color-border-strong, #383846)', backgroundColor: 'var(--color-surface, #141419)',
+              color: 'var(--color-text-primary, #F4F4F5)', fontSize: '0.82rem', outline: 'none',
             }}
           />
         </div>
@@ -135,12 +136,13 @@ const DocumentoListPage: React.FC = () => {
             onChange={(e) => setSelectedTipoId(e.target.value)}
             style={{
               width: '100%', padding: '0.55rem 0.75rem', borderRadius: '4px',
-              border: '1px solid var(--color-border-strong)', backgroundColor: 'var(--color-surface)', fontSize: '0.82rem'
+              border: '1px solid var(--color-border-strong, #383846)', backgroundColor: 'var(--color-surface, #141419)',
+              color: 'var(--color-text-primary, #F4F4F5)', colorScheme: 'dark', fontSize: '0.82rem', cursor: 'pointer', outline: 'none',
             }}
           >
-            <option value="">Todos los Tipos</option>
+            <option value="" style={{ backgroundColor: '#141419', color: '#F4F4F5' }}>Todos los Tipos</option>
             {tipos.map((t) => (
-              <option key={t.id} value={t.id}>
+              <option key={t.id} value={t.id} style={{ backgroundColor: '#141419', color: '#F4F4F5' }}>
                 {t.nombre}
               </option>
             ))}

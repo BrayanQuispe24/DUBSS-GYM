@@ -18,7 +18,8 @@ readonly class UpdateUsuarioDTO
         public ?string $ci = null,
         public ?string $tipo_usuario = null,
         public ?bool $estado = null,
-        public ?int $id_disciplina = null
+        public ?int $id_disciplina = null,
+        public ?string $telegram_chat_id = null
     ) {}
 
     public static function fromRequest(UpdateUsuarioRequest $request): self
@@ -43,7 +44,8 @@ readonly class UpdateUsuarioDTO
             ci: $request->validated('ci'),
             tipo_usuario: $request->validated('tipo_usuario'),
             estado: $estadoBool,
-            id_disciplina: $idDisc !== null ? (int) $idDisc : null
+            id_disciplina: $idDisc !== null ? (int) $idDisc : null,
+            telegram_chat_id: $request->validated('telegram_chat_id')
         );
     }
 }

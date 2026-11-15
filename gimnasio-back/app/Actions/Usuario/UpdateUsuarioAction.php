@@ -28,6 +28,7 @@ class UpdateUsuarioAction
             'ci' => $dto->ci,
             'tipo_usuario' => $dto->tipo_usuario ?? $usuario->tipo_usuario,
             'id_disciplina' => $dto->id_disciplina,
+            'telegram_chat_id' => $dto->telegram_chat_id ?? $usuario->telegram_chat_id,
         ];
 
         if (!empty($dto->password)) {

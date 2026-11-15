@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Actions\Tramite\CreateBoletaInscripcionAction;
 use App\Actions\Tramite\GenerarQRCodeBoletaInscripcionAction;
 use App\Actions\Tramite\ListarBoletasInscripcionAction;
+use App\Actions\Tramite\ListarMembresiasVencimientoAction;
 use App\DTOs\Tramite\CreateBoletaInscripcionDTO;
 use App\Http\Requests\Tramite\CreateBoletaInscripcionRequest;
 use App\Models\BoletaInscripcion;
@@ -68,5 +69,42 @@ class BoletaInscripcionController extends Controller
         return response()->json([
             'message' => 'Boleta de inscripción eliminada exitosamente',
         ]);
+    }
+
+    public function vencimientos(Request $request, ListarMembresiasVencimientoAction $action): \Symfony\Component\HttpFoundation\Response
+    {
+        $this->authorizeN8nOrStaff($request);
+
+        $membresias = $action->execute($request->all());
+
+        $payload = json_encode([
+            'membresias' => $membresias,
+        ], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+
+        return response($payload, 200, [
+            'Content-Type' => 'application/json',
+            'Content-Length' => (string) strlen($payload),
+            'Connection' => 'close',
+        ]);
+    }
+
+    private function authorizeN8nOrStaff(Request $request): void
+    {
+        $configuredApiKey = config('services.n8n.api_key');
+        $providedApiKey = $request->header('X-API-KEY')
+            ?? $request->header('x-api-key')
+            ?? $request->query('api_key');
+
+        if (!empty($configuredApiKey) && !empty($providedApiKey) && hash_equals((string) $configuredApiKey, (string) $providedApiKey)) {
+            return;
+        }
+
+        $user = $request->user('sanctum') ?? $request->user();
+        if ($user) {
+            Gate::forUser($user)->authorize('viewAny', BoletaInscripcion::class);
+            return;
+        }
+
+        abort(401, 'No autorizado para acceder a este recurso. Proporcione un X-API-KEY válido o autenticación Sanctum.');
     }
 }
