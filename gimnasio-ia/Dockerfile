@@ -20,7 +20,8 @@ FROM python:3.11-slim AS runner
 WORKDIR /app
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
-    PATH=/home/appuser/.local/bin:$PATH
+    PATH=/home/appuser/.local/bin:$PATH \
+    PYTHONPATH=/home/appuser/.local/lib/python3.11/site-packages:$PYTHONPATH
 
 # Librerías de sistema requeridas por OpenCV y MediaPipe
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -31,8 +32,12 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 # Usuario no privilegiado para seguridad
 RUN useradd -u 1001 -m -s /bin/sh appuser
-COPY --from=builder /root/.local /home/appuser/.local
+COPY --chown=appuser:appuser --from=builder /root/.local /home/appuser/.local
 COPY --chown=appuser:appuser . .
+
+# Pre-descargar modelo de MediaPipe Pose y asegurar permisos para appuser
+RUN python3 -c "import mediapipe as mp; mp.solutions.pose.Pose(model_complexity=2)" || true \
+    && chown -R appuser:appuser /home/appuser
 
 USER appuser
 EXPOSE 8001
