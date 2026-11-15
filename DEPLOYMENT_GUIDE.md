@@ -49,19 +49,15 @@ El despliegue está orquestado en una red privada virtual (`dubss_network`) con 
 
 ## 3. Despliegue Paso a Paso
 
-### Paso 1: Configurar las Variables de Entorno
+### Paso 1: Variables de Entorno (Carga Automática Desacoplada)
 
-En la raíz del proyecto (`DUBSS-GYM`), crea tu archivo `.env` a partir de la plantilla de producción:
+El despliegue está configurado para **leer automáticamente los archivos `.env` de cada subsistema**:
+- **Backend**: Carga automáticamente las variables de `gimnasio-back/.env` (claves de Laravel, base de datos, credenciales de Gmail, n8n y Telegram).
+- **Microservicio IA**: Carga automáticamente las variables de `gimnasio-ia/.env` (incluyendo `GEMINI_API_KEY`).
+- **PostgreSQL**: Inicializa el usuario y contraseña leyendo las mismas variables `DB_USERNAME` y `DB_PASSWORD` de `gimnasio-back/.env`.
 
-```bash
-cp .env.production.example .env
-```
-
-Edita `.env` con tus credenciales definitivas:
-- `DB_PASSWORD`: Contraseña segura para PostgreSQL.
-- `APP_KEY`: Clave generada de Laravel (puedes generar una con `php artisan key:generate --show`).
-- `TELEGRAM_BOT_TOKEN`: Token del bot de Telegram para notificaciones.
-- `GEMINI_API_KEY`: API Key de Google Gemini para generación nutricional y prescripción inteligente.
+> [!NOTE]
+> No es obligatorio crear un archivo `.env` en la raíz. Solo si deseas cambiar el puerto frontal del Gateway (por defecto `8080`), puedes crear un `.env` en la raíz con `PORT=8080`.
 
 ### Paso 2: Construir e Iniciar los Contenedores
 

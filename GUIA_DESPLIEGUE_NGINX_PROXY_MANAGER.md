@@ -44,59 +44,24 @@ Esta guía documenta el procedimiento completo para desplegar la plataforma **DU
 
 ---
 
-## Paso 1: Configurar el archivo `.env`
+## Paso 1: Variables de Entorno (Carga Automática Desacoplada)
 
-En la raíz del proyecto (`DUBSS-GYM`), copia el archivo de ejemplo para generar tu `.env` de producción:
+El sistema está configurado para **leer directamente los archivos `.env` de cada proyecto**, por lo que **no necesitas configurar ningún archivo `.env` en la raíz**:
 
-```bash
-cp .env.production.example .env
-```
+1. **Backend (`gimnasio-back/.env`)**:
+   - Docker lee automáticamente tu `APP_KEY`, tus credenciales de Gmail (`MAIL_*`), el token de Telegram y `N8N_API_KEY`.
+   - La base de datos PostgreSQL toma automáticamente la contraseña configurada en `DB_PASSWORD`.
+   - Docker reescribe de forma transparente `DB_HOST=postgres` y `REDIS_HOST=redis` para la comunicación interna.
 
-Edita `.env` con tus parámetros de producción:
+2. **Microservicio de IA (`gimnasio-ia/.env`)**:
+   - Docker lee automáticamente tu `GEMINI_API_KEY` y `GEMINI_MODEL`.
+   - Docker reescribe el host a `0.0.0.0` para aceptar peticiones internas desde el Gateway.
 
-```env
-# ==============================================================================
-# 1. Puerto del Gateway Docker
-# ==============================================================================
-# Se usa 8080 para evitar conflictos con el puerto 80 que ya ocupa NPM en el host
-PORT=8080
-
-# ==============================================================================
-# 2. Base de Datos PostgreSQL 16
-# ==============================================================================
-DB_DATABASE=gimnasio_db
-DB_USERNAME=postgres
-DB_PASSWORD=TuPasswordSuperSeguro123!
-
-# ==============================================================================
-# 3. Backend Core Laravel 11
-# ==============================================================================
-APP_NAME="DUBSS-GYM"
-APP_ENV=production
-APP_DEBUG=false
-APP_URL=https://gym.tudominio.com
-APP_KEY=base64:IrirHFvkswKRJSZ+YC5kM8cUs5qqFjlaqwf2i7HXhBs=
-RUN_MIGRATIONS=true
-
-# Notificaciones por Telegram Bot (opcional)
-TELEGRAM_BOT_TOKEN=
-TELEGRAM_BOT_USERNAME=FitGoNotificacionesBot
-
-# ==============================================================================
-# 4. Microservicio de Inteligencia Artificial (FastAPI)
-# ==============================================================================
-GEMINI_API_KEY=tu_api_key_de_google_gemini_aqui
-GEMINI_MODEL=gemini-2.5-flash
-
-# ==============================================================================
-# 5. Frontend SPA (React 19)
-# ==============================================================================
-# El Gateway interno enruta "/api" directamente hacia el backend Laravel
-VITE_API_URL=/api
-```
-
-> [!IMPORTANT]
-> En `APP_URL`, debes especificar la URL pública con `https://` que configuraste en tu dominio de NPM (por ejemplo: `https://gym.tudominio.com`).
+> [!TIP]
+> Si deseas cambiar el puerto en el que escucha el Gateway (por defecto **8080** para Nginx Proxy Manager), puedes crear un archivo `.env` opcional en la raíz con:
+> ```env
+> PORT=8080
+> ```
 
 ---
 
