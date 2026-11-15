@@ -9,6 +9,7 @@ RUN composer install \
     --no-interaction \
     --prefer-dist \
     --optimize-autoloader \
+    --no-scripts \
     --ignore-platform-reqs
 
 # ==========================================
@@ -42,7 +43,7 @@ COPY docker/php.ini $PHP_INI_DIR/conf.d/99-custom.ini
 COPY docker/nginx.conf /etc/nginx/http.d/default.conf
 COPY docker/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 COPY docker/entrypoint.sh /usr/local/bin/entrypoint.sh
-RUN chmod +x /usr/local/bin/entrypoint.sh
+RUN sed -i 's/\r$//' /usr/local/bin/entrypoint.sh && chmod +x /usr/local/bin/entrypoint.sh
 
 # Copia de dependencias de Composer y código fuente
 COPY --from=vendor /app/vendor /var/www/html/vendor

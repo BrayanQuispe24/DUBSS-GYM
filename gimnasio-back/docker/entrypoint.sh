@@ -20,6 +20,10 @@ if [ ! -L /var/www/html/public/storage ]; then
     php artisan storage:link --no-interaction || true
 fi
 
+# Descubrir paquetes y optimizar configuraciones
+echo "[DUBSS-GYM] Registrando paquetes de Laravel..."
+php artisan package:discover --ansi || true
+
 # Caché de optimización de Laravel para producción
 if [ "$APP_ENV" = "production" ]; then
     echo "[DUBSS-GYM] Optimizando configuraciones y rutas de Laravel..."
