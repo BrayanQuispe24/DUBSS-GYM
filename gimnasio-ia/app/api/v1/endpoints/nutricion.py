@@ -27,7 +27,7 @@ def recomendar_plan_alimentacion(perfil: PerfilNutricionalInput):
         )
     except RuntimeError as re:
         raise HTTPException(
-            status_code=status.HTTP_502_BAD_GATEWAY,
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=str(re)
         )
     except Exception as e:

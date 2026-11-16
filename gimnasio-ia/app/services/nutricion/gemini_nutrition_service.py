@@ -65,12 +65,14 @@ class GeminiNutritionService:
                 "La clave GEMINI_API_KEY no ha sido configurada. "
                 "Por favor añade tu API key en el archivo 'gimnasio-ia/.env'."
             )
-        return genai.Client(api_key=api_key)
+        return genai.Client(api_key=api_key, http_options={"api_version": "v1beta"})
 
     def generar_plan(self, perfil: PerfilNutricionalInput) -> RecomendacionNutricionalResponse:
         client = self._get_client()
 
-        user_content = f"""Por favor elabora un plan nutricional completo para el siguiente perfil:
+        user_content = f"""{SYSTEM_PROMPT}
+
+Por favor elabora un plan nutricional completo para el siguiente perfil:
 - Edad: {perfil.edad} años
 - Sexo biológico: {perfil.sexo}
 - Peso actual: {perfil.peso_kg} kg
@@ -86,7 +88,6 @@ class GeminiNutritionService:
 
         try:
             config_kwargs = {
-                "system_instruction": SYSTEM_PROMPT,
                 "response_mime_type": "application/json",
                 "response_schema": RecomendacionNutricionalResponse,
                 "temperature": 0.2,
