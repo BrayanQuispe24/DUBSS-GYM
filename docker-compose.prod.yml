@@ -66,6 +66,7 @@ services:
       RUN_MIGRATIONS: "${RUN_MIGRATIONS:-true}"
     volumes:
       - laravel_storage:/var/www/html/storage
+      - ./EJERCICIOS:/var/www/EJERCICIOS:ro
     depends_on:
       postgres:
         condition: service_healthy
