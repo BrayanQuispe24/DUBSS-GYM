@@ -32,6 +32,8 @@ pnpm-debug.log*
 # Node / Frontend
 **/node_modules/
 **/dist/
+!EJERCICIOS/free-exercise-db/dist/
+!EJERCICIOS/free-exercise-db/dist/**
 **/dist-ssr/
 .pnpm-store/
 
