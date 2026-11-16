@@ -59,7 +59,7 @@ export const iaNutricionService = {
         headers: {
           'Content-Type': 'application/json',
         },
-        timeout: 60000, // 60 segundos para permitir generación con LLM
+        timeout: 120000, // 120 segundos para permitir generación con LLM
       }
     );
     return response.data;

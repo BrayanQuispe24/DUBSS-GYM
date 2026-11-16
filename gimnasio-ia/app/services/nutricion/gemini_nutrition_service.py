@@ -85,15 +85,19 @@ class GeminiNutritionService:
 """
 
         try:
+            config_kwargs = {
+                "system_instruction": SYSTEM_PROMPT,
+                "response_mime_type": "application/json",
+                "response_schema": RecomendacionNutricionalResponse,
+                "temperature": 0.2,
+            }
+            if hasattr(types, "ThinkingConfig") and "2.5" in (self.model_name or ""):
+                config_kwargs["thinking_config"] = types.ThinkingConfig(thinking_budget=0)
+
             response = client.models.generate_content(
                 model=self.model_name,
                 contents=user_content,
-                config=types.GenerateContentConfig(
-                    system_instruction=SYSTEM_PROMPT,
-                    response_mime_type="application/json",
-                    response_schema=RecomendacionNutricionalResponse,
-                    temperature=0.2,
-                ),
+                config=types.GenerateContentConfig(**config_kwargs),
             )
 
             # Si el SDK ya parseó la respuesta contra el schema de Pydantic
