@@ -63,6 +63,7 @@ services:
       REDIS_CLIENT: predis
       REDIS_HOST: redis
       REDIS_PORT: 6379
+      IA_SERVICE_URL: "http://ia-service:8001/api/v1"
       RUN_MIGRATIONS: "${RUN_MIGRATIONS:-true}"
     volumes:
       - laravel_storage:/var/www/html/storage

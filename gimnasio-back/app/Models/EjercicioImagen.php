@@ -20,6 +20,15 @@ class EjercicioImagen extends Model
         'orden',
     ];
 
+    public function getPathImagenAttribute(?string $value): string
+    {
+        if (empty($value)) {
+            return '';
+        }
+
+        return preg_replace('#^https?://localhost(:\d+)?#i', '', $value);
+    }
+
     public function ejercicio(): BelongsTo
     {
         return $this->belongsTo(Ejercicio::class, 'id_ejercicio');

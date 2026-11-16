@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { FaDumbbell, FaXmark, FaVideo, FaImages, FaLayerGroup, FaShield, FaBookOpen, FaPenToSquare, FaCheck } from 'react-icons/fa6';
 import type { Ejercicio } from '../services/entrenamientoService';
+import { resolveExerciseImageUrl } from '../services/entrenamientoService';
 import { useEjercicioImagenes, useUpdateEjercicio } from '../hooks/useEntrenamiento';
 
 const getEmbedVideoUrl = (url?: string) => {
@@ -195,23 +196,26 @@ const EjercicioDetailModal: React.FC<Props> = ({ ejercicio, onClose, onOpenGaler
 
             {imagenes.length > 0 ? (
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(180px, 1fr))', gap: '0.85rem' }}>
-                {imagenes.map((img) => (
-                  <div key={img.id} style={{ border: '1px solid var(--color-border)', borderRadius: '8px', overflow: 'hidden', background: 'var(--color-surface)', display: 'flex', flexDirection: 'column' }}>
-                    <img src={img.path_imagen} alt={img.titulo} style={{ width: '100%', height: '120px', objectFit: 'cover' }} />
-                    <div style={{ padding: '0.6rem', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-                      <div>
-                        <span style={{ fontSize: '0.82rem', fontWeight: 700, color: 'var(--color-text-primary)', display: 'block' }}>{img.titulo}</span>
-                        {img.descripcion && <span style={{ fontSize: '0.74rem', color: 'var(--color-text-muted)', display: 'block', marginTop: '0.2rem' }}>{img.descripcion}</span>}
-                      </div>
-                      <div style={{ marginTop: '0.5rem', paddingTop: '0.35rem', borderTop: '1px solid var(--color-border)', fontSize: '0.7rem', wordBreak: 'break-all' }}>
-                        <span style={{ color: 'var(--color-text-muted)', fontWeight: 600 }}>URL: </span>
-                        <a href={img.path_imagen} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--color-primary-text)', textDecoration: 'underline', fontWeight: 600 }}>
-                          {img.path_imagen}
-                        </a>
+                {imagenes.map((img) => {
+                  const resolvedImgUrl = resolveExerciseImageUrl(img.path_imagen);
+                  return (
+                    <div key={img.id} style={{ border: '1px solid var(--color-border)', borderRadius: '8px', overflow: 'hidden', background: 'var(--color-surface)', display: 'flex', flexDirection: 'column' }}>
+                      <img src={resolvedImgUrl} alt={img.titulo} style={{ width: '100%', height: '120px', objectFit: 'cover' }} />
+                      <div style={{ padding: '0.6rem', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                        <div>
+                          <span style={{ fontSize: '0.82rem', fontWeight: 700, color: 'var(--color-text-primary)', display: 'block' }}>{img.titulo}</span>
+                          {img.descripcion && <span style={{ fontSize: '0.74rem', color: 'var(--color-text-muted)', display: 'block', marginTop: '0.2rem' }}>{img.descripcion}</span>}
+                        </div>
+                        <div style={{ marginTop: '0.5rem', paddingTop: '0.35rem', borderTop: '1px solid var(--color-border)', fontSize: '0.7rem', wordBreak: 'break-all' }}>
+                          <span style={{ color: 'var(--color-text-muted)', fontWeight: 600 }}>URL: </span>
+                          <a href={resolvedImgUrl} target="_blank" rel="noopener noreferrer" style={{ color: 'var(--color-primary-text)', textDecoration: 'underline', fontWeight: 600 }}>
+                            {resolvedImgUrl}
+                          </a>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             ) : (
               <div style={{ padding: '1.25rem', textAlign: 'center', color: 'var(--color-text-muted)', background: 'var(--color-surface-muted)', borderRadius: '8px', border: '1px dashed var(--color-border-strong)', fontSize: '0.82rem' }}>

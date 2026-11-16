@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { FaPenToSquare, FaXmark, FaCheck, FaUpload, FaVideo, FaTrash, FaImages } from 'react-icons/fa6';
 import type { Ejercicio, EjercicioImagen } from '../services/entrenamientoService';
+import { resolveExerciseImageUrl } from '../services/entrenamientoService';
 import {
   useTiposEjercicio,
   useGruposMusculares,
@@ -259,7 +260,7 @@ const EjercicioEditModal: React.FC<Props> = ({ ejercicio, onClose }) => {
                         display: 'flex', flexDirection: 'column', position: 'relative'
                       }}
                     >
-                      <img src={img.path_imagen} alt={img.titulo} style={{ width: '100%', height: '90px', objectFit: 'cover' }} />
+                      <img src={resolveExerciseImageUrl(img.path_imagen)} alt={img.titulo} style={{ width: '100%', height: '90px', objectFit: 'cover' }} />
                       <div style={{ padding: '0.4rem', flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                         <div>
                           <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--color-text-primary)', display: 'block', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>

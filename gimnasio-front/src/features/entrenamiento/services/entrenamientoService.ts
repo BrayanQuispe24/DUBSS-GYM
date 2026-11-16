@@ -22,6 +22,11 @@ export interface EjercicioImagen {
   orden?: number;
 }
 
+export const resolveExerciseImageUrl = (url?: string): string => {
+  if (!url) return '';
+  return url.replace(/^https?:\/\/localhost(:\d+)?/i, '');
+};
+
 export interface Ejercicio {
   id: number;
   nombre: string;

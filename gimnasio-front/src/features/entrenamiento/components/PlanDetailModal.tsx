@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { FaCalendarDays, FaXmark, FaUserCheck, FaVideo, FaEye, FaListCheck, FaClock, FaArrowUpRightFromSquare, FaDumbbell } from 'react-icons/fa6';
 import type { PlanEntrenamiento, EjercicioImagen } from '../services/entrenamientoService';
+import { resolveExerciseImageUrl } from '../services/entrenamientoService';
 import { useEjercicioImagenes, usePlanEntrenamiento } from '../hooks/useEntrenamiento';
 
 const getEmbedVideoUrl = (url?: string) => {
@@ -120,7 +121,7 @@ const ExerciseDetailCardInPlan: React.FC<{ re: any; idx: number }> = ({ re, idx 
             {imagenes.map((img: EjercicioImagen) => (
               <div key={img.id} style={{ border: '1px solid var(--color-border)', borderRadius: '4px', overflow: 'hidden', background: 'var(--color-surface)', position: 'relative' }}>
                 <div style={{ position: 'relative', height: '85px', background: 'var(--color-surface-muted)' }}>
-                  <img src={img.path_imagen} alt={img.titulo} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                  <img src={resolveExerciseImageUrl(img.path_imagen)} alt={img.titulo} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                   <button
                     type="button"
                     onClick={() => setActiveZoomImage(img)}
@@ -154,7 +155,7 @@ const ExerciseDetailCardInPlan: React.FC<{ re: any; idx: number }> = ({ re, idx 
             >
               <FaXmark />
             </button>
-            <img src={activeZoomImage.path_imagen} alt={activeZoomImage.titulo} style={{ maxWidth: '100%', maxHeight: '80vh', borderRadius: '4px', objectFit: 'contain' }} />
+            <img src={resolveExerciseImageUrl(activeZoomImage.path_imagen)} alt={activeZoomImage.titulo} style={{ maxWidth: '100%', maxHeight: '80vh', borderRadius: '4px', objectFit: 'contain' }} />
             <div style={{ color: '#FFF', marginTop: '0.4rem' }}>
               <h4 style={{ margin: 0, fontSize: '0.90rem' }}>{activeZoomImage.titulo}</h4>
               {activeZoomImage.descripcion && <p style={{ fontSize: '0.78rem', color: '#CBD5E1', marginTop: '0.2rem' }}>{activeZoomImage.descripcion}</p>}

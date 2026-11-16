@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { FaListCheck, FaXmark, FaDumbbell, FaVideo, FaImages, FaClock, FaRepeat, FaBookOpen, FaEye, FaArrowUpRightFromSquare } from 'react-icons/fa6';
 import type { Rutina, EjercicioImagen } from '../services/entrenamientoService';
+import { resolveExerciseImageUrl } from '../services/entrenamientoService';
 import { useEjercicioImagenes } from '../hooks/useEntrenamiento';
 
 const getEmbedVideoUrl = (url?: string) => {
@@ -150,7 +151,7 @@ const RutinaEjercicioItemDetail: React.FC<{ re: any; idx: number }> = ({ re, idx
                 }}
               >
                 <div style={{ position: 'relative', height: '80px', background: 'var(--color-surface-muted)' }}>
-                  <img src={img.path_imagen} alt={img.titulo} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                  <img src={resolveExerciseImageUrl(img.path_imagen)} alt={img.titulo} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                   <button
                     type="button"
                     onClick={() => setActiveZoomImage(img)}
@@ -197,7 +198,7 @@ const RutinaEjercicioItemDetail: React.FC<{ re: any; idx: number }> = ({ re, idx
             >
               <FaXmark size={14} />
             </button>
-            <img src={activeZoomImage.path_imagen} alt={activeZoomImage.titulo} style={{ maxWidth: '100%', maxHeight: '70vh', borderRadius: '2px', objectFit: 'contain' }} />
+            <img src={resolveExerciseImageUrl(activeZoomImage.path_imagen)} alt={activeZoomImage.titulo} style={{ maxWidth: '100%', maxHeight: '70vh', borderRadius: '2px', objectFit: 'contain' }} />
             <div style={{ color: '#F8FAFC', marginTop: '0.5rem', textAlign: 'left' }}>
               <h4 style={{ margin: 0, fontSize: '0.90rem', fontWeight: 700 }}>{activeZoomImage.titulo}</h4>
               {activeZoomImage.descripcion && <p style={{ fontSize: '0.78rem', color: 'var(--color-text-muted)', marginTop: '0.2rem', margin: 0 }}>{activeZoomImage.descripcion}</p>}

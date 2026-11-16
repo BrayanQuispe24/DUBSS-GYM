@@ -4,6 +4,7 @@ import {
   useEjercicioImagenes, useUploadEjercicioImagen, useDeleteEjercicioImagen
 } from '../hooks/useEntrenamiento';
 import type { Ejercicio, EjercicioImagen } from '../services/entrenamientoService';
+import { resolveExerciseImageUrl } from '../services/entrenamientoService';
 import { useAuthStore } from '@/store/authStore';
 import ConfirmModal from '@/components/common/ConfirmModal';
 
@@ -175,7 +176,7 @@ const EjercicioGaleriaModal: React.FC<Props> = ({ ejercicio, onClose }) => {
                 >
                   <div style={{ position: 'relative', height: '140px', background: 'var(--color-surface-muted)', overflow: 'hidden' }}>
                     <img
-                      src={img.path_imagen}
+                      src={resolveExerciseImageUrl(img.path_imagen)}
                       alt={img.titulo}
                       style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                     />
@@ -237,7 +238,7 @@ const EjercicioGaleriaModal: React.FC<Props> = ({ ejercicio, onClose }) => {
                 >
                   <FaXmark />
                 </button>
-                <img src={activeZoomImage.path_imagen} alt={activeZoomImage.titulo} style={{ maxWidth: '100%', maxHeight: '80vh', borderRadius: '8px', objectFit: 'contain' }} />
+                <img src={resolveExerciseImageUrl(activeZoomImage.path_imagen)} alt={activeZoomImage.titulo} style={{ maxWidth: '100%', maxHeight: '80vh', borderRadius: '8px', objectFit: 'contain' }} />
                 <div style={{ color: '#FFF', marginTop: '0.5rem' }}>
                   <h4 style={{ margin: 0 }}>{activeZoomImage.titulo}</h4>
                   {activeZoomImage.descripcion && <p style={{ fontSize: '0.85rem', color: '#CBD5E1', marginTop: '0.25rem' }}>{activeZoomImage.descripcion}</p>}

@@ -10,6 +10,7 @@ import {
   useUploadEjercicioImagen
 } from '../hooks/useEntrenamiento';
 import type { Ejercicio } from '../services/entrenamientoService';
+import { resolveExerciseImageUrl } from '../services/entrenamientoService';
 import { useAuthStore } from '@/store/authStore';
 import EjercicioGaleriaModal from './EjercicioGaleriaModal';
 import EjercicioDetailModal from './EjercicioDetailModal';
@@ -481,7 +482,8 @@ const EjerciciosTab: React.FC = () => {
             </thead>
             <tbody>
               {ejercicios.map((ex: Ejercicio) => {
-                const mainImage = ex.imagenes?.[0]?.path_imagen || ex.url_imagen;
+                const rawMainImage = ex.imagenes?.[0]?.path_imagen || ex.url_imagen;
+                const mainImage = resolveExerciseImageUrl(rawMainImage);
                 const totalImagenes = ex.imagenes?.length || 0;
 
                 return (

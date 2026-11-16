@@ -57,15 +57,16 @@ export const createTipoDocumento = async (data: { nombre: string; descripcion?: 
 };
 
 export const resolveDocumentFileUrl = (doc: Documento): string => {
-  const urlPath = doc.archivo_url || doc.ruta_archivo || (doc as any).url || (doc as any).archivo || '';
+  let urlPath = doc.archivo_url || doc.ruta_archivo || (doc as any).url || (doc as any).archivo || '';
   if (!urlPath) return '#';
+  // Remover esquemas localhost para que siempre use rutas relativas en producción
+  urlPath = urlPath.replace(/^https?:\/\/localhost(:\d+)?/i, '');
   if (urlPath.startsWith('http://') || urlPath.startsWith('https://')) {
     return urlPath;
   }
-  const baseUrl = import.meta.env.VITE_API_URL || 'http://localhost:8000';
   const cleanPath = urlPath.startsWith('/') ? urlPath : `/${urlPath}`;
   if (cleanPath.startsWith('/storage')) {
-    return `${baseUrl}${cleanPath}`;
+    return cleanPath;
   }
-  return `${baseUrl}/storage${cleanPath}`;
+  return `/storage${cleanPath}`;
 };

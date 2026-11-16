@@ -22,6 +22,8 @@ const EscanerQRModal: React.FC<EscanerQRModalProps> = ({ isOpen, onClose }) => {
   // Camera States
   const [isCameraActive, setIsCameraActive] = useState(false);
   const [cameraError, setCameraError] = useState<string | null>(null);
+  const [cameras, setCameras] = useState<Array<{ id: string; label: string }>>([]);
+  const [selectedCameraId, setSelectedCameraId] = useState<string>('');
   const html5QrcodeRef = useRef<Html5Qrcode | null>(null);
   const isProcessingRef = useRef(false);
   const isModalActiveRef = useRef(false);
@@ -87,7 +89,7 @@ const EscanerQRModal: React.FC<EscanerQRModalProps> = ({ isOpen, onClose }) => {
   };
 
   // Start Camera
-  const startCamera = async () => {
+  const startCamera = async (overrideCameraId?: string) => {
     if (!isModalActiveRef.current) return;
     setCameraError(null);
     isProcessingRef.current = false;
@@ -106,14 +108,28 @@ const EscanerQRModal: React.FC<EscanerQRModalProps> = ({ isOpen, onClose }) => {
 
       let cameraSource: string | { facingMode: string } = { facingMode: 'environment' };
       try {
-        const cameras = await Html5Qrcode.getCameras();
+        const availableCameras = await Html5Qrcode.getCameras();
         if (!isModalActiveRef.current) {
           await stopCamera(scanner);
           return;
         }
-        if (cameras && cameras.length > 0) {
-          const backCamera = cameras.find((c) => /back|rear|environment|trasera/i.test(c.label));
-          cameraSource = backCamera ? backCamera.id : cameras[0].id;
+        if (availableCameras && availableCameras.length > 0) {
+          setCameras(availableCameras);
+
+          const targetId = overrideCameraId || selectedCameraId;
+          const chosenCam = availableCameras.find((c) => c.id === targetId);
+
+          if (chosenCam) {
+            cameraSource = chosenCam.id;
+          } else {
+            // Filtrar para dar prioridad a cámaras físicas sobre cámaras virtuales (como OBS Virtual Camera)
+            const physicalCams = availableCameras.filter((c) => !/obs|virtual|fake/i.test(c.label));
+            const candidateList = physicalCams.length > 0 ? physicalCams : availableCameras;
+            const backCamera = candidateList.find((c) => /back|rear|environment|trasera/i.test(c.label));
+            const defaultCam = backCamera || candidateList[0];
+            cameraSource = defaultCam.id;
+            setSelectedCameraId(defaultCam.id);
+          }
         }
       } catch (_) {}
 
@@ -547,6 +563,37 @@ const EscanerQRModal: React.FC<EscanerQRModalProps> = ({ isOpen, onClose }) => {
           {/* TAB 1: LIVE CAMERA STREAM */}
           {activeTab === 'camera' && (
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.85rem' }}>
+              {cameras.length > 1 && (
+                <div style={{ width: '100%', display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '-0.25rem' }}>
+                  <FaCamera style={{ color: '#3B82F6', fontSize: '0.9rem', flexShrink: 0 }} />
+                  <select
+                    value={selectedCameraId}
+                    onChange={(e) => {
+                      const newId = e.target.value;
+                      setSelectedCameraId(newId);
+                      startCamera(newId);
+                    }}
+                    style={{
+                      flex: 1,
+                      backgroundColor: '#1f1f28',
+                      color: '#FFF',
+                      border: '1px solid #333344',
+                      borderRadius: '4px',
+                      padding: '0.35rem 0.6rem',
+                      fontSize: '0.82rem',
+                      outline: 'none',
+                      cursor: 'pointer',
+                    }}
+                  >
+                    {cameras.map((c, idx) => (
+                      <option key={c.id} value={c.id}>
+                        {c.label || `Cámara ${idx + 1}`}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              )}
+
               <div
                 style={{
                   width: '100%',
@@ -615,7 +662,7 @@ const EscanerQRModal: React.FC<EscanerQRModalProps> = ({ isOpen, onClose }) => {
                   </button>
                 ) : (
                   <button
-                    onClick={startCamera}
+                    onClick={() => startCamera(selectedCameraId)}
                     style={{
                       flex: 1,
                       padding: '0.65rem',
