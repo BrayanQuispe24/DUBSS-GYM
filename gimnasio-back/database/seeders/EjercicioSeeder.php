@@ -232,7 +232,7 @@ class EjercicioSeeder extends Seeder
 
                             File::copy($sourceImgFile, $targetImgFile);
 
-                            $fullUrl = asset('storage/ejercicios/'.$relImagePath);
+                            $fullUrl = '/storage/ejercicios/'.$relImagePath;
                             $numPaso = $ordenImg + 1;
 
                             EjercicioImagen::updateOrCreate(
