@@ -10,7 +10,13 @@ class PerfilEntrenamientoController extends Controller
 {
     public function show(Request $request): JsonResponse
     {
-        $idUsuario = $request->user()->id;
+        $authUser = $request->user();
+        $idUsuario = $authUser->id;
+
+        if ($request->filled('id_usuario') && $authUser->puedeGestionarEntrenamiento()) {
+            $idUsuario = (int) $request->input('id_usuario');
+        }
+
         $perfil = PerfilEntrenamiento::with('ultimoAnalisis')
             ->where('id_usuario', $idUsuario)
             ->first();
@@ -24,6 +30,7 @@ class PerfilEntrenamientoController extends Controller
     public function storeOrUpdate(Request $request): JsonResponse
     {
         $validated = $request->validate([
+            'id_usuario' => 'nullable|integer|exists:usuarios,id',
             'edad' => 'nullable|integer|min:10|max:100',
             'objetivo' => 'required|string|in:HIPERTROFIA,FUERZA,RESISTENCIA,ACONDICIONAMIENTO',
             'nivel_experiencia' => 'required|string|in:PRINCIPIANTE,INTERMEDIO,AVANZADO',
@@ -34,7 +41,14 @@ class PerfilEntrenamientoController extends Controller
             'id_ultimo_analisis' => 'nullable|exists:analisis_corporales,id',
         ]);
 
-        $idUsuario = $request->user()->id;
+        $authUser = $request->user();
+        $idUsuario = $authUser->id;
+
+        if (! empty($validated['id_usuario']) && $authUser->puedeGestionarEntrenamiento()) {
+            $idUsuario = (int) $validated['id_usuario'];
+        }
+
+        unset($validated['id_usuario']);
 
         $perfil = PerfilEntrenamiento::updateOrCreate(
             ['id_usuario' => $idUsuario],

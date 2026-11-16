@@ -290,8 +290,10 @@ export const getHistorialAnalisisCorporales = async (): Promise<AnalisisCorporal
   return response.data.data;
 };
 
-export const getPerfilEntrenamiento = async (): Promise<PerfilEntrenamiento | null> => {
-  const response = await api.get('/perfil-entrenamiento');
+export const getPerfilEntrenamiento = async (idUsuario?: number): Promise<PerfilEntrenamiento | null> => {
+  const response = await api.get('/perfil-entrenamiento', {
+    params: idUsuario ? { id_usuario: idUsuario } : undefined,
+  });
   return response.data.data;
 };
 
@@ -300,7 +302,7 @@ export const savePerfilEntrenamiento = async (data: Partial<PerfilEntrenamiento>
   return response.data.data;
 };
 
-export const generarRutinaIA = async (): Promise<GenerarRutinaIAResponse['data']> => {
-  const response = await api.post('/recomendaciones/rutinas');
+export const generarRutinaIA = async (idUsuario?: number): Promise<GenerarRutinaIAResponse['data']> => {
+  const response = await api.post('/recomendaciones/rutinas', idUsuario ? { id_usuario: idUsuario } : {});
   return response.data.data;
 };

@@ -18,10 +18,10 @@ class RecomendacionRutinaController extends Controller
     public function generarRutina(Request $request, IAServiceClient $iaClient): JsonResponse
     {
         $usuarioAuth = $request->user();
-        $idTargetUsuario = $request->input('id_usuario', $usuarioAuth->id);
+        $idTargetUsuario = (int) $request->input('id_usuario', $usuarioAuth->id);
 
         // Si es otro usuario, validar que el solicitante sea admin o instructor
-        if ($idTargetUsuario !== $usuarioAuth->id && ! $usuarioAuth->puedeGestionarEntrenamiento()) {
+        if ($idTargetUsuario !== (int) $usuarioAuth->id && ! $usuarioAuth->puedeGestionarEntrenamiento()) {
             return response()->json(['message' => 'No autorizado para asignar rutinas a otros usuarios.'], 403);
         }
 

@@ -250,10 +250,10 @@ export const useAnalizarFotografias = () => {
   });
 };
 
-export const usePerfilEntrenamiento = () => {
+export const usePerfilEntrenamiento = (idUsuario?: number) => {
   return useQuery({
-    queryKey: ['perfil-entrenamiento'],
-    queryFn: getPerfilEntrenamiento,
+    queryKey: ['perfil-entrenamiento', idUsuario],
+    queryFn: () => getPerfilEntrenamiento(idUsuario),
   });
 };
 
@@ -271,7 +271,7 @@ export const useSavePerfilEntrenamiento = () => {
 export const useGenerarRutinaIA = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: generarRutinaIA,
+    mutationFn: (idUsuario?: number) => generarRutinaIA(idUsuario),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['planes-entrenamiento'] });
       queryClient.invalidateQueries({ queryKey: ['rutinas'] });

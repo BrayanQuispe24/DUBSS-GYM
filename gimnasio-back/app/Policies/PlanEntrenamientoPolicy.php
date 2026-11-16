@@ -35,8 +35,12 @@ class PlanEntrenamientoPolicy
         return $this->canManage($user);
     }
 
-    public function delete(Usuario $user): bool
+    public function delete(Usuario $user, ?PlanEntrenamiento $plan = null): bool
     {
-        return $this->canManage($user);
+        if ($this->canManage($user)) {
+            return true;
+        }
+
+        return $plan !== null && (int) $plan->id_usuario === (int) $user->id;
     }
 }

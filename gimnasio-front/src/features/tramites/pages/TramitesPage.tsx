@@ -16,6 +16,7 @@ import CodigoQRInscripcionModal from '../components/CodigoQRInscripcionModal';
 import { FaTelegram } from 'react-icons/fa6';
 import { useTelegramEstado } from '@/features/telegram/hooks/useTelegram';
 import VincularTelegramModal from '@/features/telegram/components/VincularTelegramModal';
+import { resolveDocumentFileUrl } from '@/features/documentos/services/documentoService';
 
 import showToast from '@/utils/toast';
 
@@ -994,7 +995,7 @@ const TramitesPage: React.FC = () => {
                         </div>
                         {fileUrl && (
                           <a
-                            href={fileUrl.startsWith('http') ? fileUrl : `http://localhost:8000${fileUrl.startsWith('/') ? '' : '/'}${fileUrl}`}
+                            href={resolveDocumentFileUrl(doc)}
                             target="_blank"
                             rel="noopener noreferrer"
                             style={{

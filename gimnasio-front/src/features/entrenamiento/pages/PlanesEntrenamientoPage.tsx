@@ -349,7 +349,7 @@ const PlanesEntrenamientoPage: React.FC = () => {
                     <th style={{ padding: '0.65rem 1rem' }}>DISTRIBUCIÓN DE RUTINAS</th>
                     <th style={{ padding: '0.65rem 1rem' }}>RECURSOS MULTIMEDIA</th>
                     <th style={{ padding: '0.65rem 1rem' }}>OBJETIVO</th>
-                    {canManage && <th style={{ padding: '0.65rem 1rem', textAlign: 'right' }}>ACCIONES</th>}
+                    <th style={{ padding: '0.65rem 1rem', textAlign: 'right' }}>ACCIONES</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -420,9 +420,9 @@ const PlanesEntrenamientoPage: React.FC = () => {
                           {p.objetivo || 'Sin objetivo especificado'}
                         </td>
 
-                        {canManage && (
-                          <td style={{ padding: '0.65rem 1rem', textAlign: 'right' }}>
-                            <div style={{ display: 'inline-flex', justifyContent: 'flex-end', gap: '0.35rem' }}>
+                        <td style={{ padding: '0.65rem 1rem', textAlign: 'right' }}>
+                          <div style={{ display: 'inline-flex', justifyContent: 'flex-end', gap: '0.35rem' }}>
+                            {canManage && (
                               <button
                                 onClick={() => setEditPlan(p)}
                                 title="Editar Plan de Entrenamiento"
@@ -430,6 +430,8 @@ const PlanesEntrenamientoPage: React.FC = () => {
                               >
                                 <FaPenToSquare />
                               </button>
+                            )}
+                            {(canManage || Number(p.id_usuario) === Number(user?.id) || Number(p.usuario?.id) === Number(user?.id)) && (
                               <button
                                 onClick={() => setDeletingPlanId(p.id)}
                                 title="Eliminar Plan"
@@ -437,16 +439,16 @@ const PlanesEntrenamientoPage: React.FC = () => {
                               >
                                 <FaTrash />
                               </button>
-                            </div>
-                          </td>
-                        )}
+                            )}
+                          </div>
+                        </td>
                       </tr>
                     );
                   })}
 
                   {filteredPlanes.length === 0 && (
                     <tr>
-                      <td colSpan={canManage ? 6 : 5} style={{ padding: '2.5rem', textAlign: 'center', color: 'var(--color-text-muted)' }}>
+                      <td colSpan={6} style={{ padding: '2.5rem', textAlign: 'center', color: 'var(--color-text-muted)' }}>
                         No hay planes de entrenamiento que coincidan con la búsqueda.
                       </td>
                     </tr>
@@ -779,7 +781,11 @@ const PlanesEntrenamientoPage: React.FC = () => {
       {/* MODALES MÓDULO IA */}
       <GenerarRutinaIAModal
         isOpen={isIAModalOpen}
-        onClose={() => setIsIAModalOpen(false)}
+        onClose={() => {
+          setIsIAModalOpen(false);
+          setActiveTab('list');
+          setSelectedUserFilter('todos');
+        }}
       />
 
       <AnalisisCorporalModal

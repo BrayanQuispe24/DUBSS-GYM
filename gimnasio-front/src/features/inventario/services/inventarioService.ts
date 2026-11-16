@@ -3,16 +3,15 @@ import api from '@/services/api';
 
 export const getEquipoImageUrl = (urlPath?: string): string => {
   if (!urlPath) return '';
-  if (urlPath.startsWith('http://') || urlPath.startsWith('https://') || urlPath.startsWith('blob:')) {
-    return urlPath;
+  const stripped = urlPath.replace(/^https?:\/\/localhost(:\d+)?/i, '');
+  if (stripped.startsWith('http://') || stripped.startsWith('https://') || stripped.startsWith('blob:')) {
+    return stripped;
   }
-  const baseUrl = import.meta.env.VITE_API_URL || 'http://localhost:8000';
-  const cleanBase = baseUrl.replace(/\/api\/?$/, '');
-  const cleanPath = urlPath.startsWith('/') ? urlPath : `/${urlPath}`;
+  const cleanPath = stripped.startsWith('/') ? stripped : `/${stripped}`;
   if (cleanPath.startsWith('/storage')) {
-    return `${cleanBase}${cleanPath}`;
+    return cleanPath;
   }
-  return `${cleanBase}/storage${cleanPath}`;
+  return `/storage${cleanPath}`;
 };
 
 export interface Ambiente {

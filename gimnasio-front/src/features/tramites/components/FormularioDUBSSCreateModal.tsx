@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { FaFilePdf, FaXmark, FaCheck, FaNotesMedical, FaHeartPulse, FaUserCheck, FaShieldHalved, FaBookOpen, FaCircleInfo, FaFolderOpen, FaPaperclip, FaFileLines, FaEye } from 'react-icons/fa6';
 import { useAuthStore } from '@/store/authStore';
 import api from '@/services/api';
+import { resolveDocumentFileUrl } from '@/features/documentos/services/documentoService';
 
 import showToast from '@/utils/toast';
 
@@ -727,7 +728,7 @@ const FormularioDUBSSCreateModal: React.FC<FormularioDUBSSCreateModalProps> = ({
                       </div>
                       {fileUrl && (
                         <a
-                          href={fileUrl.startsWith('http') ? fileUrl : `http://localhost:8000${fileUrl.startsWith('/') ? '' : '/'}${fileUrl}`}
+                          href={resolveDocumentFileUrl(doc)}
                           target="_blank"
                           rel="noopener noreferrer"
                           style={{

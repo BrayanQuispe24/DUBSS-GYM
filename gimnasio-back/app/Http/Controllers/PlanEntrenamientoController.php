@@ -68,8 +68,8 @@ class PlanEntrenamientoController extends Controller
 
     public function destroy(int $id): JsonResponse
     {
-        Gate::authorize('delete', PlanEntrenamiento::class);
         $plan = PlanEntrenamiento::findOrFail($id);
+        Gate::authorize('delete', $plan);
         $plan->delete();
 
         return response()->json([

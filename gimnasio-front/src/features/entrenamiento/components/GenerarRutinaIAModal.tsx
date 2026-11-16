@@ -7,6 +7,8 @@ import {
 } from '../hooks/useEntrenamiento';
 import { AnalisisCorporalModal } from './AnalisisCorporalModal';
 import type { AnalisisCorporal } from '../services/entrenamientoService';
+import { useAuthStore } from '@/store/authStore';
+import api from '@/services/api';
 
 interface GenerarRutinaIAModalProps {
   isOpen: boolean;
@@ -33,7 +35,13 @@ const RESTRICCIONES_OPCIONES = [
 ];
 
 export const GenerarRutinaIAModal: React.FC<GenerarRutinaIAModalProps> = ({ isOpen, onClose }) => {
-  const { data: perfilExistente } = usePerfilEntrenamiento();
+  const { user } = useAuthStore();
+  const canManage = ['administrador', 'instructor'].includes(user?.rol || '');
+
+  const [usuarios, setUsuarios] = useState<{ id: number; nombre: string; apellido: string }[]>([]);
+  const [selectedUserId, setSelectedUserId] = useState<number | undefined>(user?.id);
+
+  const { data: perfilExistente } = usePerfilEntrenamiento(selectedUserId);
   const savePerfilMutation = useSavePerfilEntrenamiento();
   const generarRutinaMutation = useGenerarRutinaIA();
 
@@ -48,6 +56,20 @@ export const GenerarRutinaIAModal: React.FC<GenerarRutinaIAModalProps> = ({ isOp
 
   const [modalFotoOpen, setModalFotoOpen] = useState(false);
   const [resultadoGenerado, setResultadoGenerado] = useState<any | null>(null);
+
+  useEffect(() => {
+    if (canManage && isOpen) {
+      api.get('/usuarios')
+        .then((res) => {
+          const list = res.data.data || res.data || [];
+          setUsuarios(list);
+          if (list.length > 0 && (!selectedUserId || selectedUserId === user?.id)) {
+            setSelectedUserId(list[0].id);
+          }
+        })
+        .catch(() => {});
+    }
+  }, [canManage, isOpen]);
 
   useEffect(() => {
     if (perfilExistente) {
@@ -88,6 +110,7 @@ export const GenerarRutinaIAModal: React.FC<GenerarRutinaIAModalProps> = ({ isOp
 
     // 1. Guardar o actualizar perfil primero
     await savePerfilMutation.mutateAsync({
+      id_usuario: selectedUserId,
       edad,
       objetivo,
       nivel_experiencia: nivelExperiencia,
@@ -99,7 +122,7 @@ export const GenerarRutinaIAModal: React.FC<GenerarRutinaIAModalProps> = ({ isOp
     });
 
     // 2. Ejecutar recomendación por IA
-    const data = await generarRutinaMutation.mutateAsync();
+    const data = await generarRutinaMutation.mutateAsync(selectedUserId);
     setResultadoGenerado(data);
   };
 
@@ -198,6 +221,36 @@ export const GenerarRutinaIAModal: React.FC<GenerarRutinaIAModalProps> = ({ isOp
           >
             {!resultadoGenerado ? (
               <form onSubmit={handleGenerar} id="form-sistema-experto" style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+                {/* Selector de Atleta para Administradores / Instructores */}
+                {canManage && usuarios.length > 0 && (
+                  <div>
+                    <label style={{ display: 'block', fontSize: '0.72rem', fontWeight: 700, color: 'var(--color-text-secondary)', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.35rem' }}>
+                      Atleta / Socio Destinatario *
+                    </label>
+                    <select
+                      value={selectedUserId || ''}
+                      onChange={(e) => setSelectedUserId(Number(e.target.value))}
+                      style={{
+                        width: '100%',
+                        padding: '0.45rem 0.65rem',
+                        borderRadius: '4px',
+                        border: '1px solid var(--color-border-strong)',
+                        backgroundColor: 'var(--color-surface)',
+                        fontSize: '0.82rem',
+                        fontWeight: 600,
+                        color: 'var(--color-text-primary)',
+                        outline: 'none',
+                      }}
+                    >
+                      {usuarios.map((u) => (
+                        <option key={u.id} value={u.id}>
+                          {u.nombre} {u.apellido}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                )}
+
                 {/* 1. Objetivo & Nivel */}
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '1rem' }}>
                   <div>
@@ -537,27 +590,13 @@ export const GenerarRutinaIAModal: React.FC<GenerarRutinaIAModalProps> = ({ isOp
               gap: '0.65rem',
             }}
           >
-            <button
-              type="button"
-              onClick={onClose}
-              style={{
-                padding: '0.45rem 1rem',
-                borderRadius: '4px',
-                border: '1px solid var(--color-border-strong)',
-                backgroundColor: 'var(--color-surface)',
-                color: 'var(--color-text-secondary)',
-                fontSize: '0.80rem',
-                fontWeight: 700,
-                cursor: 'pointer',
-              }}
-            >
-              Cancelar y Cerrar
-            </button>
-            {!resultadoGenerado && (
+            {resultadoGenerado ? (
               <button
-                type="submit"
-                form="form-sistema-experto"
-                disabled={generarRutinaMutation.isPending || savePerfilMutation.isPending}
+                type="button"
+                onClick={() => {
+                  setResultadoGenerado(null);
+                  onClose();
+                }}
                 style={{
                   padding: '0.45rem 1.25rem',
                   backgroundColor: 'var(--color-primary)',
@@ -566,16 +605,54 @@ export const GenerarRutinaIAModal: React.FC<GenerarRutinaIAModalProps> = ({ isOp
                   borderRadius: '4px',
                   fontWeight: 700,
                   fontSize: '0.80rem',
-                  cursor: generarRutinaMutation.isPending || savePerfilMutation.isPending ? 'not-allowed' : 'pointer',
-                  opacity: generarRutinaMutation.isPending || savePerfilMutation.isPending ? 0.7 : 1,
+                  cursor: 'pointer',
                   boxShadow: '0 1px 2px rgba(0, 0, 0, 0.05)',
                   transition: 'all 0.15s ease',
                 }}
               >
-                {generarRutinaMutation.isPending
-                  ? 'Consultando Motor de Reglas ACSM...'
-                  : 'Generar Rutina con Sistema Experto IA'}
+                Aceptar y Ver en Listado de Planes
               </button>
+            ) : (
+              <>
+                <button
+                  type="button"
+                  onClick={onClose}
+                  style={{
+                    padding: '0.45rem 1rem',
+                    borderRadius: '4px',
+                    border: '1px solid var(--color-border-strong)',
+                    backgroundColor: 'var(--color-surface)',
+                    color: 'var(--color-text-secondary)',
+                    fontSize: '0.80rem',
+                    fontWeight: 700,
+                    cursor: 'pointer',
+                  }}
+                >
+                  Cancelar y Cerrar
+                </button>
+                <button
+                  type="submit"
+                  form="form-sistema-experto"
+                  disabled={generarRutinaMutation.isPending || savePerfilMutation.isPending}
+                  style={{
+                    padding: '0.45rem 1.25rem',
+                    backgroundColor: 'var(--color-primary)',
+                    color: '#FFFFFF',
+                    border: 'none',
+                    borderRadius: '4px',
+                    fontWeight: 700,
+                    fontSize: '0.80rem',
+                    cursor: generarRutinaMutation.isPending || savePerfilMutation.isPending ? 'not-allowed' : 'pointer',
+                    opacity: generarRutinaMutation.isPending || savePerfilMutation.isPending ? 0.7 : 1,
+                    boxShadow: '0 1px 2px rgba(0, 0, 0, 0.05)',
+                    transition: 'all 0.15s ease',
+                  }}
+                >
+                  {generarRutinaMutation.isPending
+                    ? 'Consultando Motor de Reglas ACSM...'
+                    : 'Generar Rutina con Sistema Experto IA'}
+                </button>
+              </>
             )}
           </div>
         </div>
