@@ -44,7 +44,9 @@ export interface RecomendacionNutricionalResponse {
   comidas: ComidaPlan[];
 }
 
-const IA_API_BASE_URL = import.meta.env.VITE_IA_URL || 'http://127.0.0.1:8001/api/v1';
+const IA_API_BASE_URL =
+  import.meta.env.VITE_IA_URL ||
+  (import.meta.env.PROD ? '/api/v1/ia' : 'http://127.0.0.1:8001/api/v1');
 
 export const iaNutricionService = {
   generarRecomendacion: async (

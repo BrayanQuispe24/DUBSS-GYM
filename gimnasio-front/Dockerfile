@@ -4,9 +4,11 @@
 FROM node:22-alpine AS builder
 WORKDIR /app
 
-# Parámetro de construcción para inyectar la URL base de la API
+# Parámetros de construcción para inyectar las URLs base de API e IA
 ARG VITE_API_URL=/api
+ARG VITE_IA_URL=/api/v1/ia
 ENV VITE_API_URL=$VITE_API_URL
+ENV VITE_IA_URL=$VITE_IA_URL
 
 COPY package.json package-lock.json ./
 RUN npm ci --silent

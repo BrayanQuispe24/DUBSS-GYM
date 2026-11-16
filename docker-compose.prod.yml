@@ -118,6 +118,7 @@ services:
       dockerfile: Dockerfile
       args:
         VITE_API_URL: "/api"
+        VITE_IA_URL: "/api/v1/ia"
     container_name: dubss-frontend
     restart: always
     networks:
