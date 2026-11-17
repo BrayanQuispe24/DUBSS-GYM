@@ -32,6 +32,7 @@ class AuthTest extends TestCase
             'email' => 'juan@example.com',
             'password' => 'password123',
             'password_confirmation' => 'password123',
+            'acepta_terminos' => true,
             'rol' => 'Cliente',
         ]);
 
@@ -64,6 +65,7 @@ class AuthTest extends TestCase
             'email' => 'juan@example.com',
             'password' => 'password123',
             'password_confirmation' => 'password123',
+            'acepta_terminos' => true,
             'rol' => 'Cliente',
         ]);
 
@@ -175,6 +177,7 @@ class AuthTest extends TestCase
             'email' => 'admin_nuevo@example.com',
             'password' => 'password123',
             'password_confirmation' => 'password123',
+            'acepta_terminos' => true,
             'rol' => 'Administrador',
         ]);
 
@@ -203,6 +206,7 @@ class AuthTest extends TestCase
                 'email' => 'recep@example.com',
                 'password' => 'password123',
                 'password_confirmation' => 'password123',
+                'acepta_terminos' => true,
                 'rol' => 'Recepcionista',
             ]);
 
@@ -217,6 +221,7 @@ class AuthTest extends TestCase
             'email' => 'invalido@example.com',
             'password' => 'password123',
             'password_confirmation' => 'password123',
+            'acepta_terminos' => true,
             'rol' => 'RolQueNoExiste',
         ]);
 

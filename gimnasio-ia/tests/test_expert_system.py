@@ -59,7 +59,11 @@ def test_rule_engine_hipertrofia_principiante():
     assert rutina.objetivo == "HIPERTROFIA"
     assert rutina.nivel == "PRINCIPIANTE"
     assert len(rutina.dias_semana) == 3
-    assert "REGLA_PARAMETROS_ACSM: Objetivo HIPERTROFIA -> 4 series, 8 - 12 reps, 90s descanso." in rutina.reglas_aplicadas
+    # La regla agrega al final la prescripción entre paréntesis; se valida la parte fija del mensaje.
+    assert any(
+        r.startswith("REGLA_PARAMETROS_ACSM: Objetivo HIPERTROFIA -> 4 series, 8 - 12 reps, 90s descanso")
+        for r in rutina.reglas_aplicadas
+    )
     # Se debe haber filtrado la polea ya que no figuraba en equipamiento disponible
     nombres_asignados = [ej.nombre for dia in rutina.dias_semana for ej in dia.ejercicios]
     assert "Jalón al pecho en polea alta" not in nombres_asignados
