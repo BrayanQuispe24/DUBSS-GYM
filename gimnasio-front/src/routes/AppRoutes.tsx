@@ -24,6 +24,7 @@ import PlanesEntrenamientoPage from '@/features/entrenamiento/pages/PlanesEntren
 import PlanAlimentacionPage from '@/features/nutricion/pages/PlanAlimentacionPage';
 import TramitesPage from '@/features/tramites/pages/TramitesPage';
 import RegistroAccesosPage from '@/features/accesos/pages/RegistroAccesosPage';
+import AuditoriaPage from '@/features/auditoria/pages/AuditoriaPage';
 import ConfiguracionSistemaPage from '@/features/configuracion/pages/ConfiguracionSistemaPage';
 import ProtectedRoute from './ProtectedRoute';
 
@@ -51,9 +52,10 @@ const AppRoutes: React.FC = () => {
             <Route path="users/:id" element={<UserDetailPage />} />
           </Route>
 
-          {/* Seguridad (Roles y Permisos) */}
+          {/* Seguridad (Roles y Permisos, Bitácora de Auditoría) */}
           <Route element={<ProtectedRoute allowedRoles={['administrador']} />}>
             <Route path="permisos" element={<RoleListPage />} />
+            <Route path="auditoria" element={<AuditoriaPage />} />
           </Route>
 
           {/* Planes y Tarifas de Membresía */}

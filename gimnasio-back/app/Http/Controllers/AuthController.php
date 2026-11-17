@@ -10,9 +10,11 @@ use App\DTOs\Auth\RegisterUserDTO;
 use App\Http\Requests\Auth\AuthLoginRequest;
 use App\Http\Requests\Auth\AuthRegisterRequest;
 use App\Models\Usuario;
+use App\Services\AuditLoggerService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
 {
@@ -33,22 +35,34 @@ class AuthController extends Controller
     public function login(AuthLoginRequest $request, LoginUserAction $action): JsonResponse
     {
         $dto = LoginUserDTO::fromRequest($request);
-        $result = $action->execute($dto);
 
-        return response()->json([
-            'message' => 'Inicio de sesión exitoso',
-            'user' => $result['usuario'],
-            'access_token' => $result['token'],
-            'token_type' => $result['token_type'],
-        ], 200);
+        try {
+            $result = $action->execute($dto);
+            AuditLoggerService::logLogin($result['usuario'], $request);
+
+            return response()->json([
+                'message' => 'Inicio de sesión exitoso',
+                'user' => $result['usuario'],
+                'access_token' => $result['token'],
+                'token_type' => $result['token_type'],
+            ], 200);
+        } catch (ValidationException $e) {
+            AuditLoggerService::logFailedLogin((string) $dto->email, 'Credenciales incorrectas', $request);
+            throw $e;
+        } catch (\Throwable $e) {
+            AuditLoggerService::logFailedLogin((string) $dto->email, $e->getMessage(), $request);
+            throw $e;
+        }
     }
 
     public function logout(Request $request, LogoutAction $logoutAction): JsonResponse
     {
         // Autorización mediante Gate Facade
-        Gate::authorize('logout', $request->user());
+        $user = $request->user();
+        Gate::authorize('logout', $user);
 
-        $logoutAction->execute($request->user());
+        AuditLoggerService::logLogout($user, $request);
+        $logoutAction->execute($user);
 
         return response()->json([
             'message' => 'Sesión cerrada exitosamente',

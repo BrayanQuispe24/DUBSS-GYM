@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AnalisisCorporalController;
+use App\Http\Controllers\AuditController;
 use App\Http\Controllers\PerfilEntrenamientoController;
 use App\Http\Controllers\RecomendacionRutinaController;
 use App\Http\Controllers\AmbienteController;
@@ -87,6 +88,11 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::delete('/permisos/{id}', [PermisoController::class, 'destroy']);
 
     Route::post('/rol-permiso', [RolPermisoController::class, 'store']);
+
+    // Módulo de Auditoría (Bitácora Forense)
+    Route::get('/audits', [AuditController::class, 'index']);
+    Route::get('/audits/stats', [AuditController::class, 'stats']);
+    Route::get('/audits/export', [AuditController::class, 'export']);
 
     // Módulo 2: Historial Clínico / Deportivo
     Route::get('/historiales', [HistorialController::class, 'index']);

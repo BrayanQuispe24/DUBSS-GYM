@@ -71,6 +71,7 @@ const DashboardLayout: React.FC = () => {
   const getBreadcrumbTitle = () => {
     if (location.pathname.includes('/dashboard/usuarios')) return 'Gestión de Usuarios';
     if (location.pathname.includes('/dashboard/permisos')) return 'Roles y Permisos';
+    if (location.pathname.includes('/dashboard/auditoria')) return 'Bitácora & Auditoría';
     if (location.pathname.includes('/dashboard/planes')) return 'Planes & Tarifas de Membresía';
     if (location.pathname.includes('/dashboard/ejercicios')) return 'Catálogo de Ejercicios';
     if (location.pathname.includes('/dashboard/rutinas')) return 'Rutinas de Entrenamiento';
@@ -141,6 +142,17 @@ const DashboardLayout: React.FC = () => {
             >
               <FaShieldHalved />
               <span>Roles y Permisos</span>
+            </NavLink>
+          )}
+
+          {user?.rol === 'administrador' && (
+            <NavLink
+              to="/dashboard/auditoria"
+              className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}
+              title="Bitácora Forense y Registro de Auditoría"
+            >
+              <FaShieldHalved />
+              <span>Bitácora & Auditoría</span>
             </NavLink>
           )}
 

@@ -1,115 +1,144 @@
-# Plan de Implementación: Contenerización Docker para Producción (Backend, Frontend y Microservicio IA)
-
-## 1. Contexto y Objetivos
-
-El sistema **DUBSS-GYM (FitGo!)** está compuesto por tres subsistemas desacoplados que deben ser desplegados en entornos de producción con alta disponibilidad, seguridad, aislamiento y reproducibilidad:
-1. **Backend Core (`gimnasio-back`)**: API RESTful en **Laravel 11 / PHP 8.3-8.4** conectada a **PostgreSQL 16** y **Redis**.
-2. **Frontend SPA (`gimnasio-front`)**: Cliente web de alto rendimiento en **React 19 / Vite / TypeScript / Tailwind CSS**.
-3. **Microservicio de IA (`gimnasio-ia`)**: Servicio en **Python 3.12 / FastAPI** con **MediaPipe Pose**, OpenCV headless y **Google Gemini API**.
-
-El objetivo es proveer la infraestructura de contenedores para producción mediante **Dockerfiles multi-etapa (Multi-Stage Builds)** optimizados para tamaño y seguridad, archivos de configuración de producción (Nginx, Supervisor, PHP, Gunicorn/Uvicorn), plantillas de variables de entorno y orquestación con **Docker Compose** (con opción de Gateway Nginx para enrutamiento unificado idéntico a AWS CloudFront/ALB).
+# Plan de Implementación: Módulo de Auditoría y Bitácora del Sistema (DUBSS-GYM)
 
 ---
 
-## 2. Propuesta Técnica Detallada por Componente
+## 1. Contexto, Necesidad y Objetivos
 
-### A. Backend Core (`gimnasio-back`)
-* **Base Image**: `php:8.3-fpm-alpine` o `php:8.4-fpm-alpine`.
-* **Estrategia Multi-Etapa**:
-  * **Stage 1 (Vendor/Composer)**: Imagen `composer:2.7` para instalar dependencias de producción (`composer install --no-dev --prefer-dist --optimize-autoloader --no-interaction`).
-  * **Stage 2 (Production Runner)**: Alpine minimalista con extensiones nativas requeridas (`pdo_pgsql`, `pgsql`, `zip`, `bcmath`, `pcntl`, `opcache`, `redis`).
-* **Servidor Web y Procesos**:
-  * Para producción desacoplada y contenerizada de forma robusta, se implementará un contenedor unificado con **Nginx + PHP-FPM** gestionado por **Supervisor** (o compatible con despliegues directos en Fargate/ECS, VPS o Docker Compose sin depender de Nginx externo obligatorio para servir estáticos).
-  * Incluye configuración optimizada de OPcache para PHP 8.3/8.4 en producción (`opcache.validate_timestamps=0`, `opcache.memory_consumption=256`).
-* **Script de Entrada (`entrypoint.sh`)**:
-  * Ajuste de permisos de `storage` y `bootstrap/cache` para usuario no-root `www-data` / `appuser`.
-  * Optimización de Laravel al iniciar (`php artisan config:cache`, `php artisan route:cache`, `php artisan view:cache`).
-  * Ejecución condicional de migraciones si la variable `RUN_MIGRATIONS=true`.
-* **Archivos a crear**:
-  * `gimnasio-back/Dockerfile`
-  * `gimnasio-back/.dockerignore`
-  * `gimnasio-back/docker/nginx.conf`
-  * `gimnasio-back/docker/php.ini`
-  * `gimnasio-back/docker/supervisord.conf`
-  * `gimnasio-back/docker/entrypoint.sh`
+En una plataforma de misión crítica como **DUBSS-GYM (FitGo!)**, que gestiona pagos, carnets de acceso físico con QR, planes de salud biomecánica con IA y roles institucionales, la **trazabilidad y la inmutabilidad de los datos** son obligatorias para auditorías forenses, control interno de la **D.U.B.S. - UAGRM** y prevención de fraudes.
+
+### Objetivos Específicos:
+1. **Registro Append-Only (Solo Inserción):** Ningún usuario (ni siquiera el administrador) podrá alterar, editar o eliminar registros de la bitácora.
+2. **Auditoría Automática de Modelos Eloquent:** Capturar automáticamente cambios en tablas clave (`usuarios`, `boletas_pago`, `boletas_inscripcion`, `tarifas`, `planes`, `equipos`, `roles`, `permisos`).
+3. **Auditoría de Eventos del Sistema:** Registrar inicios/cierres de sesión, intentos fallidos de autenticación, escaneos QR en garita y ejecuciones del motor de IA.
+4. **Almacenamiento Eficiente con JSONB (PostgreSQL 16):** Almacenar los estados `old_values` y `new_values` en formato binario indexable para comparaciones instantáneas.
+5. **Interfaz de Consulta Enterprise SaaS:** Tabla de alta densidad con filtros combinados, visualizador comparativo de cambios (*Diff Viewer*) y exportación a Excel / PDF.
 
 ---
 
-### B. Frontend SPA (`gimnasio-front`)
-* **Base Image**: `node:22-alpine` (compilación) + `nginx:1.27-alpine` (runtime).
-* **Estrategia Multi-Etapa**:
-  * **Stage 1 (Builder)**: Instalación limpia con `npm ci`, inyección de variable de entorno `VITE_API_URL` vía `--build-arg`, y compilación de producción con `npm run build`.
-  * **Stage 2 (Runner)**: Servidor Nginx ultra-ligero (< 30 MB) con los artefactos estáticos compilados en `/usr/share/nginx/html`.
-* **Configuración Nginx (`nginx.conf`)**:
-  * Enrutamiento SPA con fallback (`try_files $uri $uri/ /index.html;`) para no romper el enrutamiento de React Router.
-  * Compresión Gzip activada para JS, CSS, JSON, SVG y fuentes.
-  * Cabeceras de caché agresivo para assets inmutables (`/assets/` con `Cache-Control: public, max-age=31536000, immutable`).
-  * Cabeceras de seguridad corporativa (*Enterprise Security Headers*): `X-Frame-Options`, `X-Content-Type-Options`, `X-XSS-Protection`, `Referrer-Policy`.
-* **Archivos a crear**:
-  * `gimnasio-front/Dockerfile`
-  * `gimnasio-front/.dockerignore`
-  * `gimnasio-front/nginx.conf`
+## 2. Librerías y Dependencias Seleccionadas
+
+### 2.1. Backend (Laravel 11 / PHP 8.4)
+
+| Librería / Componente | Versión | Rol en la Arquitectura | Justificación Técnica |
+| :--- | :---: | :--- | :--- |
+| **`owen-it/laravel-auditing`** | `^14.0` | **Motor Central de Auditoría** | Es el estándar de oro en Laravel para auditorías de base de datos. Se integra mediante el trait `Auditable` en los modelos Eloquent sin acoplar lógica en los controladores. Captura automáticamente usuario, IP, User-Agent, URL, evento (`created`, `updated`, `deleted`, `restored`) y diferencias campo por campo. |
+| **Eloquent Observers & Custom Events** | Nativo | **Auditoría de Eventos No-Modelo** | Para registrar eventos fuera de Eloquent (inicios de sesión vía Sanctum, intentos fallidos, escaneos de garita en `ValidarAccesoQRAction`), se utilizará un servicio desacoplado `AuditLoggerService` que despacha registros a la misma tabla `audits`. |
+| **PostgreSQL JSONB & GIN Index** | Nativo | **Persistencia de Diferencias** | Almacena los valores anteriores y nuevos sin requerir migraciones complejas ante cambios en los esquemas de datos. Permite búsquedas forenses directas mediante operadores JSON (`@>`, `?`, `->>`). |
+| **Laravel StreamedResponse** | Nativo | **Exportación Forense CSV/Excel** | Exportación de cientos de miles de registros de bitácora por *streaming* directo con uso de memoria constante (< 10 MB RAM). |
+
+> [!NOTE]
+> **¿Por qué `owen-it/laravel-auditing` frente a `spatie/laravel-activitylog`?**  
+> `spatie/laravel-activitylog` está orientado a timelines sociales o muros de actividad tipo "Juan comentó en una foto". En contraste, `owen-it/laravel-auditing` está concebido para **auditoría estricta de cumplimiento corporativo y financiero**, capturando de forma nativa la matriz de cambios (`old` vs `new`) con menor consumo de recursos.
 
 ---
 
-### C. Microservicio de IA (`gimnasio-ia`)
-* **Base Image**: `python:3.12-slim`.
-* **Estrategia Multi-Etapa**:
-  * **Stage 1 (Builder)**: Instalación de `build-essential` y generación de wheels/dependencias en `/root/.local`.
-  * **Stage 2 (Runner)**: Imagen slim con librerías de sistema indispensables para OpenCV headless y MediaPipe (`libgl1`, `libglib2.0-0`, `curl`), usuario de sistema no-root `appuser (UID 1001)`, copiado de dependencias precompiladas y código fuente.
-* **Ejecución y Healthcheck**:
-  * Servidor ASGI: `uvicorn app.main:app --host 0.0.0.0 --port 8001 --workers 2`.
-  * Endpoint de verificación nativo: `GET /health` (`curl -f http://localhost:8001/health || exit 1`).
-* **Archivos a crear**:
-  * `gimnasio-ia/Dockerfile`
-  * `gimnasio-ia/.dockerignore`
+### 2.2. Frontend (React 19 / TypeScript / Vite)
+
+Aprovechando la infraestructura ya instalada en `gimnasio-front/package.json`, se mantendrá el principio de **cero inflado de dependencias**:
+
+| Librería | Versión Instalada | Rol en la Interfaz |
+| :--- | :---: | :--- |
+| **`@tanstack/react-table`** | `^8.21.3` (Instalada) | Gestión de la tabla de auditoría: ordenamiento por columnas, paginación del servidor, control de visibilidad de columnas y selección de filas. |
+| **`@tanstack/react-query`** | `^5.102.8` (Instalada) | Caché de registros de auditoría, sincronización de filtros en URL y revalidación en segundo plano. |
+| **`exceljs`** | `^4.4.0` (Instalada) | Generación y descarga directa de libros de auditoría en formato Excel `.xlsx` con encabezados corporativos institucionales. |
+| **`@react-pdf/renderer`** | `^4.9.0` (Instalada) | Generación de actas de auditoría e informes técnicos oficiales en PDF para la D.U.B.S. |
+| **`lucide-react` / `react-icons`** | `^1.46.0` / `^5.7.0` (Instaladas) | Badges e iconografía de severidad y tipos de eventos (`CREATE`, `UPDATE`, `DELETE`, `LOGIN`, `ALERT`). |
+| **`AuditDiffViewer` (Componente Nativo a medida)** | Código Propio (Ligero) | Componente visual que compara el objeto `old_values` contra `new_values`, resaltando en rojo las propiedades eliminadas o modificadas y en verde los nuevos valores asignados, sin necesidad de librerías externas pesadas. |
 
 ---
 
-### D. Orquestación y Producción Integrada (Raíz del Proyecto)
-* **`docker-compose.prod.yml`**: Orquestación integral de producción con los siguientes servicios:
-  1. `postgres`: PostgreSQL 16 Alpine con almacenamiento persistente montado en volumen Docker (`postgres_data`), red interna segura y healthcheck `pg_isready`.
-  2. `redis`: Redis 7 Alpine con almacenamiento persistente (`redis_data`), autenticación opcional por contraseña y healthcheck `redis-cli ping`.
-  3. `backend`: Contenedor Laravel (`gimnasio-back`) escuchando en puerto interno `8000` (o expuesto), dependiente de Postgres y Redis saludables.
-  4. `ia-service`: Contenedor FastAPI (`gimnasio-ia`) escuchando en puerto `8001`, con healthcheck y reinicio automático.
-  5. `frontend`: Contenedor React / Nginx (`gimnasio-front`) escuchando en puerto `80` (o `3000`).
-  6. `gateway` *(Opcional / Recomendado)*: Proxy inverso Nginx frontal en el puerto `80`/`443` que unifica el dominio:
-     - `/` ➔ Redirige al frontend.
-     - `/api/` ➔ Redirige al backend Laravel.
-     - `/api/v1/ia/` ➔ Redirige al microservicio de IA.
-     *(Elimina por completo problemas de CORS y replica exactamente la topología AWS ALB descrita en el Capítulo 6).*
-* **Plantilla de Entorno**: `.env.production.example` en la raíz con todas las variables requeridas por los tres subsistemas estructuradas y documentadas.
-* **Guía de Despliegue**: `DEPLOYMENT_GUIDE.md` con los comandos de arranque, ejecución de migraciones, generación de claves y verificación de estado.
+## 3. Arquitectura de Base de Datos y Persistencia
+
+### Migración de la Tabla `audits` (PostgreSQL)
+
+```sql
+CREATE TABLE audits (
+    id BIGSERIAL PRIMARY KEY,
+    user_type VARCHAR(255) NULL,
+    user_id BIGINT NULL REFERENCES usuarios(id) ON DELETE SET NULL,
+    event VARCHAR(50) NOT NULL,            -- 'created', 'updated', 'deleted', 'login', 'logout', 'failed_attempt', 'qr_denied'
+    auditable_type VARCHAR(255) NULL,      -- 'App\Models\BoletaPago', 'App\Models\Usuario', etc.
+    auditable_id BIGINT NULL,
+    old_values JSONB NULL,                 -- Valores antes de la mutación
+    new_values JSONB NULL,                 -- Valores posteriores a la mutación
+    url TEXT NULL,                         -- Endpoint o URL desde donde se ejecutó
+    ip_address VARCHAR(45) NULL,           -- Dirección IP del cliente
+    user_agent TEXT NULL,                  -- Navegador / Cliente HTTP
+    tags VARCHAR(255) NULL,                -- 'seguridad', 'finanzas', 'acceso_qr', 'ia_motor'
+    created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Índices de Alta Velocidad para Consultas Forenses:
+CREATE INDEX idx_audits_auditable ON audits (auditable_type, auditable_id);
+CREATE INDEX idx_audits_user_event ON audits (user_id, event);
+CREATE INDEX idx_audits_created_at ON audits (created_at DESC);
+CREATE INDEX idx_audits_tags ON audits (tags);
+CREATE INDEX idx_audits_old_values_gin ON audits USING GIN (old_values);
+CREATE INDEX idx_audits_new_values_gin ON audits USING GIN (new_values);
+```
 
 ---
 
-## 3. Plan de Verificación
+## 4. Modelos a Auditar en la Fase 1
 
-1. **Sintaxis y Linter de Dockerfiles**:
-   - Verificar la coherencia de cada directiva (`FROM`, `COPY`, `RUN`, `USER`, `EXPOSE`, `HEALTHCHECK`).
-2. **Prueba de Build de Contenedores**:
-   - Construcción de imagen de Frontend: `docker build -t dubss-front:prod ./gimnasio-front`.
-   - Construcción de imagen de Microservicio IA: `docker build -t dubss-ia:prod ./gimnasio-ia`.
-   - Construcción de imagen de Backend Laravel: `docker build -t dubss-back:prod ./gimnasio-back`.
-3. **Validación de `docker compose config`**:
-   - Ejecutar `docker compose -f docker-compose.prod.yml config` para certificar que el archivo YAML es sintácticamente válido y mapea correctamente los volúmenes, redes y variables.
-4. **Validación de Healthchecks**:
-   - Comprobar que los endpoints de salud (`/health` en IA, `/ping` o `/api/health` en Backend, HTTP 200 en Frontend) respondan satisfactoriamente.
+Se incorporará la interfaz `OwenIt\Auditing\Contracts\Auditable` y el trait `OwenIt\Auditing\Auditable` en los siguientes modelos centrales:
 
----
+1. **Seguridad y Accesos:** `Usuario`, `Rol`, `Permiso`.
+2. **Financiero y Trámites:** `BoletaPago`, `BoletaInscripcion`, `Tarifa`, `Plan`, `FormularioSolicitud`.
+3. **Control Físico e Inventario:** `RegistroEntradaSalida`, `Equipo`, `Mantenimiento`, `MovimientoInventario`.
+4. **Salud y Deporte:** `Historial`, `PlanEntrenamiento`, `PlanAlimentacion`.
 
-## 4. Decisiones Confirmadas por el Usuario
-
-1. **Topología de Red y Exposición**:
-   - Se implementará un **Gateway Nginx frontal unificado** (expone puerto 80) que enruta de manera transparente:
-     - `/` ➔ Frontend React SPA (`frontend:80`)
-     - `/api/` ➔ Backend Core Laravel (`backend:8000`)
-     - `/api/v1/ia/` ➔ Microservicio IA FastAPI (`ia-service:8001`)
-   - Se eliminan por completo los problemas de CORS entre orígenes y se replica la arquitectura perimetral del AWS ALB.
-2. **Terminación SSL/TLS**:
-   - Modo HTTP base directo (puerto 80) optimizado para operar detrás de un balanceador externo, Cloudflare, Nginx Proxy Manager o AWS ALB (con terminación SSL perimetral).
+> [!TIP]
+> **Protección de Datos Sensibles:**  
+> Se configurará `$auditExclude` para que las columnas confidenciales (tales como `password`, `remember_token`, tokens de Telegram o firmas HMAC) nunca queden expuestas en texto claro dentro de la bitácora.
 
 ---
 
-## 5. Próximo Paso
-Esperando la confirmación/aprobación final del usuario para proceder con la generación de todos los archivos Docker y de orquestación.
+## 5. Diseño de Interfaz de Usuario (Enterprise SaaS)
+
+Siguiendo las directrices del **Enterprise Design System (Boxed-Sharpness, `rounded-sm`, 0-waste)**:
+
+### 5.1. Ubicación en la Navegación
+* **Ruta:** `/dashboard/auditoria`
+* **Acceso RBAC:** Exclusivo para usuarios con rol `administrador` o con el permiso `auditoria.ver`.
+* **Ubicación en Sidebar:** Bajo el grupo "Seguridad y Sistema", junto a *Roles y Permisos*.
+
+### 5.2. Estructura de Pantalla en Dos Pestañas (Tabs over Modals)
+* **Tab 1: Bitácora de Operaciones (Audit Trail):**
+  - **Barra de Filtros:**
+    - Rango de fechas (*Desde / Hasta* con accesos rápidos: Hoy, Últimos 7 días, Este mes).
+    - Selector de Módulo / Tabla (*Usuarios, Boletas de Pago, Carnets QR, Inventario*).
+    - Selector de Tipo de Acción (*Todos, Creación, Actualización, Eliminación, Inicios de Sesión*).
+    - Campo de Búsqueda rápida por nombre de usuario, C.I., ID o IP.
+  - **Tabla de Alta Densidad (Desktop):**
+    - Columnas: `Fecha/Hora`, `Usuario Responsable`, `Rol`, `Acción/Evento`, `Módulo Afectado`, `ID Registro`, `IP / Dispositivo`, `Acciones`.
+    - Paginación server-side con tamaños de 15, 25, 50 y 100 filas.
+  - **Drawer Lateral Desplegable (Detalle de Auditoría):**
+    - Se despliega desde la derecha al hacer clic en una fila.
+    - Muestra la ficha completa del usuario, la URL de la petición, el navegador y el visor de cambios:
+      - **Visor Diff:** Tabla comparativa columna por columna resaltando los campos que variaron con insignias de color (*Rojo: Valor Anterior* vs *Verde: Valor Nuevo*).
+* **Tab 2: Analítica de Trazabilidad y Seguridad (BI):**
+  - Gráfico de volumen de mutaciones por día (Apache ECharts).
+  - Top de usuarios con más operaciones realizadas.
+  - Alertas de seguridad (intentos de inicio de sesión fallidos o intentos de uso de QR alterados).
+
+---
+
+## 6. Plan de Verificación y Pruebas
+
+| Fase de Prueba | Procedimiento | Criterio de Éxito |
+| :--- | :--- | :--- |
+| **1. Prueba Unitaria Backend** | Modificar un registro en `Usuario` o `BoletaPago` mediante un test de Pest/PHPUnit. | Se genera automáticamente una fila en `audits` con los campos modificados en `old_values` y `new_values`. |
+| **2. Prueba de Seguridad (Exclusión)** | Actualizar la contraseña de un usuario. | El hash de la contraseña **no** debe aparecer en el JSON de auditoría. |
+| **3. Prueba de Eventos Custom** | Simular un inicio de sesión fallido y un escaneo QR rechazado. | El evento queda guardado con tag `seguridad` y los detalles del fallo. |
+| **4. Prueba de Inmutabilidad** | Intentar ejecutar un `DELETE` o `UPDATE` contra la tabla `audits` vía API. | La API responde con `405 Method Not Allowed` o `403 Forbidden` (no existen endpoints de mutación). |
+| **5. Prueba de Rendimiento UI** | Cargar 5,000 registros de prueba y aplicar filtros combinados. | La respuesta del endpoint `/api/audits` debe ser menor a 200 ms gracias a los índices compuestos y GIN. |
+| **6. Prueba de Exportación** | Descargar el reporte en Excel y PDF con un rango de 500 filas. | Archivo generado con formato limpio y sin agotar memoria PHP. |
+
+---
+
+## 7. Preguntas Abiertas para el Usuario
+
+1. **Políticas de Retención de Logs:** ¿Deseas que los registros de bitácora se conserven indefinidamente en la base de datos o que se programe una tarea automática (*Cron / Task Scheduler*) para archivar registros mayores a 1 o 2 años?
+2. **Alertas en Tiempo Real:** ¿Te gustaría que ante eventos de alta criticidad (ej. intentos de manipulación de firmas QR o múltiples logins fallidos) el sistema envíe una notificación inmediata al Bot de Telegram de los administradores?

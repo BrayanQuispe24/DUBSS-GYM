@@ -4,6 +4,7 @@ namespace App\Actions\Acceso;
 
 use App\Models\BoletaInscripcion;
 use App\Models\RegistroEntradaSalida;
+use App\Services\AuditLoggerService;
 use Carbon\Carbon;
 
 class ValidarAccesoQRAction
@@ -36,6 +37,19 @@ class ValidarAccesoQRAction
         $computedShort = substr($computedFull, 0, 16);
 
         if (! hash_equals($computedFull, $signature) && ! hash_equals($computedShort, $signature)) {
+            AuditLoggerService::logCustomEvent(
+                'qr_scan_rejected',
+                'seguridad,alerta,garita',
+                [
+                    'motivo' => 'FIRMA_INVALIDA',
+                    'mensaje' => 'Código QR alterado o fraudulento',
+                    'boleta_id' => $data['boleta_id'] ?? null,
+                ],
+                null,
+                BoletaInscripcion::class,
+                (int) ($data['boleta_id'] ?? 0)
+            );
+
             return [
                 'permitido' => false,
                 'motivo' => 'FIRMA_INVALIDA',
